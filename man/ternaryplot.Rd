@@ -107,7 +107,7 @@ pch <- substr(levels(Positions), 1, 1)
 ternaryplot(
   Hitters[,2:4],
   pch = as.character(Positions),
-  col = colors[codes(Positions)],
+  col = colors[as.numeric(Positions)],
   main = "Baseball Hitters Data"
 )
 legend(
