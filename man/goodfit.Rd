@@ -30,7 +30,7 @@ goodfit(obj, type = c("poisson", "binomial", "nbinomial"),
     if \code{type} is \code{"binomial"} it is taken to be the maximum count.}
   \item{object}{an object of class \code{"goodfit"}.}
   \item{newcount}{a vector of counts. By default the counts stored in \code{object}
-    are used, i.e. the fitted values are computed. These can also be
+    are used, i.e., the fitted values are computed. These can also be
     extracted by \code{fitted(object)}.}
   \item{\dots}{\emph{currently not used}.}
 }
@@ -43,11 +43,10 @@ for \code{"poisson"} and \code{prob} and \code{size} for \code{"binomial"}
 or \code{"nbinomial"} respectively. If for \code{"binomial"} \code{size} is
 not specified it is not estimated but taken as the maximum count.
 
-The corresponding Pearson Chi-squared or likelihood
-ratio statistic respectively is computed and given with their $p$ values by the
-\code{summary} method. The
-\code{plot} method produces a \code{link{rootogram}} of the
-observed and fitted values.
+The corresponding Pearson Chi-squared or likelihood ratio statistic
+respectively is computed and given with their \eqn{p} values by the
+\code{summary} method.  The \code{plot} method produces a
+\code{\link{rootogram}} of the observed and fitted values.
 }
 \value{
   A list of class \code{"goodfit"} with elements:
