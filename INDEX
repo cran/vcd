@@ -1,0 +1,41 @@
+Arthritis               Arthritis Treatment Data
+Baseball                Baseball
+Bundesliga              Ergebnisse der Fussball-Bundesliga
+Butterfly               Butterfly Species in Malaya
+CoalMiners              Breathlessness and Wheeze in Coal Miners
+Employment              Employment Status
+Federalist              `May' in Federalist Papers
+Hitters                 Hitters
+HorseKicks              Death by Horse Kicks
+Kappa                   Cohen's Kappa and weighted Kappa
+Lifeboats               Lifeboats on the Titanic
+MSPatients              Diagnosis of Multiple Sclerosis
+Ord.plot                Ord plots
+PreSex                  Pre-marital Sex and Divorce
+RepVict                 Repeat Victimization
+Saxony                  Families in Saxony
+SexualFun               Sex Is Fun
+SpaceShuttle            Space Shuttle O-ring failures
+Suicide                 Suicide Rates in Germany
+UKSoccer                UK Soccer Scores
+VisualAcuity            Visual Acuity in Left and Right Eyes
+VonBort                 Von Bortkiewicz Horse Kicks Data
+WeldonDice              Weldon's Dice Data
+WomenQueue              Women in Queues
+agreementplot.default   Bangdiwala's Observer Agreement Chart
+assoc.stats             Association Statistics
+barplot                 Bar Plots
+distplot                Diagnostic distribution plots
+expected                Expected Frequencies Table
+fourfoldplot            Fourfold Plots
+goodfit                 Goodness-of-fit tests for discrete data
+mar.table               Table with marginal sums.
+mosaicpairs             Mosaic Matrices
+mosaicplot              Mosaic Plots
+oddsratio               Odds Ratios
+plot.oddsratio          (Log) Odds Ratios Plots
+rootogram               Rootograms
+sieveplot               Sieve Plots
+summary.table           Summary of a m x n-table
+ternaryplot             Ternary diagram
+woolf.test              Woolf test
