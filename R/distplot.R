@@ -1,20 +1,22 @@
-distplot <- function(obj, type = c("poisson", "binomial", "nbinomial"),
-                     size = NULL, lambda = NULL, legend = TRUE, ylim = NULL,
-                     line.col = 2, conf.int = TRUE, conf.level = 0.95, main = NULL,
-		     xlab = "Number of occurrences", ylab = "Distribution metameter", ...)
+distplot <-
+function(x, type = c("poisson", "binomial", "nbinomial"),
+         size = NULL, lambda = NULL, legend = TRUE, xlim = NULL, ylim = NULL,
+         conf_int = TRUE, conf_level = 0.95, main = NULL,
+         xlab = "Number of occurrences", ylab = "Distribution metameter",
+	 gp = gpar(cex = 0.5), name = "distplot", newpage = TRUE, pop = TRUE, ...)
 {
-  if(is.vector(obj)) {
-  obj <- table(obj)
+  if(is.vector(x)) {
+      x <- table(x)
   }
-  if(is.table(obj)) {
-    if(length(dim(obj)) > 1) stop ("obj must be a 1-way table")
-    freq <- as.vector(obj)
-    count <- as.numeric(names(obj))
+  if(is.table(x)) {
+      if(length(dim(x)) > 1) stop ("x must be a 1-way table")
+      freq <- as.vector(x)
+      count <- as.numeric(names(x))
   } else {
-    if(!(!is.null(ncol(obj)) && ncol(obj) == 2))
-      stop("obj must be a 2-column matrix or data.frame")
-    freq <- as.vector(obj[,1])
-    count <- as.vector(obj[,2])
+      if(!(!is.null(ncol(x)) && ncol(x) == 2))
+          stop("x must be a 2-column matrix or data.frame")
+      freq <- as.vector(x[,1])
+      count <- as.vector(x[,2])
   }
 
   myindex <- (1:length(freq))[freq > 0]
@@ -24,7 +26,7 @@ distplot <- function(obj, type = c("poisson", "binomial", "nbinomial"),
   switch(match.arg(type),
 
   "poisson" = {
-    par.ml <- goodfit(obj, type = type)$par$lambda
+    par.ml <- goodfit(x, type = type)$par$lambda
 
     phi <- function(nk, k, N, size = NULL)
       ifelse(nk > 0, lgamma(k + 1) + log(nk/N), NA)
@@ -43,7 +45,7 @@ distplot <- function(obj, type = c("poisson", "binomial", "nbinomial"),
       size <- max(count)
       warning("size was not given, taken as maximum count")
     }
-    par.ml <- goodfit(obj, type = type, par = list(size = size))$par$prob
+    par.ml <- goodfit(x, type = type, par = list(size = size))$par$prob
 
     phi <- function(nk, k, N, size)
       log(nk) - log(N * choose(size, k))
@@ -57,7 +59,7 @@ distplot <- function(obj, type = c("poisson", "binomial", "nbinomial"),
   },
 
   "nbinomial" = {
-    par.ml <- goodfit(obj, type = type)$par
+    par.ml <- goodfit(x, type = type)$par
     size <- par.ml$size
     par.ml <- par.ml$prob
     phi <- function(nk, k, N, size)
@@ -75,7 +77,7 @@ distplot <- function(obj, type = c("poisson", "binomial", "nbinomial"),
   if(!is.null(lambda)) yhat <- yhat + lambda - mycount * log(lambda)
 
   phat <- myfreq / sum(myfreq)
-  ci.width <- qnorm(1-(1 - conf.level)/2) *
+  ci.width <- qnorm(1-(1 - conf_level)/2) *
               sqrt(1-phat)/sqrt(myfreq - (0.25 * phat + 0.47)*sqrt(myfreq))
 
   RVAL <- cbind(count, freq, NA, NA, NA, NA, NA)
@@ -84,14 +86,26 @@ distplot <- function(obj, type = c("poisson", "binomial", "nbinomial"),
   names(RVAL) <- c("Counts", "Freq", "Metameter", "CI.center",
                    "CI.width", "CI.lower", "CI.upper")
 
+  if(is.null(xlim)) xlim <- range(RVAL[,1])
   if(is.null(ylim)) ylim <- range(RVAL[,c(3,6,7)], na.rm = TRUE)
-  plot(Metameter ~ Counts, ylim = ylim, data = RVAL,
-       xlab = xlab, ylab = ylab, main = main, ...)
-  abline(fm, col = line.col)
+  xlim <- xlim + c(-1, 1) * diff(xlim) * 0.04
+  ylim <- ylim + c(-1, 1) * diff(ylim) * 0.04
+  
+  if(newpage) grid.newpage()
+  pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.unit = "native", name = name))
+  grid.points(x = RVAL[,1], y = RVAL[,3], default.units = "native", gp = gp, ...)
+  grid.lines(x = xlim, y = predict(fm, newdata = data.frame(mycount = xlim)),
+    default.units = "native", gp = gpar(col = 2))
+  grid.rect()
+  grid.xaxis()
+  grid.yaxis()
+  grid.text(xlab, y = unit(-3.5, "lines"))
+  grid.text(ylab, x = unit(-3, "lines"), rot = 90)
+  grid.text(main, y = unit(1, "npc") + unit(2, "lines"), gp = gpar(fontface = "bold"))
 
-  if(conf.int) {
-    points(CI.center ~ Counts, data = RVAL, pch = 19, cex = 0.6)
-    arrows(RVAL[,1], RVAL[,6], RVAL[,1], RVAL[,7], length = 0, lty = 3)
+  if(conf_int) {  
+    grid.points(x = RVAL[,1], y = RVAL[,4], pch = 19, gp = gpar(cex = 0.3))
+    grid.segments(RVAL[,1], RVAL[,6], RVAL[,1], RVAL[,7], default.units = "native", gp = gpar(lty = 3))
   }
 
   if(legend) {
@@ -105,7 +119,10 @@ distplot <- function(obj, type = c("poisson", "binomial", "nbinomial"),
                      paste("intercept =", round(coef(fm)[1], digits = 3)),
 		     "", paste(names(par.estim),": ML =", round(par.ml, digits=3)),
 		     legend.text)
-    legend(leg.x, leg.y, legend.text, bty = "n")
+    legend.text <- paste(legend.text, collapse = "\n")
+    grid.text(legend.text, leg.x, leg.y * 0.95, default.units = "native", just = c("left", "top"))
   }
+  
+  if(pop) popViewport() else upViewport()
   invisible(RVAL)
 }

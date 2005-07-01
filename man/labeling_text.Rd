@@ -1,0 +1,160 @@
+\name{labeling_text}
+\alias{labeling_text}
+\alias{labeling_conditional}
+\alias{labeling_left}
+\alias{labeling_cboxed}
+\alias{labeling_lboxed}
+\alias{labeling_doubledecker}
+\alias{labelings}
+\title{Labeling Functions for Strucplots}
+\description{
+  These functions generate labeling functions used for strucplots.
+}
+\usage{
+labeling_text(labels = TRUE, varnames = labels, tl_labels = NULL,
+  tl_varnames = NULL, gp_labels = gpar(fontsize = 12),
+  gp_varnames = gpar(fontsize = 12, fontface = 2),
+  rot_labels = c(0, 90, 0, 90), rot_varnames = c(0, 90, 0, 90),
+  pos_labels = "center", pos_varnames = "center",
+  just_labels = "center", just_varnames = pos_varnames,
+  boxes = FALSE, fill_boxes = NULL, offset = c(0, 0, 0, 0),
+  labbl_varnames = NULL, labels_varnames = FALSE, sep = ": ",
+  abbreviate = FALSE, rep = TRUE, clip = FALSE, \dots)
+labeling_conditional(\dots)
+labeling_left(tl_labels = TRUE, clip = TRUE, pos_varnames = "left",
+  pos_labels = "left", just_labels = "left", \dots)
+labeling_cboxed(tl_labels = TRUE, boxes = TRUE, clip = TRUE,
+  pos_labels = "center", \dots)
+labeling_lboxed(tl_labels = FALSE, boxes = TRUE, clip = TRUE,
+  pos_labels = "left", just_labels = "left",
+  labbl_varnames = FALSE, \dots)
+labeling_doubledecker(lab_pos = c("bottom", "top"), \dots)
+}
+\arguments{
+  \item{labels}{vector of logicals indicating whether labels should be
+    drawn for a particular dimension.}
+  \item{varnames}{vector of logicals indicating whether variable names
+    should be drawn for a particular dimension.}
+  \item{tl_labels}{vector of logicals indicating whether labels should
+    be positioned on top (column labels) / left (row labels) for a
+    particular dimension.}
+  \item{tl_varnames}{vector of logicals indicating whether variable
+    names should be positioned on top (column labels) / on left (row
+    labels) for a particular dimension.}
+  \item{gp_labels}{list of objects of class \code{"gpar"} used for
+    drawing the labels.}
+  \item{gp_varnames}{list of objects of class \code{"gpar"} used for
+    drawing the variable names.}
+  \item{rot_labels}{vector of rotation angles for the labels for each of
+    the four sides of the plot.}
+  \item{rot_varnames}{vector of rotation angles for the variable names
+    for each of the four sides of the plot.}
+  \item{pos_labels}{character string of label positions (\code{"left"},
+    \code{"center"}, \code{"right"}) for each of the variables.}
+  \item{pos_varnames}{character string of variable names positions
+    (\code{"left"}, \code{"center"}, \code{"right"}) for each of the
+    four sides of the plot.}
+  \item{just_labels}{character string of label justifications
+    (\code{"left"}, \code{"center"}, \code{"right"}) for each of the
+    variables.}
+  \item{just_varnames}{character string of variable names justifications
+    (\code{"left"}, \code{"center"}, \code{"right"}) for each of the
+    four sides of the plot.}
+  \item{boxes}{vector of logicals indicating whether boxes should be
+    drawn around the labels for a particular dimension.}
+  \item{fill_boxes}{character vector of fill colors for the boxes.}
+  \item{offset}{numeric vector of length 4 indicating the offset of the
+    labels for each of the four sides of the plot.}
+  \item{labbl_varnames}{vector of logicals indicating whether variable
+    names should be drawn on the left (column variables) / on top (row
+    variables) of the corresponding labels.}
+  \item{labels_varnames}{vector of logicals indicating, for each
+    dimension, whether the variable name should be added to the
+    corresponding labels or not.}
+  \item{sep}{separator used if any component of \code{"labels_varnames"}
+    is \code{TRUE}.}
+  \item{abbreviate}{vector of integers or logicals indicating, for each
+    dimension, the number of characters the labels should be abbreviated
+    to.
+    \code{TRUE} means 1 character, \code{FALSE} causes no abbreviation.
+    Values are recycled as needed.}
+  \item{rep}{vector of logicals indicating, for each dimension, whether
+    labels should be repeated for all conditioning strata, or appear
+    only once.}
+  \item{clip}{vector of integers indicating, for each dimension, whether
+    labels should be clipped to not overlap.}
+  \item{lab_pos}{character string switching between \code{"top"} or
+    \code{"bottom"} position of the labels (only used for
+    \code{labeling_doubledecker}).}
+  \item{\dots}{only used for \code{labeling_conditional}: parameters
+    passed to \code{labeling_cells} and \code{labeling_text}.}
+}
+\details{
+  These functions generate labeling functions called by
+  \code{\link{strucplot}} for their side-effect of adding labels to the
+  plot. They suppose that a strucplot has been drawn and the
+  corresponding viewport structure is pushed, since the positions of the
+  viewports are used for the label positioning.
+  Note that the functions can also be used \sQuote{stand-alone} as
+  shown in the examples.
+  
+  All values supplied to vectorized arguments can be
+  \sQuote{abbreviated} by using named components which override the
+  default component values.  In addition, these defaults can be
+  overloaded by the sequence of non-named components which are recycled
+  as needed (see examples).
+
+  This help page only documents \code{labeling_text} and
+  derived functions, more functions are described on the help page
+  for \code{\link{labeling_cells}} and \code{\link{labeling_list}}.
+
+  \code{labeling_left}, \code{labeling_cboxed}, and \code{labeling_lboxed}
+  are really just wrappers to \code{labeling_text}, and good examples for
+  the parameter usage.
+}
+\value{
+  A function with arguments:
+  \item{d}{\code{"dimnames"} attribute from the visualized contingency
+    table, or the visualized table itself from which the
+    \code{"dimnames"} attributes will then be extracted.}
+  \item{split_vertical}{vector of logicals indicating the split
+    directions.}
+  \item{condvars}{integer vector of conditioning dimensions.}
+}
+\author{
+  David Meyer \email{David.Meyer@R-project.org}
+}
+\seealso{
+  \code{\link{labeling_cells}}, 
+  \code{\link{labeling_list}}, 
+  \code{\link{structable}}, 
+  \code{\link[grid]{grid.text}}
+}
+\examples{
+mosaic(Titanic)
+mosaic(Titanic, labeling = labeling_left)
+labeling_left
+
+mosaic(Titanic, labeling = labeling_cboxed)
+labeling_cboxed
+
+mosaic(Titanic, labeling = labeling_lboxed)
+labeling_lboxed
+
+data(PreSex)
+mosaic(~ PremaritalSex + ExtramaritalSex | Gender + MaritalStatus,
+       data = PreSex,
+       labeling = labeling_conditional)
+
+## specification of vectorized arguments 
+mosaic(Titanic,
+       labeling_args = list(abbreviate = c(Survived = TRUE)))
+
+mosaic(Titanic,
+       labeling_args = list(clip = TRUE, boxes = TRUE,
+                            fill_boxes = c(Survived = "blue","red"))
+)
+
+}
+\keyword{hplot}
+

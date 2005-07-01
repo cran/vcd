@@ -1,4 +1,7 @@
 discrete	Fitting and Graphing Discrete Distributions
 twoway		2-Way Contingency Tables
 mosaic		Mosaic displays
-
+hcl		Tcl/Tk-Demo for `hcl' colors
+hsv		Tcl/Tk-Demo for `hsv' colors
+hls		Tcl/Tk-Demo for `hls' colors
+strucplot	Demo for new strucplot suite (assoc, mosaic, doubledeckerplot)

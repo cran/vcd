@@ -9,22 +9,26 @@
   ## unstratified
   ### no margin is standardized
   x <- margin.table(UCBAdmissions, 2:1)
-  fourfoldplot(x, std = "i", extended = FALSE)
+  fourfold(x, std = "i", extended = FALSE)
   ### std. for gender
-  fourfoldplot(x, margin = 1, extended = FALSE)
+  fourfold(x, margin = 1, extended = FALSE)
   ### std. for both
-  fourfoldplot(x, extended = FALSE)
+  fourfold(x, extended = FALSE)
   
   ## stratified
-  fourfoldplot(UCBAdmissions, extended = FALSE)
-  fourfoldplot(UCBAdmissions) ## extended plots
+  fourfold(UCBAdmissions, extended = FALSE)
+  fourfold(UCBAdmissions) ## extended plots
+
+  #tabplot(UCBAdmissions,
+  #        panel = function(x, ...) fourfold(x, panel = TRUE, ...)
+  #        )
 
   ### Coal Miners Lung Data ###
   #############################
   data(CoalMiners)
   
   ## Fourfold display, both margins equated
-  fourfoldplot(CoalMiners, mfcol = c(2,4))
+  fourfold(CoalMiners, mfcol = c(2,4))
 
   ## Log Odds Ratio Plot
   summary(l <- oddsratio(CoalMiners))
@@ -36,7 +40,7 @@
   lines(fitted(m), col = "red")
   
   ## Fourfold display, strata equated
-  fourfoldplot(CoalMiners, std = "ind.max", mfcol = c(2,4))
+  fourfold(CoalMiners, std = "ind.max", mfcol = c(2,4))
   
   ####################
   ## Sieve Diagrams ##
@@ -58,12 +62,12 @@
   #####################
   data(VisualAcuity)
   sieveplot(Freq ~ right + left,
-            data = VisualAcuity,
-            subset = gender == "female",
-            reverse.y = FALSE,
-            main = "Unaided distant vision data",
-            xlab = "Left Eye Grade",
-            ylab = "Right Eye Grade")
+                 data = VisualAcuity,
+                 subset = gender == "female",
+                 reverse_y = FALSE,
+                 main = "Unaided distant vision data",
+                 xlab = "Left Eye Grade",
+                 ylab = "Right Eye Grade")
   
   ### Berkeley Admission ###
   ##########################
@@ -73,11 +77,11 @@
   data(UCBAdmissions)
 
   (tab <- xtabs(Freq ~ Dept + I(Gender : Admit), data = UCBAdmissions))
-  sieveplot(tab, reverse.y = FALSE,
-            xlab = "Gender:Admission",
-            ylab = "Department",
-            main = "Berkeley Admissions Data"
-            )
+  sieveplot(tab, reverse_y = FALSE,
+                 xlab = "Gender:Admission",
+                 ylab = "Department",
+                 main = "Berkeley Admissions Data"
+                 )
 
   ######################
   ## Association Plot ##
@@ -86,11 +90,10 @@
   ### Hair Eye Color ###
   ######################
   data(HairEyeColor)
-  assocplot(margin.table(HairEyeColor, 1:2),
-            col = c("blue","red"),
-            xlab = "Hair Color",
-            ylab = "Eye Color",
-            main = "Association Plot")
+  assoc(margin.table(HairEyeColor, 1:2),
+#                 xlab = "Hair Color",
+#                 ylab = "Eye Color",
+                 main = "Association Plot")
 
   ####################
   ## Agreement Plot ##
@@ -107,19 +110,17 @@
   agreementplot(t(SexualFun), weights = 1)
   ## Partial Agreement Chart and B-Statistics
   (agreementplot(t(SexualFun),
-                 xlab = "Husband's Rating",
-                 ylab = "Wife's Rating",
-                 main = "Husband's and Wife's Sexual Fun")
+                      xlab = "Husband's Rating",
+                      ylab = "Wife's Rating",
+                      main = "Husband's and Wife's Sexual Fun")
    )
   
   ### MS Diagnosis data ###
   #########################
   data(MSPatients)
   ## use e.g., X11(width = 12), or expand graphics device
-  par(mfrow = c(1,2))
   agreementplot(t(MSPatients[,,1]), main = "Winnipeg Patients")
   agreementplot(t(MSPatients[,,2]), main = "New Orleans Patients")
-  par(mfrow = c(1,1))
 
   ##################
   ## Ternary Plot ##
@@ -156,16 +157,12 @@
               pch = pch,
               cex = 2,
               bg = "lightgray",
-              grid.color = "white",
-              labels.color = "white",
+              grid_color = "white",
+              labels_color = "white",
               main = "Arthritits Treatment Data"
               )
   ## legend
-  legend(0.7, 0.8,
-         c("GROUP", rownames(tab)),
-         pch = c(NA, pch),
-         col = c(NA, col)
-         )
+  grid_legend(0.8, 0.7, pch, col, rownames(tab), title = "GROUP")
 
   ### Baseball Hitters Data ###
   #############################
@@ -180,12 +177,7 @@
               col = colors[as.numeric(Positions)],
               main = "Baseball Hitters Data"
               )
-  legend(
-         0.8, 0.9,
-         legend = c("POSITION(S)", levels(Positions)),
-         pch = c("", pch),
-         col = c(NA, colors)
-         )
+  grid_legend(0.8, 0.9, pch, colors, levels(Positions), title = "POSITION(S)")
 
   detach(Hitters)
 
@@ -199,16 +191,11 @@
               pch = ifelse(side=="Port", 1, 19),
               col = ifelse(side=="Port", "red", "blue"),
               id  = ifelse(men/total > 0.1, as.character(boat), NA),
-              dimnames.position = "edge",
+              dimnames_position = "edge",
               dimnames = c("Men of Crew", "Men passengers", "Women and Children"),
               main = "Lifeboats on the Titanic"
               )
-  legend(
-         0.7, 0.8,
-         legend = c("SIDE", "Port", "Starboard"),
-         pch = c(NA, 1, 19),
-         col = c("black", "red", "blue"),
-         )
+  grid_legend(0.8, 0.9, c(1, 19), c("red", "blue"), c("Port", "Starboard"), title = "SIDE")
 
   ## Load against time for Port/Starboard boats
   plot(launch, total,
@@ -237,5 +224,4 @@
          col = "darkblue")     
 
   detach(Lifeboats)
-
 

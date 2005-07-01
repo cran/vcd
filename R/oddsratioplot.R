@@ -1,5 +1,5 @@
 "oddsratio" <-
-function (x, stratum = NULL, log = TRUE, conf.level = 0.95) {
+function (x, stratum = NULL, log = TRUE) {
   l <- length(dim(x))
   if (l > 2 && is.null(stratum))
     stratum <- 3:l
@@ -11,9 +11,11 @@ function (x, stratum = NULL, log = TRUE, conf.level = 0.95) {
     stop("Need strata of 2 x 2 - tables.")
  
   lor <- function (y) {
-    y <- y + 0.5 
-    or <- y[1,1] * y[2,2] / y[1,2] / y[2,1]
-    if (log) log(or) else or
+    if (any(y == 0))
+      y <- y + 0.5
+    y <- log(y)
+    or <- y[1,1] + y[2,2] - y[1,2] - y[2,1]
+    if (log) or else exp(or)
   }
 
   ase <- function(y) sqrt(sum(1/(y + 0.5)))
@@ -26,15 +28,8 @@ function (x, stratum = NULL, log = TRUE, conf.level = 0.95) {
     ASE <- apply(x, stratum, ase)
   }
 
-  I <- ASE * qnorm((1 + conf.level) / 2)
-  Z <- LOR / ASE
-  
   structure(LOR,
-            ASE = if(log) ASE,
-            lwr = if(log) LOR - I else exp(log(LOR) - I),
-            upr = if(log) LOR + I else exp(log(LOR) + I),
-            Z   = if(log) Z,
-            P   = if(log) 1 - pnorm(abs(Z)),
+            ASE = ASE,
             log = log,
             class = "oddsratio"
             )}
@@ -42,9 +37,9 @@ function (x, stratum = NULL, log = TRUE, conf.level = 0.95) {
 "print.oddsratio" <-
 function(x, ...) {
   if (length(dim(x)) > 1)
-    print(cbind(unclass(x)))
+    print(cbind(unclass(x)), ...)
   else
-    print(c(x))
+    print(c(x), ...)
   invisible(x)
 }
 
@@ -53,14 +48,16 @@ function(object, ...) {
   if(!is.null(dim(object)))
     ret <- object
   else {
-    ret <- cbind(object,
-          ASE = attr(object, "ASE"),
-          Z   = attr(object, "Z"),
-          P   = attr(object, "P"),
-          lwr = attr(object, "lwr"),
-          upr = attr(object, "upr")
-          )
-    colnames(ret)[1] <- if(attr(object, "log")) "Log Odds Ratio" else "Odds Ratio"
+    LOG <- attr(object, "log")
+    ASE <- attr(object, "ASE")
+    Z <- object / ASE
+    
+    ret <- cbind("Estimate"   = object,
+                 "Std. Error" = if (LOG) ASE,
+                 "z value"    = if (LOG) Z,
+                 "Pr(>|z|)"   = if (LOG) 1 - pnorm(abs(Z))
+                 )
+    colnames(ret)[1] <- if (LOG) "Log Odds Ratio" else "Odds Ratio"
   }
   
   class(ret) <- "summary.oddsratio"
@@ -73,31 +70,34 @@ function(x, ...) {
   if(!is.null(attr(x, "log"))) {
     cat("\n")
     cat(if(attr(x, "log")) "Log Odds Ratio(s):" else "Odds Ratio(s):", "\n\n")
-    print.oddsratio(x)
+    print(as.data.frame(unclass(x)), ...)
     cat("\nAsymptotic Standard Error(s):\n\n")
-    print(attr(x, "ASE"))
+    print(attr(x, "ASE"), ...)
     cat("\n")
-  } else print(unclass(x))
+  } else printCoefmat(unclass(x), ...)
   invisible(x)
 }
 
 "plot.oddsratio" <-
 function(x,
-         confidence = TRUE,
+         conf_level = 0.95,
          type = "o",
-         ylab = NULL,
          xlab = "Strata",
+         ylab = NULL,
+	 ylim = NULL,
          whiskers = 0.1,
          ...)
 {
   if (length(dim(x)) > 1)
     stop ("Plot function works only on vectors.")
-  
+
+  confidence <- !(is.null(conf_level) || conf_level == FALSE)
   yrange <- range(x)
   
   if(confidence) {
-    lwr <- attr(x, "lwr")
-    upr <- attr(x, "upr")
+    CI  <- confint(x, level = conf_level)
+    lwr <- CI[,1]
+    upr <- CI[,2]
     yrange[1] <- trunc(min(yrange[1], min(lwr)))
     yrange[2] <- ceiling(max(yrange[2], max(upr)))
   }
@@ -107,7 +107,7 @@ function(x,
        ylab = if(!is.null(ylab)) ylab else if(attr(x, "log")) "Log Odds Ratio" else "Odds Ratio",
        type = type,
        xaxt = "n",
-       ylim = yrange,
+       ylim = if(is.null(ylim)) yrange else ylim,
        ...)
   axis (1, at = 1:length(x), names(x))
 
@@ -119,6 +119,16 @@ function(x,
     }
 }
 
+"confint.oddsratio" <-
+function(object, parm, level = 0.95, ...) {
+  ASE <- attr(object, "ASE")
+  LOG <- attr(object, "log")
+  I <- ASE * qnorm((1 + level) / 2)
+  cbind(
+        lwr = if (LOG) object - I else exp(log(object) - I),
+        upr = if (LOG) object + I else exp(log(object) + I)
+        )
+}
 
 
 

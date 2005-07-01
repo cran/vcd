@@ -3,13 +3,14 @@
 \docType{data}
 \title{Pre-marital Sex and Divorce}
 \description{
-Data from Thornes & Collard (1979), reported in Gilbert (1981),
-on pre- and extra-marital sex and divorce.
+  Data from Thornes \& Collard (1979), reported in Gilbert (1981), on
+  pre- and extra-marital sex and divorce.
 }
-
-\usage{data(PreSex)}
-
-\format{A 4-dimensional array resulting from cross-tabulating 1036
+\usage{
+data(PreSex)
+}
+\format{
+  A 4-dimensional array resulting from cross-tabulating 1036
   observations on 4 variables.  The variables and their levels are as
   follows:
 
@@ -23,42 +24,49 @@ on pre- and extra-marital sex and divorce.
 }
 
 \references{
-G. N. Gilbert (1981), \emph{Modelling Society: An Introduction
-to Loglinear Analysis for Social Researchers}. Allen and Unwin,
-London.
+  G. N. Gilbert (1981),
+  \emph{Modelling Society: An Introduction to Loglinear Analysis for
+    Social Researchers}.
+  Allen and Unwin, London.
 
-B. Thornes & J. Collard (1979), \emph{Who Divorces?}. Routledge
-& Kegan, London.
+  B. Thornes \& J. Collard (1979),
+  \emph{Who Divorces?}.
+  Routledge \& Kegan, London.
 
-M. Friendly (2000),
-\emph{Visualizing Categorical Data}. SAS Institute, Cary, NC.
+  M. Friendly (2000),
+  \emph{Visualizing Categorical Data}.
+  SAS Institute, Cary, NC.
 }
 
-\source{Michael Friendly (2000), Visualizing Categorical Data:
-\url{http://hotspur.psych.yorku.ca/ftp/sas/vcd/catdata/marital.sas}}
+\source{
+  Michael Friendly (2000),
+  Visualizing Categorical Data:
+  \url{http://hotspur.psych.yorku.ca/ftp/sas/vcd/catdata/marital.sas}
+}
 
 \examples{
 data(PreSex)
 
-par(mfrow=c(1,2))
-## Mosaic display for Gender and Premarital Sexual Expirience
+## Mosaic display for Gender and Premarital Sexual Experience
 ## (Gender Pre)
-mosaicplot(margin.table(PreSex,c(3,4)), shade = TRUE,
-           clegend = FALSE, main = "Gender and Premarital Sex")
+mosaic(margin.table(PreSex, c(3,4)), 
+                main = "Gender and Premarital Sex")
+
 ## (Gender Pre)(Extra)
-mosaicplot(margin.table(PreSex,c(2,3,4)), shade = TRUE, clegend = FALSE,
-           margin = ~Gender*PremaritalSex + ExtramaritalSex ,
+mosaic(margin.table(PreSex, c(2,3,4)), 
+       expected = ~Gender * PremaritalSex + ExtramaritalSex ,
 	   main = "PreMaritalSex*Gender +Sex")
-par(mfrow=c(1,1))
 
 ## (Gender Pre Extra)(Marital)
-mosaicplot(PreSex, shade = TRUE, margin = ~Gender*PremaritalSex*ExtramaritalSex + MaritalStatus,
-           clegend = FALSE, main = "PreMarital*ExtraMarital + MaritalStatus")
+mosaic(PreSex,
+       expected = ~Gender*PremaritalSex*ExtramaritalSex + MaritalStatus,
+       main = "PreMarital*ExtraMarital + MaritalStatus")
 
 ## (GPE)(PEM)
-mosaicplot(PreSex, shade = TRUE,
-           margin = ~Gender*PremaritalSex*ExtramaritalSex + MaritalStatus*PremaritalSex*ExtramaritalSex,
-	   clegend = FALSE, main = "G*P*E + P*E*M")
+mosaic(PreSex, 
+       expected = ~ Gender * PremaritalSex * ExtramaritalSex
+                    + MaritalStatus * PremaritalSex * ExtramaritalSex,
+       main = "G*P*E + P*E*M")
 }
 
 \keyword{datasets}

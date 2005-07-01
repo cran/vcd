@@ -1,18 +1,18 @@
-goodfit <- function(obj, type = c("poisson", "binomial", "nbinomial"),
+goodfit <- function(x, type = c("poisson", "binomial", "nbinomial"),
                     method = c("ML", "MinChisq"), par = NULL)
 {
-    if(is.vector(obj)) {
-      obj <- table(obj)
+    if(is.vector(x)) {
+        x <- table(x)
     }
-    if(is.table(obj)) {
-      if(length(dim(obj)) > 1) stop ("obj must be a 1-way table")
-      freq <- as.vector(obj)
-      count <- as.numeric(names(obj))
+    if(is.table(x)) {
+        if(length(dim(x)) > 1) stop ("x must be a 1-way table")
+        freq <- as.vector(x)
+        count <- as.numeric(names(x))
     } else {
-      if(!(!is.null(ncol(obj)) && ncol(obj) == 2))
-        stop("obj must be a 2-column matrix or data.frame")
-      freq <- as.vector(obj[,1])
-      count <- as.vector(obj[,2])
+        if(!(!is.null(ncol(x)) && ncol(x) == 2))
+            stop("x must be a 2-column matrix or data.frame")
+        freq <- as.vector(x[,1])
+        count <- as.vector(x[,2])
     }
 
     ## eliminate zero frequencies
@@ -97,8 +97,6 @@ goodfit <- function(obj, type = c("poisson", "binomial", "nbinomial"),
       }
       else if(method == "ML") {
         df <- df - 2
-
-	require(package = MASS)
         par <- fitdistr(rep(count, freq), "negative binomial")$estimate
         par <- par[1]/c(1, sum(par))
      }

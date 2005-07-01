@@ -149,10 +149,10 @@
   ###############
 
   par(mfrow = c(2,2))
-  Ord.plot(HorseKicks, main = "Death by horse kicks")
-  Ord.plot(Federalist, main = "Instances of 'may' in Federalist papers")
-  Ord.plot(Butterfly, main = "Butterfly species collected in Malaya")
-  Ord.plot(WomenQueue, main = "Women in queues of length 10")
+  Ord_plot(HorseKicks, main = "Death by horse kicks")
+  Ord_plot(Federalist, main = "Instances of 'may' in Federalist papers")
+  Ord_plot(Butterfly, main = "Butterfly species collected in Malaya")
+  Ord_plot(WomenQueue, main = "Women in queues of length 10")
   par(mfrow = c(1,1))
 
   ###############

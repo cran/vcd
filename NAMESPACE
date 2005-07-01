@@ -1,0 +1,124 @@
+export(
+## generic functions
+       "agreementplot",
+       "assoc",
+       "distplot",	    
+       "doubledecker",
+       "fourfold",
+       "goodfit",
+       "mosaic",
+       "oddsratio",
+       "rootogram", 
+       "sieveplot",
+       "spineplot",
+       "structable",
+
+## spacings
+       "spacing_conditional",
+       "spacing_equal",
+       "spacing_dimequal",
+       "spacing_increase",
+       "spacing_doubledecker",
+
+## labelings
+       "labeling_lboxed",
+       "labeling_text",
+       "labeling_cboxed",
+       "labeling_left",
+       "labeling_cells",
+       "labeling_conditional",
+       "labeling_list",
+       "labeling_doubledecker",
+
+## legends
+       "legend_resbased",
+       "legend_fixed",
+
+# shadings
+       "shading_binary",
+       "shading_hcl",
+       "shading_hsv",
+       "shading_max",
+       "shading_Friendly",
+
+## palettes
+       "rainbow_hcl",
+       "diverge_hcl",
+       "diverge_hsv",
+       
+## panel functions
+       "pairs_barplot",
+       "pairs_text",
+       "pairs_strucplot",
+       "pairs_mosaic",
+       "pairs_assoc",
+       "struc_mosaic",
+       "struc_assoc",
+
+## `normal' functions
+       "Kappa",
+       "assocstats",
+       "table2d_summary",
+       "co_table",
+       "coindep_test",
+       "grid_barplot",
+       "hls",
+       ## "hcl",
+       "independence_table",
+       "mar_table", 
+       "Ord_estimate",
+       "Ord_plot",
+       "strucplot",
+       "ternaryplot",
+       "grid_legend",
+       ## "pearson_test",
+       "woolf_test")
+
+import(MASS)
+import(stats)
+
+S3method("[[", "structable")
+S3method("agreementplot", "default")
+S3method("agreementplot", "formula")
+S3method("assoc", "default")
+S3method("assoc", "formula")
+S3method("assoc", "loglm")
+S3method("doubledecker", "default")
+S3method("doubledecker", "formula")
+S3method("mosaic", "default")
+S3method("mosaic", "formula")
+S3method("mosaic", "loglm")
+S3method("rootogram", "default")
+S3method("rootogram", "goodfit")
+S3method("sieveplot", "default")
+S3method("sieveplot", "formula")
+S3method("structable", "default")
+S3method("structable", "formula")
+S3method("spineplot", "default")
+S3method("spineplot", "formula")
+
+S3method("pairs", "table")
+
+S3method("fitted", "goodfit")
+S3method("predict", "goodfit")
+
+S3method("confint", "Kappa")
+S3method("confint", "oddsratio")
+
+S3method("plot", "goodfit")
+S3method("plot", "oddsratio")
+S3method("plot", "loglm")
+
+S3method("print", "Kappa")
+S3method("print", "summary.Kappa")
+S3method("print", "goodfit")
+S3method("print", "oddsratio")
+S3method("print", "summary.oddsratio")
+S3method("print", "assocstats")
+S3method("print", "summary.assocstats")
+S3method("print", "table2d_summary")
+
+S3method("summary", "Kappa")
+S3method("summary", "assocstats")
+S3method("summary", "goodfit")
+S3method("summary", "oddsratio")
