@@ -40,8 +40,9 @@ diverge_hsv(n, h = c(2/3, 0), s = 1, v = 1, ...)
   fixed value \code{v}. The saturation is then varied to obtain the
   diverging colors. For the diverging HCL colors, again two hues \code{h}
   are needed, a maximal chroma \code{chroma} and two luminances \code{l}.
-  The colors are then created by linear interpolation between the full
-  chroma and minimal luminance and a chroma of 0 and maximal luminance.
+  The colors are then created by linear interpolation between the 
+  neutral color (with zero chroma and luminance \code{l[1]}) and 
+  the full color (with chroma \code{c} and luminance \code{l[2]}).
 
   The diverging palettes are used for choosing the colors for mosaic 
   displays in \code{\link{mosaic}}.
@@ -58,5 +59,14 @@ diverge_hsv(n, h = c(2/3, 0), s = 1, v = 1, ...)
 pie(rep(1, 12), col = rainbow_hcl(12))
 pie(rep(1, 5), col = diverge_hcl(5))
 pie(rep(1, 5), col = diverge_hsv(5))
+
+## a few useful diverging HCL palettes
+pie(rep(1, 7), col = diverge_hcl(7))
+pie(rep(1, 7), col = diverge_hcl(7, h = c(246, 40), c = 96, l = c(90, 65)))
+pie(rep(1, 7), col = diverge_hcl(7, h = c(130, 43), c = 100, l = c(90, 70)))
+pie(rep(1, 7), col = diverge_hcl(7, h = c(180, 70), c = 70, l = c(95, 90)))
+pie(rep(1, 7), col = diverge_hcl(7, h = c(180, 330), c = 59, l = c(95, 75)))
+pie(rep(1, 7), col = diverge_hcl(7, h = c(128, 330), c = 98, l = c(90, 65)))
+pie(rep(1, 7), col = diverge_hcl(7, h = c(255, 330)))
 }
 \keyword{hplot}

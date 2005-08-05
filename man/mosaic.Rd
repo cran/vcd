@@ -9,12 +9,13 @@
 \usage{
 \method{mosaic}{default}(x, condvars = NULL,
   split_vertical = FALSE, direction = NULL, spacing = NULL,
-  spacing_args = list(), zero_size = 0.5, \dots)
-\method{mosaic}{formula}(formula, data, \dots, main = NULL)
+  spacing_args = list(), zero_size = 0.5, main = NULL, \dots)
+\method{mosaic}{formula}(formula, data, \dots, main = NULL, subset = NULL)
 }
 \arguments{
   \item{x}{a contingency table in array form, with optional category
-    labels specified in the \code{dimnames(x)} attribute.}
+    labels specified in the \code{dimnames(x)} attribute, or an object
+    of class \code{"structable"}.}
   \item{condvars}{vector of integers or character strings indicating
     conditioning variables, if any. The table will be permuted to order
     them first.}
@@ -25,6 +26,7 @@
     those for doubledecker plots) have no response variable.}
   \item{data}{either a data frame, or an object of class \code{"table"}
     or \code{"ftable"}.}
+  \item{subset}{an optional vector specifying a subset of observations to be used.}
   \item{zero_size}{size of the bullets used for zero entries (if 0, no
     bullets are drawn).}
   \item{split_vertical}{vector of logicals of length \eqn{k}, where \eqn{k}

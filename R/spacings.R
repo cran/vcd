@@ -41,6 +41,7 @@ spacing_conditional <- function(sp = unit(0.5, "lines"),
   function(d, condvars) {
     if (length(d) < 3)
       return(spacing_equal(sp)(d, condvars))
+    condvars <- seq(condvars)
     ret <- vector("list", length(d))
     ret[condvars] <- if (length(condvars) < 3)
       equalfun2(d[condvars])

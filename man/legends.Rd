@@ -13,9 +13,9 @@ legend_resbased(fontsize = 12,
   width = unit(0.7, "lines"),
   digits = 3, check_overlap = TRUE, text = NULL,
   steps = 200, ticks = 10, pvalue = TRUE)
-legend_fixed(fontsize = 12, x = unit(1, "lines"), y = unit(0.2, "npc"),
-  height = unit(0.8, "npc"), width = unit(1.5, "lines"),
-  digits = 3, check_overlap = TRUE, text = NULL)
+legend_fixed(fontsize = 12, x = unit(1, "lines"), y = unit(0.25, "npc"),
+  height = unit(0.65, "npc"), width = unit(1.5, "lines"),
+  digits = 3, space = 0.05, text = NULL)
 }
 \arguments{
   \item{fontsize}{fontsize of title and p-value text.}
@@ -26,6 +26,8 @@ legend_fixed(fontsize = 12, x = unit(1, "lines"), y = unit(0.2, "npc"),
   \item{digits}{number of digits for the scale labels.}
   \item{check_overlap}{logical indicating whether overlap of scale
     labels should be inhibited or not.}
+  \item{space}{For \code{legend_fixed} only: proportion of space
+    between the tiles.}
   \item{text}{character string indicating the title of the legend.}
   \item{steps}{granularity of the color gradient.}
   \item{ticks}{number of scale ticks.}
@@ -46,7 +48,9 @@ legend_fixed(fontsize = 12, x = unit(1, "lines"), y = unit(0.2, "npc"),
   These functions generate legend functions for residual-based shadings,
   visualizing deviations from expected values of an hypothesized
   independence model.  Therefore, the legend uses a supplied shading
-  function to visualize the color gradient for the residuals range.  For
+  function to visualize the color gradient for the residuals range.
+  \code{legend_fixed} is inspired by the legend used in
+  \code{\link[graphics]{mosaicplot}}. For
   more details on the shading functions and their return values, see
   \code{\link{shadings}}.
 }
@@ -67,8 +71,8 @@ legend_fixed(fontsize = 12, x = unit(1, "lines"), y = unit(0.2, "npc"),
 }
 
 \examples{
-mosaic(Titanic, legend = legend_resbased)
-mosaic(Titanic, legend = legend_fixed)
+mosaic(Titanic, shade = TRUE, legend = legend_resbased)
+mosaic(Titanic, shade = TRUE, legend = legend_fixed, gp = shading_Friendly)
 }
 \keyword{hplot}
 

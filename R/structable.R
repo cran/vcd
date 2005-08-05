@@ -205,3 +205,13 @@ structable.default <- function(..., direction = NULL, split_vertical = FALSE) {
   class(ret) <- class(x)
   ret
 }
+
+as.table.structable <- function(x, ...) {
+  ret <- stats:::as.table.ftable(x) 
+  structure(aperm(ret, match(names(dimnames(ret)), names(attr(x, "dnames")))),
+            class = "table")
+}
+
+plot.structable <- function(x, ...)
+  mosaic(x, ...)
+

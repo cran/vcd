@@ -65,6 +65,9 @@ class(pairs_assoc) <- "panel_generator"
 pairs_mosaic <- function(...) pairs_strucplot(panel = mosaic, ...)
 class(pairs_mosaic) <- "panel_generator"
 
+pairs_sieve <- function(...) pairs_strucplot(panel = sieve, ...)
+class(pairs_sieve) <- "panel_generator"
+
 pairs_strucplot <- function(panel = mosaic,
                             type = c("pairwise", "total", "conditional", "joint"),
                             legend = FALSE, margins = c(0, 0, 0, 0),

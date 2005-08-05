@@ -5,6 +5,7 @@
 \alias{shading_max}
 \alias{shading_Friendly}
 \alias{shading_binary}
+\encoding{latin1}
 \title{Shading-generating Functions for Residual-based Shadings}
 \description{
   Shading-generating functions for computing residual-based shadings 
@@ -13,17 +14,20 @@
 \usage{
 shading_hcl(observed, residuals = NULL, expected = NULL, df = NULL,
   h = NULL, c = NULL, l = NULL, interpolate = c(2, 4), lty = 1,
-  p.value = NULL, level = 0.95, \dots)
+  eps = NULL, line_col = "black", p.value = NULL, level = 0.95, \dots)
 
 shading_hsv(observed, residuals = NULL, expected = NULL, df = NULL,
   h = c(2/3, 0), s = c(1, 0), v = c(1, 0.5),
-  interpolate = c(2, 4), lty = 1, p.value = NULL, level = 0.95, \dots)
+  interpolate = c(2, 4), lty = 1, eps = NULL, line_col = "black",
+  p.value = NULL, level = 0.95, \dots)
 
 shading_max(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
-  h = NULL, c = NULL, l = NULL, lty = 1, level = c(0.9, 0.99), n = 1000, \dots)
+  h = NULL, c = NULL, l = NULL, lty = 1, eps = NULL, line_col = "black",
+  level = c(0.9, 0.99), n = 1000, \dots)
 
 shading_Friendly(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
-  h = c(2/3, 0), lty = 1:2, interpolate = c(2, 4), \dots)
+  h = c(2/3, 0), lty = 1:2, interpolate = c(2, 4),
+  eps = 0.01, line_col = "black", \dots)
 
 shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   col = hcl(c(260, 0), 50, 70))
@@ -38,8 +42,9 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
     to use blue and red for positive and negative residuals respectively.
     In the HCL specification it is \code{c(260, 0)} by default and for HSV
     \code{c(2/3, 0)}.}
-  \item{c}{chroma value in the HCL color description. Defaults to \code{c(100, 20)}
-    for significant and non-significant results respectively.}
+  \item{c}{chroma value in the HCL color description. This controls the maximum
+    chroma for significant and non-significant results respectively and defaults 
+    to \code{c(100, 20)}.}
   \item{l}{luminance value in the HCL color description. Defaults to \code{c(90, 50)}
     for small and large residuals respectively.}
   \item{s}{saturation value in the HSV color description. Defaults to \code{c(1, 0)}
@@ -51,6 +56,13 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
     case, a step function with steps of equal size going from 0 to 1 is used.}
   \item{lty}{a vector of two line types for positive and negative residuals respectively.
     Recycled if necessary.}
+  \item{eps}{numeric tolerance value below which absolute residuals are considered to be
+    zero, which is used for coding the border color. If set to \code{NULL} (default),
+    all borders have the default color specified by \code{line\_col}.
+    If set to a numeric value, all border colors corresponding
+    to residuals with a larger absolute value are set to the full positive or negative
+    color, respectively.}
+  \item{line_col}{default border color.}
   \item{p.value}{the \eqn{p} value associated with the independence model. By default,
     this is computed from a Chi-squared distribution with \code{df} degrees of freedom.}
   \item{level}{confidence level of the test used. If \code{p.value} is smaller than
@@ -74,12 +86,13 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   but use HCL or HSV colors respectively. The former is usually preferred because they
   are perceptually uniform. Both shadings visualize the \emph{sign} of the residuals of
   an independence model using two hues (by default: blue and red). The \emph{absolute size} of 
-  the residuals is visualized by the colorfulness, by default in three categories:
+  the residuals is visualized by the colorfulness and the amount of grey, by default in three categories:
   very colorful for large residuals (> 4), less colorful for medium sized residuals (< 4 and > 2),
   grey/white for small residuals (< 2). More categories or a continuous scale can
   be specified by setting \code{interpolate}. Furthermore, the result of a significance
-  test can be visualized by the amount of grey in the colors. If significant, bright
-  colors are used, if not, darker colors with a higher amount of grey are used.
+  test can be visualized by the amount of grey in the colors. If significant, a colorful
+  palette is used, if not, the amount of color is reduced.
+  See Zeileis, Meyer, and Hornik (2005) and \code{\link{diverge_hcl}} for more details.
   
   The shading \code{shading_max} is applicable in 2-way contingency tables and uses
   a similar strategy as \code{shading_hcl}. But instead of using the cut-offs 2 and 4,
@@ -88,10 +101,21 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   level, respectively. The test is carried out by calling \code{\link{coindep_test}}.
   
   The shading \code{shading_Friendly} is very similar to \code{shading_hsv}, but additionally
-  codes the sign of the residuals by different line types.
+  codes the sign of the residuals by different line types. See Friendly (1994) for more details.
   
   The shading \code{shading_binary} just visualizes the sign of the residuals by using
   two different colors.  
+}
+
+\references{
+  Friendly, M. (1994)
+  Mosaic displays for multi-way contingency tables.
+  \emph{Journal of the American Statistical Association}, \bold{89},
+  190--200.
+
+  Zeileis A., Meyer D., Hornik K. (2005), Residual-based Shadings for Visualizing
+  (Conditional) Independence. Report 20, Department of Statistics and Mathematics,
+  Wirtschaftsuniversität Wien, Research Report Series, \url{http://epub.wu-wien.ac.at/}.
 }
 
 \value{A shading function which takes only a single argument, interpreted as a
@@ -107,7 +131,8 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   \code{\link{hsv}},
   \code{\link{mosaic}},
   \code{\link{assoc}},
-  \code{\link{strucplot}}}
+  \code{\link{strucplot}},
+  \code{\link{diverge_hcl}}}
 }
 \examples{
 ## load Arthritis data

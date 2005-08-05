@@ -18,7 +18,7 @@ strucplot <- function(## main parameters
                       spacing_args = list(),
                       gp = NULL,
 		      gp_args = list(),   
-                      labeling = labeling_text,
+                      labeling = labeling_border,
                       labeling_args = list(),
                       panel = struc_mosaic,
                       panel_args = list(),
@@ -28,7 +28,7 @@ strucplot <- function(## main parameters
                       main = NULL,
                       sub = NULL,
                       margins = rep.int(2.5, 4),
-                      legend_width = unit(0.15, "npc"),
+                      legend_width = unit(5, "lines"),
                       
                       ## control parameters
                       title_gp = gpar(fontsize = 20),
@@ -43,10 +43,11 @@ strucplot <- function(## main parameters
   residuals_type <- match.arg(tolower(residuals_type), c("pearson", "deviance", "ft"))
 
   ## table characteristics
-  dl <- length(dim(x))
+  d <- dim(x)
+  dl <- length(d)
   dn <- dimnames(x)
   if (is.null(dn))
-    dn <- dimnames(x) <- lapply(dim(x), seq)
+    dn <- dimnames(x) <- lapply(d, seq)
   dnn <- names(dimnames(x))
   if (is.null(dnn))
     dnn <- names(dn) <- names(dimnames(x)) <- LETTERS[1:dl]
@@ -97,7 +98,7 @@ strucplot <- function(## main parameters
   if (is.function(spacing)) {
     if (inherits(spacing, "panel_generator"))
       spacing <- do.call("spacing", spacing_args)
-    spacing <- spacing(dim(x), condvars)
+    spacing <- spacing(d, condvars)
   }
 
   ## gp (color, fill, lty, etc.) argument
@@ -117,12 +118,21 @@ strucplot <- function(## main parameters
       gp <- NULL
     }
   }
-  
+
   ## choose gray when no shading is used
-  if (is.null(gp)) gp <- gpar(fill = rep.int(grey(0.8), length(x)))
+  if (is.null(gp)) gp <- gpar(fill = grey(0.8))
+
+  ## recycle gpar values in the last dimension
+  size <- prod(d)
+  FUN <- function(par) if (length(par) < size) aperm(array(par, dim = rev(d))) else par
+  gp <- structure(lapply(gp, FUN), class = "gpar")
   
   ## set up page
-  if (newpage) grid.newpage()
+  if (newpage)
+    grid.newpage()
+  if (keep_aspect_ratio)
+    pushViewport(viewport(width = 1, height = 1, default.unit = "snpc"))
+  
   pushViewport(vcdViewport(mar = margins,
                            legend = shade && !(is.null(legend) || is.logical(legend) && !legend),
                            main = !is.null(main), sub = !is.null(sub), keep_aspect_ratio = keep_aspect_ratio,
@@ -175,8 +185,10 @@ strucplot <- function(## main parameters
 
   seekViewport("base") 
   ## one more up if sandwich-mode
-  if (!is.null(main) || !is.null(sub) || (shade && !is.null(legend))) upViewport()
-  if (pop) popViewport() else upViewport()
+  if (!is.null(main) || !is.null(sub) ##||
+##      (shade && !is.null(legend) && !(is.logical(legend) && !legend))
+      ) upViewport()
+  if (pop) popViewport(1 + keep_aspect_ratio) else upViewport(1 + keep_aspect_ratio)
 
   ## return visualized table
   invisible(structable(if (type == "observed") x else expected,
@@ -184,7 +196,7 @@ strucplot <- function(## main parameters
 }
 
 vcdViewport <- function(mar = rep.int(2.5, 4),
-                        legend_width = unit(0.15, "npc"),
+                        legend_width = unit(5, "lines"),
                         legend = FALSE, main = FALSE, sub = FALSE,
                         keep_aspect_ratio = TRUE)
 {
@@ -193,43 +205,36 @@ vcdViewport <- function(mar = rep.int(2.5, 4),
   else
     unit.rep(mar, length.out = 4)
   if (!is.unit(legend_width))
-    legend_width <- unit(legend_width, "npc")
-  vpPlot <- viewport(layout.pos.col = 2, layout.pos.row = 2, name = "plot")
-  vpMarginBottom <- viewport(layout.pos.col = 2, layout.pos.row = 3, name = "marginBottom")
-  vpMarginLeft <- viewport(layout.pos.col = 1, layout.pos.row = 2, name = "marginLeft")
-  vpMarginTop <- viewport(layout.pos.col = 2, layout.pos.row = 1, name = "marginTop")
-  vpMarginRight <- viewport(layout.pos.col = 3, layout.pos.row = 2, name = "marginRight")
-  vpCornerTL <- viewport(layout.pos.col = 1, layout.pos.row = 1, name = "cornerTL")
-  vpCornerTR <- viewport(layout.pos.col = 3, layout.pos.row = 1, name = "cornerTR")
-  vpCornerBL <- viewport(layout.pos.col = 1, layout.pos.row = 3, name = "cornerBL")
-  vpCornerBR <- viewport(layout.pos.col = 3, layout.pos.row = 3, name = "cornerBR")
+    legend_width <- unit(legend_width, "lines")
+  vpPlot <- vpStack(viewport(layout.pos.col = 2, layout.pos.row = 2),
+                    viewport(width = 1, height = 1, name = "plot",
+                             default.units = if (keep_aspect_ratio) "snpc" else "npc"))
+  vpMarginBottom <- viewport(layout.pos.col = 2, layout.pos.row = 3, name = "margin_bottom")
+  vpMarginLeft <- viewport(layout.pos.col = 1, layout.pos.row = 2, name = "margin_left")
+  vpMarginTop <- viewport(layout.pos.col = 2, layout.pos.row = 1, name = "margin_top")
+  vpMarginRight <- viewport(layout.pos.col = 3, layout.pos.row = 2, name = "margin_right")
+  vpCornerTL <- viewport(layout.pos.col = 1, layout.pos.row = 1, name = "corner_top_left")
+  vpCornerTR <- viewport(layout.pos.col = 3, layout.pos.row = 1, name = "corner_top_right")
+  vpCornerBL <- viewport(layout.pos.col = 1, layout.pos.row = 3, name = "corner_bottom_left")
+  vpCornerBR <- viewport(layout.pos.col = 3, layout.pos.row = 3, name = "corner_bottom_right")
 
-  if(legend) {
+  if (legend) {
     vpLegend <- viewport(layout.pos.col = 4, layout.pos.row = 2, name = "legend")
     vpPval <- viewport(layout.pos.col = 4, layout.pos.row = 3, name = "pval")
-    vpBase <- viewport(layout.pos.row = 1 + (legend || main),
+    vpBase <- viewport(layout.pos.row = 1 + main,
                        layout = grid.layout(3, 4,
-                         widths = unit.c(mar[4],
-                           unit(1, if (keep_aspect_ratio) "snpc" else "npc") -
-                           (mar[2] + mar[4] + (1 * !keep_aspect_ratio) * legend_width),
-                           mar[2], legend_width),
-                         heights = unit.c(mar[1], unit(1,
-                           if (keep_aspect_ratio) "snpc" else "npc") -
-                           (mar[1] + mar[3]), mar[3])),
+                         widths = unit.c(mar[4], unit(1, "null"), mar[2], legend_width),
+                         heights = unit.c(mar[1], unit(1, "null"), mar[3])),
                        name = "base")
     vpPlotregion <- vpTree(vpBase, vpList(vpMarginBottom, vpMarginLeft, vpMarginTop,
                                           vpMarginRight, vpPval, vpLegend,
                                           vpCornerTL, vpCornerTR, vpCornerBL,
                                           vpCornerBR, vpPlot))
   } else {
-    vpBase <- viewport(layout.pos.row = 1 + (legend || main),
+    vpBase <- viewport(layout.pos.row = 1 + main,
                        layout = grid.layout(3, 3,
-                         widths = unit.c(mar[4], unit(1,
-                           if (keep_aspect_ratio) "snpc" else "npc") -
-                           mar[2] - mar[4], mar[2]),
-                         heights = unit.c(mar[1], unit(1,
-                           if (keep_aspect_ratio) "snpc" else "npc") -
-                           mar[1] - mar[3], mar[3])
+                         widths = unit.c(mar[4], unit(1, "null"), mar[2]),
+                         heights = unit.c(mar[1], unit(1, "null"), mar[3])
                          ),
                        name = "base")
     vpPlotregion <- vpTree(vpBase,
@@ -238,28 +243,31 @@ vcdViewport <- function(mar = rep.int(2.5, 4),
   }
 
   ## main/sub-title, margins for legend layout
-  if (main || sub || legend) {
+  if (main || sub) {
     vpTop <- viewport(layout.pos.row = 1, name = "main")
     vpSub <- viewport(layout.pos.row = 2 + main, name = "sub")
     
-    space <- legend_width + mar[2] + mar[4] - mar[1] - mar[3]
-    sandwich <- if (legend) {
-      vplist <- vpList(vpTop, vpPlotregion, vpSub)
-      viewport(layout = grid.layout(3, 1, height = unit.c(0.5 * space, unit(1, "npc") -
-                                            space, 0.5 * space)))
-    } else if (main && sub) {
+    sandwich <-
+## no additional space when keep_aspect_ratio = F
+#       if (legend) {
+#       space <- max(legend_width + mar[2] + mar[4] - mar[1] - mar[3],
+#                    unit((main + sub) * 2, "lines"))
+#       vplist <- vpList(vpTop, vpPlotregion, vpSub)
+#       viewport(layout = grid.layout(3, 1,
+#                  height = unit.c(0.5 * space, unit(1, "null"), 0.5 * space)))
+#     } else
+    if (main && sub) {
       vplist <- vpList(vpTop, vpPlotregion, vpSub)
       viewport(layout = grid.layout(3, 1,
-                 height = unit.c(unit(2, "lines"),
-                   unit(1, "npc") - legend_width, unit(2, "lines"))))
+                 height = unit.c(unit(2, "lines"), unit(1, "null"), unit(2, "lines"))))
     } else if (main) {
       vplist <- vpList(vpTop, vpPlotregion)
       viewport(layout = grid.layout(2, 1,
-                 height = unit.c(unit(2, "lines"), unit(1, "npc") - unit(2, "lines"))))
+                 height = unit.c(unit(2, "lines"), unit(1, "null"))))
     } else {
       vplist <- vpList(vpPlotregion, vpSub)
       viewport(layout = grid.layout(2, 1,
-                 height = unit.c(unit(1, "npc") - unit(2, "lines"), unit(2, "lines"))))
+                 height = unit.c(unit(1, "null"), unit(2, "lines"))))
     }
 
     vpTree(sandwich, vplist)

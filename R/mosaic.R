@@ -5,7 +5,7 @@ mosaic <- function(x, ...)
   UseMethod("mosaic")
 
 mosaic.formula <-
-function(formula, data = NULL, ..., main = NULL)
+function(formula, data = NULL, ..., main = NULL, subset = NULL)
 {
   if (is.logical(main) && main)
     main <- deparse(substitute(data))
@@ -19,6 +19,7 @@ function(formula, data = NULL, ..., main = NULL)
   condnames <- if (length(vars) > 1) vars[[2]] else NULL
 
   if (inherits(edata, "ftable") || inherits(edata, "table") || length(dim(edata)) > 2) {
+    condind <- NULL
     dat <- as.table(data)
     if(all(varnames != ".")) {
       ind <- match(varnames, names(dimnames(dat)))
@@ -33,29 +34,36 @@ function(formula, data = NULL, ..., main = NULL)
       }
       dat <- margin.table(dat, ind)
     }
-    mosaic.default(dat, main = main, ...)
+    mosaic.default(dat, main = main,
+                   condvars = if (is.null(condind)) NULL else match(condnames, names(dimnames(dat))), ...)
   } else {
-    tab <- if ("Freq" %in% colnames(data))
-      xtabs(formula(paste("Freq~", paste(c(condnames, varnames), collapse = "+"))),
-            data = data)
-    else
-      xtabs(formula(paste("~", paste(c(condnames, varnames), collapse = "+"))),
-            data = data)
-    
-    mosaic.default(tab, main = main, ...)
+      m <- m[c(1, match(c("formula", "data", "subset"), names(m), 0))]
+      m[[1]] <- as.name("xtabs")
+      m$formula <-
+          formula(paste(if("Freq" %in% colnames(data)) "Freq",
+                        "~",
+                        paste(c(condnames, varnames), collapse = "+")))
+      tab <- eval(m, parent.frame())
+      mosaic.default(tab, main = main, ...)  
   }
 }
 
 mosaic.default <- function(x, condvars = NULL,
                            split_vertical = FALSE, direction = NULL,
                            spacing = NULL, spacing_args = list(),
-                           zero_size = 0.5, ...) {
+                           zero_size = 0.5, main = NULL, ...) {
+  if (is.logical(main) && main)
+    main <- deparse(substitute(x))
+  if (inherits(x, "structable"))
+    x <- as.table(x)
+  
   dl <- length(dim(x))
   if (!is.null(condvars)) {
     if (is.character(condvars))
       condvars <- match(condvars, names(dimnames(x)))
     x <- aperm(x, c(condvars, seq(dl)[-condvars]))
-    spacing <- spacing_conditional
+    if (is.null(spacing))
+      spacing <- spacing_conditional
   }
   
   ## splitting argument
@@ -76,6 +84,7 @@ mosaic.default <- function(x, condvars = NULL,
             split_vertical = split_vertical,
             spacing = spacing,
             spacing_args = spacing_args,
+            main = main,
             ...)
 }
 
@@ -101,17 +110,17 @@ struc_mosaic <- function(zero_size = 0.5)
       else
         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
       vproot <- viewport(layout.pos.col = col, layout.pos.row = row,
-                         layout = layout, name = name)
+                         layout = layout, name = substr(name, 1, nchar(name) - 1))
       
       ## next level: either create further splits, or final viewports
-      name <- paste(name, "", dnn[i], dn[[i]], sep = ".")
+      name <- paste(name, dnn[i], "=", dn[[i]], ",", sep = "")
       row <- col <- rep.int(1, d)
       if (v) col <- 2 * 1:d - 1 else row <- 2 * 1:d - 1
       f <- if (i < dl) 
         function(m) split(cotab[[m]], i + 1, name[m], row[m], col[m])
       else
         function(m) viewport(layout.pos.col = col[m], layout.pos.row = row[m],
-                             name = name[m])
+                             name = substr(name[m], 1, nchar(name[m]) - 1))
       vpleaves <- structure(lapply(1:d, f), class = c("vpList", "viewport"))
 
       vpTree(vproot, vpleaves)
@@ -119,28 +128,28 @@ struc_mosaic <- function(zero_size = 0.5)
 
     ## start spltting on top, creates viewport-tree
     pushViewport(split(observed + .Machine$double.eps,
-                       i = 1, name = "cell", row = 1, col = 1))
+                       i = 1, name = "cell:", row = 1, col = 1))
 
     ## draw rectangles
     mnames <-  apply(expand.grid(dn), 1,
-                     function(i) paste(dnn, i, collapse="..", sep = ".")
+                     function(i) paste(dnn, i, collapse=",", sep = "=")
                      )
     zeros <- observed <= .Machine$double.eps
 
     for (i in seq(along = mnames)) {
-      seekViewport(paste("cell", mnames[i], sep = ".."))
+      seekViewport(paste("cell:", mnames[i], sep = ""))
       gpobj <- structure(lapply(gp, function(x) x[i]), class = "gpar")
       if (!zeros[i]) {
-        grid.rect(gp = gpobj, name = paste("rect", mnames[i], sep = ".."))
+        grid.rect(gp = gpobj, name = paste("rect:", mnames[i], sep = ""))
       } else { 
         grid.lines(x = 0.5, gp = gpobj)
         grid.lines(y = 0.5, gp = gpobj)
         if (zero_size > 0) {
           grid.points(0.5, 0.5, pch = 19, size = unit(zero_size, "char"),
                       gp = gpar(col = gp$fill[i]),
-                      name = paste("disc", mnames[i], sep = ".."))
+                      name = paste("disc:", mnames[i], sep = ""))
           grid.points(0.5, 0.5, pch = 1, size = unit(zero_size, "char"),
-                      name = paste("circle", mnames[i], sep = ".."))
+                      name = paste("circle:", mnames[i], sep = ""))
         }
       }
     }

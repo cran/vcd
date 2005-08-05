@@ -1,16 +1,18 @@
 \name{coindep_test}
 \alias{coindep_test}
+\alias{fitted.coindep_test}
 \title{Test for (Conditional) Independence}
 \description{
-  Performs a test of (conditional) independence of 2 margins in a contingency table by
-  simulation from the marginal distribution of the input table under (conditional)
+  Performs a test of (conditional) independence of 2 margins
+  in a contingency table by simulation from the marginal
+  distribution of the input table under (conditional)
   independence.
 }
 \usage{
 coindep_test(x, margin = NULL, n = 1000, 
   indepfun = function(x) max(abs(x)), aggfun = max,
   alternative = c("greater", "less"),
-  pearson = TRUE, return_distribution = TRUE)
+  pearson = TRUE)
 }
 \arguments{
   \item{x}{a contingency table.}
@@ -28,8 +30,6 @@ coindep_test(x, margin = NULL, n = 1000,
   \item{pearson}{logical. Should the table of Pearson residuals under
     independence be computed and passed to \code{indepfun} (default)
     or the raw table of observed frequencies?}
-  \item{return_distribution}{if \code{TRUE}, the simulated distribution
-    of \code{FUN} under the null is returned.}
 }
 \details{
   If \code{margin} is \code{NULL} this computes a simple independence
@@ -47,14 +47,22 @@ coindep_test(x, margin = NULL, n = 1000,
   of the test statistic under the null.
 }
 \value{
-  A list of class \code{"htest"} with following components: 
+  A list of class \code{"coindep_test"} inheriting from \code{"htest"}
+  with following components: 
   \item{statistic}{the value of the test statistic.}
-  \item{p.value}{the \eqn{p}-value for the test.}
+  \item{p.value}{the \eqn{p} value for the test.}
   \item{method}{a character string indicating the type of the test.}
   \item{data.name}{a character string giving the name(s) of the data.}
-  \item{dist}{if \code{return_distribution} is \code{TRUE}, a vector of
-    size \code{n} with simulated values of the distribution of
-    \code{FUN} under the null.}
+  \item{observed}{observed table of frequencies}
+  \item{expctd}{expected table of frequencies}
+  \item{residuals}{corresponding Pearson residuals}
+  \item{margin}{the \code{margin} used}
+  \item{dist}{a vector of size \code{n} with simulated values of the
+    distribution of the statistic under the null.}
+  \item{qdist}{the corresponding quantile function (for computing 
+    critical values).}
+  \item{pdist}{the corresponding distribution function (for computing
+    \eqn{p} values).}
 }
 \author{
   Achim Zeileis \email{Achim.Zeileis@R-project.org}

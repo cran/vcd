@@ -33,7 +33,7 @@ data(Suicide)
 \source{
   Michael Friendly (2000),
   Visualizing Categorical Data:
-  \url{http://hotspur.psych.yorku.ca/ftp/sas/vcd/catdata/suicide.sas}
+  \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/suicide.sas}
 }
 \examples{
 data(Suicide)

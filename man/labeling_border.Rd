@@ -1,5 +1,5 @@
-\name{labeling_text}
-\alias{labeling_text}
+\name{labeling_border}
+\alias{labeling_border}
 \alias{labeling_conditional}
 \alias{labeling_left}
 \alias{labeling_cboxed}
@@ -11,13 +11,14 @@
   These functions generate labeling functions used for strucplots.
 }
 \usage{
-labeling_text(labels = TRUE, varnames = labels, tl_labels = NULL,
-  tl_varnames = NULL, gp_labels = gpar(fontsize = 12),
+labeling_border(labels = TRUE, varnames = labels,
+  set_labels = NULL, set_varnames = NULL, 
+  tl_labels = NULL, tl_varnames = NULL, gp_labels = gpar(fontsize = 12),
   gp_varnames = gpar(fontsize = 12, fontface = 2),
   rot_labels = c(0, 90, 0, 90), rot_varnames = c(0, 90, 0, 90),
   pos_labels = "center", pos_varnames = "center",
   just_labels = "center", just_varnames = pos_varnames,
-  boxes = FALSE, fill_boxes = NULL, offset = c(0, 0, 0, 0),
+  boxes = FALSE, fill_boxes = FALSE, offset = c(0, 0, 0, 0),
   labbl_varnames = NULL, labels_varnames = FALSE, sep = ": ",
   abbreviate = FALSE, rep = TRUE, clip = FALSE, \dots)
 labeling_conditional(\dots)
@@ -35,6 +36,13 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), \dots)
     drawn for a particular dimension.}
   \item{varnames}{vector of logicals indicating whether variable names
     should be drawn for a particular dimension.}
+  \item{set_labels}{An optional character vector with named components
+    replacing the so-specified variable names. The component names must
+    exacty match the variable names to be replaced.}
+  \item{set_varnames}{An optional list with named components of
+    character vectors replacing the labels of the so-specified
+    variables. The component names must
+    exacty match the variable names whose labels should be replaced.}
   \item{tl_labels}{vector of logicals indicating whether labels should
     be positioned on top (column labels) / left (row labels) for a
     particular dimension.}
@@ -62,7 +70,18 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), \dots)
     four sides of the plot.}
   \item{boxes}{vector of logicals indicating whether boxes should be
     drawn around the labels for a particular dimension.}
-  \item{fill_boxes}{character vector of fill colors for the boxes.}
+  \item{fill_boxes}{Either a vector of logicals, or a vector of characters,
+    or a list of such vectors, specifying the fill colors for the
+    boxes. \code{"TRUE"} and \code{"FALSE"} values are
+    transformed into \code{"grey"} and \code{"white"}, respectively. If
+    \code{fill_boxes} is atomic, each component
+    specifies a basic color for the corresponding dimension. This color
+    is transformed into its HSV representation, and the value is varied
+    from 50\% to 100\% to give a sequential color palette for the
+    levels. For \code{NA} components, no palette is produced (no fill
+    color). If \code{fill_boxes} is a list of vectors,
+    each vector specifies the level colors of the corresponding
+    dimension.}
   \item{offset}{numeric vector of length 4 indicating the offset of the
     labels for each of the four sides of the plot.}
   \item{labbl_varnames}{vector of logicals indicating whether variable
@@ -87,7 +106,7 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), \dots)
     \code{"bottom"} position of the labels (only used for
     \code{labeling_doubledecker}).}
   \item{\dots}{only used for \code{labeling_conditional}: parameters
-    passed to \code{labeling_cells} and \code{labeling_text}.}
+    passed to \code{labeling_cells} and \code{labeling_border}.}
 }
 \details{
   These functions generate labeling functions called by
@@ -104,12 +123,12 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), \dots)
   overloaded by the sequence of non-named components which are recycled
   as needed (see examples).
 
-  This help page only documents \code{labeling_text} and
+  This help page only documents \code{labeling_border} and
   derived functions, more functions are described on the help page
   for \code{\link{labeling_cells}} and \code{\link{labeling_list}}.
 
   \code{labeling_left}, \code{labeling_cboxed}, and \code{labeling_lboxed}
-  are really just wrappers to \code{labeling_text}, and good examples for
+  are really just wrappers to \code{labeling_border}, and good examples for
   the parameter usage.
 }
 \value{
@@ -152,8 +171,25 @@ mosaic(Titanic,
 
 mosaic(Titanic,
        labeling_args = list(clip = TRUE, boxes = TRUE,
-                            fill_boxes = c(Survived = "blue","red"))
+                            fill_boxes = c(Survived = "green", "red"))
 )
+
+mosaic(Titanic,
+       labeling_args = list(clip = TRUE, boxes = TRUE,
+                            fill_boxes = list(Sex = "red", "green"))
+)
+
+mosaic(Titanic,
+       labeling_args = list(clip = TRUE, boxes = TRUE,
+                            fill_boxes = list(Sex = c(Male = "red", "blue"), "green"))
+)
+
+## change variable names
+mosaic(Titanic, labeling_args = list(set_varnames = c(Sex = "Gender")))
+
+## change labels
+mosaic(Titanic, labeling_args = list(set_varnames = c(Survived = "Status"),
+       set_labels = list(Survived = c("Survived", "Not Survived")), rep = FALSE))
 
 }
 \keyword{hplot}

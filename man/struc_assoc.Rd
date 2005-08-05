@@ -7,7 +7,7 @@
 }
 \usage{
 struc_assoc(compress = TRUE, xlim = NULL, ylim = NULL,
-  yspace = unit(0.5, "lines"), xscale = 0.9)
+  yspace = unit(0.5, "lines"), xscale = 0.9, gp_axis = gpar(lty = 3))
 }
 \arguments{
   \item{compress}{logical; if \code{FALSE}, the space between the rows
@@ -39,6 +39,8 @@ struc_assoc(compress = TRUE, xlim = NULL, ylim = NULL,
     additional space between the tiles. }
   \item{yspace}{object of class \code{"unit"} specifying additional
     space separating the rows.}
+  \item{gp_axis}{object of class \code{"gpar"} specifying the visual
+    aspects of the tiles' baseline.}
 }
 \details{
   This function is usually called by \code{strucplot} (typically when

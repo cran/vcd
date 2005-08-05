@@ -76,7 +76,7 @@ labeling_list(gp = gpar(), just = "left", pos = "left", lsep = ": ",
   
   This help page only documents \code{labeling_list} and
   \code{labeling_cells}; more functions are described on the help page
-  for \code{\link{labeling_text}}.
+  for \code{\link{labeling_border}}.
   
   The functions can also be used \sQuote{stand-alone} as shown in the
   examples.
@@ -97,7 +97,7 @@ labeling_list(gp = gpar(), just = "left", pos = "left", lsep = ": ",
   David Meyer \email{David.Meyer@R-project.org}
 }
 \seealso{
-  \code{\link{labeling_text}}, 
+  \code{\link{labeling_border}}, 
   \code{\link{structable}}, 
   \code{\link[grid]{grid.text}}
 }

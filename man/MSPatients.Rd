@@ -36,7 +36,7 @@ data(MSPatients)
 
 \source{M. Friendly (2000),
   Visualizing Categorical Data:
-  \url{http://hotspur.psych.yorku.ca/ftp/sas/vcd/catdata/msdiag.sas}
+  \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/msdiag.sas}
 }
 
 \examples{

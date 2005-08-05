@@ -64,13 +64,11 @@ doubledecker.default <- function(x,
     depvar <- match(depvar, names(dimnames(x)))
   condvars <- (1:l)[-depvar]
   x <- aperm(x, c(condvars, depvar))
-  col <- rep(col, length.out = tail(d, 1))
-  colind = array(rep(1:d[l], each = prod(d[-l])), dim = d)
   strucplot(x,
          condvars = l - 1,
          spacing = spacing,
          split = c(rep.int(TRUE, l - 1), FALSE),
-         gp = gpar(fill = col[colind]),
+         gp = gpar(fill = col),
          shade = TRUE,
          labeling = labeling,
          main = main,

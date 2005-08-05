@@ -11,11 +11,11 @@ strucplot(x, residuals = NULL, expected = NULL,
   residuals_type = c("Pearson", "deviance", "FT"), split_vertical = TRUE, 
   spacing = spacing_equal, spacing_args = list(),
   gp = NULL, gp_args = list(),
-  labeling = labeling_text, labeling_args = list(),
+  labeling = labeling_border, labeling_args = list(),
   panel = struc_mosaic, panel_args = list(),
   legend = NULL, legend_args = list(),
   main = NULL, sub = NULL, margins = rep.int(2.5, 4),
-  legend_width = unit(0.15, "npc"), title_gp = gpar(fontsize = 20),
+  legend_width = unit(5, "lines"), title_gp = gpar(fontsize = 20),
   newpage = TRUE, pop = TRUE, keep_aspect_ratio = TRUE)
 }
 \arguments{
@@ -54,7 +54,8 @@ strucplot(x, residuals = NULL, expected = NULL,
     function, if specified.}
   \item{gp}{object of class \code{"gpar"}, shading function or a
     corresponding generating function (see details and
-    \code{\link{shadings}}).
+    \code{\link{shadings}}). Components of \code{"gpar"}
+    objects are recycled as needed along the last splitting dimension.
     Ignored if \code{shade = FALSE}.} 
   \item{gp_args}{list of arguments for the shading-generating function,
     if specified.}
@@ -64,8 +65,9 @@ strucplot(x, residuals = NULL, expected = NULL,
     function, if specified.}
   \item{panel}{either a panel function, or a corresponding generating
     function (see details).  Currently, generating functions for
-    mosaic plots (\code{\link{struc_mosaic}}) and association plots
-    (\code{\link{struc_assoc}}) are provided.}
+    mosaic plots (\code{\link{struc_mosaic}}), association plots
+    (\code{\link{struc_assoc}}), and sieve plots
+    (\code{\link{struc_sieve}}) are provided.}
   \item{panel_args}{list of arguments for the panel-generating function,
     if specified.}
   \item{legend}{either a legend-generating function, or a legend
@@ -160,7 +162,9 @@ strucplot(x, residuals = NULL, expected = NULL,
 \seealso{
   \code{\link{assoc}},
   \code{\link{mosaic}},
+  \code{\link{sieve}},
   \code{\link{struc_assoc}},
+  \code{\link{struc_sieve}},
   \code{\link{struc_mosaic}},
   \code{\link{structable}},
   \code{\link{doubledecker}},
@@ -178,7 +182,7 @@ strucplot(Titanic, spacing = spacing_increase(start = 0.5, rate = 1.5))
 
 ## modify a tile's color
 strucplot(Titanic, pop = FALSE)
-grid.edit("rect..Class.1st..Sex.Male..Age.Adult..Survived.Yes",
+grid.edit("rect:Class=1st,Sex=Male,Age=Adult,Survived=Yes",
           gp = gpar(fill = "red"))
 }
 \keyword{hplot}

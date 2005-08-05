@@ -33,7 +33,7 @@
 \source{
   Michael Friendly (2000),
   Visualizing Categorical Data:
-  \url{http://hotspur.psych.yorku.ca/ftp/sas/vcd/catdata/arthrit.sas}
+  \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/arthrit.sas}
 }
 \examples{
 data(Arthritis)

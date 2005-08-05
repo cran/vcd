@@ -2,6 +2,8 @@ export(
 ## generic functions
        "agreementplot",
        "assoc",
+       "cd_plot",
+       "cotabplot",
        "distplot",	    
        "doubledecker",
        "fourfold",
@@ -9,8 +11,8 @@ export(
        "mosaic",
        "oddsratio",
        "rootogram", 
-       "sieveplot",
-       "spineplot",
+       "sieve",
+       "spine",
        "structable",
 
 ## spacings
@@ -22,7 +24,7 @@ export(
 
 ## labelings
        "labeling_lboxed",
-       "labeling_text",
+       "labeling_border",
        "labeling_cboxed",
        "labeling_left",
        "labeling_cells",
@@ -54,6 +56,10 @@ export(
        "pairs_assoc",
        "struc_mosaic",
        "struc_assoc",
+       "cotab_mosaic",
+       "cotab_assoc",
+       "cotab_sieve",
+       "cotab_coindep",
 
 ## `normal' functions
        "Kappa",
@@ -78,28 +84,45 @@ import(MASS)
 import(stats)
 
 S3method("[[", "structable")
+S3method("as.table", "structable")
+
 S3method("agreementplot", "default")
 S3method("agreementplot", "formula")
+
 S3method("assoc", "default")
 S3method("assoc", "formula")
 S3method("assoc", "loglm")
+
+S3method("cd_plot", "default")
+S3method("cd_plot", "formula")
+
+S3method("cotabplot", "default")
+S3method("cotabplot", "formula")
+
 S3method("doubledecker", "default")
 S3method("doubledecker", "formula")
+
 S3method("mosaic", "default")
 S3method("mosaic", "formula")
 S3method("mosaic", "loglm")
+
 S3method("rootogram", "default")
 S3method("rootogram", "goodfit")
-S3method("sieveplot", "default")
-S3method("sieveplot", "formula")
+
+S3method("sieve", "default")
+S3method("sieve", "formula")
+
 S3method("structable", "default")
 S3method("structable", "formula")
-S3method("spineplot", "default")
-S3method("spineplot", "formula")
+
+S3method("spine", "default")
+S3method("spine", "formula")
 
 S3method("pairs", "table")
 
 S3method("fitted", "goodfit")
+S3method("fitted", "coindep_test")
+
 S3method("predict", "goodfit")
 
 S3method("confint", "Kappa")
@@ -108,6 +131,7 @@ S3method("confint", "oddsratio")
 S3method("plot", "goodfit")
 S3method("plot", "oddsratio")
 S3method("plot", "loglm")
+S3method("plot", "structable")
 
 S3method("print", "Kappa")
 S3method("print", "summary.Kappa")

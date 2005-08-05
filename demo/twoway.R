@@ -19,9 +19,11 @@
   fourfold(UCBAdmissions, extended = FALSE)
   fourfold(UCBAdmissions) ## extended plots
 
-  #tabplot(UCBAdmissions,
-  #        panel = function(x, ...) fourfold(x, panel = TRUE, ...)
-  #        )
+  ## using cotabplot
+  cotabplot(UCBAdmissions, panel = function(x, condlevels, ...)
+              fourfold(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
+                       newpage = F, ...)
+            )
 
   ### Coal Miners Lung Data ###
   #############################
@@ -53,35 +55,42 @@
   ## aggregate over `sex':
   (tab <- margin.table(HairEyeColor, 1:2))
   ## plot expected values:
-  sieveplot(t(tab), type = "expected", values = "both")
+  sieve(t(tab), sievetype = "expected", shade = TRUE)
 
   ## plot sieve diagram:
-  sieveplot(t(tab))
+  sieve(t(tab), shade = TRUE)
 
   ### Visual Acuity ###
   #####################
   data(VisualAcuity)
-  sieveplot(Freq ~ right + left,
-                 data = VisualAcuity,
-                 subset = gender == "female",
-                 reverse_y = FALSE,
-                 main = "Unaided distant vision data",
-                 xlab = "Left Eye Grade",
-                 ylab = "Right Eye Grade")
+  attach(VisualAcuity)
+  sieve(Freq ~ right + left,
+        data = VisualAcuity,
+        subset = gender == "female",
+        main = "Unaided distant vision data",
+        labeling_args = list(set_varnames = c(left = "Left Eye Grade",
+                               right = "Right Eye Grade")),
+        shade = TRUE
+        )
+  detach(VisualAcuity)
   
   ### Berkeley Admission ###
   ##########################
 
-  ## -> Larger tables: Cross factors
+  ## -> Larger tables: e.g., Cross factors
   ### Cross Gender and Admission
   data(UCBAdmissions)
 
   (tab <- xtabs(Freq ~ Dept + I(Gender : Admit), data = UCBAdmissions))
-  sieveplot(tab, reverse_y = FALSE,
-                 xlab = "Gender:Admission",
-                 ylab = "Department",
-                 main = "Berkeley Admissions Data"
-                 )
+  sieve(tab,
+        labeling_args = list(set_varnames = c("I(Gender:Admit)" = "Gender:Admission",
+                               Dept = "Department")),
+        main = "Berkeley Admissions Data",
+        shade = TRUE
+        )
+
+  ## or use extended sieve plots:
+  sieve(UCBAdmissions, shade = TRUE)
 
   ######################
   ## Association Plot ##
@@ -91,9 +100,8 @@
   ######################
   data(HairEyeColor)
   assoc(margin.table(HairEyeColor, 1:2),
-#                 xlab = "Hair Color",
-#                 ylab = "Eye Color",
-                 main = "Association Plot")
+        labeling_args = list(set_varnames = c(Hair = "Hair Color", Eye = "Eye Color")),
+        main = "Association Plot")
 
   ####################
   ## Agreement Plot ##

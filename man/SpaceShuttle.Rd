@@ -41,7 +41,7 @@ data(SpaceShuttle)
 \source{
   Michael Friendly (2000),
   Visualizing Categorical Data:
-  \url{http://hotspur.psych.yorku.ca/ftp/sas/vcd/catdata/orings.sas}
+  \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/orings.sas}
 }
 \examples{
 data(SpaceShuttle)

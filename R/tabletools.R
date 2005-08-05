@@ -11,7 +11,7 @@ independence_table <- function(x, frequency = c("absolute", "relative")) {
   margins <- lapply(1:length(d), function(i) apply(x, i, sum))
 
   ## multiply all combinations & reshape
-  tab <- array(apply(expand.grid(margins), 1, prod), d)
+  tab <- array(apply(expand.grid(margins), 1, prod), d, dimnames = dimnames(x))
   
   if (frequency == "relative") tab else tab * n
 }

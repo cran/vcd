@@ -42,7 +42,7 @@ data(VonBort)
 \source{
   Michael Friendly (2000),
   Visualizing Categorical Data:
-  \url{http://hotspur.psych.yorku.ca/ftp/sas/vcd/catdata/vonbort.sas}
+  \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/vonbort.sas}
 }
 \seealso{
   \code{\link{HorseKicks}}

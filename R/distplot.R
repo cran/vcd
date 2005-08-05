@@ -120,7 +120,7 @@ function(x, type = c("poisson", "binomial", "nbinomial"),
 		     "", paste(names(par.estim),": ML =", round(par.ml, digits=3)),
 		     legend.text)
     legend.text <- paste(legend.text, collapse = "\n")
-    grid.text(legend.text, leg.x, leg.y * 0.95, default.units = "native", just = c("left", "top"))
+    grid.text(legend.text, leg.x, leg.y - 0.05 * abs(leg.y), default.units = "native", just = c("left", "top"))
   }
   
   if(pop) popViewport() else upViewport()

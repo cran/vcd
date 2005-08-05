@@ -9,7 +9,7 @@
 Ord_plot(obj, legend = TRUE, estimate = TRUE, tol = 0.1, type = NULL,
   xlim = NULL, ylim = NULL, xlab = "Number of occurrences",
   ylab = "Frequency ratio", main = "Ord plot", gp = gpar(cex = 0.5),
-  name = "Ord_plot", newpage = TRUE, pop = TRUE, ...)
+  name = "Ord_plot", newpage = TRUE, pop = TRUE, \dots)
 Ord_estimate(x, type = NULL, tol = 0.1)
 }
 \arguments{
@@ -36,7 +36,7 @@ Ord_estimate(x, type = NULL, tol = 0.1)
   \item{newpage}{logical. Should \code{\link{grid.newpage}} be called 
     before plotting?}
   \item{pop}{logical. Should the viewport created be popped?}
-  \item{...}{further arguments passed to \code{\link{grid.points}}.}
+  \item{\dots}{further arguments passed to \code{\link{grid.points}}.}
   \item{x}{a vector giving intercept and slope for the (fitted)
     line in the Ord plot.}
 

@@ -41,7 +41,7 @@ data(PreSex)
 \source{
   Michael Friendly (2000),
   Visualizing Categorical Data:
-  \url{http://hotspur.psych.yorku.ca/ftp/sas/vcd/catdata/marital.sas}
+  \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/marital.sas}
 }
 
 \examples{

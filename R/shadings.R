@@ -5,7 +5,8 @@
 
 shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   h = c(2/3, 0), s = c(1, 0), v = c(1, 0.5),
-  interpolate = c(2, 4), lty = 1, p.value = NULL, level = 0.95, ...)
+  interpolate = c(2, 4), lty = 1, eps = NULL, line_col = "black",
+  p.value = NULL, level = 0.95, ...)
 {
   ## get h/s/v and lty
   my.h <- rep(h, length.out = 2)  ## positive and negative hue
@@ -22,7 +23,7 @@ shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   if(is.null(expected) && !is.null(observed)) {
     expected <- loglin(observed, 1:length(dim(observed)), fit = TRUE, print = FALSE)
     df <- expected$df
-    expected <- expected$df
+    expected <- expected$fit
   }
   if(is.null(residuals) && !is.null(observed)) residuals <- (observed - expected)/sqrt(expected)
     
@@ -47,6 +48,7 @@ shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   }
 
   ## store color and lty information for legend
+  legend <- NULL
   if(!is.null(col.bins)) {
     res2 <- col.bins
     res2 <- c(head(res2, 1) - 1, res2[-1] - diff(res2)/2, tail(res2, 1) + 1)
@@ -63,15 +65,23 @@ shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   rval <- function(x) {
     res <- as.vector(x)
 
-    col <- hsv(ifelse(res > 0, my.h[1], my.h[2]),
-               pmax(pmin(interpolate(abs(res)), 1), 0),
-	       v, ...)
+    fill <- hsv(ifelse(res > 0, my.h[1], my.h[2]),
+                pmax(pmin(interpolate(abs(res)), 1), 0),
+	        v, ...)
+    dim(fill) <- dim(x)
+    
+    col <- rep(line_col, length.out = length(res))
+    if(!is.null(eps)) {
+      eps <- abs(eps)
+      col[res > eps] <- hsv(my.h[1], 1, v, ...)
+      col[res < -eps] <- hsv(my.h[2], 1, v, ...)      
+    }
     dim(col) <- dim(x)
     
     lty <- ifelse(x > 0, lty[1], lty[2])    
     dim(lty) <- dim(x)
 
-    return(structure(list(fill = col, lty = lty), class = "gpar"))
+    return(structure(list(col = col, fill = fill, lty = lty), class = "gpar"))
   }
   attr(rval, "legend") <- legend
   attr(rval, "p.value") <- p.value
@@ -82,8 +92,8 @@ class(shading_hsv) <- "panel_generator"
 
 shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   h = NULL, c = NULL, l = NULL,
-  interpolate = c(2, 4), lty = 1, p.value = NULL, level = 0.95,
-  ...)
+  interpolate = c(2, 4), lty = 1, eps = NULL, line_col = "black",
+  p.value = NULL, level = 0.95, ...)
 {
   ## set defaults
   if(is.null(h)) h <- c(260, 0)
@@ -105,7 +115,7 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   if(is.null(expected) && !is.null(observed)) {
     expected <- loglin(observed, 1:length(dim(observed)), fit = TRUE, print = FALSE)
     df <- expected$df
-    expected <- expected$df
+    expected <- expected$fit
   }
   if(is.null(residuals) && !is.null(observed)) residuals <- (observed - expected)/sqrt(expected)
     
@@ -130,6 +140,7 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   }
 
   ## store color and lty information for legend
+  legend <- NULL
   if(!is.null(col.bins)) {
     res2 <- col.bins
     res2 <- c(head(res2, 1) - 1, res2[-1] - diff(res2)/2, tail(res2, 1) + 1)
@@ -147,16 +158,24 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   rval <- function(x) {
     res <- as.vector(x)
 
-    col <- hcl(ifelse(res > 0, my.h[1], my.h[2]),
-               max.c * pmax(pmin(interpolate(abs(res)), 1), 0),
-	       my.l[1] + diff(my.l) * pmax(pmin(interpolate(abs(res)), 1), 0),
-	       ...)
+    fill <- hcl(ifelse(res > 0, my.h[1], my.h[2]),
+                max.c * pmax(pmin(interpolate(abs(res)), 1), 0),
+	        my.l[1] + diff(my.l) * pmax(pmin(interpolate(abs(res)), 1), 0),
+	        ...)
+    dim(fill) <- dim(x)
+    
+    col <- rep(line_col, length.out = length(res))
+    if(!is.null(eps)) {
+      eps <- abs(eps)
+      col[res > eps] <- hcl(my.h[1], max.c, my.l[2], ...)
+      col[res < -eps] <- hcl(my.h[2], max.c, my.l[2], ...)
+    }
     dim(col) <- dim(x)
     
     lty <- ifelse(x > 0, lty[1], lty[2])    
     dim(lty) <- dim(x)
 
-    return(structure(list(fill = col, lty = lty), class = "gpar"))
+    return(structure(list(col = col, fill = fill, lty = lty), class = "gpar"))
   }
   attr(rval, "legend") <- legend
   attr(rval, "p.value") <- p.value
@@ -165,15 +184,16 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
 class(shading_hcl) <- "panel_generator"
 
 shading_Friendly <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
-  h = c(2/3, 0), lty = 1:2, interpolate = c(2, 4), ...)
+  h = c(2/3, 0), lty = 1:2, interpolate = c(2, 4), eps = 0.01, line_col = "black", ...)
 {
   shading_hsv(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
-              h = h, v = 1, lty = lty, interpolate = interpolate, p.value = NA, ...)
+              h = h, v = 1, lty = lty, interpolate = interpolate,
+	      eps = eps, line_col = line_col, p.value = NA, ...)
 }
 class(shading_Friendly) <- "panel_generator"
 
 shading_max <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
-  h = NULL, c = NULL, l = NULL, lty = 1, level = c(0.9, 0.99), n = 1000, ...)
+  h = NULL, c = NULL, l = NULL, lty = 1, eps = NULL, line_col = "black", level = c(0.9, 0.99), n = 1000, ...)
 {
   stopifnot(length(dim(observed)) == 2)
   
@@ -182,11 +202,11 @@ shading_max <- function(observed = NULL, residuals = NULL, expected = NULL, df =
   if(is.null(c)) c <- c(100, 20)
   if(is.null(l)) l <- c(90, 50)  
   
-  obs.test <- coindep_test(observed, n = n, return_distribution = TRUE)
+  obs.test <- coindep_test(observed, n = n)
   col.bins <- obs.test$qdist(sort(level))
   rval <- shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
                         h = h, c = c, l = l, interpolate = col.bins, lty = lty,
-			p.value = obs.test$p.value, ...)
+			eps = eps, line_col = line_col, p.value = obs.test$p.value, ...)
   return(rval)
 }
 class(shading_max) <- "panel_generator"
