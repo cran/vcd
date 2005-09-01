@@ -87,6 +87,7 @@ legend_fixed <- function(fontsize = 12,
                          y = unit(0.25, "npc"),
                          height = unit(0.65, "npc"),
                          width = unit(1.5, "lines"),
+                         steps = 200,
 			 digits = 3,
                          space = 0.05,
                          text = NULL) {

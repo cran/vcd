@@ -11,7 +11,7 @@ function (formula, data = NULL, ..., subset)
         varnames <- attr(terms(formula), "term.labels")
         if (all(varnames != ".")) 
             data <- margin.table(data, match(varnames, names(dimnames(data))))
-        grid.agreementplot(data, ...)
+        agreementplot(data, ...)
     }
     else {
         if (is.matrix(edata)) 
@@ -40,7 +40,7 @@ function (formula, data = NULL, ..., subset)
                   list(names(z))))
         }
         x[is.na(x)] <- 0
-        grid.agreementplot(x, ...)
+        agreementplot(x, ...)
     }
 }
 

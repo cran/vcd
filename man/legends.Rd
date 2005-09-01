@@ -14,7 +14,7 @@ legend_resbased(fontsize = 12,
   digits = 3, check_overlap = TRUE, text = NULL,
   steps = 200, ticks = 10, pvalue = TRUE)
 legend_fixed(fontsize = 12, x = unit(1, "lines"), y = unit(0.25, "npc"),
-  height = unit(0.65, "npc"), width = unit(1.5, "lines"),
+  height = unit(0.65, "npc"), width = unit(1.5, "lines"), steps = 200,
   digits = 3, space = 0.05, text = NULL)
 }
 \arguments{
