@@ -1,8 +1,8 @@
 \name{struc_mosaic}
 \alias{struc_mosaic}
-\title{Panel-generating Function for Mosaic Plots}
+\title{Core-generating Function for Mosaic Plots}
 \description{
-  Panel-generating function for \code{strucplot} returning a function
+  Core-generating function for \code{strucplot} returning a function
   producing mosaic plots.
 }
 \usage{
@@ -53,6 +53,6 @@ struc_mosaic(zero_size = 0.5)
 ## Titanic data
 data(Titanic)
 ## mosaic plot with large zeros
-strucplot(Titanic, panel = struc_mosaic(zero_size = 1))
+strucplot(Titanic, core = struc_mosaic(zero_size = 1))
 }
 \keyword{hplot}

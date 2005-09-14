@@ -1,8 +1,8 @@
 \name{struc_sieve}
 \alias{struc_sieve}
-\title{Panel-generating Function for Sieve Plots}
+\title{Core-generating Function for Sieve Plots}
 \description{
-  Panel-generating function for \code{strucplot} returning a function
+  Core-generating function for \code{strucplot} returning a function
   producing sieve plots.
 }
 \usage{
@@ -50,6 +50,6 @@ struc_sieve(sievetype = c("observed","expected"))
 \example{
 ## Titanic data
 data(Titanic)
-strucplot(Titanic, panel = struc_sieve)
+strucplot(Titanic, core = struc_sieve)
 }
 \keyword{hplot}

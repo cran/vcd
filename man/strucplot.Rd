@@ -8,15 +8,16 @@
 \usage{
 strucplot(x, residuals = NULL, expected = NULL,
   condvars = NULL, shade = NULL, type = c("observed", "expected"),
-  residuals_type = c("Pearson", "deviance", "FT"), split_vertical = TRUE, 
+  residuals_type = c("Pearson", "deviance", "FT"), split_vertical = NULL, 
   spacing = spacing_equal, spacing_args = list(),
   gp = NULL, gp_args = list(),
   labeling = labeling_border, labeling_args = list(),
-  panel = struc_mosaic, panel_args = list(),
+  core = struc_mosaic, core_args = list(),
   legend = NULL, legend_args = list(),
-  main = NULL, sub = NULL, margins = rep.int(2.5, 4),
-  legend_width = unit(5, "lines"), title_gp = gpar(fontsize = 20),
-  newpage = TRUE, pop = TRUE, keep_aspect_ratio = TRUE)
+  main = NULL, sub = NULL, margins = unit(2.5, "lines"),
+  title_margins = NULL, legend_width = NULL,
+  main_gp = gpar(fontsize = 20), sub_gp = gpar(fontsize = 15),
+  newpage = TRUE, pop = TRUE, keep_aspect_ratio = TRUE, \dots)
 }
 \arguments{
   \item{x}{a contingency table in array form, with optional category
@@ -47,7 +48,7 @@ strucplot(x, residuals = NULL, expected = NULL,
     \eqn{k} is the number of margins of \code{x} (values are recycled as needed).
     A \code{TRUE} component indicates that the tile(s) of the
     corresponding dimension should be split vertically, \code{FALSE}
-    means horizontal splits.}
+    means horizontal splits. Default is \code{FALSE.}}
   \item{spacing}{spacing object, spacing function, or a corresponding
     generating function (see details and \code{\link{spacings}}).}
   \item{spacing_args}{list of arguments for the spacing-generating
@@ -63,12 +64,12 @@ strucplot(x, residuals = NULL, expected = NULL,
     generating function (see details and \code{\link{labelings}}.}
   \item{labeling_args}{list of arguments for the labeling-generating
     function, if specified.}
-  \item{panel}{either a panel function, or a corresponding generating
+  \item{core}{either a core function, or a corresponding generating
     function (see details).  Currently, generating functions for
     mosaic plots (\code{\link{struc_mosaic}}), association plots
     (\code{\link{struc_assoc}}), and sieve plots
     (\code{\link{struc_sieve}}) are provided.}
-  \item{panel_args}{list of arguments for the panel-generating function,
+  \item{core_args}{list of arguments for the core-generating function,
     if specified.}
   \item{legend}{either a legend-generating function, or a legend
     function (see details and \code{\link{legends}}), or a logical.
@@ -82,24 +83,39 @@ strucplot(x, residuals = NULL, expected = NULL,
   \item{sub}{a character string used for plotting the subtitle.}
   \item{margins}{either an object of class \code{"unit"} of length 4, or
     a numeric vector of length 4. The elements are recycled as needed.
-    The four components specify the \code{top}, \code{right},
-    \code{bottom}, and \code{left} margin of the plot, respectively.
+    The four components specify the top, right,
+    bottom, and left margin of the plot, respectively.
     When a numeric vector is supplied, the numbers are interpreted as
-    \code{"lines"} units.  In addition, it may have named arguments
+    \code{"lines"} units.  In addition, the unit or numeric vector
+    may have named arguments
     (\samp{top}, \samp{right}, \samp{bottom}, and \samp{left}), in which
     case the non-named arguments specify the default values (recycled as
     needed), overloaded by the named arguments.}
-  \item{legend_width}{either an object of class \code{"unit"} of length
-    1, or a numeric value interpreted as proportion of the available
-    horizontal space, specifying the width of the legend (if any).}
+  \item{title_margins}{either an object of class \code{"unit"} of length 2, or
+    a numeric vector of length 2. The elements are recycled as needed.
+    The two components specify the top and bottom \emph{title} margin
+    of the plot, respectively. The default for each
+    \emph{specified} title are 2 lines (and 0 else), except when a
+    legend is plotted and \code{keep_aspect_ratio} is \code{TRUE}: in
+    this case, the default values of both margins are set as to align
+    the heights of legend and actual plot.
+    When a numeric vector is supplied, the numbers are interpreted as
+    \code{"lines"} units.  In addition, the unit or numeric vector
+    may have named arguments (\samp{top} and \samp{bottom}), in which
+    case the non-named argument specify the default value (recycled as
+    needed), overloaded by the named arguments.}
+  \item{legend_width}{An object of class \code{"unit"} of length
+    1 specifying the width of the legend (if any). Default: 5 lines.}
   \item{pop}{logical indicating whether the generated viewport tree
     should be removed at the end of the drawing or not.}
-  \item{title_gp}{object of class \code{"gpar"} containing the graphical
-    parameters used for the main and sub titles.}
+  \item{main_gp, sub_gp}{object of class \code{"gpar"} containing the graphical
+    parameters used for the main (sub) title, if specified.}
   \item{newpage}{logical indicating whether a new page should be created
     for the plot or not.}
   \item{keep_aspect_ratio}{logical indicating whether the aspect ratio should be
     fixed or not.}
+  \item{\dots}{For convenience, list of arguments passed to the
+    labeling-generating function, if specified.}
 }
 \details{
   This function---usually called by higher-level functions such as
@@ -113,10 +129,11 @@ strucplot(x, residuals = NULL, expected = NULL,
   the plot.  The function invisibly returns the \code{"structable"} object
   visualized.
 
-  Most elements of the plot, such as the panel function, the spacing
+  Most elements of the plot, such as the core function, the spacing
   between the tiles, the shading of the tiles, the labeling, and the
-  legend, are modularized in functions and specified as parameters.  For
-  each element \emph{foo} (= \code{spacing}, \code{labeling}, \code{panel},
+  legend, are modularized in graphical appearance control (``grapcon'')
+  functions and specified as parameters.  For
+  each element \emph{foo} (= \code{spacing}, \code{labeling}, \code{core},
   or \code{legend}), \code{strucplot} takes two arguments:
   \var{foo} and \var{foo\_args}, which can be used to specify the
   parameters in the following alternative ways:
@@ -127,7 +144,9 @@ strucplot(x, residuals = NULL, expected = NULL,
     etc.
     \item Passing a corresponding \emph{generating} function to \var{foo},
     along with parameters passed to \var{foo\_args}, that generates such a
-    function. Generating functions must inherit from class \code{"panel_generator"}.
+    function. Generating functions must inherit from classes
+    \code{"grapcon_generator"} and \code{"}\var{foo}\code{"}.
+    
     \item Except for the shading functions (\var{shading\_bar}),
     passing \var{foo(foo\_args)} to the \var{foo} argument.
     \item For shadings and spacings, passing the final parameter object
@@ -139,7 +158,7 @@ strucplot(x, residuals = NULL, expected = NULL,
   the plot to preserve the 1:1 aspect ratio.
 
   If \code{type = "expected"}, the expected values are passed to the
-  \code{observed} argument of the panel function, and the observed
+  \code{observed} argument of the core function, and the observed
   values to the \code{expected} argument.
 
   Although the \code{gp} argument is typically used for shading, it can
@@ -175,7 +194,7 @@ strucplot(x, residuals = NULL, expected = NULL,
 }
 \examples{
 strucplot(Titanic)
-strucplot(Titanic, panel = struc_assoc)
+strucplot(Titanic, core = struc_assoc)
 strucplot(Titanic, spacing = spacing_increase,
                    spacing_args = list(start = 0.5, rate = 1.5))
 strucplot(Titanic, spacing = spacing_increase(start = 0.5, rate = 1.5))

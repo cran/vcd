@@ -1,6 +1,6 @@
 \name{spacings}
 \alias{spacings}
-\alias{spacing_doubledecker}
+\alias{spacing_highlighting}
 \alias{spacing_equal}
 \alias{spacing_dimequal}
 \alias{spacing_increase}
@@ -16,7 +16,7 @@ spacing_equal(sp = unit(0.5, "lines"))
 spacing_dimequal(sp)
 spacing_increase(start = unit(0.3, "lines"), rate = 1.5)
 spacing_conditional(sp = unit(0.5, "lines"), start = unit(2, "lines"), rate = 1.8)
-spacing_doubledecker(start = unit(0.3, "lines"), rate = 1.8)
+spacing_highlighting(start = unit(0.2, "lines"), rate = 1.5)
 }
 \arguments{
   \item{start}{object of class \code{"unit"} indicating the start value
@@ -43,15 +43,17 @@ spacing_doubledecker(start = unit(0.3, "lines"), rate = 1.8)
   \code{spacing_increase} to create fixed spaces for conditioned
   dimensions, and increasing spaces for conditioning dimensions.
 
-  \code{spacing_doubledecker} is essentially \code{spacing_conditional} but with
-  the space of the last dimension to 0 as needed for
-  \code{\link{doubledecker}}.
+  \code{spacing_highlighting} is essentially \code{spacing_conditional} but with
+  the space of the last dimension set to 0. With a corresponding color
+  scheme, this gives the impression of the last class being
+  \sQuote{highlighted} in the penultimate class (as, e.g., in
+  \code{\link{doubledecker}} plots).
 }
 \value{
   A spacing function with arguments:
   \item{d}{\code{"dim"} attribute of a contingency table.}
-  \item{condvars}{index vector of conditioning dimensions (only used by
-    \code{spacing_conditional} and \code{spacing_doubledecker}.}
+  \item{condvars}{index vector of conditioning dimensions (currently only used by
+    \code{spacing_conditional}).}
   This function computes a list of objects of class \code{"unit"}.
   Each list element contains the spacing information for the
   corresponding dimension of the table.  The length of the
@@ -69,6 +71,8 @@ spacing_doubledecker(start = unit(0.3, "lines"), rate = 1.8)
 strucplot(Titanic, spacing = spacing_increase(start = 0.5, rate = 1.5))
 strucplot(Titanic, spacing = spacing_equal(1))
 strucplot(Titanic, spacing = spacing_dimequal(1:4 / 4))
+strucplot(Titanic, spacing = spacing_highlighting,
+                   gp = gpar(fill = c("light gray","dark gray")))
 data(PreSex)
 strucplot(aperm(PreSex, c(1,4,2,3)), spacing = spacing_conditional,
           condvars = 2)  

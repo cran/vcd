@@ -10,7 +10,7 @@
 fourfold(x,
   color = c("#99CCFF", "#6699CC", "#FF5050", "#6060A0", "#FF0000", "#000080"),
   conf_level = 0.95, std = c("margins", "ind.max", "all.max"),
-  margin = c(1, 2), space = 0.2, main = NULL,
+  margin = c(1, 2), space = 0.2, main = NULL, sub = NULL,
   mfrow = NULL, mfcol = NULL, extended = TRUE, ticks = 0.15,
   p_adjust_method = p.adjust.methods, newpage = TRUE,
   fontsize = 12)
@@ -42,7 +42,7 @@ fourfold(x,
     Only used if \code{std} equals \code{"margins"}.}
   \item{space}{the amount of space (as a fraction of the maximal radius
     of the quarter circles) used for the row and column labels.}
-  \item{main}{character string for the fourfold plot title.}
+  \item{main, sub}{character string for the fourfold plot title/subtitle.}
   \item{mfrow, mfcol}{a numeric vector with two components:
     \var{nr} and \var{nc}, indicating that the displays for the \eqn{2 \times 2}{2 x 2}
     tables should be arranged in an \var{nr} by \var{nc} layout, filled
@@ -113,6 +113,7 @@ fourfold(margin.table(x, c(1, 2)))
 ## standardized to equate the margins for admission and sex.
 ## Figure 2 in Friendly (1994).
 fourfold(x)
+cotabplot(x, panel = cotab_fourfold)
 
 ## Fourfold display of x, with frequencies in each table
 ## standardized to equate the margins for admission. but not

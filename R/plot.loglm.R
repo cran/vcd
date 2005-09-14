@@ -13,7 +13,7 @@ plot.loglm <- function(x,
   observed <- residuals * sqrt(expected) + expected
   if(residuals_type == "deviance") residuals <- residuals(x, type = "deviance")
   
-  gp <- if(inherits(gp, "panel_generator"))
+  gp <- if(inherits(gp, "grapcon_generator"))
     do.call("gp", c(list(observed, residuals, expected, x$df), as.list(gp_args))) else gp
   
   panel(observed, residuals = residuals, expected = expected, type = type,

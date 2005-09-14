@@ -64,7 +64,10 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
     color, respectively.}
   \item{line_col}{default border color.}
   \item{p.value}{the \eqn{p} value associated with the independence model. By default,
-    this is computed from a Chi-squared distribution with \code{df} degrees of freedom.}
+    this is computed from a Chi-squared distribution with \code{df} degrees of freedom.
+    \code{p.value} can be either a scalar or a \code{function(observed, residuals, expected, df)}
+    that computes the \eqn{p} value from the data. If set to \code{NA} no inference
+    is performed.}
   \item{level}{confidence level of the test used. If \code{p.value} is smaller than
     \code{1 - level}, bright colors are used, otherwise dark colors are employed. For
     \code{shading_max} a vector of levels can be supplied. The corresponding critical

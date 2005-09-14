@@ -20,11 +20,11 @@ pairs.table <- function(x,
 {
   if (newpage) grid.newpage()
 
-  if (inherits(upper_panel, "panel_generator"))
-    upper_panel <- do.call("upper_panel", upper_panel_args)
-  if (inherits(lower_panel, "panel_generator"))
-    lower_panel <- do.call("lower_panel", lower_panel_args)
-  if (inherits(diag_panel, "panel_generator"))
+  if (inherits(upper_panel, "grapcon_generator"))
+    upper_panel <- do.call("upper_panel", c(upper_panel_args, list(...)))
+  if (inherits(lower_panel, "grapcon_generator"))
+    lower_panel <- do.call("lower_panel", c(lower_panel_args, list(...)))
+  if (inherits(diag_panel, "grapcon_generator"))
     diag_panel <- do.call("diag_panel", diag_panel_args)
   
   d <- length(dim(x))
@@ -44,11 +44,11 @@ pairs.table <- function(x,
       pushViewport(viewport(layout.pos.col = i, layout.pos.row = j))
       pushViewport(viewport(width = 1 - space, height = 1 - space))
 
-      if (i > j)
-        upper_panel(x, j, i)
-      else if (i < j)
-        lower_panel(x, j, i)
-      else
+      if (i > j) {
+        if (!is.null(upper_panel)) upper_panel(x, j, i)
+      } else if (i < j) {
+        if (!is.null(lower_panel)) lower_panel(x, j, i)
+      } else if (!is.null(diag_panel))
         diag_panel(x, i)
 
       popViewport(2)
@@ -57,21 +57,23 @@ pairs.table <- function(x,
   invisible(x)
 }
 
+pairs.structable <- function(x, ...) pairs(as.table(x), ...)
+
 ## upper/lower panels
 
 pairs_assoc <- function(...) pairs_strucplot(panel = assoc, ...)
-class(pairs_assoc) <- "panel_generator"
+class(pairs_assoc) <- "grapcon_generator"
 
 pairs_mosaic <- function(...) pairs_strucplot(panel = mosaic, ...)
-class(pairs_mosaic) <- "panel_generator"
+class(pairs_mosaic) <- "grapcon_generator"
 
 pairs_sieve <- function(...) pairs_strucplot(panel = sieve, ...)
-class(pairs_sieve) <- "panel_generator"
+class(pairs_sieve) <- "grapcon_generator"
 
 pairs_strucplot <- function(panel = mosaic,
                             type = c("pairwise", "total", "conditional", "joint"),
                             legend = FALSE, margins = c(0, 0, 0, 0),
-                            labeling = NULL, shade = FALSE, ...) {
+                            labeling = NULL, ...) {
   type = match.arg(type)
   function(x, i, j) {
     index <- 1:length(dim(x))
@@ -87,7 +89,6 @@ pairs_strucplot <- function(panel = mosaic,
            labeling = labeling,
            margins = margins,
            legend = legend,
-           shade = shade,
 
            split_vertical = TRUE,
            
@@ -96,7 +97,7 @@ pairs_strucplot <- function(panel = mosaic,
            ...)
   }
 }
-class(pairs_strucplot) <- "panel_generator"
+class(pairs_strucplot) <- "grapcon_generator"
   
 ## diagonal panels
 
@@ -114,11 +115,46 @@ pairs_text <- function(dimnames = TRUE,
       grid.text(paste("(",paste(names(x), collapse = ","), ")", sep = ""),
                 y = 0.4, gp = gp_leveltext)
   }
-class(pairs_text) <- "panel_generator"
+class(pairs_text) <- "grapcon_generator"
+
+pairs_diagonal_text <- function(varnames = TRUE,
+                                gp_vartext = gpar(fontsize = 17, fontface = "bold"),
+                                gp_leveltext = gpar(),
+                                gp_border = gpar(),
+                                pos = c("right","top"),
+                                distribute = c("equal","margin"),
+                                rot = 0,
+                                ...) {
+
+  xc <- unit(switch(pos[1], left = 0.1, center = 0.5, 0.9), "npc")
+  yc <- unit(switch(pos[2], top = 0.9, center = 0.5, 0.1), "npc")
+  distribute <- match.arg(distribute)
+  
+  function(x, i) {
+    x <- margin.table(x, i)
+    grid.rect(gp = gp_border)
+    if (varnames)
+      grid.text(names(dimnames(x)), gp = gp_vartext, x = xc, y = yc, just = pos, ...)
+    
+    l <- length(dimnames(x)[[1]])
+    po <- if (distribute == "equal")
+      unit(cumsum(rep(1 / (l + 1), l)), "npc")
+    else {
+      sizes = prop.table(x)
+      unit(cumsum(c(0,sizes))[1:l] + sizes / 2, "npc")
+    }
+    grid.text(dimnames(x)[[1]], x = po, y = unit(1, "npc") - po,
+              gp = gp_leveltext, rot = rot)
+  }
+}
+class(pairs_diagonal_text) <- "grapcon_generator"
 
 pairs_barplot <- function(gp_bars = gpar(fill = "gray"),
                           gp_vartext = gpar(fontsize = 17),
                           gp_leveltext = gpar(),
+                          just_leveltext = c("center", "bottom"),
+                          just_vartext = c("center", "top"),
+                          rot = 0, abbreviate = FALSE, 
                           ...)
   function(x, i) {
     x <- margin.table(x, i)
@@ -131,12 +167,15 @@ pairs_barplot <- function(gp_bars = gpar(fill = "gray"),
               just = c("center", "bottom"), width = halfstep,
               gp = gp_bars, default = "native", ...)
     grid.yaxis(at = pretty(c(0,max(x))))
-    grid.text(names(x), y = unit(-0.15, "npc"),
-              x = xpos - halfstep, just = c("center", "bottom"), gp = gp_leveltext)
+    txt <- names(x)
+    if (abbreviate)
+      txt <- abbreviate(txt, abbreviate)
+    grid.text(txt, y = unit(-0.15, "npc"), rot = rot,
+              x = xpos - halfstep, just = just_leveltext, gp = gp_leveltext)
     popViewport(1)
-    grid.text(names(dimnames(x)), y = 1, just = c("center", "top"), gp = gp_vartext)
+    grid.text(names(dimnames(x)), y = 1, just = just_vartext, gp = gp_vartext)
 
   }
-class(pairs_barplot) <- "panel_generator"
+class(pairs_barplot) <- "grapcon_generator"
 
 

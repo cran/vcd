@@ -5,12 +5,14 @@ assoc <- function(x, ...)
   UseMethod("assoc")
 
 assoc.formula <-
-function(formula, data = NULL, subset, na.action, ..., main = NULL)
+function(formula, data = NULL, subset, na.action, ..., main = NULL, sub = NULL)
 {
     if (is.logical(main) && main)
       main <- deparse(substitute(data))
+    else if (is.logical(sub) && sub)
+      sub <- deparse(substitute(data))
 
-    assoc.default(ftable(formula, data, subset, na.action), main = main, ...)
+    assoc.default(ftable(formula, data, subset, na.action), main = main, sub = sub, ...)
 }
 
 assoc.default <- function(x,
@@ -23,21 +25,18 @@ assoc.default <- function(x,
 			  residuals_type = "Pearson",
                           xscale = 0.9, yspace = unit(0.5, "lines"),
                           main = NULL,
+                          sub = NULL,
                           ...,
                           gp_axis = gpar(lty = 3)
                           ) {
 
   if (is.logical(main) && main)
     main <- deparse(substitute(x))
+  else if (is.logical(sub) && sub)
+    sub <- deparse(substitute(x))
 
   if (!inherits(x, "ftable"))
     x <- structable(x)
-
-#     {
-#     if (is.null(row_vars) && is.null(col_vars) && is.table(x))
-#       row_vars <- names(dimnames(x))[seq(1, length(dim(x)), by = 2)]
-#     x <- ftable(x, row.vars = row_vars, col.vars = col_vars)
-#   }
 
   tab <- as.table(x)
   dl <- length(dim(tab))
@@ -45,18 +44,13 @@ assoc.default <- function(x,
   ## spacing
   cond <- rep(TRUE, dl)
   cond[length(attr(x, "row.vars")) + c(0, length(attr(x, "col.vars")))] <- FALSE
-  if (inherits(spacing, "panel_generator"))
+  if (inherits(spacing, "grapcon_generator"))
     spacing <- do.call("spacing", spacing_args)
   spacing <- spacing(dim(tab), condvars = which(cond))
 
   ## splitting arguments
   if (is.null(split_vertical))
     split_vertical <- attr(x, "split_vertical")
-  if (is.null(split_vertical)) {
-    split_vertical <- rep(FALSE, dl)
-    names(split_vertical) <- names(dimnames(tab))
-    split_vertical[names(attr(x, "col.vars"))] <- TRUE
-  }
 
   if(match.arg(tolower(residuals_type), "pearson") != "pearson")
     warning("Only Pearson residuals can be visualized with association plots.")
@@ -64,11 +58,12 @@ assoc.default <- function(x,
   strucplot(tab,
             spacing = spacing,
             split_vertical = split_vertical,
-            panel = struc_assoc(compress = compress, xlim = xlim, ylim = ylim,
+            core = struc_assoc(compress = compress, xlim = xlim, ylim = ylim,
               yspace = yspace, xscale = xscale, gp_axis = gp_axis),
             keep_aspect_ratio = keep_aspect_ratio,
             residuals_type = "Pearson",
-            main = main, 
+            main = main,
+            sub = sub,
             ...)
 }
 
@@ -87,11 +82,11 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
     rfunc <- function(x) c(min(x, 0), max(x, 0))
     if (is.null(ylim))
       ylim <- if (compress)
-        matrix(apply(resid, 1, rfunc), nrow = 2)
+        matrix(apply(as.matrix(resid), 1, rfunc), nrow = 2)
       else
-        rfunc(resid)
+        rfunc(as.matrix(resid))
     if (!is.matrix(ylim))
-      ylim <- matrix(ylim, nrow = 2, ncol = nrow(resid))
+      ylim <- matrix(as.matrix(ylim), nrow = 2, ncol = nrow(as.matrix(resid)))
 
     attr(ylim, "split_vertical") <- rep(TRUE, sum(!split_vertical))
     attr(ylim, "dnames") <- dn[!split_vertical]
@@ -99,11 +94,11 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
 
     if(is.null(xlim))
       xlim <- if (compress)
-        matrix(c(-0.5, 0.5) %o% apply(sexpected, 2, max), nrow = 2)
+        matrix(c(-0.5, 0.5) %o% apply(as.matrix(sexpected), 2, max), nrow = 2)
       else
         c(-0.5, 0.5) * max(sexpected)
     if (!is.matrix(xlim))
-      xlim <- matrix(xlim, nrow = 2, ncol = ncol(resid))
+      xlim <- matrix(as.matrix(xlim), nrow = 2, ncol = ncol(as.matrix(resid)))
     attr(xlim, "split_vertical") <- rep(TRUE, sum(split_vertical))
     attr(xlim, "dnames") <- dn[split_vertical]
     class(xlim) <- "structable"
@@ -112,8 +107,8 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
     split <- function(res, sexp, i, name, row, col) {
       v <- split_vertical[i]
       splitbase <- if (v) sexp else res
-      splittab <- lapply(seq(dx[i]), function(j) splitbase[[j]])
-      len <- sapply(splittab, function(x) sum(x[1,] - x[2,]))
+      splittab <- lapply(seq(dx[i]), function(j) splitbase[j])
+      len <- sapply(splittab, function(x) sum(unclass(x)[1,] - unclass(x)[2,]))
 
       d <- dx[i]
 
@@ -125,7 +120,7 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
       else
         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
       vproot <- viewport(layout.pos.col = col, layout.pos.row = row,
-                         layout = layout, name = substr(name, 1, nchar(name) - 1))
+                         layout = layout, name = remove_trailing_comma(name))
 
       ## next level: either create further splits, or final viewports
       name <- paste(name, dnn[i], "=", dn[[i]], ",", sep = "")
@@ -140,14 +135,14 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
       } else {
         if (v)
           function(m) viewport(layout.pos.col = cols[m], layout.pos.row = rows[m],
-                               name = substr(name[m], 1, nchar(name[m]) - 1),
-                               yscale = res[,1],
-                               xscale = sexp[,m], default.units = "null")
+                               name = remove_trailing_comma(name[m]),
+                               yscale = unclass(res)[,1],
+                               xscale = unclass(sexp)[,m], default.units = "null")
         else
           function(m) viewport(layout.pos.col = cols[m], layout.pos.row = rows[m],
-                               name = substr(name[m], 1, nchar(name[m]) - 1),
-                               yscale = res[,m],
-                               xscale = sexp[,1], default.units = "null")
+                               name = remove_trailing_comma(name[m]),
+                               yscale = unclass(res)[,m],
+                               xscale = unclass(sexp)[,1], default.units = "null")
       }
       vpleaves <- structure(lapply(1:d, f), class = c("vpList", "viewport"))
 
@@ -176,4 +171,4 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
     }
 
   }
-class(struc_assoc) <- "panel_generator"
+class(struc_assoc) <- "grapcon_generator"

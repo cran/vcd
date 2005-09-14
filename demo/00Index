@@ -5,3 +5,5 @@ hcl		Tcl/Tk-Demo for `hcl' colors
 hsv		Tcl/Tk-Demo for `hsv' colors
 hls		Tcl/Tk-Demo for `hls' colors
 strucplot	Demo for new strucplot suite (assoc, mosaic, doubledeckerplot)
+mondrian	Demo for (re)producing modern art using mosaic()
+

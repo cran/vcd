@@ -20,7 +20,7 @@ export(
        "spacing_equal",
        "spacing_dimequal",
        "spacing_increase",
-       "spacing_doubledecker",
+       "spacing_highlighting",
 
 ## labelings
        "labeling_lboxed",
@@ -43,6 +43,11 @@ export(
        "shading_max",
        "shading_Friendly",
 
+# core functions
+       "struc_mosaic",
+       "struc_assoc",
+       "struc_sieve",
+
 ## palettes
        "rainbow_hcl",
        "diverge_hcl",
@@ -51,14 +56,15 @@ export(
 ## panel functions
        "pairs_barplot",
        "pairs_text",
+       "pairs_diagonal_text",
        "pairs_strucplot",
        "pairs_mosaic",
        "pairs_assoc",
-       "struc_mosaic",
-       "struc_assoc",
+       "pairs_sieve",
        "cotab_mosaic",
        "cotab_assoc",
        "cotab_sieve",
+       "cotab_fourfold",
        "cotab_coindep",
 
 ## `normal' functions
@@ -69,7 +75,7 @@ export(
        "coindep_test",
        "grid_barplot",
        "hls",
-       ## "hcl",
+       "is.structable",
        "independence_table",
        "mar_table", 
        "Ord_estimate",
@@ -77,14 +83,19 @@ export(
        "strucplot",
        "ternaryplot",
        "grid_legend",
-       ## "pearson_test",
        "woolf_test")
 
 import(MASS)
 import(stats)
 
-S3method("[[", "structable")
+S3method("[", "structable")
 S3method("as.table", "structable")
+S3method("as.matrix", "structable")
+S3method("as.vector", "structable")
+S3method("dim", "structable")
+S3method("t", "structable")
+S3method("dimnames", "structable")
+
 
 S3method("agreementplot", "default")
 S3method("agreementplot", "formula")
@@ -119,6 +130,7 @@ S3method("spine", "default")
 S3method("spine", "formula")
 
 S3method("pairs", "table")
+S3method("pairs", "structable")
 
 S3method("fitted", "goodfit")
 S3method("fitted", "coindep_test")
@@ -141,6 +153,7 @@ S3method("print", "summary.oddsratio")
 S3method("print", "assocstats")
 S3method("print", "summary.assocstats")
 S3method("print", "table2d_summary")
+S3method("print", "structable")
 
 S3method("summary", "Kappa")
 S3method("summary", "assocstats")

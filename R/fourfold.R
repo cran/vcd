@@ -2,7 +2,7 @@
 function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#000080"),
          conf_level = 0.95,
          std = c("margins", "ind.max", "all.max"), margin = c(1, 2),
-         space = 0.2, main = NULL, mfrow = NULL, mfcol = NULL, extended = TRUE,
+         space = 0.2, main = NULL, sub = NULL, mfrow = NULL, mfcol = NULL, extended = TRUE,
          ticks = 0.15, p_adjust_method = p.adjust.methods, newpage = TRUE,
          fontsize = 12)
 {
@@ -144,9 +144,6 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
     angle.f <- c( 90, 180,  0, 270)     # `f' for `from'
     angle.t <- c(180, 270, 90, 360)     # `t' for `to'
 
-#    opar <- par(mar = c(0, 0, ifelse(is.null(main), 0, 2.5), 0))
-#    on.exit(par(opar))
-
     byrow <- FALSE
     if(!is.null(mfrow)) {
         nr <- mfrow[1]
@@ -176,8 +173,12 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
     xlim <- c(0, totalWidth)
     ylim <- c(0, totalHeight)
     if (newpage) grid.newpage()
-    if (!is.null(main))
-      pushViewport(viewport(height = 0.9, width = 0.9, y = 0.45))
+    if (!is.null(main) || !is.null(sub))
+      pushViewport(viewport(height = 1 - 0.1 * sum(!is.null(main), !is.null(sub)),
+                            width = 0.9,
+                            y = 0.5 - 0.05 * sum(!is.null(main), - !is.null(sub))
+                            )
+                   )
                   
     pushViewport(viewport(xscale = xlim, yscale = ylim,
                            width = unit(min(totalWidth / totalHeight, 1), "snpc"),
@@ -367,10 +368,15 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
         
     }
 
-    if(!is.null(main)) {
-        grid.text(main,
-                  y = unit(1, "npc") + unit(2, "lines"),
-                  gp = gpar(fontsize = 20, fontface = 2))
+    if(!is.null(main) || !is.null(sub)) {
+        if (!is.null(main))
+          grid.text(main,
+                    y = unit(1, "npc") + unit(1, "lines"),
+                    gp = gpar(fontsize = 20, fontface = 2))
+        if (!is.null(sub))
+          grid.text(sub,
+                    y = unit(0, "npc") - unit(1, "lines"),
+                    gp = gpar(fontsize = 20, fontface = 2))
         popViewport(1)
       }
 

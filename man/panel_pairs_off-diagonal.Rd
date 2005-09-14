@@ -2,6 +2,7 @@
 \alias{pairs_strucplot}
 \alias{pairs_mosaic}
 \alias{pairs_assoc}
+\alias{pairs_sieve}
 \title{Off-diagonal Panel Functions for Table Pairs Plot}
 \description{
   Off-diagonal panel functions for \code{\link{pairs.table}}.
@@ -9,14 +10,15 @@
 \usage{
 pairs_strucplot(panel = mosaic, 
   type = c("pairwise", "total", "conditional", "joint"),
-  legend = FALSE, margins = c(0, 0, 0, 0), labeling = NULL,
-  shade = FALSE, \dots)
+  legend = FALSE, margins = c(0, 0, 0, 0), labeling = NULL, \dots)
 pairs_assoc(\dots)
 pairs_mosaic(\dots)
+pairs_sieve(\dots)
 }
 \arguments{
   \item{panel}{function to be used for the plots in each
-    cell---currently, \code{\link{assoc}} and \code{\link{mosaic}} are available.}
+    cell, such as \code{\link{pairs_assoc}}, \code{\link{pairs_mosaic}},
+    and \code{\link{pairs_sieve}}.}
   \item{type}{character string specifying the type of independence model
     visualized in the cells.}
   \item{legend}{logical specifying whether a legend should be displayed
@@ -24,14 +26,13 @@ pairs_mosaic(\dots)
   \item{margins}{margins inside each cell (see \code{\link{strucplot}}).}
   \item{labeling}{labeling function or labeling-generating function (see
   \code{\link{strucplot}}).}
-  \item{shade}{shading function or shading-generating function (see
-  \code{\link{strucplot}}).}
-  \item{\dots}{\code{pairs_mosaic} and \code{pairs_assoc}: parameters
-    passed to \code{pairs_assocplot}. \code{pairs_assocplot}:
+\item{\dots}{\code{pairs_mosaic}, \code{\link{pairs_assoc}}, and
+  \code{pairs_sieve}: parameters
+    passed to \code{pairs_strucplot}. \code{pairs_strucplot}:
     other parameters passed to panel function.}
 }
 \details{
-  These functions really just wrap \code{\link{assoc}} and
+  These functions really just wrap \code{\link{assoc}}, \code{\link{sieve}}, and
   \code{\link{mosaic}} by basically inhibiting labeling and
   legend-drawing and setting the margins to 0.
 }

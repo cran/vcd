@@ -5,11 +5,13 @@ mosaic <- function(x, ...)
   UseMethod("mosaic")
 
 mosaic.formula <-
-function(formula, data = NULL, ..., main = NULL, subset = NULL)
+function(formula, data = NULL, ..., main = NULL, sub = NULL, subset = NULL)
 {
   if (is.logical(main) && main)
     main <- deparse(substitute(data))
-  
+  else if (is.logical(sub) && sub)
+    sub <- deparse(substitute(data))
+
   m <- match.call(expand.dots = FALSE)
   edata <- eval(m$data, parent.frame())
   
@@ -34,7 +36,7 @@ function(formula, data = NULL, ..., main = NULL, subset = NULL)
       }
       dat <- margin.table(dat, ind)
     }
-    mosaic.default(dat, main = main,
+    mosaic.default(dat, main = main, sub = sub,
                    condvars = if (is.null(condind)) NULL else match(condnames, names(dimnames(dat))), ...)
   } else {
       m <- m[c(1, match(c("formula", "data", "subset"), names(m), 0))]
@@ -44,28 +46,29 @@ function(formula, data = NULL, ..., main = NULL, subset = NULL)
                         "~",
                         paste(c(condnames, varnames), collapse = "+")))
       tab <- eval(m, parent.frame())
-      mosaic.default(tab, main = main, ...)  
+      mosaic.default(tab, main = main, sub = sub, ...)  
   }
 }
 
 mosaic.default <- function(x, condvars = NULL,
-                           split_vertical = FALSE, direction = NULL,
+                           split_vertical = NULL, direction = NULL,
                            spacing = NULL, spacing_args = list(),
-                           zero_size = 0.5, main = NULL, ...) {
+                           zero_size = 0.5, main = NULL, sub = NULL, ...) {
   if (is.logical(main) && main)
     main <- deparse(substitute(x))
-  if (inherits(x, "structable"))
+  else if (is.logical(sub) && sub)
+    sub <- deparse(substitute(x))
+
+  if (is.structable(x)) {
+    if (is.null(direction) && is.null(split_vertical))
+      split_vertical <- attr(x, "split_vertical")
     x <- as.table(x)
+  }
+  if (is.null(split_vertical))
+    split_vertical <- FALSE
   
   dl <- length(dim(x))
-  if (!is.null(condvars)) {
-    if (is.character(condvars))
-      condvars <- match(condvars, names(dimnames(x)))
-    x <- aperm(x, c(condvars, seq(dl)[-condvars]))
-    if (is.null(spacing))
-      spacing <- spacing_conditional
-  }
-  
+
   ## splitting argument
   if (!is.null(direction))
     split_vertical <- direction == "v"
@@ -74,17 +77,27 @@ mosaic.default <- function(x, condvars = NULL,
   if (length(split_vertical) < dl)
     split_vertical <- rep(split_vertical, length.out = dl)
 
+  ## condvars
+  if (!is.null(condvars)) {
+    if (is.character(condvars))
+      condvars <- match(condvars, names(dimnames(x)))
+    x <- aperm(x, c(condvars, seq(dl)[-condvars]))
+    if (is.null(spacing))
+      spacing <- spacing_conditional
+  }
+  
   ## spacing argument
   if (is.null(spacing))
     spacing <- if (dl < 3) spacing_equal else spacing_increase
 
   strucplot(x,
             condvars = if (is.null(condvars)) NULL else length(condvars),
-            panel = struc_mosaic(zero_size = zero_size),
+            core = struc_mosaic(zero_size = zero_size),
             split_vertical = split_vertical,
             spacing = spacing,
             spacing_args = spacing_args,
             main = main,
+            sub = sub,
             ...)
 }
 
@@ -110,7 +123,7 @@ struc_mosaic <- function(zero_size = 0.5)
       else
         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
       vproot <- viewport(layout.pos.col = col, layout.pos.row = row,
-                         layout = layout, name = substr(name, 1, nchar(name) - 1))
+                         layout = layout, name = remove_trailing_comma(name))
       
       ## next level: either create further splits, or final viewports
       name <- paste(name, dnn[i], "=", dn[[i]], ",", sep = "")
@@ -120,7 +133,7 @@ struc_mosaic <- function(zero_size = 0.5)
         function(m) split(cotab[[m]], i + 1, name[m], row[m], col[m])
       else
         function(m) viewport(layout.pos.col = col[m], layout.pos.row = row[m],
-                             name = substr(name[m], 1, nchar(name[m]) - 1))
+                             name = remove_trailing_comma(name[m]))
       vpleaves <- structure(lapply(1:d, f), class = c("vpList", "viewport"))
 
       vpTree(vproot, vpleaves)
@@ -155,4 +168,4 @@ struc_mosaic <- function(zero_size = 0.5)
     }
 
   }
-class(struc_mosaic) <- "panel_generator"
+class(struc_mosaic) <- "grapcon_generator"

@@ -13,8 +13,10 @@
   xlim = NULL, ylim = NULL,
   spacing = spacing_conditional(sp = 0), spacing_args = list(),
   split_vertical = NULL, keep_aspect_ratio = FALSE, residuals_type = "Pearson",
-  xscale = 0.9, yspace = unit(0.5, "lines"), main = NULL, \dots, gp_axis = gpar(lty = 3))
-\method{assoc}{formula}(formula, data = NULL, subset, na.action, \dots, main = NULL)
+  xscale = 0.9, yspace = unit(0.5, "lines"), main = NULL, sub = NULL,
+  \dots, gp_axis = gpar(lty = 3))
+\method{assoc}{formula}(formula, data = NULL, subset, na.action, \dots,
+  main = NULL, sub = NULL)
 }
 \arguments{
   \item{x}{a contingency table in array form with optional category
@@ -56,7 +58,8 @@
   \item{spacing_args}{list of arguments for the spacing-generating function, if
     specified (see \code{\link{strucplot}} for more information).}
   \item{split_vertical}{vector of logicals of length \eqn{k}, where \eqn{k}
-    is the number of margins of \code{x} (values are recycled as needed).
+    is the number of margins of \code{x} (default: \code{FALSE}).
+    Values are recycled as needed.
     A \code{TRUE} component indicates that the corresponding dimension
     is folded into the columns, \code{FALSE} folds the dimension into the
     rows.}
@@ -81,8 +84,8 @@
   \item{na.action}{a function which indicates what should happen when
     the data contain \code{NA}s.
     Ignored if \code{data} is a contingency table.}
-  \item{main}{either a logical, or a character string used for plotting
-    the main title.  If \code{main} is \code{TRUE}, the
+  \item{main, sub}{either a logical, or a character string used for plotting
+    the main (sub) title.  If logical and \code{TRUE}, the
     name of the \code{data} object is used.}
   \item{\dots}{other parameters passed to \code{\link{strucplot}}}
 }
@@ -184,7 +187,8 @@ assoc(x, main = "Relation between hair color and sex", shade = TRUE)
 # Visualize multi-way table
 assoc(aperm(HairEyeColor), expected = ~ (Hair + Eye) * Sex,
       labeling_args = list(just_labels = c(Eye = "left"),
-                           offset = c(right = -0.5),
+                           offset_labels = c(right = -0.5),
+                           offset_varnames = c(right = 1.2),
                            rot_labels = c(right = 0),
                            tl_varnames = c(Eye = TRUE))
 )

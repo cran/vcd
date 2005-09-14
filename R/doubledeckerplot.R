@@ -54,7 +54,7 @@ doubledecker.default <- function(x,
                          margins = c(1, 4, length(dim(x)) + 1, 1),
                          col = rainbow_hcl(tail(dim(x), 1), end = 260),
                          labeling = labeling_doubledecker,
-                         spacing = spacing_doubledecker,
+                         spacing = spacing_highlighting,
                          main = NULL, 
                          keep_aspect_ratio = FALSE,
                          ...) {

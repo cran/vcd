@@ -1,8 +1,9 @@
 \name{pairs.table}
 \alias{pairs.table}
+\alias{pairs.structable}
 \title{Pairs Plot for Contingency Tables}
 \description{
-  Produces a matrix of strucplots.
+  Produces a matrix of strucplot displays.
 }
 \usage{
 \method{pairs}{table}(x, upper_panel = pairs_mosaic, upper_panel_args = list(),
@@ -12,18 +13,19 @@
   newpage = TRUE, \dots)
 }
 \arguments{
+
   \item{x}{a contingency table in array form, with optional category
     labels specified in the \code{dimnames(x)} attribute.}
   \item{upper_panel}{function for the upper triangle of the matrix, or
-    corresponding generating function.}
+    corresponding generating function. If \code{NULL}, no panel is drawn.}
   \item{upper_panel_args}{list of arguments for the generating
     function, if specified.}
   \item{lower_panel}{function for the lower triangle of the matrix, or
-    corresponding generating function.}
+    corresponding generating function. If \code{NULL}, no panel is drawn.}
   \item{lower_panel_args}{list of arguments for the panel-generating
     function, if specified.}
   \item{diag_panel}{function for the diagonal of the matrix, or
-    corresponding generating function.}
+    corresponding generating function. If \code{NULL}, no panel is drawn.}
   \item{diag_panel_args}{list of arguments for the generating
     function, if specified.}
   \item{main}{character string specifying the main title.}
@@ -31,12 +33,14 @@
   \item{space}{double specifying the distance between the cells.}
   \item{newpage}{logical controlling whether a new grid page should be
     created.}
-  \item{\dots}{currently not used.}
+  \item{\dots}{For convenience,
+    list of arguments for the panel-generating
+    functions of upper and lower panels, if specified.}
 }
 \details{
   This is a \code{\link[graphics]{pairs}} method for objects inheriting
-  from class \code{"table"}.  It plots a matrix of pairwise mosaic
-  plots.
+  from class \code{"table"} or \code{"structable"}.
+  It plots a matrix of pairwise mosaic plots.
   
   Four independence types are distinguished: \code{"pairwise"},
   \code{"total"}, \code{"conditional"} and \code{"joint"}.
@@ -74,9 +78,13 @@ Hence, the second approach is equivalent to the first if
 \seealso{
   \code{\link{pairs_mosaic}},
   \code{\link{pairs_assoc}},
+  \code{\link{pairs_sieve}},
+  \code{\link{pairs_diagonal_text}},
   \code{\link{pairs_text}},
   \code{\link{pairs_barplot}},
-  \code{\link{assoc}}
+  \code{\link{assoc}},
+  \code{\link{sieve}},
+  \code{\link{mosaic}}
 }
 \references{
   Cohen, A. (1980),
@@ -100,9 +108,9 @@ data(PreSex)
 
 pairs(PreSex)
 pairs(UCBAdmissions)
-pairs(UCBAdmissions, upper_panel_args = list(shade = FALSE))
+pairs(UCBAdmissions, upper_panel_args = list(shade = TRUE))
 pairs(UCBAdmissions, lower_panel = pairs_mosaic(type = "conditional"))
 pairs(UCBAdmissions, diag_panel = pairs_text)
-pairs(UCBAdmissions, upper_panel = pairs_assoc)
+pairs(UCBAdmissions, upper_panel = pairs_assoc, shade = TRUE)
 }
 \keyword{hplot}

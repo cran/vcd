@@ -27,7 +27,7 @@ labeling_list <- function(gp = gpar(),
                           offset = unit(c(2, 2), "lines"),
                           varnames = TRUE,
                           cols = 2,
-                          ...) 
+                          ...) {
   function(d, split_vertical, condvars) {
     if (is.table(d))
       d <- dimnames(d)
@@ -49,9 +49,10 @@ labeling_list <- function(gp = gpar(),
                 gp = gp
                 )
   }
-class(labeling_list) <- "panel_generator"
+}
+class(labeling_list) <- "grapcon_generator"
 
-labeling_conditional <- function(...)
+labeling_conditional <- function(...) {
   function (d, split_vertical, condvars) {
     if (is.table(d))
       d <- dimnames(d)
@@ -60,14 +61,15 @@ labeling_conditional <- function(...)
     labeling_border(labels = !v, ...)(d, split_vertical, condvars)
     labeling_cells(labels = v, ...)(d, split_vertical, condvars)
   }
-class(labeling_conditional) <- "panel_generator"
+}
+class(labeling_conditional) <- "grapcon_generator"
 
 labeling_cells <- function(labels = TRUE, varnames = TRUE,
                          abbreviate_labels = FALSE, abbreviate_varnames = FALSE,
                          gp = gpar(), lsep = ": ", lcollapse = "\n",
                          just = "center", pos = "center", rot = 0,
                          margin = unit(0.5, "lines"), clip_cells = TRUE,
-                         text = NULL, ...)
+                         text = NULL, ...) {
   function(d, split_vertical, condvars) {
     if (is.table(d))
       d <- dimnames(d)
@@ -128,9 +130,9 @@ labeling_cells <- function(labels = TRUE, varnames = TRUE,
       }
     }
     split()
-    
+  }
 }
-class(labeling_cells) <- "panel_generator"
+class(labeling_cells) <- "grapcon_generator"
 
 labeling_border <- function(labels = TRUE, varnames = labels,
                             set_labels = NULL, set_varnames = NULL,
@@ -142,14 +144,15 @@ labeling_border <- function(labels = TRUE, varnames = labels,
                             pos_labels = "center", pos_varnames = "center",
                             just_labels = "center", just_varnames = pos_varnames,
                             boxes = FALSE, fill_boxes = FALSE,
-                            offset = c(0, 0, 0, 0),
+                            offset_labels = c(0, 0, 0, 0),
+                            offset_varnames = offset_labels,
                           
                             labbl_varnames = NULL,
                             labels_varnames = FALSE, sep = ": ",
                           
                             abbreviate = FALSE, rep = TRUE,
                             clip = FALSE, ...
-                            )
+                            ) {
   function(d, split_vertical, condvars) {
     if (is.table(d))
       d <- dimnames(d)
@@ -162,10 +165,16 @@ labeling_border <- function(labels = TRUE, varnames = labels,
     labels_varnames <- pexpand(labels_varnames, ld, FALSE, dn)
     pos_labels <- pexpand(pos_labels, 4, "center", c("top", "right", "bottom", "left"), c("left", "center", "right"))
     just_labels <- pexpand(just_labels, 4, "center", c("top", "right", "bottom", "left"), c("left", "center", "right"))
-    offset <- if (!is.unit(offset))
-      unit(pexpand(offset, 4, rep.int(0, 4), c("top","right","bottom","left")), "lines")
+    offset_varnames <- if (!is.unit(offset_varnames))
+      unit(pexpand(offset_varnames, 4,
+                   rep.int(0, 4), c("top","right","bottom","left")), "lines")
     else
-      unit.rep(offset, length.out = 4)
+      unit.rep(offset_varnames, length.out = 4)
+    offset_labels <- if (!is.unit(offset_labels))
+      unit(pexpand(offset_labels, 4,
+                   rep.int(0, 4), c("top","right","bottom","left")), "lines")
+    else
+      unit.rep(offset_labels, length.out = 4)
 
     ## tl_labels
     def <- logical()
@@ -295,19 +304,19 @@ labeling_border <- function(labels = TRUE, varnames = labels,
       }
       ## draw axis names
       if (tt != "")
-        grid.text(tt, y = unit(1, "npc") + unit(tsp + 1, "lines") + offset[1],
+        grid.text(tt, y = unit(1, "npc") + unit(tsp + 1, "lines") + offset_varnames[1],
                   x = switch(pos_varnames[1], left =, bottom = 0, center =, centre = 0.5, 1),
                   rot = rot_varnames[1], just = just_varnames[1], gp = gp_varnames[[1]])
       if (bt != "")
-        grid.text(bt, y = unit(bsp - 1, "lines") + -1 * offset[3],
+        grid.text(bt, y = unit(bsp - 1, "lines") + -1 * offset_varnames[3],
                   x = switch(pos_varnames[3], left =, bottom = 0, center =, centre = 0.5, 1),
                   rot = rot_varnames[3], just = just_varnames[3], gp = gp_varnames[[3]])
       if (lt != "")
-        grid.text(lt, x = unit(lsp - 1, "lines") + -1 * offset[4],
+        grid.text(lt, x = unit(lsp - 1, "lines") + -1 * offset_varnames[4],
                   y = switch(pos_varnames[4], left =, bottom = 0, center =, centre = 0.5, 1),
                   rot = rot_varnames[4], just = just_varnames[4], gp = gp_varnames[[4]])
       if (rt != "")
-        grid.text(rt, x = unit(1, "npc") + unit(rsp + 1, "lines") + offset[2],
+        grid.text(rt, x = unit(1, "npc") + unit(rsp + 1, "lines") + offset_varnames[2],
                   y = switch(pos_varnames[2], left =, bottom = 0, center =, centre = 0.5, 1),
                   rot = rot_varnames[2], just = just_varnames[2], gp = gp_varnames[[2]])
     } else {
@@ -322,21 +331,21 @@ labeling_border <- function(labels = TRUE, varnames = labels,
             if (tl_labels[i]) {
               if (labbl_varnames[i]) {
                 grid.text(var,
-                          y = unit(1, "npc") + unit(1 + tsp - labsp[i], "lines") + offset[1],
+                          y = unit(1, "npc") + unit(1 + tsp - labsp[i], "lines") + offset_varnames[1],
                           x = unit(-0.5, "lines"),
                           just = "right", gp = gpar(fontface = 2))
               } else {
-                grid.text(var, y = unit(1, "npc") + unit(1 + tsp - labsp[i], "lines") + offset[1],
+                grid.text(var, y = unit(1, "npc") + unit(1 + tsp - labsp[i], "lines") + offset_varnames[1],
                           x = unit(1, "npc") + unit(0.5, "lines"),
                           just = "left", gp = gpar(fontface = 2))
               }
             } else {
               if (labbl_varnames[i]) {
-                grid.text(var, y = unit(labsp[i], "lines") + -1 * offset[3],
+                grid.text(var, y = unit(labsp[i], "lines") + -1 * offset_varnames[3],
                           x = unit(-0.5, "lines"), just = "right",
                           gp = gpar(fontface = 2))
               } else {
-                grid.text(var, y = unit(labsp[i], "lines") + -1 * offset[3],
+                grid.text(var, y = unit(labsp[i], "lines") + -1 * offset_varnames[3],
                           x = unit(1, "npc") + unit(0.5, "lines"),
                           just = "left", gp = gpar(fontface = 2))
               }
@@ -344,21 +353,21 @@ labeling_border <- function(labels = TRUE, varnames = labels,
           } else {
             if (tl_labels[i]) {
               if (labbl_varnames[i]) {
-                grid.text(var, x = unit(lsp - 1 - labsp[i], "lines") + -1 * offset[4],
+                grid.text(var, x = unit(lsp - 1 - labsp[i], "lines") + -1 * offset_varnames[4],
                           y = unit(-0.5, "lines"), just = "right", rot = 90,
                           gp = gpar(fontface = 2))
               } else {
-                grid.text(var, x = unit(lsp - 1 - labsp[i], "lines") + -1 * offset[4],
+                grid.text(var, x = unit(lsp - 1 - labsp[i], "lines") + -1 * offset_varnames[4],
                           y = unit(1, "npc") + unit(0.5, "lines"),
                           just = "left", rot = 90, gp = gpar(fontface = 2))
               }
             } else {
               if (labbl_varnames[i]) {
-                grid.text(var, x = unit(1, "npc") + unit(labsp[i], "lines") + offset[2],
+                grid.text(var, x = unit(1, "npc") + unit(labsp[i], "lines") + offset_varnames[2],
                           y = unit(-0.5, "lines"),
                           just = "right", rot = 90, gp = gpar(fontface = 2))
               } else {
-                grid.text(var, x = unit(1, "npc") + unit(labsp[i], "lines") + offset[2],
+                grid.text(var, x = unit(1, "npc") + unit(labsp[i], "lines") + offset_varnames[2],
                           y = unit(1, "npc") + unit(0.5, "lines"),
                           just = "left", rot = 90, gp = gpar(fontface = 2))
               }
@@ -394,17 +403,17 @@ labeling_border <- function(labels = TRUE, varnames = labels,
               if (top) {
                 seekViewport(mlab)
                 if (clip[vind])
-                  pushViewport(viewport(height = unit(1, "npc") + 2 * offset[1] +
+                  pushViewport(viewport(height = unit(1, "npc") + 2 * offset_labels[1] +
                                         unit(2 * (2 + tsp - labsp[vind]), "lines"),
                                         clip = "on"))
                 if (boxes[vind])
                   grid.rect(height = unit(0.8, "lines"),
-                            y = unit(1, "npc") + offset[1] +
-                                unit(1 + tsp - labsp[vind] - (2 + as.numeric(offset[1]) + tsp - labsp[vind]) * clip[vind], "lines"),
+                            y = unit(1, "npc") + offset_labels[1] +
+                                unit(1 + tsp - labsp[vind] - (2 + as.numeric(offset_labels[1]) + tsp - labsp[vind]) * clip[vind], "lines"),
                             gp = gpar(fill = fill_boxes[[vind]][labind]))
                 grid.text(lab,
-                          y = unit(1, "npc") + offset[1] +
-                              unit(1 + tsp - labsp[vind] - (2 + as.numeric(offset[1]) + tsp - labsp[vind]) * clip[vind], "lines"),
+                          y = unit(1, "npc") + offset_labels[1] +
+                              unit(1 + tsp - labsp[vind] - (2 + as.numeric(offset_labels[1]) + tsp - labsp[vind]) * clip[vind], "lines"),
                           x = unit(0.15 * switch(pos_labels[1], left =, bottom = 1, center =, centre = 0, -1) * boxes[vind], "lines") +
                               unit(switch(pos_labels[1], left =, bottom = 0, center =, centre = 0.5, 1), "npc"),
                           rot = rot_labels[1], just = just_labels[1],
@@ -416,17 +425,17 @@ labeling_border <- function(labels = TRUE, varnames = labels,
               if (bottom) {
                 seekViewport(mlab)
                 if (clip[vind])
-                  pushViewport(viewport(height = unit(1, "npc") + 2 * offset[3] + 
+                  pushViewport(viewport(height = unit(1, "npc") + 2 * offset_labels[3] + 
                                         unit(2 * (1 + abs(labsp[vind])), "lines"),
                                         clip = "on"))
 ###
                 if (boxes[vind])
                   grid.rect(height = unit(0.8, "lines"),
-                            y = -1 * offset[3] + unit(labsp[vind] + (1 + as.numeric(offset[3]) + abs(labsp[vind])) * clip[vind], "lines"),
+                            y = -1 * offset_labels[3] + unit(labsp[vind] + (1 + as.numeric(offset_labels[3]) + abs(labsp[vind])) * clip[vind], "lines"),
                             gp = gpar(fill = fill_boxes[[vind]][labind]))
 
                 grid.text(lab,
-                          y = -1 * offset[3] + unit(labsp[vind] + (1 + as.numeric(offset[3]) + abs(labsp[vind])) * clip[vind], "lines"),
+                          y = -1 * offset_labels[3] + unit(labsp[vind] + (1 + as.numeric(offset_labels[3]) + abs(labsp[vind])) * clip[vind], "lines"),
                           x = unit(0.15 * switch(pos_labels[3], left =, bottom = 1, center =, centre = 0, -1) * boxes[vind], "lines") +
                               unit(switch(pos_labels[3], left =, bottom = 0, center =, centre = 0.5, 1), "npc"),
                           rot = rot_labels[3], just = just_labels[3],
@@ -440,16 +449,16 @@ labeling_border <- function(labels = TRUE, varnames = labels,
               if (left) {
                 seekViewport(mlab)
                 if (clip[vind])
-                  pushViewport(viewport(width = unit(1, "npc") + 2 * offset[4] + 
+                  pushViewport(viewport(width = unit(1, "npc") + 2 * offset_labels[4] + 
                                         unit(2 * (2 - lsp + labsp[vind]), "lines"),
                                         clip = "on"))
                 if (boxes[vind])
                   grid.rect(width = unit(0.8, "lines"),
-                            x = -1 * offset[4] + unit(lsp - 1 - labsp[vind] + (2 - lsp + as.numeric(offset[4]) + labsp[vind]) * clip[vind], "lines"),
+                            x = -1 * offset_labels[4] + unit(lsp - 1 - labsp[vind] + (2 - lsp + as.numeric(offset_labels[4]) + labsp[vind]) * clip[vind], "lines"),
                             gp = gpar(fill = fill_boxes[[vind]][labind]))
 
                 grid.text(lab,
-                          x = -1 * offset[4] + unit(lsp - 1 - labsp[vind] + (2 - lsp + as.numeric(offset[4]) + labsp[vind]) * clip[vind], "lines"),
+                          x = -1 * offset_labels[4] + unit(lsp - 1 - labsp[vind] + (2 - lsp + as.numeric(offset_labels[4]) + labsp[vind]) * clip[vind], "lines"),
                           y = unit(0.15 * switch(pos_labels[4], left =, bottom = 1, centre = 0, -1) * boxes[vind], "lines") +
                           unit(switch(pos_labels[4], left =, bottom = 0, center =, centre = 0.5, 1), "npc"),
                           rot = rot_labels[4], just = just_labels[4],
@@ -462,17 +471,17 @@ labeling_border <- function(labels = TRUE, varnames = labels,
               if (right) {
                 seekViewport(mlab)
                 if (clip[vind])
-                  pushViewport(viewport(width = unit(1, "npc") + 2 * offset[2] +
+                  pushViewport(viewport(width = unit(1, "npc") + 2 * offset_labels[2] +
                                         unit(2 * (1 + abs(labsp[vind])), "lines"),
                                         clip = "on"))
                 if (boxes[vind])
                   grid.rect(width = unit(0.8, "lines"),
-                            x = offset[2] + unit(1, "npc") +
-                                unit(labsp[vind] - (1 + as.numeric(offset[2]) + abs(labsp[vind])) * clip[vind], "lines"),
+                            x = offset_labels[2] + unit(1, "npc") +
+                                unit(labsp[vind] - (1 + as.numeric(offset_labels[2]) + abs(labsp[vind])) * clip[vind], "lines"),
                             gp = gpar(fill = fill_boxes[[vind]][labind]))
                 grid.text(lab,
-                          x = offset[2] + unit(1, "npc") + unit(0.1, "lines") +
-                              unit(labsp[vind] - (1 + as.numeric(offset[2]) + abs(labsp[vind])) * clip[vind], "lines"),
+                          x = offset_labels[2] + unit(1, "npc") + unit(0.1, "lines") +
+                              unit(labsp[vind] - (1 + as.numeric(offset_labels[2]) + abs(labsp[vind])) * clip[vind], "lines"),
                           y = unit(0.15 * switch(pos_labels[2], left =, bottom = 1, center =, centre = 0, -1) * boxes[vind], "lines") +
                               unit(switch(pos_labels[2], left =, bottom = 0, center =, centre = 0.5, 1), "npc"),
                           rot = rot_labels[2], just = just_labels[2],
@@ -493,9 +502,9 @@ labeling_border <- function(labels = TRUE, varnames = labels,
       }
     }
     split()
-    
   }
-class(labeling_border) <- "panel_generator"
+}
+class(labeling_border) <- "grapcon_generator"
 
 labeling_doubledecker <- function(lab_pos = c("bottom", "top"), ...) {
   lab_pos <- match.arg(lab_pos)
@@ -509,7 +518,7 @@ labeling_doubledecker <- function(lab_pos = c("bottom", "top"), ...) {
                   pos_labels = c("left", "center", "left", "center"),
                   just_labels = c("left", "left", "left", "center"),
                   varnames = c(c(rep.int(TRUE, length(d) - 1), FALSE)),
-                  offset = c(0, -0.6, 0, 0),
+                  offset_varnames = c(0, -0.6, 0, 0),
                   tl_labels = c(rep.int(lab_pos== "top", length(d) - 1), FALSE)
                   )(d, split_vertical, condvars)
     seekViewport("margin_right")
@@ -518,18 +527,24 @@ labeling_doubledecker <- function(lab_pos = c("bottom", "top"), ...) {
               gp = gpar(fontface = 2))
   }
 }
-class(labeling_doubledecker) <- "panel_generator"
+class(labeling_doubledecker) <- "grapcon_generator"
 
-labeling_left <- function(tl_labels = TRUE, clip = TRUE, pos_varnames = "left",
+labeling_left <- function(rep = FALSE, pos_varnames = "left",
+                        pos_labels = "left", just_labels = "left", ...)
+  labeling_border(rep = rep, pos_varnames = pos_varnames,
+              pos_labels = pos_labels, just_labels = just_labels, ...)
+class(labeling_left) <- "grapcon_generator"
+
+labeling_left2 <- function(tl_labels = TRUE, clip = TRUE, pos_varnames = "left",
                         pos_labels = "left", just_labels = "left", ...)
   labeling_border(tl_labels = tl_labels, clip = clip, pos_varnames = pos_varnames,
               pos_labels = pos_labels, just_labels = just_labels, ...)
-class(labeling_left) <- "panel_generator"
+class(labeling_left2) <- "grapcon_generator"
 
 labeling_cboxed <- function(tl_labels = TRUE, boxes = TRUE, clip = TRUE, pos_labels = "center", ...)
   labeling_border(tl_labels = tl_labels, boxes = boxes, clip = clip, pos_labels = pos_labels, ...)
-class(labeling_cboxed) <- "panel_generator"
+class(labeling_cboxed) <- "grapcon_generator"
 
 labeling_lboxed <- function(tl_labels = FALSE, boxes = TRUE, clip = TRUE, pos_labels = "left", just_labels = "left", labbl_varnames = FALSE, ...)
   labeling_border(tl_labels = tl_labels, boxes = boxes, clip = clip, pos_labels = pos_labels, labbl_varnames = labbl_varnames, just_labels = just_labels, ...)
-class(labeling_lboxed) <- "panel_generator"
+class(labeling_lboxed) <- "grapcon_generator"

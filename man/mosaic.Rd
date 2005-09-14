@@ -8,9 +8,9 @@
 }
 \usage{
 \method{mosaic}{default}(x, condvars = NULL,
-  split_vertical = FALSE, direction = NULL, spacing = NULL,
-  spacing_args = list(), zero_size = 0.5, main = NULL, \dots)
-\method{mosaic}{formula}(formula, data, \dots, main = NULL, subset = NULL)
+  split_vertical = NULL, direction = NULL, spacing = NULL,
+  spacing_args = list(), zero_size = 0.5, main = NULL, sub = NULL, \dots)
+\method{mosaic}{formula}(formula, data, \dots, main = NULL, sub = NULL, subset = NULL)
 }
 \arguments{
   \item{x}{a contingency table in array form, with optional category
@@ -30,11 +30,11 @@
   \item{zero_size}{size of the bullets used for zero entries (if 0, no
     bullets are drawn).}
   \item{split_vertical}{vector of logicals of length \eqn{k}, where \eqn{k}
-    is the number of margins of \code{x} (values are recycled as needed). 
+    is the number of margins of \code{x} (default: \code{FALSE}).
+    Values are recycled as needed. 
     A \code{TRUE} component indicates that the tile(s) of the
     corresponding dimension should be split vertically, \code{FALSE}
-    means horizontal splits.
-    Ignored if \code{direction} is not \code{NULL}.}
+    means horizontal splits. Ignored if \code{direction} is not \code{NULL}.}
   \item{direction}{character vector of length \eqn{k}, where \eqn{k} is the
     number of margins of \code{x} (values are recycled as needed).
     For each component, a value of \code{"h"} indicates that the tile(s)
@@ -47,8 +47,8 @@
     and  \code{spacing_increase} for more dimensions.}
   \item{spacing_args}{list of arguments for the generating function, if
     specified (see \code{\link{strucplot}} for more information).}
-  \item{main}{either a logical, or a character string used for plotting
-    the main title.  If \code{main} is a logical and \code{TRUE}, the
+  \item{main, sub}{either a logical, or a character string used for plotting
+    the main (sub) title.  If logical and \code{TRUE}, the
     name of the \code{data} object is used.}
   \item{\dots}{Other arguments passed to \code{\link{strucplot}}}
 }

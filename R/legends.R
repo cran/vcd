@@ -55,11 +55,14 @@ legend_resbased <- function(fontsize = 12,
 
       grid.rect()
 
-      if(is.null(at)) at <- seq(from = head(col.bins, 1), to = tail(col.bins, 1), length = ticks)
+      if(is.null(at))
+        at <- seq(from = head(col.bins, 1), to = tail(col.bins, 1), length = ticks)
       grid.text(format(signif(at, digits = digits)),
                 x = unit(1, "npc") + unit(0.8, "lines") + unit(1, "strwidth", "-4.44"),
                 y = at,
-                default.unit = "native", just = c("right", "center"), check.overlap = check_overlap)
+                default.unit = "native",
+                just = c("right", "center"),
+                check.overlap = check_overlap)
       grid.segments(x0 = unit(1, "npc"), x1 = unit(1,"npc") + unit(0.5, "lines"),
                     y0 = at, y1 = at, default.unit = "native")
 
@@ -80,27 +83,30 @@ legend_resbased <- function(fontsize = 12,
     }
   }
 }
-class(legend_resbased) <- "panel_generator"
+class(legend_resbased) <- "grapcon_generator"
 
 legend_fixed <- function(fontsize = 12,
                          x = unit(1, "lines"),
-                         y = unit(0.25, "npc"),
-                         height = unit(0.65, "npc"),
+                         y = NULL,
+                         height = NULL,
                          width = unit(1.5, "lines"),
                          steps = 200,
-			 digits = 3,
+			 digits = 1,
                          space = 0.05,
                          text = NULL) {
   
   if(!is.unit(x)) x <- unit(x, "native")
-  if(!is.unit(y)) y <- unit(y, "npc")
+  if(!is.unit(y) && !is.null(y)) y <- unit(y, "npc")
   if(!is.unit(width)) width <- unit(width, "lines")
-  if(!is.unit(height)) height <- unit(height, "npc")
+  if(!is.unit(height) && !is.null(height)) height <- unit(height, "npc")
 
   function(residuals, shading, autotext) {
     res <- as.vector(residuals)
 
     if(is.null(text)) text <- autotext
+
+    if (is.null(y)) y <- unit(1, "strwidth", text) + unit(1, "lines")
+    if (is.null(height)) height <- unit(1, "npc") - y
     
     pushViewport(viewport(x = x, y = y, just = c("left", "bottom"),
                           yscale = c(0,1), default.unit = "npc",
@@ -126,26 +132,31 @@ legend_fixed <- function(fontsize = 12,
               default.unit = "npc",
               gp = shading(res),
               just = c("left", "bottom"))
-
-    grid.text(format(signif(col.bins[-l], digits = digits)),
-              x = unit(1, "npc") + unit(0.6, "lines") + unit(1, "strwidth", "-4.44"),
+    numbers <- format(col.bins, nsmall = digits, digits = digits)
+    wid <- unit(1, "strwidth", format(max(abs(col.bins)),
+                                      nsmall = digits, digits = digits))
+    grid.text(numbers[-l],
+              x = unit(1, "npc") + unit(0.6, "lines") + wid,
               y = y.pos, gp = gpar(fontsize = fontsize),
               default.unit = "npc", just = c("right", "bottom"))
-    grid.text(format(signif(col.bins[-1], digits = digits)),
-              x = unit(1, "npc") + unit(0.6, "lines") + unit(1, "strwidth", "-4.44"),
+    grid.text(numbers[-1],
+              x = unit(1, "npc") + unit(0.6, "lines") + wid,
               y = y.pos + y.height, gp = gpar(fontsize = fontsize),
               default.unit = "npc", just = c("right", "top"))
-    grid.segments(x0 = unit(1, "npc") + unit(1, "strwidth", "-4.44") + unit(0.2, "lines"),
-                  x1 = unit(1, "npc") + unit(1, "strwidth", "-4.44") + unit(0.5, "lines"),
-                  y0 = y.pos + y.height / 2, y1 = y.pos + y.height / 2,
-                  default.unit = "npc")
+    wid2 <- unit(1, "strwidth", format(max(abs(trunc(col.bins))))) +
+      unit(0.3, "strwidth", ".")
+    grid.segments(x0 = unit(1, "npc") + wid2 + unit(0.6, "lines"),
+                  x1 = unit(1, "npc") + wid2 + unit(0.6, "lines"),
+                  y0 = unit(y.pos, "npc") + 1.5 * unit(1, "strheight", "-44.4"),
+                  y1 = unit(y.pos + y.height, "npc") - 1.5 * unit(1, "strheight", "-44.4")
+                  )
 
     popViewport(1)
-    grid.text(text, x = x + 0.5 * width, y = 0.1,
+    grid.text(text, x = x + 0.5 * width, y = 0,
               gp = gpar(fontsize = fontsize, lineheight = 0.8),
               just = c("left", "top"),
               rot = 90
               )
   }
 }
-class(legend_fixed) <- "panel_generator"
+class(legend_fixed) <- "grapcon_generator"

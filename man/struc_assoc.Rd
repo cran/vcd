@@ -1,8 +1,8 @@
 \name{struc_assoc}
 \alias{struc_assoc}
-\title{Panel-generating Function for Association Plots}
+\title{Core-generating Function for Association Plots}
 \description{
-  Panel-generating function for \code{strucplot} returning a function
+  Core-generating function for \code{strucplot} returning a function
   producing association plots.
 }
 \usage{
@@ -86,6 +86,6 @@ ucb <- aperm(UCBAdmissions)
 
 ## association plot for conditional independence
 strucplot(ucb, expected = ~ Dept * (Admit + Gender),
-  panel = struc_assoc(ylim = c(-4, 4)), labeling_args = list(abbreviate = c(Admit = 3)))
+  core = struc_assoc(ylim = c(-4, 4)), labeling_args = list(abbreviate = c(Admit = 3)))
 }
 \keyword{hplot}

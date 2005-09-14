@@ -87,7 +87,7 @@ shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   attr(rval, "p.value") <- p.value
   return(rval)
 }
-class(shading_hsv) <- "panel_generator"
+class(shading_hsv) <- "grapcon_generator"
 
 
 shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
@@ -181,7 +181,7 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   attr(rval, "p.value") <- p.value
   return(rval)
 }
-class(shading_hcl) <- "panel_generator"
+class(shading_hcl) <- "grapcon_generator"
 
 shading_Friendly <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   h = c(2/3, 0), lty = 1:2, interpolate = c(2, 4), eps = 0.01, line_col = "black", ...)
@@ -190,7 +190,7 @@ shading_Friendly <- function(observed = NULL, residuals = NULL, expected = NULL,
               h = h, v = 1, lty = lty, interpolate = interpolate,
 	      eps = eps, line_col = line_col, p.value = NA, ...)
 }
-class(shading_Friendly) <- "panel_generator"
+class(shading_Friendly) <- "grapcon_generator"
 
 shading_max <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   h = NULL, c = NULL, l = NULL, lty = 1, eps = NULL, line_col = "black", level = c(0.9, 0.99), n = 1000, ...)
@@ -209,30 +209,28 @@ shading_max <- function(observed = NULL, residuals = NULL, expected = NULL, df =
 			eps = eps, line_col = line_col, p.value = obs.test$p.value, ...)
   return(rval)
 }
-class(shading_max) <- "panel_generator"
+class(shading_max) <- "grapcon_generator"
 
 shading_binary <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   col = hcl(c(260, 0), 50, 70))
 {
-  ## get col
-  my.col <- rep(col, length.out = 2)
+  ## check col argument
+  if (length(col) != 2) stop("Need exactly two colors!")
   
   ## store color information for legend
-  legend <- list(col = my.col[2:1], col.bins = 0,
-                 lty = NULL, lty.bins = NULL)
+  legend <- list(col = col[2:1], col.bins = 0, lty = NULL, lty.bins = NULL)
 
   ## set up function that computes color/lty from residuals
-  rval <- function(x) {
-    res <- as.vector(x)
-    col <- ifelse(res > 0, my.col[1], my.col[2])
-    dim(col) <- dim(x)    
-    return(structure(list(fill = col), class = "gpar"))
-  }
+  rval <- function(x)
+    gpar(fill = ifelse(x > 0, col[1], col[2]))
+
+  ## add meta information for legend
   attr(rval, "legend") <- legend
   attr(rval, "p.value") <- NULL
-  return(rval)
+  
+  rval
 }
-class(shading_binary) <- "panel_generator"
+class(shading_binary) <- "grapcon_generator"
 
 
 
