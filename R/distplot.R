@@ -96,7 +96,7 @@ function(x, type = c("poisson", "binomial", "nbinomial"),
   grid.points(x = RVAL[,1], y = RVAL[,3], default.units = "native", gp = gp, ...)
   grid.lines(x = xlim, y = predict(fm, newdata = data.frame(mycount = xlim)),
     default.units = "native", gp = gpar(col = 2))
-  grid.rect()
+  grid.rect(gp = gpar(fill = "transparent"))
   grid.xaxis()
   grid.yaxis()
   grid.text(xlab, y = unit(-3.5, "lines"))

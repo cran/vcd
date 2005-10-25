@@ -1,0 +1,207 @@
+\documentclass[a4paper]{article}
+\usepackage{hyperref, graphicx, color, alltt, a4wide}
+\usepackage{Sweave}
+\usepackage[round]{natbib}
+\definecolor{Red}{rgb}{0.7,0,0}
+\definecolor{Blue}{rgb}{0,0,0.8}
+\definecolor{hellgrau}{rgb}{0.55,0.55,0.55}
+\newcommand{\pkg}[1]{{\normalfont\fontseries{b}\selectfont #1}}
+\newcommand{\var}[1]{\textit{\texttt{#1}}}
+\newcommand{\email}[1]{\href{mailto:#1}{\normalfont\texttt{#1}}}
+\newcommand{\data}[1]{`\texttt{#1}'}
+\newcommand{\class}[1]{\textsf{#1}}
+
+%% \code without `-' ligatures
+\def\nohyphenation{\hyphenchar\font=-1 \aftergroup\restorehyphenation}
+\def\restorehyphenation{\hyphenchar\font=`-}
+{\catcode`\-=\active%
+  \global\def\code{\bgroup%
+    \catcode`\-=\active \let-\codedash%
+    \Rd@code}}
+\def\codedash{-\discretionary{}{}{}}
+\def\Rd@code#1{\texttt{\nohyphenation#1}\egroup}
+
+\newcommand{\codefun}[1]{\code{#1()}}
+
+\begin{document}
+
+%\VignetteIndexEntry{Spacing in the Strucplot Framework}
+%\VignetteDepends{vcd}
+%\VignetteKeywords{graphics, categorical data}
+%\VignettePackage{vcd}
+
+\SweaveOpts{engine=R,eps=TRUE,height=6,width=7,results=hide,fig=FALSE,echo=TRUE}
+\setkeys{Gin}{width=0.7\textwidth}
+
+<<preliminaries,echo=FALSE>>=
+options(width=70)
+set.seed(1071)
+library(vcd)
+data(Titanic)
+@
+
+\title{Spacing in the Strucplot Framework}
+\author{by David Meyer, Achim Zeileis, and Kurt Hornik}
+\date{}
+\maketitle
+\sloppy
+
+Spacing of strucplot displays is customizable in a similar way than shading. The
+\code{spacing} argument of the \codefun{strucplot} function takes a
+list of \class{unit} vectors, one for each dimension, specifying the
+space between the tiles corresponding to the levels. As an example,
+consider the \data{Arthritis} data resulting from a double-blind clinical trial
+investigating a new treatment for rheumatoid arthritis. 
+Since we are interested in the effect of
+the medicament in the placebo and treatment groups, we could use a mosaic plot
+to visualize the three levels of `Improved' in
+the two `Treatment' strata (see Figure \ref{fig:art}):
+
+<<art,results=verbatim>>=
+(art <- structable(~Treatment + Improved, data = Arthritis, split_vertical = TRUE))
+mosaic(art)
+@ 
+
+\begin{figure}[p]
+\begin{center}
+<<artfig,echo=FALSE,fig=TRUE>>=
+<<art>>
+@ 
+\caption{Mosaic plot visualizing the \data{Arthritis} data.}
+\label{fig:art}
+\end{center}
+\end{figure}
+
+\noindent Another conceptual approach, however, is to use
+spine plots with highlighting \citep{vcd:hummel:1996}. A spine plot is
+a variation of a bar plot where the heights of the bars are held
+constant, whereas the widths are used to represent the number of cases
+in each category. This is equivalent to a mosaic plot for a one-way table.
+If a second (indicator) variable is highlighted in a spine plot, we
+obtain a display equivalent to a simple mosaic display for a two-way
+table, except that no space between the levels of the highlighted
+variable is used.
+In the \data{Arthritis} example, we will highlight patients with `Marked' 
+improvement in both groups. To obtain such a display within 
+the strucplot framework\footnote{The \pkg{vcd} package also provides 
+a specialized \codefun{spine} function for spine plots and spinograms.}, it
+suffices to set the space between the `Improved' tiles to 0 (see
+Figure \ref{fig:artspine}):
+
+<<artspine,echo=TRUE,results=verbatim>>=
+(my_spacing <- list(unit(0.5, "lines"), unit(c(0, 0), "lines")))
+my_colors <- gpar(fill = c("lightgray", "lightgray", "black"))
+mosaic(art, spacing = my_spacing, gp = my_colors)
+@ 
+
+\begin{figure}[p]
+\begin{center}
+<<artspinefig,echo=FALSE,fig=TRUE>>=
+<<artspine>>
+@ 
+\caption{Spine plot for the \data{Arthritis} data using the strucplot framework.}
+\label{fig:artspine}
+\end{center}
+\end{figure}
+
+\noindent The strucplot framework also provides a set of spacing grapcon
+generators that compute suitable spacing objects for
+typical applications. The simplest spacing is \codefun{spacing\_equal}
+that uses the same space between all tiles (see Figure \ref{fig:space1}):
+
+<<space1>>=
+mosaic(art, spacing = spacing_equal(unit(2, "lines")))
+@ 
+
+\begin{figure}[p]
+\begin{center}
+<<space1fig,echo=FALSE,fig=TRUE>>=
+<<space1>>
+@ 
+\caption{Fixed spacing for all dimensions.}
+\label{fig:space1}
+\end{center}
+\end{figure}
+
+
+\noindent \codefun{spacing\_equal} is the default grapcon generator for
+two-dimensional tables. Slightly more flexible is \codefun{spacing\_dimequal} that
+allows an individual setting for each dimension (see Figure \ref{fig:space2}):
+
+<<space2>>=
+mosaic(art, spacing = spacing_dimequal(unit(1:2, "lines")))
+@ 
+
+\begin{figure}[p]
+\begin{center}
+<<space2fig,echo=FALSE,fig=TRUE>>=
+<<space2>>
+@ 
+\caption{Fixed, but individual spacing for each dimension.}
+\label{fig:space2}
+\end{center}
+\end{figure}
+
+\noindent The default for multi-way contingency tables is
+\codefun{spacing\_increase} that uses increasing spaces for the
+dimensions. The user can specify a start value and the increase factor
+(see Figure \ref{fig:space3}):
+
+<<space3>>=
+mosaic(art, spacing = spacing_increase(start = unit(1, "lines"), rate = 1.5))
+@ 
+
+\begin{figure}[p]
+\begin{center}
+<<space3fig,echo=FALSE,fig=TRUE>>=
+<<space3>>
+@ 
+\caption{Increasing spacing.}
+\label{fig:space3}
+\end{center}
+\end{figure}
+
+\noindent For the arthritis example above, we could as well have used
+\codefun{spacing\_highlighting} that is similar to \codefun{spacing\_increase} but
+sets the spacing in the last splitting dimension to 0 (see Figure \ref{fig:artspine}):
+
+<<space4>>=
+mosaic(art, spacing = spacing_highlighting, gp = my_colors)
+@ 
+
+\noindent Finally, \codefun{spacing\_conditional} can be used for
+visualizing conditional independence: it combines
+\codefun{spacing\_equal} (for the conditioned dimensions) and 
+\codefun{spacing\_increase} (for the conditioning dimensions). As an example, 
+consider the \data{PreSex} data. The conditional independence of
+premarital and extramarital sex, given marital status and gender, can
+be visualized using the following (see Figure \ref{fig:conditional}):
+
+<<conditional>>=
+mosaic(~ PremaritalSex + ExtramaritalSex | MaritalStatus + Gender, data = PreSex)
+@
+
+\noindent The conditional spacing clearly allows to better 
+distinguish the conditioning variables 
+(`Gender' and `MaritalStatus') from the conditioned 
+variables (`PremaritalSex' and `ExtramaritalSex'). This
+spacing is the default when conditional variables are specified for a
+strucplot display.
+
+
+\begin{figure}[h]
+\begin{center}
+<<conditionalfig,fig=TRUE,echo=FALSE>>=
+<<conditional>>
+@
+\caption{Spacing appropriate for conditional independence.}
+\label{fig:conditional}
+\end{center}
+\end{figure}
+
+\bibliographystyle{jss}
+\bibliography{vcd}
+
+
+\end{document}
+

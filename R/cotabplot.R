@@ -145,7 +145,7 @@ cotabplot.default <- function(x, cond = NULL,
     pushViewport(viewport(layout.pos.row = 2, name = paste("plot", condistr, sep = ".")))
     panel(x, condi)
     upViewport(2)
-    grid.rect()
+    grid.rect(gp = gpar(fill = "transparent"))
     upViewport()
   }
   upViewport()

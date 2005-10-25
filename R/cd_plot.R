@@ -86,7 +86,7 @@ cd_plot.default <- function(x, y,
     }
 
     ## axes
-    grid.rect()
+    grid.rect(gp = gpar(fill = "transparent"))
     grid.xaxis()
     grid.yaxis(main = FALSE)    
     equidist <- any(diff(y1[,1]) < ylab_tol)

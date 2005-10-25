@@ -43,7 +43,7 @@ function (x, y, pch, col, labels, frame = TRUE, hgap = unit(0.5, "lines"),
     if (draw) 
       grid.draw(fg)
     if (frame)
-      grid.rect()
+      grid.rect(gp = gpar(fill = "transparent"))
     popViewport(1)
     invisible(fg)
 }

@@ -196,7 +196,7 @@ struc_sieve <- function(sievetype = c("observed", "expected")) {
         grid.segments(x0 = 0, x1 = vp$xscale[2], y0 = jj, y1 = jj,
                       default.units = "native", gp = gpobj)
       }
-      grid.rect(name = paste("rect:", mnames[i], sep = ""))
+      grid.rect(name = paste("rect:", mnames[i], sep = ""), gp = gpar(fill = "transparent"))
     }
   }
 }

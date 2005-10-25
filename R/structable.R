@@ -49,7 +49,7 @@ structable.formula <- function(formula, data = NULL, direction = NULL,
         } else {
           if (is.matrix(edata)) 
             m$data <- as.data.frame(data)
-          m$... <- NULL
+          m$... <- m$split_vertical <- m$direction <- NULL
           m[[1]] <- as.name("model.frame")
           mf <- eval(m, parent.frame())
           return(structable(table(mf), split_vertical = split_vertical, ...))
@@ -89,7 +89,7 @@ structable.formula <- function(formula, data = NULL, direction = NULL,
     } else {
         if (is.matrix(edata)) 
             m$data <- as.data.frame(data)
-        m$... <- NULL
+        m$... <- m$split_vertical <- m$direction <- NULL
         if (!is.null(data) && is.environment(data)) {
             dnames <- names(data)
             if (rhs.has.dot) 

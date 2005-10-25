@@ -53,7 +53,7 @@ legend_resbased <- function(fontsize = 12,
                 gp = gpar(fill = shading(y.pos + 0.5 * y.height)$fill, col = NULL),
                 just = c("left", "bottom"))
 
-      grid.rect()
+      grid.rect(gp = gpar(fill = "transparent"))
 
       if(is.null(at))
         at <- seq(from = head(col.bins, 1), to = tail(col.bins, 1), length = ticks)
