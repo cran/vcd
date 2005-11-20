@@ -60,8 +60,9 @@ strucplot(x, residuals = NULL, expected = NULL,
     Ignored if \code{shade = FALSE}.} 
   \item{gp_args}{list of arguments for the shading-generating function,
     if specified.}
-  \item{labeling}{either a labeling function, or a corresponding
-    generating function (see details and \code{\link{labelings}}.}
+  \item{labeling}{either a logical, or a labeling function, or a corresponding
+    generating function (see details and \code{\link{labelings}}. If
+    \code{FALSE} or \code{NULL}, no labeling is produced.}
   \item{labeling_args}{list of arguments for the labeling-generating
     function, if specified.}
   \item{core}{either a core function, or a corresponding generating

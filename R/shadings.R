@@ -192,6 +192,15 @@ shading_Friendly <- function(observed = NULL, residuals = NULL, expected = NULL,
 }
 class(shading_Friendly) <- "grapcon_generator"
 
+shading_Friendly2 <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
+  h = c(260, 0), lty = 1:2, interpolate = c(2, 4), eps = 0.01, line_col = "black", ...)
+{
+  shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
+              h = h, c = 100, l = 50, lty = lty, interpolate = interpolate,
+	      eps = eps, line_col = line_col, p.value = NA, ...)
+}
+class(shading_Friendly) <- "grapcon_generator"
+
 shading_max <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   h = NULL, c = NULL, l = NULL, lty = 1, eps = NULL, line_col = "black", level = c(0.9, 0.99), n = 1000, ...)
 {

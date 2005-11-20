@@ -78,14 +78,10 @@ pairs_strucplot <- function(panel = mosaic,
   function(x, i, j) {
     index <- 1:length(dim(x))
     rest <- index[!index %in% c(i, j)]
+    rest2 <- index[!index %in% 1:2]
     panel(x = margin.table(x, if (type == "pairwise") c(j, i) else c(j, i, rest)),
-           expected = switch(type,
-             pairwise =, total = NULL,
-             conditional = list(c(j, rest), c(i, rest)),
-             joint = list(c(j, i), rest)
-             ),
-           condvars = if (type == "conditional") rest else NULL,
-           
+           expected = if (type == "joint") list(1:2, rest2) else NULL,
+           condvars = if (type == "conditional") rest2 else NULL,
            labeling = labeling,
            margins = margins,
            legend = legend,

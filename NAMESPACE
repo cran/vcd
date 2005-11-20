@@ -42,6 +42,7 @@ export(
        "shading_hsv",
        "shading_max",
        "shading_Friendly",
+       "shading_Friendly2",
 
 # core functions
        "struc_mosaic",

@@ -45,7 +45,7 @@ data(VonBort)
   \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/vonbort.sas}
 }
 \seealso{
-  \code{\link{HorseKicks}}
+  \code{\link{HorseKicks}} for a popular subsample.
 }
 \examples{
 data(VonBort)

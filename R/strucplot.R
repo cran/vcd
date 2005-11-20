@@ -195,6 +195,8 @@ strucplot <- function(## main parameters
   upViewport(dl)
 
   ## labels
+  if (is.logical(labeling))
+    labeling <- if (labeling) labeling_border else NULL
   if (!is.null(labeling)) {
     if (inherits(labeling, "grapcon_generator"))
       labeling <- do.call("labeling", c(labeling_args, list(...)))
