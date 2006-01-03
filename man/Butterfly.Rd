@@ -7,7 +7,7 @@
   each of 501 species of butterflies collected in Malaya.
 }
 \usage{
-data(Butterfly)
+data("Butterfly")
 }
 \format{
   A 1-way table giving the number of tokens for 501 species of
@@ -34,7 +34,7 @@ data(Butterfly)
   Visualizing Categorical Data, pages 21--22.
 }
 \examples{
-data(Butterfly)
+data("Butterfly")
 Ord_plot(Butterfly)
 }
 

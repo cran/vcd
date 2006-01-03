@@ -20,7 +20,7 @@ independence_table(x, frequency = c("absolute", "relative"))
   David Meyer \email{David.Meyer@R-project.org}
 }
 \examples{
-data(MSPatients)
+data("MSPatients")
 independence_table(MSPatients)
 independence_table(MSPatients, frequency = "relative")
 }

@@ -6,7 +6,7 @@
   Baseball data.
 }
 \usage{
-data(Baseball)
+data("Baseball")
 }
 \format{
   A data frame with 322 observations and 25 variables.
@@ -65,6 +65,6 @@ data(Baseball)
 \seealso{\code{\link{Hitters}}}
 
 \examples{
-data(Baseball)
+data("Baseball")
 }
 \keyword{datasets}

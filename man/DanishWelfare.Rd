@@ -5,7 +5,7 @@
 \description{
   Data from the Danish Welfare Study.
 }
-\usage{data(DanishWelfare)}
+\usage{data("DanishWelfare")}
 \format{
   A data frame with 180 observations and 5 variables.
   \describe{
@@ -35,7 +35,7 @@
   The Statistical Analysis of Categorical Data, page 205.
 }
 \examples{
-data(DanishWelfare)
+data("DanishWelfare")
 ftable(xtabs(Freq ~ ., data = DanishWelfare))
 }
 

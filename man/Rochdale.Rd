@@ -8,7 +8,7 @@
   activity of wives. 
 }
 \usage{
-data(Rochdale)
+data("Rochdale")
 }
 \format{
   A 8-dimensional array resulting from cross-tabulating 665 observations
@@ -45,7 +45,7 @@ data(Rochdale)
   Wiley, New York.
 }
 \examples{
-data(Rochdale)
+data("Rochdale")
 mosaic(Rochdale)
 }
 \keyword{datasets}

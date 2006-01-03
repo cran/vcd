@@ -8,7 +8,7 @@
   Ordnance factories 1943-1946.
 }
 \usage{
-data(VisualAcuity)
+data("VisualAcuity")
 }
 \format{
   A data frame with 32 observations and 4 variables.
@@ -34,7 +34,7 @@ data(VisualAcuity)
   \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/vision.sas}
 }
 \examples{
-data(VisualAcuity)
+data("VisualAcuity")
 structable(~ gender + left + right, data = VisualAcuity)
 }
 

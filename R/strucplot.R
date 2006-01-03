@@ -36,7 +36,8 @@ strucplot <- function(## main parameters
                       sub_gp = gpar(fontsize = 15),
                       newpage = TRUE,
                       pop = TRUE,
-                      keep_aspect_ratio = TRUE,
+                      keep_aspect_ratio = NULL,
+                      prefix = "",
                       ...
                       ) {
   ## default behaviour of shade
@@ -71,7 +72,7 @@ strucplot <- function(## main parameters
   ## A parameter df is added for inference
   ## (which is done in the shading (generating) functions).
   df <- NULL
-  if (is.null(expected) || !is.numeric(expected))
+  if (is.null(expected) || !is.numeric(expected)) {
     if (inherits(expected, "formula")) {
       fm <- loglm(expected, x, fitted = TRUE)
       expected <- fitted(fm)
@@ -87,6 +88,7 @@ strucplot <- function(## main parameters
       expected <- fm$fit
       df <- fm$df
     }
+  }
   
   ## compute residuals
   if (is.null(residuals))
@@ -106,6 +108,9 @@ strucplot <- function(## main parameters
   if (length(split_vertical) == 1)
     split_vertical <- rep(c(split_vertical, !split_vertical), length.out = dl)
 
+  if (is.null(keep_aspect_ratio))
+    keep_aspect_ratio <- dl < 3
+  
   ## spacing
   if (is.function(spacing)) {
     if (inherits(spacing, "grapcon_generator"))
@@ -154,34 +159,35 @@ strucplot <- function(## main parameters
                            legend = shade && !(is.null(legend) || is.logical(legend) && !legend),
                            main = !is.null(main), sub = !is.null(sub),
                            keep_aspect_ratio = keep_aspect_ratio,
-                           legend_width = legend_width))
+                           legend_width = legend_width,
+                           prefix = prefix))
 
   ## legend
   if (inherits(legend, "grapcon_generator"))
     legend <- do.call("legend", legend_args)
   if (shade && !is.null(legend) && !(is.logical(legend) && !legend)) {
-    seekViewport("legend")
+    seekViewport(paste(prefix, "legend", sep = ""))
     residuals_type = switch(residuals_type, deviance = "deviance", ft = "Freeman-Tukey", pearson = "Pearson")
     legend(residuals, gpfun, paste(residuals_type, "residuals:", sep = "\n"))
   }
 
   ## titles
   if (!is.null(main)) {
-    seekViewport("main")
+    seekViewport(paste(prefix, "main", sep = ""))
     if (is.logical(main) && main)
       main <- deparse(substitute(x))
     grid.text(main, gp = main_gp)
   }
 
   if (!is.null(sub)) {
-    seekViewport("sub")
+    seekViewport(paste(prefix, "sub", sep = ""))
     if (is.logical(sub) && sub && is.null(main))
       sub <- deparse(substitute(x))
     grid.text(sub, gp = sub_gp)
   }
 
   ## make plot
-  seekViewport("plot")
+  seekViewport(paste(prefix, "plot", sep = ""))
   
   if (inherits(core, "grapcon_generator"))
     core <- do.call("core", core_args)
@@ -190,7 +196,8 @@ strucplot <- function(## main parameters
        expected = if (type == "observed") expected else x,
        spacing = spacing,
        gp = gp,
-       split_vertical = split_vertical)
+       split_vertical = split_vertical,
+       prefix = prefix)
 
   upViewport(dl)
 
@@ -200,12 +207,12 @@ strucplot <- function(## main parameters
   if (!is.null(labeling)) {
     if (inherits(labeling, "grapcon_generator"))
       labeling <- do.call("labeling", c(labeling_args, list(...)))
-    labeling(dn, split_vertical, condvars)
+    labeling(dn, split_vertical, condvars, prefix)
   }
 
   ## pop/move up viewport
 
-  seekViewport("base") 
+  seekViewport(paste(prefix, "base", sep = "")) 
   ## one more up if sandwich-mode
   if (pop) popViewport(1 + keep_aspect_ratio) else upViewport(1 + keep_aspect_ratio)
 
@@ -218,7 +225,8 @@ vcdViewport <- function(mar = rep.int(2.5, 4),
                         legend_width = unit(5, "lines"),
                         oma = NULL,
                         legend = FALSE, main = FALSE, sub = FALSE,
-                        keep_aspect_ratio = TRUE)
+                        keep_aspect_ratio = TRUE,
+                        prefix = "")
 {
   ## process parameters
   if (is.null(legend_width))
@@ -230,7 +238,7 @@ vcdViewport <- function(mar = rep.int(2.5, 4),
   mar <- if (!is.unit(mar))
     unit(pexpand(mar, 4, rep.int(2.5, 4), c("top","right","bottom","left")), "lines")
   else
-    unit.rep(mar, length.out = 4)
+    rep(mar, length.out = 4)
   if (is.null(oma)) {
     space <- if (legend && keep_aspect_ratio)
       legend_width + mar[2] + mar[4] - mar[1] - mar[3]
@@ -247,30 +255,43 @@ vcdViewport <- function(mar = rep.int(2.5, 4),
   oma <- if (!is.unit(oma))
     unit(pexpand(oma, 2, rep.int(2, 2), c("top","bottom")), "lines")
   else
-    unit.rep(oma, length.out = 2)
+    rep(oma, length.out = 2)
   
   ## set up viewports
   vpPlot <- vpStack(viewport(layout.pos.col = 2, layout.pos.row = 3),
-                    viewport(width = 1, height = 1, name = "plot",
+                    viewport(width = 1, height = 1, name = paste(prefix, "plot", sep = ""),
                              default.units = if (keep_aspect_ratio) "snpc" else "npc"))
-  vpMarginBottom <- viewport(layout.pos.col = 2, layout.pos.row = 4, name = "margin_bottom")
-  vpMarginLeft <- viewport(layout.pos.col = 1, layout.pos.row = 3, name = "margin_left")
-  vpMarginTop <- viewport(layout.pos.col = 2, layout.pos.row = 2, name = "margin_top")
-  vpMarginRight <- viewport(layout.pos.col = 3, layout.pos.row = 3, name = "margin_right")
-  vpCornerTL <- viewport(layout.pos.col = 1, layout.pos.row = 2, name = "corner_top_left")
-  vpCornerTR <- viewport(layout.pos.col = 3, layout.pos.row = 2, name = "corner_top_right")
-  vpCornerBL <- viewport(layout.pos.col = 1, layout.pos.row = 4, name = "corner_bottom_left")
-  vpCornerBR <- viewport(layout.pos.col = 3, layout.pos.row = 4, name = "corner_bottom_right")
+  vpMarginBottom <- viewport(layout.pos.col = 2, layout.pos.row = 4,
+                             name = paste(prefix, "margin_bottom", sep = ""))
+  vpMarginLeft <- viewport(layout.pos.col = 1, layout.pos.row = 3,
+                           name = paste(prefix, "margin_left", sep = ""))
+  vpMarginTop <- viewport(layout.pos.col = 2, layout.pos.row = 2,
+                          name = paste(prefix, "margin_top", sep = ""))
+  vpMarginRight <- viewport(layout.pos.col = 3, layout.pos.row = 3,
+                            name = paste(prefix, "margin_right", sep = ""))
+  vpCornerTL <- viewport(layout.pos.col = 1, layout.pos.row = 2,
+                         name = paste(prefix, "corner_top_left", sep = ""))
+  vpCornerTR <- viewport(layout.pos.col = 3, layout.pos.row = 2,
+                         name = paste(prefix, "corner_top_right", sep = ""))
+  vpCornerBL <- viewport(layout.pos.col = 1, layout.pos.row = 4,
+                         name = paste(prefix, "corner_bottom_left", sep = ""))
+  vpCornerBR <- viewport(layout.pos.col = 3, layout.pos.row = 4,
+                         name = paste(prefix, "corner_bottom_right", sep = ""))
 
-  vpLegend <- viewport(layout.pos.col = 4, layout.pos.row = 3, name = "legend")
-  vpLegendTop <- viewport(layout.pos.col = 4, layout.pos.row = 2, name = "legend_top")
-  vpLegendSub <- viewport(layout.pos.col = 4, layout.pos.row = 4, name = "legend_sub")
+  vpLegend <- viewport(layout.pos.col = 4, layout.pos.row = 3,
+                       name = paste(prefix, "legend", sep = ""))
+  vpLegendTop <- viewport(layout.pos.col = 4, layout.pos.row = 2,
+                          name = paste(prefix, "legend_top", sep = ""))
+  vpLegendSub <- viewport(layout.pos.col = 4, layout.pos.row = 4,
+                          name = paste(prefix, "legend_sub", sep = ""))
   vpBase <- viewport(layout = grid.layout(5, 4,
                        widths = unit.c(mar[4], unit(1, "null"), mar[2], legend_width),
                        heights = unit.c(oma[1], mar[1], unit(1, "null"), mar[3], oma[2])),
-                     name = "base")
-  vpMain <- viewport(layout.pos.col = 1:4, layout.pos.row = 1, name = "main")
-  vpSub <- viewport(layout.pos.col = 1:4, layout.pos.row = 5, name = "sub")
+                     name = paste(prefix, "base", sep = ""))
+  vpMain <- viewport(layout.pos.col = 1:4, layout.pos.row = 1,
+                     name = paste(prefix, "main", sep = ""))
+  vpSub <- viewport(layout.pos.col = 1:4, layout.pos.row = 5,
+                    name = paste(prefix, "sub", sep = ""))
   
   vpTree(vpBase, vpList(vpMain, vpMarginBottom, vpMarginLeft, vpMarginTop,
                         vpMarginRight, vpLegendTop, vpLegend,

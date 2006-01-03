@@ -64,7 +64,7 @@ oddsratio(x, stratum = NULL, log = TRUE)
 }
 \examples{
 ## load Coal Miners data
-data(CoalMiners)
+data("CoalMiners")
 
 ## compute log odds ratios
 lor <- oddsratio(CoalMiners)

@@ -9,7 +9,7 @@
   and James Madison.
 }
 \usage{
-data(Federalist)
+data("Federalist")
 }
 \format{
   A 1-way table giving the number of occurrences of \sQuote{may} in 262
@@ -34,7 +34,7 @@ data(Federalist)
   Visualizing Categorical Data, page 19.
 }
 \examples{
-data(Federalist)
+data("Federalist")
 gf <- goodfit(Federalist, type = "nbinomial")
 summary(gf)
 plot(gf)

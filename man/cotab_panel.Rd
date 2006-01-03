@@ -15,20 +15,20 @@ cotab_assoc(x = NULL, condvars = NULL, ylim = NULL, \dots)
 cotab_sieve(x = NULL, condvars = NULL, \dots)
 cotab_fourfold(x = NULL, condvars = NULL, \dots)
 cotab_coindep(x, condvars,
-  test = c("max", "Chisq"), level = NULL, n = 1000,
+  test = c("doublemax", "maxchisq", "sumchisq"),
+  level = NULL, n = 1000, interpolate = c(2, 4),
   h = NULL, c = NULL, l = NULL, lty = 1,
-  type = c("mosaic", "assoc"),
-  legend = FALSE, ylim = NULL, \dots)
+  type = c("mosaic", "assoc"), legend = FALSE, ylim = NULL, \dots)
 }
 \arguments{
-  \item{x}{an contingency tables in array form.}
+  \item{x}{a contingency tables in array form.}
   \item{condvars}{margin name(s) of the conditioning variables.}
   \item{ylim}{y-axis limits for \code{assoc} plot. By default this
     is computed from \code{x}.}
   \item{test}{character indicating which type of statistic
     should be used for assessing conditional independence.}
-  \item{level,n,h,c,l,lty}{variables controlling the HCL shading of the
-    residuals, see \code{\link{shading_max}} for more details.}
+  \item{level,n,h,c,l,lty,interpolate}{variables controlling the HCL shading of the
+    residuals, see \code{\link{shadings}} for more details.}
   \item{type}{character indicating which type of plot should be produced.}
   \item{legend}{logical. Should a legend be produced in each panel?}
   \item{\dots}{further arguments passed to the plotting function (such as
@@ -73,7 +73,7 @@ cotab_coindep(x, condvars,
   Achim Zeileis \email{Achim.Zeileis@R-project.org}
 }
 \examples{
-data(UCBAdmissions)
+data("UCBAdmissions")
 
 cotabplot(~ Admit + Gender | Dept, data = UCBAdmissions)
 cotabplot(~ Admit + Gender | Dept, data = UCBAdmissions, panel = cotab_assoc)

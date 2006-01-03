@@ -31,7 +31,7 @@ table2d_summary(object, margins = TRUE, percentages = FALSE,
   \code{\link{independence_table}}
 }
 \examples{
-data(UCBAdmissions)
+data("UCBAdmissions")
 table2d_summary(margin.table(UCBAdmissions, 1:2))
 }
 \keyword{category}

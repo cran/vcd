@@ -35,7 +35,7 @@ grid_legend(x, y, pch, col, labels, frame = TRUE, hgap = unit(0.5, "lines"),
   \code{\link[graphics]{legend}}
 }
 \examples{
-data(Lifeboats)
+data("Lifeboats")
 attach(Lifeboats)
 ternaryplot(Lifeboats[,4:6],
   pch = ifelse(side == "Port", 1, 19),

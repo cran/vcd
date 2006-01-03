@@ -16,6 +16,7 @@ pairs.table <- function(x,
                   
                   space = 0.1,
                   newpage = TRUE,
+                  pop = TRUE,
                   ...)
 {
   if (newpage) grid.newpage()
@@ -51,9 +52,9 @@ pairs.table <- function(x,
       } else if (!is.null(diag_panel))
         diag_panel(x, i)
 
-      popViewport(2)
+      if (pop) popViewport(2) else upViewport(2)
     }
-  popViewport(2)
+  if (pop) popViewport(2) else upViewport(2)
   invisible(x)
 }
 
@@ -89,7 +90,9 @@ pairs_strucplot <- function(panel = mosaic,
            split_vertical = TRUE,
            
            newpage = FALSE,
-           pop = TRUE,
+           pop = FALSE,
+           prefix = paste("panel:Y=",names(dimnames(x))[i],",X=",
+             names(dimnames(x))[j],"|",sep = ""),
            ...)
   }
 }
@@ -153,6 +156,7 @@ pairs_barplot <- function(gp_bars = gpar(fill = "gray"),
                           rot = 0, abbreviate = FALSE, 
                           ...)
   function(x, i) {
+    dn <- names(dimnames(x))
     x <- margin.table(x, i)
     pushViewport(viewport(x = 0.3, y = 0.1, width = 0.7, height = 0.7,
                           yscale = c(0,max(x)), just = c("left", "bottom"))
@@ -161,7 +165,9 @@ pairs_barplot <- function(gp_bars = gpar(fill = "gray"),
     halfstep <- (xpos[2] - xpos[1]) / 2
     grid.rect(xpos - halfstep, rep.int(0, length(x)), height = x,
               just = c("center", "bottom"), width = halfstep,
-              gp = gp_bars, default = "native", ...)
+              gp = gp_bars, default = "native",
+              name = paste("panel:diag=", dn[i], "|bars", sep = ""),
+              ...)
     grid.yaxis(at = pretty(c(0,max(x))))
     txt <- names(x)
     if (abbreviate)

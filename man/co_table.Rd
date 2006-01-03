@@ -26,7 +26,7 @@ co_table(x, margin, collapse = ".")
   Achim Zeileis \email{Achim.Zeileis@R-project.org}
 }
 \examples{
-data(HairEyeColor)
+data("HairEyeColor")
 co_table(HairEyeColor, 1)
 co_table(HairEyeColor, c("Hair", "Eye"))
 co_table(HairEyeColor, 1:2, collapse = "")

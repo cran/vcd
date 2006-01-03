@@ -102,6 +102,8 @@ labeling_list(gp = gpar(), just = "left", pos = "left", lsep = ": ",
   \code{\link[grid]{grid.text}}
 }
 \examples{
+data("Titanic")
+
 mosaic(Titanic, labeling = labeling_cells)
 mosaic(Titanic, labeling = labeling_list)
 

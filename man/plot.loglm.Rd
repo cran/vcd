@@ -52,7 +52,7 @@
 }
 \examples{
 ## mosaic display for PreSex model
-data(PreSex)
+data("PreSex")
 fm <- loglm(~ PremaritalSex * ExtramaritalSex * (Gender + MaritalStatus),
   data = aperm(PreSex, c(3, 2, 4, 1)))
 fm
@@ -62,7 +62,7 @@ plot(fm, split_vertical = TRUE)
 plot(fm, split_vertical = TRUE, residuals_type = "deviance")
 
 ## conditional independence in UCB admissions data
-data(UCBAdmissions)
+data("UCBAdmissions")
 fm <- loglm(~ Dept * (Gender + Admit), data = aperm(UCBAdmissions))
 
 ## use mosaic display

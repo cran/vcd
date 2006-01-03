@@ -6,7 +6,7 @@
   Data about non-response for a Danish survey in 1965.
 }
 \usage{
-data(NonResponse)
+data("NonResponse")
 }
 \format{
   A data frame with 12 observations and 4 variables.
@@ -32,7 +32,7 @@ data(NonResponse)
   The Statistical Analysis of Categorical Data, Table 5.17.
 }
 \examples{
-data(NonResponse)
+data("NonResponse")
 structable(~ ., data = NonResponse)
 }
 \keyword{datasets}

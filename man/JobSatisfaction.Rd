@@ -7,7 +7,7 @@
   collar workers, selected from Danish Industry in 1968.
 }
 \usage{
-data(JobSatisfaction)
+data("JobSatisfaction")
 }
 \format{
   A data frame with 8 observations and 4 variables.
@@ -40,7 +40,7 @@ data(JobSatisfaction)
 }
 
 \examples{
-data(JobSatisfaction)
+data("JobSatisfaction")
 structable(~ ., data = JobSatisfaction)
 
 mantelhaen.test(xtabs(Freq ~ own + supervisor + management,

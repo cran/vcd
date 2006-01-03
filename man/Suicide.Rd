@@ -7,7 +7,7 @@
   age, sex, and method of suicide.
 }
 \usage{
-data(Suicide)
+data("Suicide")
 }
 \format{
   A data frame with 306 observations and 6 variables.
@@ -36,7 +36,7 @@ data(Suicide)
   \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/suicide.sas}
 }
 \examples{
-data(Suicide)
+data("Suicide")
 structable(~ sex + method2 + age.group, data = Suicide)
 }
 \keyword{datasets}

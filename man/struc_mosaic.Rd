@@ -6,11 +6,22 @@
   producing mosaic plots.
 }
 \usage{
-struc_mosaic(zero_size = 0.5)
+struc_mosaic(zero_size = 0.5, zero_split = FALSE, zero_shade = TRUE,
+             zero_gp = gpar(col = 0))
 }
 \arguments{
   \item{zero_size}{size of the bullets used for zero-entries in the
     contingency table (if 0, no bullets are drawn).} 
+  \item{zero_split}{logical controlling whether zero cells should be
+    further splitted. If \code{FALSE} and \code{zero_shade} is
+    \code{FALSE}, only one bullet is drawn (centered) for unsplitted
+    zero cells. If \code{FALSE} and \code{zero_shade} is
+    \code{TRUE}, a bullet for each zero cell is drawn to allow, e.g.,
+    residual-based shadings to be effective also for zero cells.}
+  \item{zero_shade}{logical controlling whether zero bullets should be
+    shaded.}
+  \item{zero_gp}{object of class \code{"gpar"} used
+    for zero bullets in case they are \emph{not} shaded.}
 }
 \details{
   This function is usually called by \code{\link{strucplot}} (typically
@@ -49,9 +60,9 @@ struc_mosaic(zero_size = 0.5)
   190--200.
   \url{http://www.math.yorku.ca/SCS/sugi/sugi17-paper.html}
 }
-\example{
+\examples{
 ## Titanic data
-data(Titanic)
+data("Titanic")
 ## mosaic plot with large zeros
 strucplot(Titanic, core = struc_mosaic(zero_size = 1))
 }

@@ -68,6 +68,7 @@
   \code{\link{mosaic}}
 }
 \examples{
+data("Titanic")
 doubledecker(Titanic)
 doubledecker(Titanic, depvar = "Survived")
 doubledecker(Survived ~ ., data = Titanic)

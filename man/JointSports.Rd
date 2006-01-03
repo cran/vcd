@@ -8,7 +8,7 @@
   old high school students.
 }
 \usage{
-data(JointSports)
+data("JointSports")
 }
 \format{
   A data frame with 40 observations and 5 variables.
@@ -35,8 +35,10 @@ data(JointSports)
 }
 
 \examples{
-data(JointSports)
-structable(~ ., data = JointSports)
+data("JointSports")
+tab <- xtabs(Freq ~ gender + opinion + grade + year, data = JointSports)
+doubledecker(opinion ~ gender + year + grade, data = tab, col = grey.colors(5))
+loglm(~ opinion* (gender + grade+ year) + gender*year*grade, data = tab)
 }
 
 \keyword{datasets}

@@ -17,9 +17,12 @@ distplot(x, type = c("poisson", "binomial", "nbinomial"),
     counts or a data frame or matrix with frequencies in the first
     column and the corresponding counts in the second column.}
   \item{type}{a character string indicating the distribution.}
-  \item{size}{the size argument for the binomial distribution, only
-    required if \code{type} is \code{"binomial"}.
-    If set to \code{NULL}, \code{size} is taken to be the maximum count.}
+  \item{size}{the size argument for the binomial and negative binomial
+    distribution.
+    If set to \code{NULL} and \code{type} is \code{"binomial"}, then
+    \code{size} is taken to be the maximum count. 
+    If set to \code{NULL} and \code{type} is \code{"nbinomial"}, then
+    \code{size} is estimated from the data.}
   \item{lambda}{parameter of the poisson distribution.
     If type is \code{"poisson"} and \code{lambda} is specified a leveled
     poissonness plot is produced.}
@@ -69,12 +72,13 @@ dummy <- rnbinom(1000, size = 1.5, prob = 0.8)
 distplot(dummy, type = "nbinomial")
 
 ## Real data examples:
-data(HorseKicks)
-data(Federalist)
-data(Saxony)
+data("HorseKicks")
+data("Federalist")
+data("Saxony")
 distplot(HorseKicks, type = "poisson")
 distplot(HorseKicks, type = "poisson", lambda = 0.61)
 distplot(Federalist, type = "poisson")
+distplot(Federalist, type = "nbinomial", size = 1)
 distplot(Federalist, type = "nbinomial")
 distplot(Saxony, type = "binomial", size = 12)
 }

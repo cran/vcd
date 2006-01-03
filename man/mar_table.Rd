@@ -17,7 +17,7 @@ mar_table(x)
   David Meyer \email{David.Meyer@R-project.org}
 }
 \examples{
-data(SexualFun)
+data("SexualFun")
 mar_table(SexualFun)
 }
 \keyword{category}

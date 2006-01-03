@@ -63,10 +63,10 @@
 }
 
 \examples{
-data(SexualFun)
+data("SexualFun")
 agreementplot(t(SexualFun))
 
-data(MSPatients)
+data("MSPatients")
 get(getOption("device"))(width = 12)
 pushViewport(viewport(layout = grid.layout(ncol = 2)))
 pushViewport(viewport(layout.pos.col = 1))

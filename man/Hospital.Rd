@@ -8,7 +8,7 @@ long-term schizophrenic patients in two London mental hospitals with
 the freqency of visits.
 }
 \usage{
-data(Hospital)
+data("Hospital")
 }
 \format{
   A 2-dimensional array resulting from cross-tabulating 
@@ -41,7 +41,7 @@ than monthly" to the "Never" group, which are homogeneous.
 }
 
 \examples{
-data(Hospital)
+data("Hospital")
 
 mosaic(t(Hospital), shade = TRUE)
 mosaic(Hospital, shade = TRUE)

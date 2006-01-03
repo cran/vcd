@@ -96,7 +96,7 @@ fourfold(x,
   \code{\link{assoc}}
 }
 \examples{
-data(UCBAdmissions)
+data("UCBAdmissions")
 ## Use the Berkeley admission data as in Friendly (1995).
 x <- aperm(UCBAdmissions, c(2, 1, 3))
 dimnames(x)[[2]] <- c("Yes", "No")

@@ -6,7 +6,7 @@
   Data from Mersey (1912) about the 18 (out of 20) lifeboats launched
   before the sinking of the S. S. Titanic.
 }
-\usage{data(Lifeboats)}
+\usage{data("Lifeboats")}
 \format{
   A data frame with 18 observations and 8 variables.
   \describe{
@@ -37,7 +37,7 @@
 }
 
 \examples{
-data(Lifeboats)
+data("Lifeboats")
 attach(Lifeboats)
 ternaryplot(
   Lifeboats[,4:6],

@@ -7,7 +7,7 @@
   pre- and extra-marital sex and divorce.
 }
 \usage{
-data(PreSex)
+data("PreSex")
 }
 \format{
   A 4-dimensional array resulting from cross-tabulating 1036
@@ -45,7 +45,7 @@ data(PreSex)
 }
 
 \examples{
-data(PreSex)
+data("PreSex")
 
 ## Mosaic display for Gender and Premarital Sexual Experience
 ## (Gender Pre)

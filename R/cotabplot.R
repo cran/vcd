@@ -92,83 +92,85 @@ cotabplot.default <- function(x, cond = NULL,
   if(cond.n < 1) panel(x, NULL) ## no conditioning variables
   else {
   
-  cond.nlevels <- sapply(cond.dnam, length)
-  nplots <- prod(cond.nlevels)
-  condition <- as.matrix(expand.grid(cond.dnam))
+    cond.nlevels <- sapply(cond.dnam, length)
+    nplots <- prod(cond.nlevels)
+    condition <- as.matrix(expand.grid(cond.dnam))
 
-  ## compute layout
-  #Z# needs fixing for more than two conditioning variables
-  layout <- c(1,1,1) ## rows, cols, pages
-  if(cond.n == 1) {
-    layout[2] <- ceiling(sqrt(floor(cond.nlevels)))
-    layout[1] <- ceiling(cond.nlevels/layout[2])
-    layout <- expand.grid(lapply(layout, function(x) 1:x))[1:nplots,]
-  }
-  else {
-    layout[1] <- cond.nlevels[1]
-    layout[2] <- cond.nlevels[2]
-    if(cond.n >= 3) layout[3] <- nplots/prod(cond.nlevels[1:2]) #Z# FIXME
-    if(layout[3] > 1) stop("multiple pages not supported yet")
-    layout <- expand.grid(lapply(layout, function(x) 1:x))
-  }
+    ## compute layout
+                                        #Z# needs fixing for more than two conditioning variables
+    layout <- c(1,1,1) ## rows, cols, pages
+    if(cond.n == 1) {
+      layout[2] <- ceiling(sqrt(floor(cond.nlevels)))
+      layout[1] <- ceiling(cond.nlevels/layout[2])
+      layout <- expand.grid(lapply(layout, function(x) 1:x))[1:nplots,]
+    } else {
+      layout[1] <- cond.nlevels[1]
+      layout[2] <- cond.nlevels[2]
+      if(cond.n >= 3) layout[3] <- nplots/prod(cond.nlevels[1:2]) #Z# FIXME
+      if(layout[3] > 1) stop("multiple pages not supported yet")
+      layout <- expand.grid(lapply(layout, function(x) 1:x))
+    }
 
-  ## push basic grid of nr x nc cells
-  nr <- max(layout[,1])
-  nc <- max(layout[,2])
-  pushViewport(plotViewport(margins))
-  pushViewport(viewport(layout = grid.layout(nr, nc, widths = unit(1/nc, "npc"))))
+    ## push basic grid of nr x nc cells
+    nr <- max(layout[,1])
+    nc <- max(layout[,2])
+    pushViewport(plotViewport(margins))
+    pushViewport(viewport(layout = grid.layout(nr, nc, widths = unit(1/nc, "npc"))))
 
-  strUnit <- unit(2 * ncol(condition), "strheight", "A")
-  cellport <- function(name) viewport(layout = grid.layout(2, 1,
-        heights = unit.c(strUnit, unit(1, "npc") - strUnit)),
-	name = name)
+    strUnit <- unit(2 * ncol(condition), "strheight", "A")
+    cellport <- function(name) viewport(layout = grid.layout(2, 1,
+                                          heights = unit.c(strUnit, unit(1, "npc") - strUnit)),
+                                        name = name)
 
-  ## go through each conditioning combination
-  for(i in 1:nrow(condition)) {
+    ## go through each conditioning combination
+    for(i in 1:nrow(condition)) {
 
-    ## conditioning information in ith cycle
-    condi <- as.vector(condition[i,])
-    names(condi) <- colnames(condition)
-    condistr <- paste(condi, collapse = ".")
-    condilab <- paste(cond.char, condi, sep = " = ")
+      ## conditioning information in ith cycle
+      condi <- as.vector(condition[i,])
+      names(condi) <- colnames(condition)
+      condistr <- paste(condi, collapse = ".")
+      condilab <- paste(cond.char, condi, sep = " = ")
 
-    ## header
-    pushViewport(viewport(layout.pos.row = layout[i,1], layout.pos.col = layout[i,2]))
-    pushViewport(cellport(paste("cell", condistr, sep = ".")))
-    pushViewport(viewport(layout.pos.row = 1, name = paste("lab", condistr, sep = ".")))
-    grid.rect(gp = rect_gp)
-    grid.text(condilab, y = cond.n:1/cond.n - 1/(2*cond.n), gp = text_gp)
-    grid.segments(0, 0:cond.n/cond.n, 1, 0:cond.n/cond.n)
-    upViewport()
+      ## header
+      pushViewport(viewport(layout.pos.row = layout[i,1], layout.pos.col = layout[i,2]))
+      pushViewport(cellport(paste("cell", condistr, sep = ".")))
+      pushViewport(viewport(layout.pos.row = 1, name = paste("lab", condistr, sep = ".")))
+      grid.rect(gp = rect_gp)
+      grid.text(condilab, y = cond.n:1/cond.n - 1/(2*cond.n), gp = text_gp)
+      grid.segments(0, 0:cond.n/cond.n, 1, 0:cond.n/cond.n)
+      upViewport()
 
-    ## main plot
-    pushViewport(viewport(layout.pos.row = 2, name = paste("plot", condistr, sep = ".")))
-    panel(x, condi)
-    upViewport(2)
-    grid.rect(gp = gpar(fill = "transparent"))
-    upViewport()
-  }
+      ## main plot
+      pushViewport(viewport(layout.pos.row = 2, name = paste("plot", condistr, sep = ".")))
+      panel(x, condi)
+      upViewport(2)
+      grid.rect(gp = gpar(fill = "transparent"))
+      upViewport()
+    }
+    
   upViewport()
   if(pop) popViewport() else upViewport()
-  }
+}
 
   invisible(x)
 }
 
 cotab_mosaic <- function(x = NULL, condvars = NULL, ...) {
   function(x, condlevels) {
-    if(is.null(condlevels)) mosaic(x, newpage = FALSE, pop = TRUE, ...)
+    if(is.null(condlevels)) mosaic(x, newpage = FALSE, pop = FALSE, ...)
       else mosaic(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
-                  newpage = FALSE, pop = TRUE, ...)
+                  newpage = FALSE, pop = FALSE,
+                  prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
   }
 }
 class(cotab_mosaic) <- "grapcon_generator"
 
 cotab_sieve <- function(x = NULL, condvars = NULL, ...) {
   function(x, condlevels) {
-    if(is.null(condlevels)) sieve(x, newpage = FALSE, pop = TRUE, ...)
+    if(is.null(condlevels)) sieve(x, newpage = FALSE, pop = FALSE, ...)
       else sieve(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
-                 newpage = FALSE, pop = TRUE, ...)
+                 newpage = FALSE, pop = FALSE,
+                 prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
   }
 }
 class(cotab_sieve) <- "grapcon_generator"
@@ -180,9 +182,10 @@ cotab_assoc <- function(x = NULL, condvars = NULL, ylim = NULL, ...) {
   }
   
   function(x, condlevels) {
-    if(is.null(condlevels)) assoc(x, newpage = FALSE, pop = TRUE, ylim = ylim, ...)
+    if(is.null(condlevels)) assoc(x, newpage = FALSE, pop = FALSE, ylim = ylim, ...)
       else assoc(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
-                  newpage = FALSE, pop = TRUE, ylim = ylim, ...)
+                  newpage = FALSE, pop = FALSE, ylim = ylim,
+                 prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
   }
 }
 class(cotab_assoc) <- "grapcon_generator"
@@ -199,7 +202,8 @@ cotab_fourfold <- function (x = NULL, condvars = NULL, ...) {
 class(cotab_fourfold) <- "grapcon_generator"
 
 cotab_coindep <- function(x, condvars,
-  test = c("max", "Chisq"), level = NULL, n = 1000,
+  test = c("doublemax", "maxchisq", "sumchisq"),
+  level = NULL, n = 1000, interpolate = c(2, 4),
   h = NULL, c = NULL, l = NULL, lty = 1,
   type = c("mosaic", "assoc"),
   legend = FALSE, ylim = NULL, ...)
@@ -232,7 +236,8 @@ cotab_coindep <- function(x, condvars,
   cond.char <- names(cond.dnam) 	
 
   test <- match.arg(test)
-  if(test == "max") {
+  switch(test,
+  "doublemax" = {
     if(is.null(level)) level <- c(0.9, 0.99)
     fm <- coindep_test(x, cond.num, n = n)
     resids <- residuals(fm)
@@ -240,51 +245,55 @@ cotab_coindep <- function(x, condvars,
     col.bins <- fm$qdist(sort(level))
     gpfun <- shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
       h = h, c = c, l = l, interpolate = col.bins, lty = lty, p.value = fm$p.value)
-  } else {
+  },
+  "maxchisq" = {
     if(is.null(level)) level <- 0.95
     level <- level[1]
-    
-    indep.formula <- as.formula(paste("~ (",
-                                      paste(ind.char, collapse = " + "),
-	    			      ") * ",
-				      paste(cond.char, collapse = " * "),
-				      sep = ""))
-    fm <- loglm(indep.formula, data = x, fitted = TRUE)
-    resids <- residuals(fm, type = "pearson")
-    
-    gpfun <- shading_hcl(x, fitted(fm), resids, fm$df,
-      h = h, c = c, l = l, lty = lty)
-  }
+    fm <- coindep_test(x, cond.num, n = n, indepfun = function(x) sum(x^2))
+    resids <- residuals(fm)
 
-  ## if "maxChisq" should be implemented, use something
-  ## along the lines of
-  ## mosaiclist <- list()
-  ## 
-  ## rval <- function(x, indep, cond)
-  ##   mosaiclist[[ ... ]](co_table(margin.table(x, c(indep, cond)), cond)[[ ... ]])
+    chisqs <- sapply(co_table(residuals(fm), fm$margin), function(x) sum(x^2))
+    pvals <- 1 - fm$pdist(chisqs)        
+    gpfun <- sapply(pvals, function(p)
+      shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
+      h = h, c = c, l = l, interpolate = interpolate, lty = lty, level = level, p.value = p))
+  },
+  "sumchisq" = {
+    if(is.null(level)) level <- 0.95
+    level <- level[1]
+    fm <- coindep_test(x, cond.num, n = n, indepfun = function(x) sum(x^2), aggfun = sum)
+    resids <- residuals(fm)
+    
+    gpfun <- shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
+      h = h, c = c, l = l, interpolate = interpolate, lty = lty, level = level, p.value = fm$p.value)
+  })
 
   type <- match.arg(type)
   if(type == "mosaic") {
     rval <- function(x, condlevels) {
-    if(is.null(condlevels))
-      mosaic(x, newpage = FALSE, pop = TRUE,
-             gp = gpfun, legend = legend, ...)
-    else
-      mosaic(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
-             newpage = FALSE, pop = TRUE,
-	     gp = gpfun, legend = legend, ...)
+      if(is.null(condlevels)) {
+        tab <- x
+        gp <- if(is.list(gpfun)) gpfun[[1]] else gpfun
+      } else {
+        tab <- co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]]
+        gp <- if(is.list(gpfun)) gpfun[[paste(condlevels, collapse = ".")]] else gpfun
+      }
+      mosaic(tab, newpage = FALSE, pop = FALSE, gp = gp, legend = legend,
+             prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
     }
   } else {
     if(is.null(ylim)) ylim <- range(resids)
 
     rval <- function(x, condlevels) {
-    if(is.null(condlevels))
-      assoc(x, newpage = FALSE, pop = TRUE,
-             gp = gpfun, legend = legend, ylim = ylim, ...)
-    else
-      assoc(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
-             newpage = FALSE, pop = TRUE,
-	     gp = gpfun, legend = legend, ylim = ylim, ...)
+      if(is.null(condlevels)) {
+        tab <- x
+        gp <- if(is.list(gpfun)) gpfun[[1]] else gpfun
+      } else {
+        tab <- co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]]
+        gp <- if(is.list(gpfun)) gpfun[[paste(condlevels, collapse = ".")]] else gpfun
+      }
+      assoc(tab, newpage = FALSE, pop = FALSE, gp = gp, legend = legend, ylim = ylim,
+            prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
     }
   }
 
@@ -292,23 +301,3 @@ cotab_coindep <- function(x, condvars,
 }
 class(cotab_coindep) <- "grapcon_generator"
 
-
-## Examples:
-## these work (although they are not very meaningful)
-## 
-## cotabplot(~ Class + Survived | Age + Sex, data = Titanic)
-## cotabplot(Titanic)
-## cotabplot(Titanic, panel = cotab_assoc)
-
-## here are some bugs in legends function
-## 
-## cotabplot(Titanic, shade = TRUE)
-## cotabplot(Titanic, shade = TRUE, legend = FALSE)
-
-## further illustrations (legends need to be switched on, see above)
-## 
-## cotabplot(~ Gender + Admit | Dept, data = UCBAdmissions)
-## cotabplot(~ Gender + Admit | Dept, data = UCBAdmissions,
-##   panel = cotab_coindep, legend = TRUE)
-## cotabplot(~ Gender + Admit | Dept, data = UCBAdmissions,
-##   panel = cotab_coindep, legend = TRUE, type = "assoc")

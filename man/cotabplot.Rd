@@ -106,7 +106,7 @@ cotabplot(x, \dots)
   Achim Zeileis \email{Achim.Zeileis@R-project.org}
 }
 \examples{
-data(UCBAdmissions)
+data("UCBAdmissions")
 
 cotabplot(~ Admit + Gender | Dept, data = UCBAdmissions)
 cotabplot(~ Admit + Gender | Dept, data = UCBAdmissions, panel = cotab_assoc)

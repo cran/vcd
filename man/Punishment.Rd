@@ -8,7 +8,7 @@
   of children.
 }
 \usage{
-data(Punishment)
+data("Punishment")
 }
 \format{
   A data frame with 36 observations and 5 variables.
@@ -35,8 +35,13 @@ data(Punishment)
   The Statistical Analysis of Categorical Data, page 208.
 }
 \examples{
-data(Punishment)
-structable(~ ., data = Punishment)
+data("Punishment", package = "vcd")
+pun <- xtabs(Freq ~ memory + attitude + age + education, data = Punishment)
+
+## model: ~ (memory + attitude) * age * education
+## use maximum sum-of-squares test/shading
+cotabplot(~ memory + attitude | age + education, data = pun, panel = cotab_coindep,
+  n = 5000, type = "assoc", test = "maxchisq", interpolate = 1:2)
 }
 
 \keyword{datasets}

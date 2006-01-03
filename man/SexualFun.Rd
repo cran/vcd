@@ -9,7 +9,7 @@
   very often, (d) almost always.
 }
 \usage{
-data(SexualFun)
+data("SexualFun")
 }
 \format{
   A 2-dimensional array resulting from cross-tabulating the ratings of
@@ -43,7 +43,7 @@ data(SexualFun)
 }
 
 \examples{
-data(SexualFun)
+data("SexualFun")
 
 ## Kappa statistics
 Kappa(SexualFun)

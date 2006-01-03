@@ -70,14 +70,14 @@ rootogram(observed, fitted1)
 rootogram(observed, fitted2)
 
 ## Real data examples:
-data(HorseKicks)
+data("HorseKicks")
 HK.fit <- goodfit(HorseKicks)
 summary(HK.fit)
 plot(HK.fit)
 ## or equivalently
 rootogram(HK.fit)
 
-data(Federalist)
+data("Federalist")
 F.fit <- goodfit(Federalist, type = "nbinomial")
 summary(F.fit)
 plot(F.fit)

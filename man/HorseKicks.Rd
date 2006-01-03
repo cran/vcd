@@ -10,7 +10,7 @@
   popular subset of the \code{\link{VonBort}} data.
 }
 \usage{
-data(HorseKicks)
+data("HorseKicks")
 }
 \format{
   A 1-way table giving the number of deaths in 200 corps-years.  The
@@ -48,7 +48,7 @@ data(HorseKicks)
   \code{\link{VonBort}}
 }
 \examples{
-data(HorseKicks)
+data("HorseKicks")
 gf <- goodfit(HorseKicks)
 summary(gf)
 plot(gf)

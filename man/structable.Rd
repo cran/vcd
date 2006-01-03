@@ -5,6 +5,10 @@
 \alias{Extract.structable}
 \alias{t.structable}
 \alias{is.structable}
+\alias{cbind.structable}
+\alias{rbind.structable}
+\alias{length.structable}
+\alias{is.na.structable}
 \alias{as.matrix.structable}
 \alias{as.vector.structable}
 \alias{dim.structable}
@@ -58,8 +62,12 @@ direction = NULL, split_vertical = NULL, \dots, subset, na.action)
   left-hand side should be left empty---the \code{Freq} column will be
   handled correctly.
 
-  \code{"structable"} objects can be subsetted using the \code{[[}
-  operator, using either level indices or names (see examples).
+  \code{"structable"} objects can be subsetted using the \code{[} and \code{[[}
+  operators, using either level indices or names (see
+  examples). The corresponsing replacement functions are available as well. In
+  addition, appropriate \code{\link{cbind}},
+  \code{\link{rbind}}, \code{\link{length}}, \code{\link{dim}}, and
+  \code{\link{is.na}} methods do exist. 
 }
 \value{
   An object of class \code{"structable"},
@@ -84,22 +92,41 @@ structable(Sex + Class ~ Survived + Age, data = Titanic)
 ## subsetting of structable objects
 (hec <- structable(aperm(HairEyeColor)))
 
-## subset _dimensions_ sequentially
+## The "[" operator treats structables as a block-matrix and selects parts of the matrix:
 hec[1]
 hec[2]
-hec["Male"]
-hec[c("Male","Brown")]
+hec[1,c(2,4)]
+hec["Male",c("Blue","Green")]
 
-## subset _rows_ and/or _columns_ sequentially
-hec["Male","Hazel"]
-hec[c("Male","Brown"),]
-hec[c("Male","Brown"),"Hazel"]
+## replacement funcion:
+tmp <- hec
+(tmp[1,2:3] <- tmp[2,c(1,4)])
+
+## In contrast, the "[[" operator treats structables as two-dimensional
+## lists. Indexing conditions on specified levels and thus reduces the dimensionality:
+
+## seek subtables conditioning on levels of the first dimension:
+hec[[1]]
+hec[[2]]
+
+## Seek subtable from the first two dimensions, given the level "Male"
+## of the first variable, and "Brown" from the second
+## (the following two commands are equivalent):
+hec[["Male"]][["Brown"]]
+hec[[c("Male","Brown")]]
+
+## Seeking subtables by conditioning on row and/or column variables:
+hec[["Male","Hazel"]]
+hec[[c("Male","Brown"),]]
+hec[[c("Male","Brown"),"Hazel"]]
 
 ## a few other operations
 t(hec)
 dim(hec)
 dimnames(hec)
 as.matrix(hec)
+length(hec)
+cbind(hec[,1],hec[,3])
 
 as.vector(hec) ## computed on the _multiway_ table
 as.vector(unclass(hec))

@@ -156,6 +156,8 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), \dots)
   \code{\link[grid]{grid.text}}
 }
 \examples{
+data("Titanic")
+
 mosaic(Titanic)
 mosaic(Titanic, labeling = labeling_left)
 labeling_left
@@ -166,37 +168,28 @@ labeling_cboxed
 mosaic(Titanic, labeling = labeling_lboxed)
 labeling_lboxed
 
-data(PreSex)
+data("PreSex")
 mosaic(~ PremaritalSex + ExtramaritalSex | Gender + MaritalStatus,
-       data = PreSex,
-       labeling = labeling_conditional)
+  data = PreSex, labeling = labeling_conditional)
 
 ## specification of vectorized arguments 
-mosaic(Titanic,
-       labeling_args = list(abbreviate = c(Survived = TRUE)))
+mosaic(Titanic, labeling_args = list(abbreviate = c(Survived = TRUE)))
 
-mosaic(Titanic,
-       labeling_args = list(clip = TRUE, boxes = TRUE,
-                            fill_boxes = c(Survived = "green", "red"))
-)
+mosaic(Titanic, labeling_args = list(clip = TRUE, boxes = TRUE,
+  fill_boxes = c(Survived = "green", "red")))
 
-mosaic(Titanic,
-       labeling_args = list(clip = TRUE, boxes = TRUE,
-                            fill_boxes = list(Sex = "red", "green"))
-)
+mosaic(Titanic, labeling_args = list(clip = TRUE, boxes = TRUE,
+  fill_boxes = list(Sex = "red", "green")))
 
-mosaic(Titanic,
-       labeling_args = list(clip = TRUE, boxes = TRUE,
-                            fill_boxes = list(Sex = c(Male = "red", "blue"), "green"))
-)
+mosaic(Titanic, labeling_args = list(clip = TRUE, boxes = TRUE,
+  fill_boxes = list(Sex = c(Male = "red", "blue"), "green")))
 
 ## change variable names
 mosaic(Titanic, labeling_args = list(set_varnames = c(Sex = "Gender")))
 
 ## change labels
 mosaic(Titanic, labeling_args = list(set_varnames = c(Survived = "Status"),
-       set_labels = list(Survived = c("Survived", "Not Survived")), rep = FALSE))
-
+  set_labels = list(Survived = c("Survived", "Not Survived")), rep = FALSE))
 }
 \keyword{hplot}
 

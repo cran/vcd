@@ -17,7 +17,7 @@ strucplot(x, residuals = NULL, expected = NULL,
   main = NULL, sub = NULL, margins = unit(2.5, "lines"),
   title_margins = NULL, legend_width = NULL,
   main_gp = gpar(fontsize = 20), sub_gp = gpar(fontsize = 15),
-  newpage = TRUE, pop = TRUE, keep_aspect_ratio = TRUE, \dots)
+  newpage = TRUE, pop = TRUE, keep_aspect_ratio = NULL, prefix = "", \dots)
 }
 \arguments{
   \item{x}{a contingency table in array form, with optional category
@@ -31,7 +31,7 @@ strucplot(x, residuals = NULL, expected = NULL,
     expected to be ordered first in the table.
     This information is used for computing the expected values, and is
     also passed to the spacing functions (see \code{\link{spacings}}).}
-  \item{shade}{logical specifying whether gp should be used or not
+  \item{shade}{logical specifying whether \code{gp} should be used or not
     (see \code{gp}). If \code{TRUE} and \code{expected} is unspecified,
     a default model is fitted: if \code{condvars} is specified, a
     corresponding conditional independence model, and else the total
@@ -114,7 +114,10 @@ strucplot(x, residuals = NULL, expected = NULL,
   \item{newpage}{logical indicating whether a new page should be created
     for the plot or not.}
   \item{keep_aspect_ratio}{logical indicating whether the aspect ratio should be
-    fixed or not.}
+    fixed or not. If unspecified, the default is \code{TRUE} for
+    two-dimensional tables and \code{FALSE} otherwise.}
+  \item{prefix}{optional character string used as a prefix for the
+    generated viewport and grob names.}
   \item{\dots}{For convenience, list of arguments passed to the
     labeling-generating function, if specified.}
 }
@@ -194,6 +197,8 @@ strucplot(x, residuals = NULL, expected = NULL,
   \code{\link{spacings}}
 }
 \examples{
+data("Titanic")
+
 strucplot(Titanic)
 strucplot(Titanic, core = struc_assoc)
 strucplot(Titanic, spacing = spacing_increase,

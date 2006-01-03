@@ -69,7 +69,7 @@
   \item{spacing}{spacing object, spacing function, or corresponding
     generating function (see \code{\link{strucplot}} for more
     information).
-    The default is \code{spacing_equal} if \code{x} has two dimensions,
+    The default is no spacing at all if \code{x} has two dimensions,
     and  \code{spacing_increase} for more dimensions.}
   \item{spacing_args}{list of arguments for the generating function, if
     specified (see \code{\link{strucplot}} for more information).}
@@ -93,6 +93,8 @@
 \value{
   The \code{"structable"} visualized is returned invisibly.
 }
+\note{To be faithful to the original definition by Riedwyl & Schüpbach,
+   the default is to have no spacing between the tiles for two-way tables.}
 \references{
   H. Riedwyl & M. Schüpbach (1994),
   Parquet diagram to plot contingency tables.
@@ -115,7 +117,7 @@
   \code{\link{doubledecker}}
 }
 \examples{
-data(HairEyeColor)
+data("HairEyeColor")
 
 ## aggregate over 'sex':
 (tab <- margin.table(HairEyeColor, c(2,1)))
@@ -130,7 +132,7 @@ sieve(tab, shade = TRUE)
 sieve(HairEyeColor, shade = TRUE)
 
 ## an example for the formula interface:
-data(VisualAcuity)
+data("VisualAcuity")
 sieve(Freq ~ right + left,  data = VisualAcuity)
 
 ## example with observed values in the cells:

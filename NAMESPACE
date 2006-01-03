@@ -1,3 +1,5 @@
+importFrom("utils","head","tail")
+
 export(
 ## generic functions
        "agreementplot",
@@ -42,7 +44,7 @@ export(
        "shading_hsv",
        "shading_max",
        "shading_Friendly",
-       "shading_Friendly2",
+       "shading_sieve",
 
 # core functions
        "struc_mosaic",
@@ -53,6 +55,9 @@ export(
        "rainbow_hcl",
        "diverge_hcl",
        "diverge_hsv",
+       "heat_hcl",
+       "terrain_hcl",
+       "sequential_hcl",
        
 ## panel functions
        "pairs_barplot",
@@ -90,6 +95,18 @@ import(MASS)
 import(stats)
 
 S3method("[", "structable")
+S3method("[[", "structable")
+S3method("[<-", "structable")
+S3method("[[<-", "structable")
+## We cannot do the following:
+## S3method("rbind", "structable")
+## S3method("cbind", "structable")
+## Instead, we have to use:
+export("rbind.structable")
+export("cbind.structable")
+
+S3method("is.na", "structable")
+S3method("length", "structable")
 S3method("as.table", "structable")
 S3method("as.matrix", "structable")
 S3method("as.vector", "structable")

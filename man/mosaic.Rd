@@ -9,8 +9,12 @@
 \usage{
 \method{mosaic}{default}(x, condvars = NULL,
   split_vertical = NULL, direction = NULL, spacing = NULL,
-  spacing_args = list(), zero_size = 0.5, main = NULL, sub = NULL, \dots)
-\method{mosaic}{formula}(formula, data, \dots, main = NULL, sub = NULL, subset = NULL)
+  spacing_args = list(), gp = NULL, expected = NULL, shade = NULL,
+  highlighting = NULL, highlighting_fill = grey.colors, highlighting_direction = NULL,
+  zero_size = 0.5, zero_split = FALSE, zero_shade = NULL,
+  zero_gp = gpar(col = 0), main = NULL, sub = NULL, \dots)
+\method{mosaic}{formula}(formula, data, highlighting = NULL,
+  \dots, main = NULL, sub = NULL, subset = NULL, na.action = NULL)
 }
 \arguments{
   \item{x}{a contingency table in array form, with optional category
@@ -22,13 +26,27 @@
   \item{formula}{a formula specifying the variables used to create a 
     contingency table from \code{data}.  For convenience, conditioning
     formulas can be specified; the conditioning variables will then be
-    used first for splitting.  Formulas for mosaic displays (unlike
-    those for doubledecker plots) have no response variable.}
+    used first for splitting. If any, a specified response variable will be
+    highlighted in the cells.}
   \item{data}{either a data frame, or an object of class \code{"table"}
     or \code{"ftable"}.}
   \item{subset}{an optional vector specifying a subset of observations to be used.}
+  \item{na.action}{a function which indicates what should happen when
+    the data contain \code{NA}s. Ignored if \code{data} is a contingency table.}
   \item{zero_size}{size of the bullets used for zero entries (if 0, no
     bullets are drawn).}
+  \item{zero_split}{logical controlling whether zero cells should be
+    further splitted. If \code{FALSE} and \code{zero_shade} is
+    \code{FALSE}, only one bullet is drawn (centered) for unsplitted
+    zero cells. If \code{FALSE} and \code{zero_shade} is
+    \code{TRUE}, a bullet for each zero cell is drawn to allow, e.g.,
+    residual-based shadings to be effective also for zero cells.}
+  \item{zero_shade}{logical controlling whether zero bullets should be
+    shaded. The default is \code{TRUE} if \code{shade} is \code{TRUE}
+    or \code{expected} is not null or \code{gp} is not null, and
+   \code{FALSE} otherwise.}
+  \item{zero_gp}{object of class \code{"gpar"} used
+    for zero bullets in case they are \emph{not} shaded.}
   \item{split_vertical}{vector of logicals of length \eqn{k}, where \eqn{k}
     is the number of margins of \code{x} (default: \code{FALSE}).
     Values are recycled as needed. 
@@ -47,6 +65,28 @@
     and  \code{spacing_increase} for more dimensions.}
   \item{spacing_args}{list of arguments for the generating function, if
     specified (see \code{\link{strucplot}} for more information).}
+  \item{gp}{object of class \code{"gpar"}, shading function or a
+    corresponding generating function (see details and
+    \code{\link{shadings}}). Components of \code{"gpar"}
+    objects are recycled as needed along the last splitting dimension.
+    Ignored if \code{shade = FALSE}.}
+  \item{shade}{logical specifying whether \code{gp} should be used or not
+    (see \code{gp}). If \code{TRUE} and \code{expected} is unspecified,
+    a default model is fitted: if \code{condvars} (see
+    \code{\link{strucplot}}) is specified, a
+    corresponding conditional independence model, and else the total
+    independence model.}
+  \item{expected}{optionally, an array of expected values of the same dimension
+    as \code{x}, or alternatively the corresponding independence model specification
+    as used by \code{\link[stats]{loglin}} or \code{\link[MASS]{loglm}}
+    (see \code{\link{strucplot}}).}
+  \item{highlighting}{character vector or integer specifying a variable
+    to be highlighted in the cells.}
+  \item{highlighting_fill}{color vector or palette function
+    used for a highlighted variable, if any.}
+  \item{highlighting_direction}{Either \code{"left"}, \code{"right"},
+    \code{"top"}, or \code{"bottom"} specifying the direction of
+    highlighting in the cells.}
   \item{main, sub}{either a logical, or a character string used for plotting
     the main (sub) title.  If logical and \code{TRUE}, the
     name of the \code{data} object is used.}
@@ -121,14 +161,14 @@
   \code{\link{doubledecker}}
 }
 \examples{
-data(Titanic)
+data("Titanic")
 mosaic(Titanic)
 
 ## Formula interface for tabulated data plus shading and legend:
 mosaic(~ Sex + Age + Survived, data = Titanic,
   main = "Survival on the Titanic", shade = TRUE, legend = TRUE)
 
-data(HairEyeColor)
+data("HairEyeColor")
 mosaic(HairEyeColor, shade = TRUE)
 ## Independence model of hair and eye color and sex.  Indicates that
 ## there are significantly more blue eyed blond females than expected
@@ -142,12 +182,19 @@ mosaic(HairEyeColor, shade = TRUE, expected = list(c(1,2), 3))
 
 ## Formula interface for raw data: visualize crosstabulation of numbers
 ## of gears and carburettors in Motor Trend car data.
-data(mtcars)
+data("mtcars")
 mosaic(~ gear + carb, data = mtcars, shade = TRUE)
 
-data(PreSex)
+data("PreSex")
 mosaic(PreSex, condvars = c(1,4))
 mosaic(~ ExtramaritalSex + PremaritalSex | MaritalStatus + Gender,
        data = PreSex)
+
+## Highlighting:
+mosaic(Survived ~ ., data = Titanic)
+
+data("Arthritis")
+mosaic(Improved ~ Treatment | Sex, data = Arthritis, zero_size = 0)
+mosaic(Improved ~ Treatment | Sex, data = Arthritis, zero_size = 0, highlighting_direction = "right")
 }
 \keyword{hplot}

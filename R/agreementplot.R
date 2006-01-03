@@ -154,7 +154,7 @@ function (formula, data = NULL, ..., subset)
   invisible(list(
                  Bangdiwala = ads / ar,
                  Bangdiwala_Weighted = (sum(weights * A)) /  ar,
-                 weights = weights,
+                 weights = weights
                  )
             )
 }

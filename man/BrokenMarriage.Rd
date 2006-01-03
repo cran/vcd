@@ -7,7 +7,7 @@
   relationships depending on gender and social rank.
 }
 \usage{
-data(BrokenMarriage)
+data("BrokenMarriage")
 }
 \format{
   A data frame with 20 observations and 4 variables.
@@ -30,7 +30,7 @@ data(BrokenMarriage)
   The Statistical Analysis of Categorical Data, page 177.
 }
 \examples{
-data(BrokenMarriage)
+data("BrokenMarriage")
 structable(~ ., data = BrokenMarriage)
 }
 

@@ -8,7 +8,7 @@
   Survey.
 }
 \usage{
-data(RepVict)
+data("RepVict")
 }
 \format{
   A 2-dimensional array resulting from cross-tabulating victimization.
@@ -45,7 +45,7 @@ data(RepVict)
   Visualizing Categorical Data, page 113.
 }
 \examples{
-data(RepVict)
+data("RepVict")
 
 mosaic(RepVict[-c(4,7),-c(4,7)], gp = shading_max,
        main = "Repeat Victimization Data")

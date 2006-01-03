@@ -31,7 +31,7 @@ assocstats(x)
   David Meyer \email{David.Meyer@R-project.org}
 }
 \examples{
-data(Arthritis)
+data("Arthritis")
 tab <- xtabs(~Improved + Treatment, data = Arthritis)
 summary(assocstats(tab))
 }

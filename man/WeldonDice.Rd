@@ -8,7 +8,7 @@
   in a letter to Francis Galton on 1894-02-02.
 }
 \usage{
-data(WeldonDice)
+data("WeldonDice")
 }
 \format{
   A 1-way table giving the frequency of a 5 or a 6 in 26,306 throws of
@@ -39,7 +39,7 @@ data(WeldonDice)
 }
 
 \examples{
-data(WeldonDice)
+data("WeldonDice")
 gf <- goodfit(WeldonDice, type = "binomial")
 summary(gf)
 plot(gf)

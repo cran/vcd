@@ -8,7 +8,7 @@
   length 10 in a London Underground station.
 }
 \usage{
-data(WomenQueue)
+data("WomenQueue")
 }
 \format{
   A 1-way table giving the number of women in 100 queues of length
@@ -42,7 +42,7 @@ data(WomenQueue)
 }
 
 \examples{
-data(WomenQueue)
+data("WomenQueue")
 gf <- goodfit(WomenQueue, type = "binomial")
 summary(gf)
 plot(gf)

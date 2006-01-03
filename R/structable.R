@@ -162,34 +162,36 @@ structable.default <- function(..., direction = NULL, split_vertical = FALSE) {
   ret
 }
 
-"[.structable" <- function(x, ...) {
+"[[.structable" <- function(x, ...) {
   args <- if (nargs() < 3)
     list(..1)
   else
     list(..1, ..2)
-  
+
+  args <- lapply(args, function(x) if (is.logical(x)) which(x) else x)
+
   ## handle one-arg cases
   if (nargs() < 3)
     if (length(args[[1]]) > 1)
-      ## resolve calls like x[c(1,2)]
-      return(x[ args[[1]][1] ] [ args[[1]][-1] ])
+      ## resolve calls like x[[c(1,2)]]
+      return(x[[ args[[1]][1] ]] [[ args[[1]][-1] ]])
     else
-      ## resolve x[foo] 
-      return(if (attr(x, "split_vertical")[1]) x[,args[[1]] ] else x[args[[1]],])
+      ## resolve x[[foo]] 
+      return(if (attr(x, "split_vertical")[1]) x[[,args[[1]] ]] else x[[args[[1]],]])
 
-  ## handle calls like x[c(1,2), c(3,4)]
+  ## handle calls like x[[c(1,2), c(3,4)]]
   if (length(args[[1]]) > 1 && length(args[[2]]) > 1)
-    return(x[ args[[1]][1], args[[2]][1] ] [ args[[1]][-1], args[[2]][-1] ])
+    return(x[[ args[[1]][1], args[[2]][1] ]] [[ args[[1]][-1], args[[2]][-1] ]])
   
-  ## handle calls like x[c(1,2), 3]
+  ## handle calls like x[[c(1,2), 3]]
   if (length(args[[1]]) > 1)
-    return(x[ args[[1]][1], args[[2]] ] [ args[[1]][-1], ])
+    return(x[[ args[[1]][1], args[[2]] ]] [[ args[[1]][-1], ]])
   
-  ## handle calls like x[1, c(1,3)]
+  ## handle calls like x[[1, c(1,3)]]
   if (length(args[[2]]) > 1)
-    return(x[ args[[1]], args[[2]][1] ] [ , args[[2]][-1] ])
+    return(x[[ args[[1]], args[[2]][1] ]] [[ , args[[2]][-1] ]])
 
-  ## final cases like x[1,2] or x[1,] or x[,1]
+  ## final cases like x[[1,2]] or x[[1,]] or x[[,1]]
   dnames <- attr(x, "dnames")
   split <- attr(x, "split_vertical")
   rv <- dnames[!split]
@@ -241,44 +243,178 @@ structable.default <- function(..., direction = NULL, split_vertical = FALSE) {
   ret
 }
 
-"[<-.structable" <- function(x, ..., value) {
+"[[<-.structable" <- function(x, ..., value) {
   args <- if (nargs() < 4)
     list(..1)
   else
     list(..1, ..2)
-  
+
   ## handle one-arg cases
   if (nargs() < 4)
     return(if (length(args[[1]]) > 1)
-               ## resolve calls like x[c(1,2)]
+               ## resolve calls like x[[c(1,2)]]<-value
                Recall(x, args[[1]][1],
-                      value = Recall(x[ args[[1]][1] ], args[[1]][-1], value = value))
+                      value = Recall(x[[ args[[1]][1] ]], args[[1]][-1], value = value))
            else
-               ## resolve x[foo] 
+               ## resolve x[[foo]]<-value 
                if (attr(x, "split_vertical")[1])
                    Recall(x,,args[[1]], value = value)
                else
                    Recall(x,args[[1]],, value = value)
            )
   
-  ## handle calls like x[c(1,2), c(3,4)]
+  ## handle calls like x[[c(1,2), c(3,4)]]<-value
   if (length(args[[1]]) > 1 && length(args[[2]]) > 1)
     return(Recall(x, args[[1]][1], args[[2]][1],
-                  value = Recall(x[ args[[1]][1], args[[2]][1] ],
+                  value = Recall(x[[ args[[1]][1], args[[2]][1] ]],
                     args[[1]][-1], args[[2]][-1], value = value)))
   
-  ## handle calls like x[c(1,2), 3]
+  ## handle calls like x[[c(1,2), 3]]<-value
   if (length(args[[1]]) > 1)
     return(Recall(x, args[[1]][1], args[[2]],
-                  value = Recall(x[ args[[1]][1], args[[2]] ],
+                  value = Recall(x[[ args[[1]][1], args[[2]] ]],
                     args[[1]][-1], ,value = value)))
   
-  ## handle calls like x[1, c(1,3)]
+  ## handle calls like x[[1, c(1,3)]]<-value
   if (length(args[[2]]) > 1)
     return(Recall(x, args[[1]], args[[2]][1],
-                  value = Recall(x[ args[[1]], args[[2]][1] ],,
+                  value = Recall(x[[ args[[1]], args[[2]][1] ]],,
                     args[[2]][-1], value = value)))
 
+  ## final cases like x[[1,2]]<-value or x[[1,]]<-value or x[[,1]]<-value
+  dnames <- attr(x, "dnames")
+  split <- attr(x, "split_vertical")
+  rv <- dnames[!split]
+  cv <- dnames[split]
+
+  lsym <- is.symbol(args[[1]])
+  rsym <- is.symbol(args[[2]])
+  if (!lsym) {
+    rstep <- dim(unclass(x))[1] / length(rv[[1]])
+    if (is.character(args[[1]]))
+      args[[1]] <- match(args[[1]], rv[[1]])
+  }
+  if (!rsym) {
+    cstep <- dim(unclass(x))[2] / length(cv[[1]])
+    if (is.character(args[[2]]))
+      args[[2]] <- match(args[[2]], cv[[1]])
+  }
+
+  lind <- if (!lsym)
+    (1 + (args[[1]] - 1) * rstep) : (args[[1]] * rstep)
+  else
+    1:nrow(unclass(x))
+  rind <- if (!rsym)
+    (1 + (args[[2]] - 1) * cstep) : (args[[2]] * cstep)
+  else
+    1:ncol(unclass(x))
+  ret <- unclass(x)
+
+  ret[lind, rind] <- value
+
+  class(ret) <- class(x)
+  ret
+}
+
+"[.structable" <- function(x, ...) {
+  args <- if (nargs() < 3)
+    list(..1)
+  else
+    list(..1, ..2)
+
+  args <- lapply(args, function(x) if (is.logical(x)) which(x) else x)
+
+  ## handle one-arg cases
+  if (nargs() < 3)
+    return(if (attr(x, "split_vertical")[1]) x[,args[[1]] ] else x[args[[1]],])
+
+  ## handle calls like x[c(1,2), foo]
+  if (length(args[[1]]) > 1)
+    return(do.call(rbind, lapply(args[[1]], function(i) x[i, args[[2]]])))
+  
+  ## handle calls like x[foo, c(1,3)]
+  if (length(args[[2]]) > 1)
+    return(do.call(cbind, lapply(args[[2]], function(i) x[args[[1]], i])))
+
+  ## final cases like x[1,2] or x[1,] or x[,1]
+  dnames <- attr(x, "dnames")
+  split <- attr(x, "split_vertical")
+  rv <- dnames[!split]
+  cv <- dnames[split]
+
+  lsym <- is.symbol(args[[1]])
+  rsym <- is.symbol(args[[2]])
+  if (!lsym) {
+    rstep <- dim(unclass(x))[1] / length(rv[[1]])
+    if (is.character(args[[1]]))
+      args[[1]] <- match(args[[1]], rv[[1]])
+  }
+  if (!rsym) {
+    cstep <- dim(unclass(x))[2] / length(cv[[1]])
+    if (is.character(args[[2]]))
+      args[[2]] <- match(args[[2]], cv[[1]])
+  }
+
+  lind <- if (!lsym)
+    (1 + (args[[1]] - 1) * rstep) : (args[[1]] * rstep)
+  else
+    1:nrow(unclass(x))
+  rind <- if (!rsym)
+    (1 + (args[[2]] - 1) * cstep) : (args[[2]] * cstep)
+  else
+    1:ncol(unclass(x))
+  ret <- unclass(x)[lind, rind, drop = FALSE]
+
+  if (!lsym) {
+    i <- which(!split)[1]
+    dnames[[i]] <- dnames[[i]][args[[1]]]
+  }
+    
+  if (!rsym) {
+    i <- which(split)[1]
+    dnames[[i]] <- dnames[[i]][args[[2]]]
+  }
+
+  attr(ret, "split_vertical") <- split
+  attr(ret, "dnames") <- dnames
+  
+  ## add dimension attributes in ftable-format
+  attr(ret, "col.vars") <- dnames[split]
+  attr(ret, "row.vars") <- dnames[!split]
+
+  class(ret) <- class(x)
+  ret
+}
+
+"[<-.structable" <- function(x, ..., value) {
+  args <- if (nargs() < 4)
+    list(..1)
+  else
+    list(..1, ..2)
+
+  ## handle one-arg cases
+  if (nargs() < 4)
+    return(## resolve x[foo] 
+           if (attr(x, "split_vertical")[1])
+             Recall(x,,args[[1]], value = value)
+           else
+             Recall(x,args[[1]],, value = value)
+           )
+  
+  ## handle calls like x[c(1,2), 3]
+  if (length(args[[1]]) > 1) {
+    for (i in seq(along = args[[1]]))
+      x[ args[[1]][i], args[[2]] ] <- value[i,]
+    return(x)
+  }
+    
+  ## handle calls like x[1, c(2,3)]
+  if (length(args[[2]]) > 1) {
+    for (i in seq(along = args[[2]]))
+      x[ args[[1]], args[[2]][i] ] <- value[,i]
+    return(x)
+  }
+    
   ## final cases like x[1,2] or x[1,] or x[,1]
   dnames <- attr(x, "dnames")
   split <- attr(x, "split_vertical")
@@ -312,6 +448,55 @@ structable.default <- function(..., direction = NULL, split_vertical = FALSE) {
 
   class(ret) <- class(x)
   ret
+}
+
+
+cbind.structable <- function(..., deparse.level = 1) {
+  mergetables <- function(t1, t2) {
+    ret <- cbind(unclass(t1),unclass(t2))
+    class(ret) <- class(t1)
+    attr(ret, "split_vertical") <- attr(t1, "split_vertical")
+    attr(ret, "dnames") <- attr(t1, "dnames")
+    attr(ret, "row.vars") <- attr(t1, "row.vars")
+    attr(ret, "col.vars") <- attr(t1, "col.vars")
+    attr(ret, "col.vars")[[1]] <- c(attr(t1, "col.vars")[[1]],attr(t2, "col.vars")[[1]])
+    if (length(unique(attr(ret, "col.vars")[[1]])) != length(attr(ret, "col.vars")[[1]]))
+      stop("Levels of factor(s) to be merged must be unique.")
+    attr(ret, "dnames")[names(attr(ret, "col.vars"))] <- attr(ret, "col.vars")
+    ret
+  }
+  args <- list(...)
+  if (length(args) < 2)
+    return(args[[1]])
+  ret <- mergetables(args[[1]], args[[2]])
+  if (length(args) > 2)
+    do.call(cbind, c(list(ret), args[-(1:2)]))
+  else
+    ret
+}
+
+rbind.structable <- function(..., deparse.level = 1) {
+  mergetables <- function(t1, t2) {
+    ret <- rbind(unclass(t1),unclass(t2))
+    class(ret) <- class(t1)
+    attr(ret, "split_vertical") <- attr(t1, "split_vertical")
+    attr(ret, "dnames") <- attr(t1, "dnames")
+    attr(ret, "row.vars") <- attr(t1, "row.vars")
+    attr(ret, "col.vars") <- attr(t1, "col.vars")
+    attr(ret, "row.vars")[[1]] <- c(attr(t1, "row.vars")[[1]],attr(t2, "row.vars")[[1]])
+    if (length(unique(attr(ret, "row.vars")[[1]])) != length(attr(ret, "row.vars")[[1]]))
+      stop("Levels of factor(s) to be merged must be unique.")
+    attr(ret, "dnames")[names(attr(ret, "row.vars"))] <- attr(ret, "row.vars")
+    ret
+  }
+  args <- list(...)
+  if (length(args) < 2)
+    return(args[[1]])
+  ret <- mergetables(args[[1]], args[[2]])
+  if (length(args) > 2)
+    do.call(rbind, c(list(ret), args[-(1:2)]))
+  else
+    ret
 }
 
 as.table.structable <- function(x, ...) {
@@ -349,3 +534,9 @@ as.vector.structable <- function(x, ...)
   as.vector(as.table(x), ...)
   
 as.matrix.structable <- function(x) matrix(as.vector(unclass(x)), ncol = attr(x, "dim")[2])
+
+length.structable <- function(x) dim(x)[1]
+
+is.na.structable <- function(x) sapply(seq(along = x), function(sub) any(is.na(sub)))
+
+

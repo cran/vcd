@@ -3,14 +3,14 @@
 
 spacing_equal <- function(sp = unit(0.5, "lines")) {
   if (!is.unit(sp)) sp <- unit(sp, "lines")
-  function(d, condvars = NULL) lapply(d, function(x) unit.rep(sp, x - 1))
+  function(d, condvars = NULL) lapply(d, function(x) rep(sp, x - 1))
 }
 class(spacing_equal) <- "grapcon_generator"
 
 spacing_dimequal <- function(sp) {
   if (!is.unit(sp)) sp <- unit(sp, "lines")
   function(d, condvars = NULL)
-    lapply(seq(along = d), function(i) unit.rep(sp[i], d[i] - 1))
+    lapply(seq(along = d), function(i) rep(sp[i], d[i] - 1))
 }
 class(spacing_dimequal) <- "grapcon_generator"
 
@@ -18,7 +18,7 @@ spacing_increase <- function(start = unit(0.3, "lines"), rate = 1.5) {
   if (!is.unit(start)) start <- unit(start, "lines")
   function(d, condvars = NULL) {
     sp <- start * rev(cumprod(c(1, rep.int(rate, length(d) - 1))))
-    lapply(seq(along = d), function(i) unit.rep(sp[i], d[i] - 1))
+    lapply(seq(along = d), function(i) rep(sp[i], d[i] - 1))
   }
 }
 class(spacing_increase) <- "grapcon_generator"

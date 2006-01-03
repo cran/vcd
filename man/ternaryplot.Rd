@@ -64,7 +64,7 @@ ternaryplot(x, scale = 1, dimnames = NULL,
 }
 
 \examples{
-data(Arthritis)
+data("Arthritis")
 
 ## Build table by crossing Treatment and Sex
 tab <- as.table(xtabs(~ I(Sex:Treatment) + Improved, data = Arthritis))
@@ -88,7 +88,7 @@ ternaryplot(
 grid_legend(0.8, 0.7, pch, col, rownames(tab), title = "GROUP")
 
 ## Titanic
-data(Lifeboats)
+data("Lifeboats")
 attach(Lifeboats)
 ternaryplot(
   Lifeboats[,4:6],
@@ -105,7 +105,7 @@ grid_legend(0.8, 0.9, c(1, 19),
 
 
 ## Hitters
-data(Hitters)
+data("Hitters")
 attach(Hitters)
 colors <- c("black","red","green","blue","red","black","blue")
 pch <- substr(levels(Positions), 1, 1)

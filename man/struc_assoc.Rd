@@ -79,9 +79,9 @@ struc_assoc(compress = TRUE, xlim = NULL, ylim = NULL,
   190--200.
   \url{http://www.math.yorku.ca/SCS/sugi/sugi17-paper.html}
 }
-\example{
+\examples{
 ## UCB Admissions
-data(UCBAdmissions)
+data("UCBAdmissions")
 ucb <- aperm(UCBAdmissions)
 
 ## association plot for conditional independence

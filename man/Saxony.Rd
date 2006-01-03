@@ -7,7 +7,7 @@
   on gender distributions in families in Saxony in the 19th century.
 }
 \usage{
-data(Saxony)
+data("Saxony")
 }
 \format{
   A 1-way table giving the number of male children in 6115 families of
@@ -36,7 +36,7 @@ data(Saxony)
   Visualizing Categorical Data, pages 40--42.
 }
 \examples{
-data(Saxony)
+data("Saxony")
 gf <- goodfit(Saxony, type = "binomial")
 summary(gf)
 plot(gf)

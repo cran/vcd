@@ -8,7 +8,7 @@
   by Tufte (1997).
 }
 \usage{
-data(SpaceShuttle)
+data("SpaceShuttle")
 }
 \format{
   A data frame with 24 observations and 6 variables.
@@ -44,7 +44,7 @@ data(SpaceShuttle)
   \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/orings.sas}
 }
 \examples{
-data(SpaceShuttle)
+data("SpaceShuttle")
 plot(nFailures/6 ~ Temperature, data = SpaceShuttle,
      xlim = c(30, 81), ylim = c(0,1),
      main = "NASA Space Shuttle O-Ring Failures",

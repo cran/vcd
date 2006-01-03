@@ -7,7 +7,7 @@
   2001/2.
 }
 \usage{
-data(Bundesliga)
+data("Bundesliga")
 }
 \format{A data frame with 612 observations and 6 variables.
   \describe{
@@ -37,7 +37,7 @@ data(Bundesliga)
   \code{\link{UKSoccer}}
 }
 \examples{
-data(Bundesliga)
+data("Bundesliga")
 
 ## independence of home and away goals
 tore95 <- xtabs(~ HomeGoals + AwayGoals, data = Bundesliga,

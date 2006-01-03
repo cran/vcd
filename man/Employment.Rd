@@ -9,7 +9,7 @@
   and the length of employment before they were laid off.
 }
 \usage{
-data(Employment)
+data("Employment")
 }
 \format{
   A 3-dimensional array resulting from cross-tabulating variables for
@@ -39,7 +39,7 @@ data(Employment)
 }
 
 \examples{
-data(Employment)
+data("Employment")
 
 ## Employment Status
 mosaic(Employment,

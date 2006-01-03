@@ -28,12 +28,12 @@ labeling_list <- function(gp = gpar(),
                           varnames = TRUE,
                           cols = 2,
                           ...) {
-  function(d, split_vertical, condvars) {
+  function(d, split_vertical, condvars, prefix = "") {
     if (is.table(d))
       d <- dimnames(d)
     ld <- length(d)
-    labeling_border(labels = FALSE, varnames = varnames)(d, split_vertical, condvars)
-    seekViewport("margin_bottom")
+    labeling_border(labels = FALSE, varnames = varnames)(d, split_vertical, condvars, prefix)
+    seekViewport(paste(prefix, "margin_bottom", sep = ""))
     pos <- unit(switch(pos, left = 0, center = 0.5, 1) / cols, "npc")
     ind <- split(seq(ld), rep.int(seq(cols), ceiling(ld / cols))[seq(ld)])
     
@@ -53,13 +53,13 @@ labeling_list <- function(gp = gpar(),
 class(labeling_list) <- "grapcon_generator"
 
 labeling_conditional <- function(...) {
-  function (d, split_vertical, condvars) {
+  function (d, split_vertical, condvars, prefix = "") {
     if (is.table(d))
       d <- dimnames(d)
     v <- rep.int(TRUE, length(d))
     v[seq(condvars)] <- FALSE
-    labeling_border(labels = !v, ...)(d, split_vertical, condvars)
-    labeling_cells(labels = v, ...)(d, split_vertical, condvars)
+    labeling_border(labels = !v, ...)(d, split_vertical, condvars, prefix)
+    labeling_cells(labels = v, ...)(d, split_vertical, condvars, prefix)
   }
 }
 class(labeling_conditional) <- "grapcon_generator"
@@ -70,7 +70,7 @@ labeling_cells <- function(labels = TRUE, varnames = TRUE,
                          just = "center", pos = "center", rot = 0,
                          margin = unit(0.5, "lines"), clip_cells = TRUE,
                          text = NULL, ...) {
-  function(d, split_vertical, condvars) {
+  function(d, split_vertical, condvars, prefix = "") {
     if (is.table(d))
       d <- dimnames(d)
     dn <- names(d)
@@ -99,7 +99,7 @@ labeling_cells <- function(labels = TRUE, varnames = TRUE,
       for (labind in seq(along = n)) {
         lab <- c(labs, n[labind])
         names(lab) <- names(d)[1:vind]
-        mlab <- paste("cell:", paste(dn[1:vind], lab, sep = "=", collapse = ","),
+        mlab <- paste(prefix, "cell:", paste(dn[1:vind], lab, sep = "=", collapse = ","),
                       sep = "")
 
         if (vind < ld)
@@ -153,7 +153,7 @@ labeling_border <- function(labels = TRUE, varnames = labels,
                             abbreviate = FALSE, rep = TRUE,
                             clip = FALSE, ...
                             ) {
-  function(d, split_vertical, condvars) {
+  function(d, split_vertical, condvars, prefix = "") {
     if (is.table(d))
       d <- dimnames(d)
     dn <- names(d)
@@ -169,12 +169,12 @@ labeling_border <- function(labels = TRUE, varnames = labels,
       unit(pexpand(offset_varnames, 4,
                    rep.int(0, 4), c("top","right","bottom","left")), "lines")
     else
-      unit.rep(offset_varnames, length.out = 4)
+      rep(offset_varnames, length.out = 4)
     offset_labels <- if (!is.unit(offset_labels))
       unit(pexpand(offset_labels, 4,
                    rep.int(0, 4), c("top","right","bottom","left")), "lines")
     else
-      unit.rep(offset_labels, length.out = 4)
+      rep(offset_labels, length.out = 4)
 
     ## tl_labels
     def <- logical()
@@ -378,7 +378,7 @@ labeling_border <- function(labels = TRUE, varnames = labels,
     }
 
     ## draw labels
-    split <- function(vind = 1, root = "cell:",
+    split <- function(vind = 1, root = paste(prefix, "cell:", sep = ""),
                       left = TRUE, right = TRUE, top = TRUE, bottom = TRUE) {
       n <- d[[vind]]
       vl <- length(n)
@@ -508,7 +508,7 @@ class(labeling_border) <- "grapcon_generator"
 
 labeling_doubledecker <- function(lab_pos = c("bottom", "top"), ...) {
   lab_pos <- match.arg(lab_pos)
-  function(d, split_vertical, condvars) {
+  function(d, split_vertical, condvars, prefix = "") {
     if (is.table(d))
       d <- dimnames(d)
     labeling_border(boxes = c(rep.int(TRUE, length(d) - 1), FALSE),
@@ -520,8 +520,8 @@ labeling_doubledecker <- function(lab_pos = c("bottom", "top"), ...) {
                   varnames = c(c(rep.int(TRUE, length(d) - 1), FALSE)),
                   offset_varnames = c(0, -0.6, 0, 0),
                   tl_labels = c(rep.int(lab_pos== "top", length(d) - 1), FALSE)
-                  )(d, split_vertical, condvars)
-    seekViewport("margin_right")
+                  )(d, split_vertical, condvars, prefix)
+    seekViewport(paste(prefix, "margin_right", sep = ""))
     grid.text(names(d)[length(d)],
               x = unit(0.5, "lines"), y = unit(1, "npc"), just = c("left","top"),
               gp = gpar(fontface = 2))

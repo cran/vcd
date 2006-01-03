@@ -8,7 +8,7 @@
   wheeze, in a large sample of coal miners.
 }
 \usage{
-data(CoalMiners)
+data("CoalMiners")
 }
 \format{
   A 3-dimensional array resulting from cross-tabulating variables for
@@ -42,7 +42,7 @@ data(CoalMiners)
 }
 
 \examples{
-data(CoalMiners)
+data("CoalMiners")
 
 ## Fourfold display, both margins equated
 fourfold(CoalMiners, mfcol = c(2,4))

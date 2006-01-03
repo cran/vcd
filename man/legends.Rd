@@ -73,6 +73,8 @@ legend_fixed(fontsize = 12, x = unit(1, "lines"), y = NULL,
 }
 
 \examples{
+data("Titanic")
+
 mosaic(Titanic, shade = TRUE, legend = legend_resbased)
 mosaic(Titanic, shade = TRUE, legend = legend_fixed, gp = shading_Friendly)
 }

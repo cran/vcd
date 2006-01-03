@@ -8,7 +8,7 @@
   army.
 }
 \usage{
-data(VonBort)
+data("VonBort")
 }
 \format{
   A data frame with 280 observations and 4 variables.
@@ -48,7 +48,7 @@ data(VonBort)
   \code{\link{HorseKicks}} for a popular subsample.
 }
 \examples{
-data(VonBort)
+data("VonBort")
 ## HorseKicks data
 xtabs(~ deaths, data = VonBort, subset = fisher == "yes")
 }

@@ -352,19 +352,29 @@ doubledecker(Survived ~ Class + Sex + Age, data = Titanic)
 
 \section{Conditional and partial views}
 
-So far, we have visualized full tables. For objects of class \class{table},
-conditioning on levels (i.e., choosing a table subset for fixed levels
-of the conditioning variable(s)) is simply done by indexing.
-However, subsetting \code{"structable"} objects is more restrictive 
-because of their inherent conditional structure. Since the variables
+So far, we have visualized full tables. Subtables can be selected in a
+similar way than for objects of class \class{table} using
+indexing. Note, however, that subsetting of \class{structable} objects 
+is more restrictive because of their inherent conditional structure. Since the variables
 on both the row and the columns side are nested, 
-conditioning is only possible ``outside-in'':
+subsetting is only possible ``outside-in'', that is, indexing operates
+on blocks defined by the variable levels:
 
 <<subsetting,results=verbatim>>=
 hec
 hec["Male",]
-hec[c("Male", "Brown"),]
-hec["Male","Green"]
+hec["Male", c("Brown","Green")]
+@ 
+
+\noindent \emph{Conditioning} on levels (i.e., choosing a table subset for fixed levels
+of the conditioning variable(s)) is done using the \code{[[} operator. %]]
+Here again, the sequence of conditioning levels is restricted by the
+hierarchical structure of the \class{structable} object:
+
+<<conditioning,results=verbatim>>=
+hec[["Male",]]
+hec[[c("Male", "Red"),]]
+hec[["Male","Green"]]
 @ 
 
 \noindent Now, there are several ways for visualizing 
@@ -378,11 +388,11 @@ framework to visualize the two groups besides each other:
 pushViewport(viewport(layout = grid.layout(ncol = 2)))
 
 pushViewport(viewport(layout.pos.col = 1))
-mosaic(hec["Male"], margins = c(left = 2.5, top = 2.5, 0), sub = "Male", newpage = FALSE)
+mosaic(hec[["Male"]], margins = c(left = 2.5, top = 2.5, 0), sub = "Male", newpage = FALSE)
 popViewport()
 
 pushViewport(viewport(layout.pos.col = 2))
-mosaic(hec["Female"], margins = c(top = 2.5, 0), sub = "Female", newpage = FALSE)
+mosaic(hec[["Female"]], margins = c(top = 2.5, 0), sub = "Female", newpage = FALSE)
 popViewport(2)
 @
 
@@ -463,7 +473,7 @@ appearance: here, to be left-aligned and unclipped
 for detailed information).
 
 Another high-level function for visualizing conditional independence
-models are the \codefun{pairs} methods for table and structable objects.
+models are the \codefun{pairs} methods for \class{table} and \class{structable} objects.
 In contrast to \codefun{cotabplot} which conditions on variables,
 the \codefun{pairs} methods create pairwise views of the table. 
 The function produces, by default, a plot matrix 

@@ -87,7 +87,7 @@ chisq.test(TeaTasting, correct = FALSE)
 chisq.test(TeaTasting)
 
 
-data(UCBAdmissions)
+data("UCBAdmissions")
 ## double maximum statistic
 coindep_test(UCBAdmissions, margin = "Dept")
 ## maximum of Chi-squared statistics

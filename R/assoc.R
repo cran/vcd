@@ -5,14 +5,16 @@ assoc <- function(x, ...)
   UseMethod("assoc")
 
 assoc.formula <-
-function(formula, data = NULL, subset, na.action, ..., main = NULL, sub = NULL)
+function(formula, data = NULL, ..., subset = NULL, na.action = NULL,
+         main = NULL, sub = NULL)
 {
     if (is.logical(main) && main)
       main <- deparse(substitute(data))
     else if (is.logical(sub) && sub)
       sub <- deparse(substitute(data))
 
-    assoc.default(ftable(formula, data, subset, na.action), main = main, sub = sub, ...)
+    assoc.default(structable(formula, data, subset = subset, na.action = na.action),
+                  main = main, sub = sub, ...)
 }
 
 assoc.default <- function(x,
@@ -22,11 +24,11 @@ assoc.default <- function(x,
                           spacing_args = list(),
                           split_vertical = NULL,
                           keep_aspect_ratio = FALSE,
-			  residuals_type = "Pearson",
                           xscale = 0.9, yspace = unit(0.5, "lines"),
                           main = NULL,
                           sub = NULL,
                           ...,
+			  residuals_type = "Pearson",
                           gp_axis = gpar(lty = 3)
                           ) {
 
@@ -70,7 +72,7 @@ assoc.default <- function(x,
 struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
                         yspace = unit(0.5, "lines"), xscale = 0.9,
                         gp_axis = gpar(lty = 3))
-  function(residuals, observed = NULL, expected, spacing, gp, split_vertical) {
+  function(residuals, observed = NULL, expected, spacing, gp, split_vertical, prefix = "") {
     dn <- dimnames(expected)
     dnn <- names(dn)
     dx <- dim(expected)
@@ -107,7 +109,7 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
     split <- function(res, sexp, i, name, row, col) {
       v <- split_vertical[i]
       splitbase <- if (v) sexp else res
-      splittab <- lapply(seq(dx[i]), function(j) splitbase[j])
+      splittab <- lapply(seq(dx[i]), function(j) splitbase[[j]])
       len <- sapply(splittab, function(x) sum(unclass(x)[1,] - unclass(x)[2,]))
 
       d <- dx[i]
@@ -150,7 +152,8 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
     }
 
     ## start spltting on top, creates viewport-tree
-    pushViewport(split(ylim, xlim, i = 1, name = "cell:", row = 1, col = 1))
+    pushViewport(split(ylim, xlim, i = 1, name = paste(prefix, "cell:", sep = ""),
+                       row = 1, col = 1))
 
     ## draw tiles
     mnames <- paste(apply(expand.grid(dn), 1,
@@ -158,7 +161,7 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
                           )
                     )
     for (i in seq(along = mnames)) {
-      seekViewport(paste("cell:", mnames[i], sep = ""))
+      seekViewport(paste(prefix, "cell:", mnames[i], sep = ""))
       grid.lines(y = unit(0, "native"), gp = gp_axis)
       grid.rect(y = 0, x = 0,
                 height = residuals[i],
@@ -166,7 +169,7 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
                 default.units = "native",
                 gp = structure(lapply(gp, function(x) x[i]), class = "gpar"),
                 just = c("center", "bottom"),
-                name = paste("rect:", mnames[i], sep = "")
+                name = paste(prefix, "rect:", mnames[i], sep = "")
                 )
     }
 

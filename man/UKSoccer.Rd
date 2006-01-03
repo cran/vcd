@@ -7,7 +7,7 @@
   the Premier Football League, 1995/6 season.
 }
 \usage{
-data(UKSoccer)
+data("UKSoccer")
 }
 \format{
   A 2-dimensional array resulting from cross-tabulating the number of
@@ -40,7 +40,7 @@ data(UKSoccer)
   \code{\link{Bundesliga}}
 }
 \examples{
-data(UKSoccer)
+data("UKSoccer")
 mosaic(UKSoccer, gp = shading_max, main = "UK Soccer Scores")
 }
 

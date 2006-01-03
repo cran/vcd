@@ -79,10 +79,10 @@ dummy <- rnbinom(1000, size = 1.5, prob = 0.8)
 Ord_plot(dummy)
 
 ## Real data examples:
-data(HorseKicks)
-data(Federalist)
-data(Butterfly)
-data(WomenQueue)
+data("HorseKicks")
+data("Federalist")
+data("Butterfly")
+data("WomenQueue")
 
 grid.newpage()
 pushViewport(viewport(layout = grid.layout(2, 2)))

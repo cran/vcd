@@ -9,7 +9,7 @@
   city) in four diagnostic categories.
 }
 \usage{
-data(MSPatients)
+data("MSPatients")
 }
 \format{
   A 3-dimensional array resulting from cross-tabulating 218 observations
@@ -40,7 +40,7 @@ data(MSPatients)
 }
 
 \examples{
-data(MSPatients)
+data("MSPatients")
 get(getOption("device"))(width = 12)
 pushViewport(viewport(layout = grid.layout(ncol = 2)))
 pushViewport(viewport(layout.pos.col = 1))

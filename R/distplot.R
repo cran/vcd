@@ -59,9 +59,14 @@ function(x, type = c("poisson", "binomial", "nbinomial"),
   },
 
   "nbinomial" = {
-    par.ml <- goodfit(x, type = type)$par
-    size <- par.ml$size
-    par.ml <- par.ml$prob
+    if(is.null(size)) {
+      par.ml <- goodfit(x, type = type)$par
+      size <- par.ml$size
+      par.ml <- par.ml$prob
+    }else{
+      xbar <- weighted.mean(mycount, myfreq)
+      par.ml <- size / (size+xbar)
+    }        
     phi <- function(nk, k, N, size)
       log(nk) - log(N * choose(size + k - 1, k))
     y <- phi(myfreq, mycount, sum(freq), size = size)

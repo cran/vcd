@@ -50,7 +50,7 @@ legend_resbased <- function(fontsize = 12,
       grid.rect(x = unit(rep.int(0, length(y.pos)), "npc"),
                 y = y.pos,
                 height = y.height, default.unit = "native",
-                gp = gpar(fill = shading(y.pos + 0.5 * y.height)$fill, col = NULL),
+                gp = gpar(fill = shading(y.pos + 0.5 * y.height)$fill, col = 0),
                 just = c("left", "bottom"))
 
       grid.rect(gp = gpar(fill = "transparent"))

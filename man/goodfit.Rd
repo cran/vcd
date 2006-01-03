@@ -27,7 +27,9 @@ goodfit(x, type = c("poisson", "binomial", "nbinomial"),
     in the corresponding density function), if set to \code{NULL}, the
     default, the parameters are estimated.  If the parameter \code{size}
     is not specified if \code{type} is \code{"binomial"} it is taken to
-    be the maximum count.}
+    be the maximum count. If \code{type} is \code{"nbinomial"}, then
+    parameter \code{size} can be specified to fix it so that only the
+    parameter \code{prob} will be estimated (see the examples below).}
   \item{object}{an object of class \code{"goodfit"}.}
   \item{newcount}{a vector of counts.  By default the counts stored in
     \code{object} are used, i.e., the fitted values are computed.  These
@@ -87,14 +89,18 @@ summary(gf2)
 plot(gf2)
 
 ## Real data examples:
-data(HorseKicks)
+data("HorseKicks")
 HK.fit <- goodfit(HorseKicks)
 summary(HK.fit)
 plot(HK.fit)
 
-data(Federalist)
-F.fit <- goodfit(Federalist, type = "nbinomial")
+data("Federalist")
+## try geometric and full negative binomial distribution
+F.fit <- goodfit(Federalist, type = "nbinomial", par = list(size = 1))
+F.fit2 <- goodfit(Federalist, type = "nbinomial")
 summary(F.fit)
+summary(F.fit2)
 plot(F.fit)
+plot(F.fit2)
 }
 \keyword{category}

@@ -67,7 +67,7 @@ pairs_diagonal_text(varnames = TRUE, gp_vartext = gpar(fontsize = 17, fontface =
   David Meyer \email{David.Meyer@R-project.org}
 }
 \examples{
-data(UCBAdmissions)
+data("UCBAdmissions")
 
 pairs(UCBAdmissions) # pairs_barplot is default
 pairs(UCBAdmissions, diag_panel = pairs_text)

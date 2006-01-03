@@ -91,35 +91,66 @@ goodfit <- function(x, type = c("poisson", "binomial", "nbinomial"),
 
       if(!is.null(par)) {
         if(!is.list(par)) stop("`par' must be a named list")
-        if(is.character(all.equal(sum(match(names(par), c("size", "prob"))), 3))) stop("`par' must specify `prob' and `size'")
-	method <- "fixed"
-	par <- c(par$size, par$prob)
+        if(!(isTRUE(all.equal(names(par), "size")) | isTRUE(all.equal(sort(names(par)), c("prob", "size")))))
+	  stop("`par' must specify `size' and possibly `prob'")
+	if(!is.null(par$prob)) method <- "fixed"
       }
-      else if(method == "ML") {
-        df <- df - 2
-        par <- fitdistr(rep(count, freq), "negative binomial")$estimate
-        par <- par[1]/c(1, sum(par))
-     }
-     else if(method == "MinChisq") {
-       df <- df - 2
+      
+      switch(method,
+      
+      "ML" = {
+        if(is.null(par$size)) {
+          df <- df - 2
+          par <- fitdistr(rep(count, freq), "negative binomial")$estimate
+          par <- par[1]/c(1, sum(par))
+	} else {
+	  df <- df - 1
+          method <- c("ML", "with size fixed")
 
-	## MM
-	xbar <- weighted.mean(count,freq)
-	s2 <- var(rep(count,freq))
-	p <- xbar / s2
-	size <- xbar^2/(s2 - xbar)
-        par1 <- c(size, p)
+	  size <- par$size
+          xbar <- weighted.mean(count,freq)
+          par <- c(size, size/(xbar+size))	  
+	}
+      },
+      
+      "MinChisq" = {
+        if(is.null(par$size)) {
+          df <- df - 2
 
-	## minChisq
-        chi2 <- function(x)
-        {
-	  p.hat <- diff(c(0, pnbinom(count[-n], size = x[1], prob = x[2]), 1))
-          expected <- sum(freq) * p.hat
-          sum((freq - expected)^2/expected)
-        }
+	  ## MM
+  	  xbar <- weighted.mean(count,freq)
+	  s2 <- var(rep(count,freq))
+	  p <- xbar / s2
+	  size <- xbar^2/(s2 - xbar)
+          par1 <- c(size, p)
 
-	par <- optim(par1, chi2)$par
-      }
+	  ## minChisq
+          chi2 <- function(x)
+          {
+	    p.hat <- diff(c(0, pnbinom(count[-n], size = x[1], prob = x[2]), 1))
+            expected <- sum(freq) * p.hat
+            sum((freq - expected)^2/expected)
+          }
+
+	  par <- optim(par1, chi2)$par
+	} else {
+	  df <- df - 1
+          method <- c("MinChisq", "with size fixed")
+
+	  chi2 <- function(x)
+	  {
+	    p.hat <- diff(c(0, pnbinom(count[-n], size = par$size, prob = x), 1))
+	    expected <- sum(freq) * p.hat 
+	    sum((freq - expected)^2/expected)
+	  }
+	  par <- c(par$size, optimize(chi2, c(0, 1))$minimum)
+	}
+      },
+      
+      "fixed" = {
+        par <- c(par$size, par$prob)      
+      })
+      
       par <- list(size = par[1], prob = par[2])
       p.hat <- dnbinom(count, size = par$size, prob = par$prob)
     })
@@ -137,10 +168,10 @@ goodfit <- function(x, type = c("poisson", "binomial", "nbinomial"),
 print.goodfit <- function(x, ...)
 {
     cat(paste("\nObserved and fitted values for", x$type, "distribution\n"))
-    if(x$method == "fixed")
+    if(x$method[1] == "fixed")
       cat("with fixed parameters \n\n")
     else
-      cat(paste("with paramaters estimated by `", x$method, "' \n\n", sep = ""))
+      cat(paste("with parameters estimated by `", paste(x$method, collapse = " "), "' \n\n", sep = ""))
     RVAL <- cbind(x$count, x$observed, x$fitted)
     colnames(RVAL) <- c("count", "observed", "fitted")
     rownames(RVAL) <- rep("", nrow(RVAL))
@@ -168,9 +199,9 @@ summary.goodfit <- function(object, ...)
 
     names(G2) <- "Likelihood Ratio"
     names(X2) <- "Pearson"
-    if(any(expctd) < 5 & object$method != "ML") warning("Chi-squared approximation may be incorrect")
+    if(any(expctd) < 5 & object$method[1] != "ML") warning("Chi-squared approximation may be incorrect")
 
-    switch(object$method,
+    switch(object$method[1],
     "ML" = { RVAL <- G2 },
     "MinChisq" = { RVAL <- X2 },
     "fixed" = { RVAL <- c(X2, G2) })

@@ -61,7 +61,7 @@ Kappa(x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
   \code{\link{confint}}
 }
 \examples{
-data(SexualFun)
+data("SexualFun")
 Kappa(SexualFun)
 }
 \keyword{category}

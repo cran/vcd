@@ -6,7 +6,7 @@
   Data from Koch \& Edwards (1988) from a double-blind clinical trial
   investigating a new treatment for rheumatoid arthritis.
 }
-\usage{data(Arthritis)}
+\usage{data("Arthritis")}
 \format{
   A data frame with 84 observations and 5 variables.
   \describe{
@@ -36,19 +36,12 @@
   \url{http://euclid.psych.yorku.ca/ftp/sas/vcd/catdata/arthrit.sas}
 }
 \examples{
-data(Arthritis)
+data("Arthritis")
+art <- xtabs(~ Treatment + Improved, data = Arthritis, subset = Sex == "Female")
+art
 
-## construct a table of interest using xtabs() or structable()
-## via formula
-structable(Sex ~ Treatment + Improved, data = Arthritis)
-
-## via default interface
-attach(Arthritis)
-structable(Treatment, Sex, Improved)
-detach(Arthritis)
-
-## via xtabs and ftable
-ftable(xtabs(~Treatment + Improved + Sex, data = Arthritis))
+mosaic(art, gp = shading_Friendly)
+mosaic(art, gp = shading_max)
 }
 
 \keyword{datasets}

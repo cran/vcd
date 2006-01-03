@@ -12,7 +12,7 @@
   three variables was scaled to a common range by dividing each variable
   by the maximum of the variable.
 }
-\usage{data(Hitters)}
+\usage{data("Hitters")}
 \format{
   A data frame with 154 observations and 4 variables.
   \describe{
@@ -37,7 +37,7 @@
   SAS System for Statistical Graphics, First Edition, Page A2.3
 }
 \examples{
-data(Hitters)
+data("Hitters")
 attach(Hitters)
 
 colors <- c("black","red","green","blue","red","black","blue")

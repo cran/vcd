@@ -47,9 +47,9 @@ struc_sieve(sievetype = c("observed","expected"))
   Visualizing Categorical Data,
   SAS Institute, Cary, NC.
 }
-\example{
+\examples{
 ## Titanic data
-data(Titanic)
+data("Titanic")
 strucplot(Titanic, core = struc_sieve)
 }
 \keyword{hplot}

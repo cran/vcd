@@ -4,7 +4,7 @@
 \alias{shading_hcl}
 \alias{shading_max}
 \alias{shading_Friendly}
-\alias{shading_Friendly2}
+\alias{shading_sieve}
 \alias{shading_binary}
 \encoding{latin1}
 \title{Shading-generating Functions for Residual-based Shadings}
@@ -30,7 +30,7 @@ shading_Friendly(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   h = c(2/3, 0), lty = 1:2, interpolate = c(2, 4),
   eps = 0.01, line_col = "black", \dots)
 
-shading_Friendly2(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
+shading_sieve(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   h = c(260, 0), lty = 1:2, interpolate = c(2, 4),
   eps = 0.01, line_col = "black", \dots)
 
@@ -110,7 +110,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   
   The shading \code{shading_Friendly} is very similar to \code{shading_hsv}, but additionally
   codes the sign of the residuals by different line types. See Friendly
-  (1994) for more details. \code{shading_Friendly2} is similar, but uses HCL colors.
+  (1994) for more details. \code{shading_sieve} is similar, but uses HCL colors.
   
   The shading \code{shading_binary} just visualizes the sign of the residuals by using
   two different colors.  
@@ -145,7 +145,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
 }
 \examples{
 ## load Arthritis data
-data(Arthritis)
+data("Arthritis")
 art <- xtabs(~Treatment + Improved, data = Arthritis)
 
 ## plain mosaic display without shading
