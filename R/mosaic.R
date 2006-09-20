@@ -165,6 +165,101 @@ mosaic.default <- function(x, condvars = NULL,
             ...)
 }
 
+## old code: more elegant, but less performant
+##
+## struc_mosaic2 <- function(zero_size = 0.5, zero_split = FALSE,
+##                          zero_shade = TRUE, zero_gp = gpar(col = 0))
+##   function(residuals, observed, expected = NULL, spacing, gp, split_vertical, prefix = "") {
+##     dn <- dimnames(observed)
+##     dnn <- names(dn)
+##     dx <- dim(observed)
+##     dl <- length(dx)
+
+##     ## split workhorse
+##     zerostack <- character(0)
+##     split <- function(x, i, name, row, col, zero) {
+##       cotab <- co_table(x, 1)
+##       margin <- sapply(cotab, sum)
+##       v <- split_vertical[i]
+##       d <- dx[i]
+
+##       ## compute total cols/rows and build split layout
+##       dist <- unit.c(unit(margin, "null"), spacing[[i]])
+##       idx <- matrix(1:(2 * d), nrow = 2, byrow = TRUE)[-2 * d]
+##       layout <- if (v)
+##         grid.layout(ncol = 2 * d - 1, widths = dist[idx])
+##       else
+##         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
+##       vproot <- viewport(layout.pos.col = col, layout.pos.row = row,
+##                          layout = layout, name = remove_trailing_comma(name))
+      
+##       ## next level: either create further splits, or final viewports
+##       name <- paste(name, dnn[i], "=", dn[[i]], ",", sep = "")
+##       row <- col <- rep.int(1, d)
+##       if (v) col <- 2 * 1:d - 1 else row <- 2 * 1:d - 1
+##       f <- if (i < dl) 
+##         function(m) {
+##           co <- cotab[[m]]
+##           z <- mean(co) <= .Machine$double.eps
+##           if (z && !zero && !zero_split) zerostack <<- c(zerostack, name[m])
+##           split(co, i + 1, name[m], row[m], col[m], z && !zero_split)
+##         }
+##       else
+##         function(m) {
+##           if (cotab[[m]] <= .Machine$double.eps && !zero)
+##             zerostack <<- c(zerostack, name[m])
+##           viewport(layout.pos.col = col[m], layout.pos.row = row[m],
+##                    name = remove_trailing_comma(name[m]))
+##         }
+##       vpleaves <- structure(lapply(1:d, f), class = c("vpList", "viewport"))
+
+##       vpTree(vproot, vpleaves)
+##     }
+
+##     ## start spltting on top, creates viewport-tree
+##     pushViewport(split(observed + .Machine$double.eps,
+##                        i = 1, name = paste(prefix, "cell:", sep = ""),
+##                        row = 1, col = 1, zero = FALSE))
+
+##     ## draw rectangles
+##     mnames <-  apply(expand.grid(dn), 1,
+##                      function(i) paste(dnn, i, collapse=",", sep = "=")
+##                      )
+##     zeros <- observed <= .Machine$double.eps
+
+##     ## draw zero cell lines
+##     for (i in remove_trailing_comma(zerostack)) {
+##       seekViewport(i)
+##       grid.lines(x = 0.5)
+##       grid.lines(y = 0.5)
+##       if (!zero_shade && zero_size > 0) {
+##         grid.points(0.5, 0.5, pch = 19, size = unit(zero_size, "char"),
+##                     gp = zero_gp,
+##                     name = paste(prefix, "disc:", mnames[i], sep = ""))
+##         grid.points(0.5, 0.5, pch = 1, size = unit(zero_size, "char"),
+##                     name = paste(prefix, "circle:", mnames[i], sep = ""))
+##       }
+##     }
+
+##     # draw boxes
+##     for (i in seq(along = mnames)) {
+##       seekViewport(paste(prefix, "cell:", mnames[i], sep = ""))
+##       gpobj <- structure(lapply(gp, function(x) x[i]), class = "gpar")
+##       if (!zeros[i]) {
+##         grid.rect(gp = gpobj, name = paste(prefix, "rect:", mnames[i], sep = ""))
+##       } else { 
+##         if (zero_shade && zero_size > 0) {
+##           grid.points(0.5, 0.5, pch = 19, size = unit(zero_size, "char"),
+##                       gp = gpar(col = gp$fill[i]),
+##                       name = paste(prefix, "disc:", mnames[i], sep = ""))
+##           grid.points(0.5, 0.5, pch = 1, size = unit(zero_size, "char"),
+##                       name = paste(prefix, "circle:", mnames[i], sep = ""))
+##         }
+##       }
+##     }
+##   }
+## class(struc_mosaic2) <- "grapcon_generator"
+
 struc_mosaic <- function(zero_size = 0.5, zero_split = FALSE,
                          zero_shade = TRUE, zero_gp = gpar(col = 0))
   function(residuals, observed, expected = NULL, spacing, gp, split_vertical, prefix = "") {
@@ -173,87 +268,74 @@ struc_mosaic <- function(zero_size = 0.5, zero_split = FALSE,
     dx <- dim(observed)
     dl <- length(dx)
 
+    zeros <- function(gp, name) {
+      grid.lines(x = 0.5)
+      grid.lines(y = 0.5)
+      if (zero_size > 0) {
+        grid.points(0.5, 0.5, pch = 19, size = unit(zero_size, "char"),
+                    gp = gp, name = paste(prefix, "disc:", name, sep = ""))
+        grid.points(0.5, 0.5, pch = 1, size = unit(zero_size, "char"),
+                    name = paste(prefix, "circle:", name, sep = ""))
+      }
+    }
+
     ## split workhorse
     zerostack <- character(0)
-    split <- function(x, i, name, row, col, zero) {
+    split <- function(x, i, name, row, col, zero, index) {
       cotab <- co_table(x, 1)
       margin <- sapply(cotab, sum)
+      margin[margin == 0] <- .Machine$double.eps
+#      margin <- margin + .Machine$double.eps
       v <- split_vertical[i]
       d <- dx[i]
 
       ## compute total cols/rows and build split layout
-      dist <- unit.c(unit(margin, "null"), spacing[[i]])
+      dist <- if (d > 1)
+        unit.c(unit(margin, "null"), spacing[[i]])
+      else
+        unit(margin, "null")
       idx <- matrix(1:(2 * d), nrow = 2, byrow = TRUE)[-2 * d]
       layout <- if (v)
         grid.layout(ncol = 2 * d - 1, widths = dist[idx])
       else
         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
-      vproot <- viewport(layout.pos.col = col, layout.pos.row = row,
-                         layout = layout, name = remove_trailing_comma(name))
+      pushViewport(viewport(layout.pos.col = col, layout.pos.row = row,
+                            layout = layout, name = paste(prefix, "cell:",
+                              remove_trailing_comma(name), sep = "")))
       
       ## next level: either create further splits, or final viewports
-      name <- paste(name, dnn[i], "=", dn[[i]], ",", sep = "")
       row <- col <- rep.int(1, d)
       if (v) col <- 2 * 1:d - 1 else row <- 2 * 1:d - 1
-      f <- if (i < dl) 
-        function(m) {
+      for (m in 1:d) {
+        nametmp <- paste(name, dnn[i], "=", dn[[i]][m], ",", sep = "")
+        if (i < dl) {
           co <- cotab[[m]]
+
+          ## zeros
           z <- mean(co) <= .Machine$double.eps
-          if (z && !zero && !zero_split) zerostack <<- c(zerostack, name[m])
-          split(co, i + 1, name[m], row[m], col[m], z && !zero_split)
+          split(co, i + 1, nametmp, row[m], col[m], z && !zero_split, cbind(index, m))
+          if (z && !zero && !zero_split && !zero_shade && (zero_size > 0))
+            zeros(zero_gp, nametmp)
+        } else {
+          pushViewport(viewport(layout.pos.col = col[m], layout.pos.row = row[m],
+                                name = paste(prefix, "cell:",
+                                  remove_trailing_comma(nametmp), sep = "")))
+
+          ## zeros
+          if (cotab[[m]] <= .Machine$double.eps && !zero) {
+            zeros(if (!zero_shade) zero_gp else gpar(col = gp$fill[cbind(index,m)]), nametmp)
+          } else {
+            ## rectangles
+            gpobj <- structure(lapply(gp, function(x) x[cbind(index, m)]), class = "gpar")
+            grid.rect(gp = gpobj, name = paste(prefix, "rect:",
+                                    remove_trailing_comma(nametmp), sep = ""))
+          }
         }
-      else
-        function(m) {
-          if (cotab[[m]] <= .Machine$double.eps && !zero)
-            zerostack <<- c(zerostack, name[m])
-          viewport(layout.pos.col = col[m], layout.pos.row = row[m],
-                   name = remove_trailing_comma(name[m]))
-        }
-      vpleaves <- structure(lapply(1:d, f), class = c("vpList", "viewport"))
-
-      vpTree(vproot, vpleaves)
-    }
-
-    ## start spltting on top, creates viewport-tree
-    pushViewport(split(observed + .Machine$double.eps,
-                       i = 1, name = paste(prefix, "cell:", sep = ""),
-                       row = 1, col = 1, zero = FALSE))
-
-    ## draw rectangles
-    mnames <-  apply(expand.grid(dn), 1,
-                     function(i) paste(dnn, i, collapse=",", sep = "=")
-                     )
-    zeros <- observed <= .Machine$double.eps
-
-    ## draw zero cell lines
-    for (i in remove_trailing_comma(zerostack)) {
-      seekViewport(i)
-      grid.lines(x = 0.5)
-      grid.lines(y = 0.5)
-      if (!zero_shade && zero_size > 0) {
-        grid.points(0.5, 0.5, pch = 19, size = unit(zero_size, "char"),
-                    gp = zero_gp,
-                    name = paste(prefix, "disc:", mnames[i], sep = ""))
-        grid.points(0.5, 0.5, pch = 1, size = unit(zero_size, "char"),
-                    name = paste(prefix, "circle:", mnames[i], sep = ""))
+        upViewport(1)
       }
     }
 
-    # draw boxes
-    for (i in seq(along = mnames)) {
-      seekViewport(paste(prefix, "cell:", mnames[i], sep = ""))
-      gpobj <- structure(lapply(gp, function(x) x[i]), class = "gpar")
-      if (!zeros[i]) {
-        grid.rect(gp = gpobj, name = paste(prefix, "rect:", mnames[i], sep = ""))
-      } else { 
-        if (zero_shade && zero_size > 0) {
-          grid.points(0.5, 0.5, pch = 19, size = unit(zero_size, "char"),
-                      gp = gpar(col = gp$fill[i]),
-                      name = paste(prefix, "disc:", mnames[i], sep = ""))
-          grid.points(0.5, 0.5, pch = 1, size = unit(zero_size, "char"),
-                      name = paste(prefix, "circle:", mnames[i], sep = ""))
-        }
-      }
-    }
+    ## start splitting on top, creates viewport-tree
+    split(observed, i = 1, name = "", row = 1, col = 1, zero = FALSE, index = cbind())
   }
 class(struc_mosaic) <- "grapcon_generator"

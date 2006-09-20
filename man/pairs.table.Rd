@@ -9,8 +9,9 @@
 \method{pairs}{table}(x, upper_panel = pairs_mosaic, upper_panel_args = list(),
   lower_panel = pairs_mosaic, lower_panel_args = list(),
   diag_panel = pairs_barplot, diag_panel_args = list(),
-  main = NULL, title_gp = gpar(fontsize = 20), space = 0.1,
-  newpage = TRUE, pop = TRUE, \dots)
+  main = NULL, sub = NULL, main_gp = gpar(fontsize = 20),
+  sub_gp = gpar(fontsize = 15), space = 0.3,
+  newpage = TRUE, pop = TRUE, margins = unit(1, "lines"), \dots)
 }
 \arguments{
 
@@ -28,13 +29,29 @@
     corresponding generating function. If \code{NULL}, no panel is drawn.}
   \item{diag_panel_args}{list of arguments for the generating
     function, if specified.}
-  \item{main}{character string specifying the main title.}
-  \item{title_gp}{object of class \code{"gpar"} used for the title.}
+  \item{main}{either a logical, or a character string used for plotting
+    the main title.  If \code{main} is a logical and \code{TRUE}, the
+    name of the object supplied as \code{x} is used.}
+  \item{sub}{a character string used for plotting the subtitle.
+    If \code{sub} is a logical and \code{TRUE} and \code{main} is unspecified, the
+    name of the object supplied as \code{x} is used.}
+  \item{main_gp, sub_gp}{object of class \code{"gpar"} containing the graphical
+    parameters used for the main (sub) title, if specified.}
   \item{space}{double specifying the distance between the cells.}
   \item{newpage}{logical controlling whether a new grid page should be
     created.}
   \item{pop}{logical indicating whether all viewports should be popped
     after the plot has been drawn.}
+  \item{margins}{either an object of class \code{"unit"} of length 4, or
+    a numeric vector of length 4. The elements are recycled as needed.
+    The four components specify the top, right,
+    bottom, and left margin of the plot, respectively.
+    When a numeric vector is supplied, the numbers are interpreted as
+    \code{"lines"} units.  In addition, the unit or numeric vector
+    may have named arguments
+    (\samp{top}, \samp{right}, \samp{bottom}, and \samp{left}), in which
+    case the non-named arguments specify the default values (recycled as
+    needed), overloaded by the named arguments.}
   \item{\dots}{For convenience,
     list of arguments for the panel-generating
     functions of upper and lower panels, if specified.}
@@ -107,6 +124,8 @@ Hence, the second approach is equivalent to the first if
 \examples{
 data("UCBAdmissions")
 data("PreSex")
+data(HairEyeColor)
+hec = structable(Eye ~ Sex + Hair, data = HairEyeColor)
 
 pairs(PreSex)
 pairs(UCBAdmissions)
@@ -114,5 +133,9 @@ pairs(UCBAdmissions, upper_panel_args = list(shade = TRUE))
 pairs(UCBAdmissions, lower_panel = pairs_mosaic(type = "conditional"))
 pairs(UCBAdmissions, diag_panel = pairs_text)
 pairs(UCBAdmissions, upper_panel = pairs_assoc, shade = TRUE)
+pairs(hec, highlighting = 2, diag_panel_args = list(fill = grey.colors))
+pairs(hec, highlighting = 2, diag_panel = pairs_diagonal_mosaic,
+           diag_panel_args = list(fill = grey.colors, alternate_labels =TRUE))
+
 }
 \keyword{hplot}

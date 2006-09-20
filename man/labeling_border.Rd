@@ -14,7 +14,8 @@
 \usage{
 labeling_border(labels = TRUE, varnames = labels,
   set_labels = NULL, set_varnames = NULL, 
-  tl_labels = NULL, tl_varnames = NULL, gp_labels = gpar(fontsize = 12),
+  tl_labels = NULL, alternate_labels = FALSE, tl_varnames = NULL, 
+  gp_labels = gpar(fontsize = 12),
   gp_varnames = gpar(fontsize = 12, fontface = 2),
   rot_labels = c(0, 90, 0, 90), rot_varnames = c(0, 90, 0, 90),
   pos_labels = "center", pos_varnames = "center",
@@ -49,6 +50,9 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), \dots)
     exacty match the variable names whose labels should be replaced.}
   \item{tl_labels}{vector of logicals indicating whether labels should
     be positioned on top (column labels) / left (row labels) for a
+    particular dimension.}
+  \item{alternate_labels}{vector of logicals indicating whether labels should
+    be alternated on the top/bottom (left/right) side of the plot for a
     particular dimension.}
   \item{tl_varnames}{vector of logicals indicating whether variable
     names should be positioned on top (column labels) / on left (row

@@ -1,3 +1,6 @@
+import(MASS)
+import(stats)
+import(grDevices)
 importFrom("utils","head","tail")
 
 export(
@@ -63,6 +66,7 @@ export(
        "pairs_barplot",
        "pairs_text",
        "pairs_diagonal_text",
+       "pairs_diagonal_mosaic",
        "pairs_strucplot",
        "pairs_mosaic",
        "pairs_assoc",
@@ -91,9 +95,6 @@ export(
        "grid_legend",
        "woolf_test")
 
-import(MASS)
-import(stats)
-
 S3method("[", "structable")
 S3method("[[", "structable")
 S3method("[<-", "structable")
@@ -101,7 +102,7 @@ S3method("[[<-", "structable")
 ## We cannot do the following:
 ## S3method("rbind", "structable")
 ## S3method("cbind", "structable")
-## Instead, we have to use:
+## Instead, we currently have to use:
 export("rbind.structable")
 export("cbind.structable")
 

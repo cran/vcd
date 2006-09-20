@@ -199,7 +199,7 @@ strucplot <- function(## main parameters
        split_vertical = split_vertical,
        prefix = prefix)
 
-  upViewport(dl)
+  upViewport(1)
 
   ## labels
   if (is.logical(labeling))

@@ -20,7 +20,7 @@ pexpand <- function(par, len, default_value, default_names, choices = NULL) {
   ret
 }
 
-labeling_list <- function(gp = gpar(),
+labeling_list <- function(gp_text = gpar(),
                           just = "left",
                           pos = "left",
                           lsep = ": ", sep = " ",
@@ -46,7 +46,7 @@ labeling_list <- function(gp = gpar(),
                       collapse = "\n"
                       ),
                 just = c(just, "top"),
-                gp = gp
+                gp = gp_text
                 )
   }
 }
@@ -66,7 +66,7 @@ class(labeling_conditional) <- "grapcon_generator"
 
 labeling_cells <- function(labels = TRUE, varnames = TRUE,
                          abbreviate_labels = FALSE, abbreviate_varnames = FALSE,
-                         gp = gpar(), lsep = ": ", lcollapse = "\n",
+                         gp_text = gpar(), lsep = ": ", lcollapse = "\n",
                          just = "center", pos = "center", rot = 0,
                          margin = unit(0.5, "lines"), clip_cells = TRUE,
                          text = NULL, ...) {
@@ -124,7 +124,7 @@ labeling_cells <- function(labels = TRUE, varnames = TRUE,
           grid.text(if(!is.na(txt)) txt,
                     x = switch(pos[1], left =, top = 0, center = 0.5, 1),
                     y = switch(pos[2], left =, top = 1, center = 0.5, 0),
-                    gp = gp, just = just, rot = rot)
+                    gp = gp_text, just = just, rot = rot)
           popViewport()
         }
       }
@@ -136,7 +136,8 @@ class(labeling_cells) <- "grapcon_generator"
 
 labeling_border <- function(labels = TRUE, varnames = labels,
                             set_labels = NULL, set_varnames = NULL,
-                            tl_labels = NULL, tl_varnames = NULL, 
+                            tl_labels = NULL, alternate_labels = FALSE,
+                            tl_varnames = NULL,
                             gp_labels = gpar(fontsize = 12),
                             gp_varnames = gpar(fontsize = 12, fontface = 2),
                             rot_labels = c(0, 90, 0, 90),
@@ -153,29 +154,53 @@ labeling_border <- function(labels = TRUE, varnames = labels,
                             abbreviate = FALSE, rep = TRUE,
                             clip = FALSE, ...
                             ) {
-  function(d, split_vertical, condvars, prefix = "") {
-    if (is.table(d))
-      d <- dimnames(d)
-    dn <- names(d)
-    ld <- length(d)
-
-    ## expand parameters
-    clip <- pexpand(clip, ld, TRUE, dn)
-    labels <- pexpand(labels, ld, TRUE, dn)
-    labels_varnames <- pexpand(labels_varnames, ld, FALSE, dn)
-    pos_labels <- pexpand(pos_labels, 4, "center", c("top", "right", "bottom", "left"), c("left", "center", "right"))
-    just_labels <- pexpand(just_labels, 4, "center", c("top", "right", "bottom", "left"), c("left", "center", "right"))
+    ## expand parameters that apply to the four table margins
+    pos_labels <- pexpand(pos_labels, 4, "center", c("top", "right", "bottom", "left"),
+                          c("left", "center", "right"))
+    just_labels <- pexpand(just_labels, 4, "center", c("top", "right", "bottom", "left"),
+                           c("left", "center", "right"))
     offset_varnames <- if (!is.unit(offset_varnames))
       unit(pexpand(offset_varnames, 4,
                    rep.int(0, 4), c("top","right","bottom","left")), "lines")
     else
       rep(offset_varnames, length.out = 4)
+    
     offset_labels <- if (!is.unit(offset_labels))
       unit(pexpand(offset_labels, 4,
                    rep.int(0, 4), c("top","right","bottom","left")), "lines")
     else
       rep(offset_labels, length.out = 4)
 
+    rot_labels <- pexpand(rot_labels, 4, c(0, 90, 0, 90),
+                          c("top", "right", "bottom", "left"))
+
+    if (inherits(gp_varnames, "gpar"))
+      gp_varnames <- list(gp_varnames)
+    gp_varnames <- pexpand(gp_varnames, 4, gpar(fontsize = 12, fontface = 2),
+                           c("top", "right", "bottom", "left"))
+
+    rot_varnames <- pexpand(rot_varnames, 4, c(0, 90, 0, 90),
+                          c("top", "right", "bottom", "left"))
+
+    pos_varnames <- pexpand(pos_varnames, 4, "center",
+                           c("top", "right", "bottom", "left"),
+                            c("left", "center", "right"))
+
+    just_varnames <- pexpand(just_varnames, 4, pos_varnames,
+                             c("top", "right", "bottom", "left"),
+                             c("left", "center", "right"))
+
+  function(d, split_vertical, condvars, prefix = "") {
+    if (is.table(d))
+      d <- dimnames(d)
+    dn <- names(d)
+    ld <- length(d)
+
+    ## expand table- (i.e., dimensionality)-dependent parameters
+    clip <- pexpand(clip, ld, TRUE, dn)
+    labels <- pexpand(labels, ld, TRUE, dn)
+    labels_varnames <- pexpand(labels_varnames, ld, FALSE, dn)
+    
     ## tl_labels
     def <- logical()
     def[split_vertical] <- rep(c(TRUE, FALSE), length.out = sum(split_vertical))
@@ -189,6 +214,9 @@ labeling_border <- function(labels = TRUE, varnames = labels,
     rep <- pexpand(rep, ld, TRUE, dn)
     printed <- lapply(d, function(i) rep.int(FALSE, length(i)))
     
+    ## alternate labels
+    alternate_labels <- pexpand(alternate_labels, ld, FALSE, dn)
+
     ## abbreviate
     abbreviate <- pexpand(abbreviate, ld, FALSE, dn)
     labs <- d
@@ -201,32 +229,8 @@ labeling_border <- function(labels = TRUE, varnames = labels,
       gp_labels <- list(gp_labels)
     gp_labels <- pexpand(gp_labels, ld, gpar(fontsize = 12), dn)
 
-    ## rot_labels: top/right/bottom/left
-    rot_labels <- pexpand(rot_labels, 4, c(0, 90, 0, 90),
-                          c("top", "right", "bottom", "left"))
-
     ## varnames
     varnames <- pexpand(varnames, ld, labels, dn)
-
-    ## gp_varnames: top/right/bottom/left!
-    if (inherits(gp_varnames, "gpar"))
-      gp_varnames <- list(gp_varnames)
-    gp_varnames <- pexpand(gp_varnames, 4, gpar(fontsize = 12, fontface = 2),
-                           c("top", "right", "bottom", "left"))
-
-    ## rot_varnames: top/right/bottom/left!
-    rot_varnames <- pexpand(rot_varnames, 4, c(0, 90, 0, 90),
-                          c("top", "right", "bottom", "left"))
-
-    ## pos_varnames: top/right/bottom/left!
-    pos_varnames <- pexpand(pos_varnames, 4, "center",
-                           c("top", "right", "bottom", "left"),
-                            c("left", "center", "right"))
-
-    ## just_varnames: top/right/bottom/left!
-    just_varnames <- pexpand(just_varnames, 4, pos_varnames,
-                             c("top", "right", "bottom", "left"),
-                             c("left", "center", "right"))
 
     ## tl_varnames
     if (is.null(tl_varnames) && is.null(labbl_varnames))
@@ -263,22 +267,28 @@ labeling_border <- function(labels = TRUE, varnames = labels,
              function(i) pexpand(fill_boxes[[i]], dnl[i], "white", d[[i]])
              )
     }
-    
+
 
     ## precompute spaces
     lsp <- tsp <- bsp <- rsp <- 0
     labsp <- rep.int(0, ld)
     for (i in seq(along = dn)[tl_labels & labels])
-      labsp[i] <- if (split_vertical[i])
+      labsp[i] <- if (split_vertical[i]) {
+        if (alternate_labels[i]) bsp <- bsp - 1
         tsp <- tsp + 1
-      else
+      } else {
+        if (alternate_labels[i]) rsp <- rsp + 1
         lsp <- lsp - 1
+      }
     for (i in rev(seq(along = dn)[!tl_labels & labels]))
-      labsp[i] <- if (split_vertical[i])
+      labsp[i] <- if (split_vertical[i]) {
+        if (alternate_labels[i]) tsp <- tsp + 1
         bsp <- bsp - 1
-      else
+      } else {
+        if (alternate_labels[i]) lsp <- lsp - 1
         rsp <- rsp + 1
-    
+      }
+
     if(is.null(labbl_varnames)) {
     ## varnames in the outer margin  
       ## compute axis names
@@ -501,7 +511,49 @@ labeling_border <- function(labels = TRUE, varnames = labels,
                               if (!sp) bottom && labind == vl else bottom)
       }
     }
+    ## patch for alternating labels, part 1 
+    if (any(alternate_labels)) {
+      ## save set_labels
+      set_labels_hold <- set_labels
+      
+      ## create vanilla set_labels-object
+      set_labels <- d
+      
+      ## copy old set_labels
+      if (!is.null(set_labels_hold))
+        set_labels[names(set_labels_hold)] <- set_labels_hold
+      
+      ## mask half of the labels
+      for (i in which(alternate_labels))
+        if (length(d[[i]]) > 1)
+          set_labels[[i]][seq(2, length(d[[i]]), 2)] <- ""
+    }
+    
     split()
+    
+    ## patch for alternating labels, part 2 
+    if (any(alternate_labels)) {
+      ## create again vanilla set_labels-object
+      set_labels <- d
+      
+      ## copy again old set_labels
+      if (!is.null(set_labels_hold))
+        set_labels[names(set_labels_hold)] <- set_labels_hold
+
+      ## clear all non-alternated labels
+      labels[!alternate_labels] <- FALSE
+      
+      ## mask other half of alternated labels
+      for (i in which(alternate_labels))
+        set_labels[[i]][seq(1, length(d[[i]]), 2)] <- ""
+      
+      ## invert tl_labels and labsp
+      tl_labels <- ! tl_labels
+      labsp <- -labsp
+
+      ## label again
+      split()
+    }
   }
 }
 class(labeling_border) <- "grapcon_generator"

@@ -1,6 +1,6 @@
 Package: vcd
-Version: 0.9-9
-Date: 2006-01-03
+Version: 0.9-91
+Date: 2006-09-20
 Title: Visualizing Categorical Data
 Author: David Meyer, Achim Zeileis, Kurt Hornik
 Maintainer: David Meyer <David.Meyer@R-project.org>
@@ -13,5 +13,5 @@ LazyLoad: yes
 LazyData: yes
 Depends: R (>= 2.0.0), MASS, grid, colorspace
 License: GPL
-Imports: stats, utils, MASS
-Packaged: Sat Sep 16 00:08:45 2006; meyer
+Imports: stats, utils, MASS, grDevices
+Packaged: Sun Oct  8 13:31:30 2006; meyer

@@ -62,7 +62,9 @@
     generating function (see \code{\link{strucplot}} for more
     information).
     The default is \code{spacing_equal} if \code{x} has two dimensions,
-    and  \code{spacing_increase} for more dimensions.}
+    \code{spacing_increase} for more dimensions, and
+    \code{spacing_conditional} if conditioning variables are specified
+    using \code{condvars} or the formula interface.}
   \item{spacing_args}{list of arguments for the generating function, if
     specified (see \code{\link{strucplot}} for more information).}
   \item{gp}{object of class \code{"gpar"}, shading function or a

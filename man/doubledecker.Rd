@@ -11,7 +11,7 @@
 \method{doubledecker}{formula}(formula, data = NULL, \dots, main = NULL)
 \method{doubledecker}{default}(x, depvar = length(dim(x)),
   margins = c(1,4, length(dim(x)) + 1, 1),
-  col = rainbow_hcl(tail(dim(x), 1), end = 260),
+  gp = gpar(fill = rev(gray.colors(tail(dim(x), 1)))),
   labeling = labeling_doubledecker,
   spacing = spacing_highlighting,
   main = NULL, keep_aspect_ratio = FALSE, \dots)
@@ -29,7 +29,7 @@
   \item{margins}{margins of the plot.  Note that by default, all factor
     names (except the last one) and their levels are visualized \emph{as
       a block} under the plot.}
-  \item{col}{vector of colors used for the tiles of the last variable.}
+  \item{gp}{object of class \code{"gpar"} used for the tiles of the last variable.}
   \item{labeling}{labeling function or corresponding generating
     generating function (see \code{\link{strucplot}} for details).}
   \item{spacing}{spacing object, spacing function or corresponding

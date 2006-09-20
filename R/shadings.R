@@ -240,3 +240,4 @@ shading_binary <- function(observed = NULL, residuals = NULL, expected = NULL, d
   rval
 }
 class(shading_binary) <- "grapcon_generator"
+

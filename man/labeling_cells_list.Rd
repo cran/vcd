@@ -9,11 +9,11 @@
 \usage{
 labeling_cells(labels = TRUE, varnames = TRUE,
   abbreviate_labels = FALSE, abbreviate_varnames = FALSE,
-  gp = gpar(), lsep = ": ", lcollapse = "\n",
+  gp_text = gpar(), lsep = ": ", lcollapse = "\n",
   just = "center", pos = "center", rot = 0,
   margin = unit(0.5, "lines"), clip_cells = TRUE,
   text = NULL, \dots)
-labeling_list(gp = gpar(), just = "left", pos = "left", lsep = ": ",
+labeling_list(gp_text = gpar(), just = "left", pos = "left", lsep = ": ",
   sep = " ", offset = unit(c(2, 2), "lines"),
   varnames = TRUE, cols = 2, \dots) 
 }
@@ -34,7 +34,7 @@ labeling_list(gp = gpar(), just = "left", pos = "left", lsep = ": ",
     (i.e., dimension) names should be abbreviated to.
     \code{TRUE} means 1 character, \code{FALSE} causes no abbreviation.
     Values are recycled as needed.}
-  \item{gp}{object of class \code{"gpar"} used for the text drawn.}
+  \item{gp_text}{object of class \code{"gpar"} used for the text drawn.}
   \item{lsep}{character that separates variable names from the factor
     levels.}
   \item{sep}{character that separates the factor levels (only used for

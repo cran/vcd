@@ -37,7 +37,7 @@ data("JointSports")
 \examples{
 data("JointSports")
 tab <- xtabs(Freq ~ gender + opinion + grade + year, data = JointSports)
-doubledecker(opinion ~ gender + year + grade, data = tab, col = grey.colors(5))
+doubledecker(opinion ~ gender + year + grade, data = tab)
 loglm(~ opinion* (gender + grade+ year) + gender*year*grade, data = tab)
 }
 

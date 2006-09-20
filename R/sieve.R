@@ -112,6 +112,99 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
             ...)
 }
 
+## old version (not performant enough)
+##
+## struc_sieve <- function(sievetype = c("observed", "expected")) {
+##   sievetype = match.arg(sievetype)
+##   function(residuals, observed, expected, spacing, gp, split_vertical, prefix = "") {
+##     dn <- dimnames(expected)
+##     dnn <- names(dn)
+##     dx <- dim(expected)
+##     dl <- length(dx)
+##     n <- sum(expected)
+    
+##     ## split workhorse
+##     split <- function(x, i, name, row, col, rowmargin, colmargin) {
+##       cotab <- co_table(x, 1)
+##       margin <- sapply(cotab, sum)
+##       v <- split_vertical[i]
+##       d <- dx[i]
+
+##       ## compute total cols/rows and build split layout
+##       dist <- unit.c(unit(margin, "null"), spacing[[i]])
+##       idx <- matrix(1:(2 * d), nrow = 2, byrow = TRUE)[-2 * d]
+##       layout <- if (v)
+##         grid.layout(ncol = 2 * d - 1, widths = dist[idx])
+##       else
+##         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
+##       vproot <- viewport(layout.pos.col = col, layout.pos.row = row,
+##                          layout = layout, name = remove_trailing_comma(name))
+      
+##       ## next level: either create further splits, or final viewports
+##       name <- paste(name, dnn[i], "=", dn[[i]], ",", sep = "")
+##       row <- col <- rep.int(1, d)
+##       if (v) col <- 2 * 1:d - 1 else row <- 2 * 1:d - 1
+##       proptab <- function(x) x / max(sum(x), 1)
+##       f <- if (i < dl) {
+##         if (v)
+##           function(m) split(cotab[[m]], i + 1, name[m], row[m], col[m],
+##                             colmargin = colmargin * proptab(margin)[m],
+##                             rowmargin = rowmargin)
+##         else
+##           function(m) split(cotab[[m]], i + 1, name[m], row[m], col[m],
+##                             colmargin = colmargin,
+##                             rowmargin = rowmargin * proptab(margin)[m])
+##       } else {
+##         if (v)
+##           function(m) viewport(layout.pos.col = col[m], layout.pos.row = row[m],
+##                                name = remove_trailing_comma(name[m]),
+##                                yscale = c(0, rowmargin),
+##                                xscale = c(0, colmargin * proptab(margin)[m]))
+##         else
+##           function(m) viewport(layout.pos.col = col[m], layout.pos.row = row[m],
+##                                name = remove_trailing_comma(name[m]),
+##                                yscale = c(0, rowmargin * proptab(margin)[m]),
+##                                xscale = c(0, colmargin))
+##       }
+##       vpleaves <- structure(lapply(1:d, f), class = c("vpList", "viewport"))
+
+##       vpTree(vproot, vpleaves)
+##     }
+
+##     ## start splitting on top, creates viewport-tree
+##     pushViewport(split(expected + .Machine$double.eps,
+##                        i = 1, name = paste(prefix, "cell:", sep = ""), row = 1, col = 1,
+##                        rowmargin = n, colmargin = n))
+
+##     ## draw rectangles
+##     mnames <- apply(expand.grid(dn), 1,
+##                     function(i) paste(dnn, i, collapse=",", sep = "=")
+##                     )
+    
+##     for (i in seq(along = mnames)) {
+##       seekViewport(paste(prefix, "cell:", mnames[i], sep = ""))
+##       vp <- current.viewport()
+##       gpobj <- structure(lapply(gp, function(x) x[i]), class = "gpar")
+      
+##       div <- if (sievetype == "observed") observed[i] else expected[i]
+##       if (div > 0) {
+##         square.side <- sqrt(vp$yscale[2] * vp$xscale[2] / div)
+
+##         ii <- seq(0, vp$xscale[2], by = square.side)
+##         jj <- seq(0, vp$yscale[2], by = square.side)
+
+##         grid.segments(x0 = ii, x1 = ii, y0 = 0, y1 = vp$yscale[2],
+##                       default.units = "native", gp = gpobj)
+##         grid.segments(x0 = 0, x1 = vp$xscale[2], y0 = jj, y1 = jj,
+##                       default.units = "native", gp = gpobj)
+##       }
+##       grid.rect(name = paste(prefix, "rect:", mnames[i], sep = ""),
+##                 gp = gpar(fill = "transparent"))
+##     }
+##   }
+## }
+##class(struc_sieve) <- "grapcon_generator"
+
 struc_sieve <- function(sievetype = c("observed", "expected")) {
   sievetype = match.arg(sievetype)
   function(residuals, observed, expected, spacing, gp, split_vertical, prefix = "") {
@@ -122,83 +215,77 @@ struc_sieve <- function(sievetype = c("observed", "expected")) {
     n <- sum(expected)
     
     ## split workhorse
-    split <- function(x, i, name, row, col, rowmargin, colmargin) {
+    split <- function(x, i, name, row, col, rowmargin, colmargin, index) {
       cotab <- co_table(x, 1)
       margin <- sapply(cotab, sum)
       v <- split_vertical[i]
       d <- dx[i]
 
       ## compute total cols/rows and build split layout
-      dist <- unit.c(unit(margin, "null"), spacing[[i]])
+      dist <- if (d > 1)
+        unit.c(unit(margin, "null"), spacing[[i]])
+      else
+        unit(margin, "null")
       idx <- matrix(1:(2 * d), nrow = 2, byrow = TRUE)[-2 * d]
       layout <- if (v)
         grid.layout(ncol = 2 * d - 1, widths = dist[idx])
       else
         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
-      vproot <- viewport(layout.pos.col = col, layout.pos.row = row,
-                         layout = layout, name = remove_trailing_comma(name))
+      pushViewport(viewport(layout.pos.col = col, layout.pos.row = row,
+                            layout = layout, name = paste(prefix, "cell:",
+                                               remove_trailing_comma(name), sep = "")))
       
       ## next level: either create further splits, or final viewports
-      name <- paste(name, dnn[i], "=", dn[[i]], ",", sep = "")
       row <- col <- rep.int(1, d)
       if (v) col <- 2 * 1:d - 1 else row <- 2 * 1:d - 1
       proptab <- function(x) x / max(sum(x), 1)
-      f <- if (i < dl) {
-        if (v)
-          function(m) split(cotab[[m]], i + 1, name[m], row[m], col[m],
-                            colmargin = colmargin * proptab(margin)[m],
-                            rowmargin = rowmargin)
-        else
-          function(m) split(cotab[[m]], i + 1, name[m], row[m], col[m],
-                            colmargin = colmargin,
-                            rowmargin = rowmargin * proptab(margin)[m])
-      } else {
-        if (v)
-          function(m) viewport(layout.pos.col = col[m], layout.pos.row = row[m],
-                               name = remove_trailing_comma(name[m]),
-                               yscale = c(0, rowmargin),
-                               xscale = c(0, colmargin * proptab(margin)[m]))
-        else
-          function(m) viewport(layout.pos.col = col[m], layout.pos.row = row[m],
-                               name = remove_trailing_comma(name[m]),
-                               yscale = c(0, rowmargin * proptab(margin)[m]),
-                               xscale = c(0, colmargin))
+      for (m in 1:d) {
+        nametmp <- paste(name, dnn[i], "=", dn[[i]][m], ",", sep = "")
+        if (v) {
+          colmargintmp <- colmargin * proptab(margin)[m]
+          rowmargintmp <- rowmargin
+        } else {
+          rowmargintmp <- rowmargin * proptab(margin)[m]
+          colmargintmp <- colmargin
+        }
+        if (i < dl)
+          split(cotab[[m]], i + 1, nametmp, row[m], col[m],
+                colmargin = colmargintmp, rowmargin = rowmargintmp, index = cbind(index, m))
+        else {
+          pushViewport(viewport(layout.pos.col = col[m], layout.pos.row = row[m],
+                                name = paste(prefix, "cell:",
+                                  remove_trailing_comma(nametmp), sep = ""),
+                                yscale = c(0, rowmargintmp), xscale = c(0, colmargintmp)))
+          
+          gpobj <- structure(lapply(gp, function(x) x[cbind(index, m)]), class = "gpar")
+      
+          div <- if (sievetype == "observed")
+            observed[cbind(index, m)]
+          else
+            expected[cbind(index, m)]
+          if (div > 0) {
+            square.side <- sqrt(colmargintmp * rowmargintmp / div)
+            
+            ii <- seq(0, colmargintmp, by = square.side)
+            jj <- seq(0, rowmargintmp, by = square.side)
+            
+            grid.segments(x0 = ii, x1 = ii, y0 = 0, y1 = rowmargintmp,
+                          default.units = "native", gp = gpobj)
+            grid.segments(x0 = 0, x1 = colmargintmp, y0 = jj, y1 = jj,
+                          default.units = "native", gp = gpobj)
+          }
+          grid.rect(name = paste(prefix, "rect:", nametmp, sep = ""),
+                    gp = gpar(fill = "transparent"))
+          
+        }
+        upViewport(1)
       }
-      vpleaves <- structure(lapply(1:d, f), class = c("vpList", "viewport"))
-
-      vpTree(vproot, vpleaves)
     }
 
     ## start splitting on top, creates viewport-tree
-    pushViewport(split(expected + .Machine$double.eps,
-                       i = 1, name = paste(prefix, "cell:", sep = ""), row = 1, col = 1,
-                       rowmargin = n, colmargin = n))
-
-    ## draw rectangles
-    mnames <- apply(expand.grid(dn), 1,
-                    function(i) paste(dnn, i, collapse=",", sep = "=")
-                    )
-    
-    for (i in seq(along = mnames)) {
-      seekViewport(paste(prefix, "cell:", mnames[i], sep = ""))
-      vp <- current.viewport()
-      gpobj <- structure(lapply(gp, function(x) x[i]), class = "gpar")
-      
-      div <- if (sievetype == "observed") observed[i] else expected[i]
-      if (div > 0) {
-        square.side <- sqrt(vp$yscale[2] * vp$xscale[2] / div)
-
-        ii <- seq(0, vp$xscale[2], by = square.side)
-        jj <- seq(0, vp$yscale[2], by = square.side)
-
-        grid.segments(x0 = ii, x1 = ii, y0 = 0, y1 = vp$yscale[2],
-                      default.units = "native", gp = gpobj)
-        grid.segments(x0 = 0, x1 = vp$xscale[2], y0 = jj, y1 = jj,
-                      default.units = "native", gp = gpobj)
-      }
-      grid.rect(name = paste(prefix, "rect:", mnames[i], sep = ""),
-                gp = gpar(fill = "transparent"))
-    }
+    split(expected + .Machine$double.eps,
+          i = 1, name = "", row = 1, col = 1,
+          rowmargin = n, colmargin = n, index = cbind())
   }
 }
 class(struc_sieve) <- "grapcon_generator"

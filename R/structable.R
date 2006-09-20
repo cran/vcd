@@ -22,14 +22,16 @@ structable.formula <- function(formula, data = NULL, direction = NULL,
     
     if (is.null(split_vertical))
       split_vertical <- FALSE
-    
+
+    if (length(formula) == 3 && formula[[2]] == "Freq")
+      formula[[2]] = NULL
     ## only rhs present without `.' in lhs => xtabs-interface
     if (length(formula) != 3) {
       if (formula[[1]] == "~") {
         if (inherits(edata, "ftable") || inherits(edata, "table") || 
             length(dim(edata)) > 2) {
           data <- as.table(data)
-          varnames <- attr(terms(formula), "term.labels")
+          varnames <- attr(terms(formula, allowDotAsName = TRUE), "term.labels")
           dnames <- names(dimnames(data))
           di <- match(varnames, dnames)
           if (any(is.na(di))) 
@@ -41,7 +43,7 @@ structable.formula <- function(formula, data = NULL, direction = NULL,
         else if (is.data.frame(data)) {
           if ("Freq" %in% colnames(data))
             return(structable(xtabs(formula(paste("Freq", deparse(formula))),
-                                    data),
+                                    data = data),
                               split_vertical = split_vertical, ...))
           else
             return(structable(xtabs(formula, data),  split_vertical = split_vertical, ...))
@@ -60,10 +62,10 @@ structable.formula <- function(formula, data = NULL, direction = NULL,
     }
 
     ## `ftable' behavior
-    if (any(attr(terms(formula), "order") > 1)) 
+    if (any(attr(terms(formula, allowDotAsName = TRUE), "order") > 1)) 
         stop("interactions are not allowed")
-    rvars <- attr(terms(formula[-2]), "term.labels")
-    cvars <- attr(terms(formula[-3]), "term.labels")
+    rvars <- attr(terms(formula[-2], allowDotAsName = TRUE), "term.labels")
+    cvars <- attr(terms(formula[-3], allowDotAsName = TRUE), "term.labels")
     rhs.has.dot <- any(rvars == ".")
     lhs.has.dot <- any(cvars == ".")
     if (lhs.has.dot && rhs.has.dot) 

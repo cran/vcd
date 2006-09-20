@@ -81,7 +81,9 @@ strucplot(x, residuals = NULL, expected = NULL,
   \item{main}{either a logical, or a character string used for plotting
     the main title.  If \code{main} is a logical and \code{TRUE}, the
     name of the object supplied as \code{x} is used.}
-  \item{sub}{a character string used for plotting the subtitle.}
+  \item{sub}{a character string used for plotting the subtitle.
+    If \code{sub} is a logical and \code{TRUE} and \code{main} is unspecified, the
+    name of the object supplied as \code{x} is used.}
   \item{margins}{either an object of class \code{"unit"} of length 4, or
     a numeric vector of length 4. The elements are recycled as needed.
     The four components specify the top, right,

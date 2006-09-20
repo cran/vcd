@@ -2,22 +2,25 @@
 ### pairsplot
 
 pairs.table <- function(x,
-                  upper_panel = pairs_mosaic,
-                  upper_panel_args = list(),
+                        upper_panel = pairs_mosaic,
+                        upper_panel_args = list(),
                         
-                  lower_panel = pairs_mosaic,
-                  lower_panel_args = list(),
+                        lower_panel = pairs_mosaic,
+                        lower_panel_args = list(),
                         
-                  diag_panel = pairs_barplot,
-                  diag_panel_args = list(),
+                        diag_panel = pairs_barplot,
+                        diag_panel_args = list(),
                   
-                  main = NULL,
-                  title_gp = gpar(fontsize = 20),
+                        main = NULL,
+                        sub = NULL,
+                        main_gp = gpar(fontsize = 20),
+                        sub_gp = gpar(fontsize = 15),
                   
-                  space = 0.1,
-                  newpage = TRUE,
-                  pop = TRUE,
-                  ...)
+                        space = 0.3,
+                        newpage = TRUE,
+                        pop = TRUE,
+                        margins = unit(1, "lines"),
+                        ...)
 {
   if (newpage) grid.newpage()
 
@@ -31,14 +34,25 @@ pairs.table <- function(x,
   d <- length(dim(x))
   l <- grid.layout(d, d)
   pushViewport(viewport(width = unit(1, "snpc"), height = unit(1, "snpc")))
-  pushViewport(viewport(layout = l,
-                         height = if (is.null(main)) 1 else 0.9,
-                         y = 0, just = "bottom"))
+  pushViewport(vcdViewport(mar = margins, legend = FALSE, legend_width = NULL,
+                           main = !is.null(main), sub = !is.null(sub)))
+  ## titles
+  if (!is.null(main)) {
+    seekViewport("main")
+    if (is.logical(main) && main)
+      main <- deparse(substitute(x))
+    grid.text(main, gp = main_gp)
+  }
 
-  if (is.logical(main) && main)
-    main <- deparse(substitute(x))
-  grid.text(main, y = unit(1.05, "npc"), gp = title_gp)
+  if (!is.null(sub)) {
+    seekViewport("sub")
+    if (is.logical(sub) && sub && is.null(main))
+      sub <- deparse(substitute(x))
+    grid.text(sub, gp = sub_gp)
+  }
 
+  seekViewport("plot")
+  pushViewport(viewport(layout = l, y = 0, just = "bottom"))
 
   for (i in 1:d)
     for(j in 1:d) {
@@ -54,7 +68,7 @@ pairs.table <- function(x,
 
       if (pop) popViewport(2) else upViewport(2)
     }
-  if (pop) popViewport(2) else upViewport(2)
+  if (pop) popViewport(3) else upViewport(3)
   invisible(x)
 }
 
@@ -148,16 +162,24 @@ pairs_diagonal_text <- function(varnames = TRUE,
 }
 class(pairs_diagonal_text) <- "grapcon_generator"
 
-pairs_barplot <- function(gp_bars = gpar(fill = "gray"),
+pairs_barplot <- function(gp_bars = NULL,
                           gp_vartext = gpar(fontsize = 17),
                           gp_leveltext = gpar(),
                           just_leveltext = c("center", "bottom"),
                           just_vartext = c("center", "top"),
-                          rot = 0, abbreviate = FALSE, 
+                          rot = 0, abbreviate = FALSE,
+                          check_overlap = TRUE,
+                          fill = "grey",
+                          var_offset = unit(1, "npc"),
                           ...)
   function(x, i) {
+    if (!is.unit(var_offset))
+      var_offset <- unit(var_offset, "npc")
     dn <- names(dimnames(x))
     x <- margin.table(x, i)
+    if (is.function(fill)) fill <- rev(fill(dim(x)))
+    if (is.null(gp_bars))
+      gp_bars <- gpar(fill = fill)
     pushViewport(viewport(x = 0.3, y = 0.1, width = 0.7, height = 0.7,
                           yscale = c(0,max(x)), just = c("left", "bottom"))
                  )
@@ -173,11 +195,35 @@ pairs_barplot <- function(gp_bars = gpar(fill = "gray"),
     if (abbreviate)
       txt <- abbreviate(txt, abbreviate)
     grid.text(txt, y = unit(-0.15, "npc"), rot = rot,
-              x = xpos - halfstep, just = just_leveltext, gp = gp_leveltext)
+              x = xpos - halfstep, just = just_leveltext, gp = gp_leveltext,
+              check.overlap = check_overlap)
     popViewport(1)
-    grid.text(names(dimnames(x)), y = 1, just = just_vartext, gp = gp_vartext)
+    grid.text(names(dimnames(x)), y = var_offset, just = just_vartext, gp = gp_vartext)
 
   }
 class(pairs_barplot) <- "grapcon_generator"
 
+pairs_diagonal_mosaic <- function(split_vertical = TRUE,
+                                  margins = unit(0, "lines"),
+                                  offset_labels = -0.4,
+                                  offset_varnames = 0,
+                                  gp = NULL,
+                                  fill = "grey",
+                                  ...)
+  function(x, i) {
+    if (is.function(fill))
+      fill <- rev(fill(dim(x)[i]))
+    if (is.null(gp))
+      gp <- gpar(fill = fill)
+    mosaic(margin.table(x, i),
+           newpage = FALSE,
+           split_vertical = split_vertical,
+           margins = margins,
+           offset_labels = offset_labels,
+           offset_varnames = offset_varnames,
+           prefix = "diag",
+           gp = gp,
+           ...)
+  }
+class(pairs_diagonal_mosaic) <- "grapcon_generator"
 

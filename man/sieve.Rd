@@ -137,6 +137,6 @@ sieve(Freq ~ right + left,  data = VisualAcuity)
 
 ## example with observed values in the cells:
 sieve(Titanic, pop = FALSE, shade = TRUE)
-labeling_cells(text = Titanic, gp = gpar(fontface = 2))(Titanic)
+labeling_cells(text = Titanic, gp_text = gpar(fontface = 2))(Titanic)
 }
 \keyword{hplot}
