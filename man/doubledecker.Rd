@@ -58,6 +58,13 @@
   Generalized odds ratios for visual modeling.
   \emph{Journal of Computational and Graphical Statistics},
   \bold{10}, 4, 628--640.
+
+  Meyer, D., Zeileis, A., and Hornik, K. (2006),
+  The strucplot framework: Visualizing multi-way contingency tables with
+  \pkg{vcd}.
+  \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
+  URL http://www.jstatsoft.org/v17/i03/ and available as 
+  \code{vignette("strucplot")}.
 }
 \author{
   David Meyer \email{David.Meyer@R-project.org}

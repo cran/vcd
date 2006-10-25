@@ -2,7 +2,7 @@
 
 rainbow_hcl <- function(n, c = 50, l = 70, start = 0, end = 360*(n-1)/n, ...)
 {
-  if(n > 0) hcl(seq(start, end, length = n), c = c, l = l, ...)
+  if(n > 0) colorspace::hcl(seq(start, end, length = n), c = c, l = l, ...)
     else character(0)
 }
 
@@ -14,10 +14,10 @@ diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5, ..
   l <- rep(l, length.out = 2)
   power <- rep(power, length.out = 2)
   rval <- seq(1, -1, length = n)
-  rval <- hcl(h = ifelse(rval > 0, h[1], h[2]),
-              c = c * abs(rval)^power[1],
-              l = l[2] - diff(l) * abs(rval)^power[2],
-              ...)
+  rval <- colorspace::hcl(h = ifelse(rval > 0, h[1], h[2]),
+                          c = c * abs(rval)^power[1],
+                          l = l[2] - diff(l) * abs(rval)^power[2],
+                          ...)
   return(rval)
 }
 
@@ -40,10 +40,10 @@ sequential_hcl <- function(n, h = 260, c. = c(80, 0), l = c(30, 90), power = 1.5
   l <- rep(l, length.out = 2)
   power <- rep(power, length.out = 2)
   rval <- seq(1, 0, length = n)
-  rval <- hcl(h = h[1],
-              c = c[2] - diff(c) * rval^power[1],
-              l = l[2] - diff(l) * rval^power[2],
-              ...)
+  rval <- colorspace::hcl(h = h[1],
+                          c = c[2] - diff(c) * rval^power[1],
+                          l = l[2] - diff(l) * rval^power[2],
+                          ...)
   return(rval)
 }
 
@@ -56,10 +56,10 @@ heat_hcl <- function(n, h = c(0, 90), c. = c(100, 30), l = c(50, 90),
   l <- rep(l, length.out = 2)
   power <- rep(power, length.out = 2)
   rval <- seq(1, 0, length = n)
-  rval <- hcl(h = h[2] - diff(h) * rval,
-              c = c[2] - diff(c) * rval^power[1],
-              l = l[2] - diff(l) * rval^power[2],
-              ...)
+  rval <- colorspace::hcl(h = h[2] - diff(h) * rval,
+                          c = c[2] - diff(c) * rval^power[1],
+                          l = l[2] - diff(l) * rval^power[2],
+                          ...)
   return(rval)
 }
 

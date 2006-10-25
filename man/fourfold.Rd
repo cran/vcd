@@ -82,12 +82,12 @@ fourfold(x,
   for the individual odds ratios are not adjusted for multiple testing.
 }
 \references{
-  M. Friendly (1994),
+  Friendly, M. (1994),
   \emph{A fourfold display for 2 by 2 by \eqn{k} tables}.
   Technical Report 217, York University, Psychology Department,
   \url{http://www.math.yorku.ca/SCS/Papers/4fold/4fold.ps.gz}.
 
-  M. Friendly (2000),
+  Friendly, M. (2000),
   \emph{Visualizing Categorical Data}.
   SAS Institute, Cary, NC.
 }

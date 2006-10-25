@@ -564,15 +564,16 @@ labeling_doubledecker <- function(lab_pos = c("bottom", "top"), ...) {
     if (is.table(d))
       d <- dimnames(d)
     labeling_border(boxes = c(rep.int(TRUE, length(d) - 1), FALSE),
-                  clip = c(rep.int(TRUE, length(d) - 1), FALSE),
-                  labbl_varnames = FALSE,
-                  rot_labels = rep.int(0, 4),
-                  pos_labels = c("left", "center", "left", "center"),
-                  just_labels = c("left", "left", "left", "center"),
-                  varnames = c(c(rep.int(TRUE, length(d) - 1), FALSE)),
-                  offset_varnames = c(0, -0.6, 0, 0),
-                  tl_labels = c(rep.int(lab_pos== "top", length(d) - 1), FALSE)
-                  )(d, split_vertical, condvars, prefix)
+                    clip = c(rep.int(TRUE, length(d) - 1), FALSE),
+                    labbl_varnames = FALSE,
+                    rot_labels = rep.int(0, 4),
+                    pos_labels = c("left", "center", "left", "center"),
+                    just_labels = c("left", "left", "left", "center"),
+                    varnames = c(c(rep.int(TRUE, length(d) - 1), FALSE)),
+                    offset_varnames = c(0, -0.6, 0, 0),
+                    tl_labels = c(rep.int(lab_pos== "top", length(d) - 1), FALSE),
+                    ...
+                    )(d, split_vertical, condvars, prefix)
     seekViewport(paste(prefix, "margin_right", sep = ""))
     grid.text(names(d)[length(d)],
               x = unit(0.5, "lines"), y = unit(1, "npc"), just = c("left","top"),

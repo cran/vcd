@@ -77,6 +77,16 @@ direction = NULL, split_vertical = NULL, \dots, subset, na.action)
 \author{
   David Meyer \email{David.Meyer@R-project.org}
 }
+
+\references{
+  Meyer, D., Zeileis, A., and Hornik, K. (2006),
+  The strucplot framework: Visualizing multi-way contingency tables with
+  \pkg{vcd}.
+  \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
+  URL http://www.jstatsoft.org/v17/i03/ and available as 
+  \code{vignette("strucplot")}.
+}
+
 \seealso{
   \code{\link{strucplot}},
   \code{\link{mosaic}},

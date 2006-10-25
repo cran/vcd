@@ -6,9 +6,9 @@ function (x, stratum = NULL, log = TRUE) {
   if (l - length(stratum) > 2)
     stop("All but 2 dimensions must be specified as strata.")
   if (l == 2 && dim(x) != c(2,2))
-    stop("Not a 2 x 2 - table.")
+    stop("Not a 2x2 table.")
   if (!is.null(stratum) && dim(x)[-stratum] != c(2,2))
-    stop("Need strata of 2 x 2 - tables.")
+    stop("Need strata of 2x2 tables.")
  
   lor <- function (y) {
     if (any(y == 0))

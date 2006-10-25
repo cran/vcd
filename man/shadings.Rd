@@ -35,7 +35,7 @@ shading_sieve(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   eps = 0.01, line_col = "black", \dots)
 
 shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
-  col = hcl(c(260, 0), 50, 70))
+  col = NULL)
 }
 \arguments{
   \item{observed}{contingecy table of observed values}
@@ -113,23 +113,36 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   (1994) for more details. \code{shading_sieve} is similar, but uses HCL colors.
   
   The shading \code{shading_binary} just visualizes the sign of the residuals by using
-  two different colors.  
+  two different colors (default: blue and red, \code{hcl(c(260, 0), 50, 70)})).
 }
 
 \references{
-  Friendly, M. (1994)
+  Friendly, M. (1994),
   Mosaic displays for multi-way contingency tables.
   \emph{Journal of the American Statistical Association}, \bold{89},
   190--200.
 
+  Meyer, D., Zeileis, A., and Hornik, K. (2006),
+  The strucplot framework: Visualizing multi-way contingency tables with
+  \pkg{vcd}.
+  \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
+  URL http://www.jstatsoft.org/v17/i03/ and available as 
+  \code{vignette("strucplot")}.
+
   Zeileis A., Meyer D., Hornik K. (2005), Residual-based Shadings for Visualizing
   (Conditional) Independence. Report 20, Department of Statistics and Mathematics,
   Wirtschaftsuniversität Wien, Research Report Series, \url{http://epub.wu-wien.ac.at/}.
+
+  Zeileis A. and Hornik K. (2006), Choosing Color Palettes for Statistical Graphics.
+  Report 41, Department of Statistics and Mathematics, Wirtschaftsuniversität Wien,
+  Research Report Series, \url{http://epub.wu-wien.ac.at/}.
+  
 }
 
 \value{A shading function which takes only a single argument, interpreted as a
   vector/table of residuals, and returns a \code{"gpar"} object with the
   corresponding vector(s)/table(s) of graphical parameter(s).
+
 }
 
 \author{

@@ -1,0 +1,38 @@
+citHeader("To cite package vcd in publications use:")
+
+desc <- packageDescription("vcd")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
+vers <- paste("R package version", desc$Version)
+
+citEntry(entry="Manual",
+         title = "vcd: Visualizing Categorical Data",
+         author = personList(as.person("David Meyer"),
+			     as.person("Achim Zeileis"),
+	                     as.person("Kurt Hornik")),
+         year = year,
+         note = vers,
+         
+         textVersion =
+         paste("David Meyer, Achim Zeileis, and Kurt Hornik (", year,
+               "). vcd: Visualizing Categorical Data. ",
+               vers, ".", sep=""))
+
+citEntry(entry="Article",
+	 header="To cite the strucplot framework (e.g., functions mosaic(), sieve(), assoc(), strucplot(), structable(), pairs.table(), cotabplot(), doubledecker()), additionally use:",
+         title = "The Strucplot Framework: Visualizing Multi-Way Contingency Tables with vcd",
+         author = personList(as.person("David Meyer"),
+			     as.person("Achim Zeileis"),
+	                     as.person("Kurt Hornik")),
+         journal      = "Journal of Statistical Software",
+         year         = "2006",
+	 volume       = "17",
+	 number       = "3",
+	 pages        = "1--48",
+         url          = "http://www.jstatsoft.org/v17/i03/",
+         
+         textVersion = 
+         paste("David Meyer, Achim Zeileis, and Kurt Hornik (2006).", 
+               "The Strucplot Framework: Visualizing Multi-Way Contingency Tables with vcd.",
+               "Journal of Statistical Software, 17(3), 1-48.",
+	       "URL http://www.jstatsoft.org/v17/i03/")
+)

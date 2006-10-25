@@ -65,6 +65,13 @@ cotab_coindep(x, condvars,
   \code{\link{shading_hcl}}
 }
 \references{
+  Meyer, D., Zeileis, A., and Hornik, K. (2006),
+  The strucplot framework: Visualizing multi-way contingency tables with
+  \pkg{vcd}.
+  \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
+  URL http://www.jstatsoft.org/v17/i03/ and available as 
+  \code{vignette("strucplot")}.
+
   Zeileis, A., Meyer, D., Hornik K. (2005), \emph{Residual-based shadings for visualizing
   (conditional) independence}, Research Report, \bold{20}.
   \url{http://epub.wu-wien.ac.at/}

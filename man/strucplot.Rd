@@ -177,6 +177,7 @@ strucplot(x, residuals = NULL, expected = NULL,
   thus can conveniently modified after a plot has been drawn (and
   \code{pop = FALSE}).
 }
+
 \value{
   Invisibly, an object of class \code{"structable"} corresponding to the
   plot.
@@ -184,6 +185,16 @@ strucplot(x, residuals = NULL, expected = NULL,
 \author{
   David Meyer \email{David.Meyer@R-project.org}
 }
+
+\references{
+  Meyer D., Zeileis A., and Hornik K. (2006),
+  The strucplot framework: Visualizing multi-way contingency tables with
+  \pkg{vcd}.
+  \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
+  URL http://www.jstatsoft.org/v17/i03/ and available as 
+  \code{vignette("strucplot")}.
+}
+
 \seealso{
   \code{\link{assoc}},
   \code{\link{mosaic}},

@@ -18,7 +18,7 @@ independence_table <- function(x, frequency = c("absolute", "relative")) {
 
 mar_table <- function(x) {
   if(!is.matrix(x))
-    stop("Function only defined for 2-d - tables.")
+    stop("Function only defined for 2-way tables.")
   tab <- rbind(cbind(x, TOTAL = rowSums(x)), TOTAL = c(colSums(x), sum(x)))
   names(dimnames(tab)) <- names(dimnames(x))
   tab

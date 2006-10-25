@@ -6,6 +6,7 @@
 \alias{sequential_hcl}
 \alias{terrain_hcl}
 \title{HCL and HSV Color Palettes}
+\encoding{latin1}
 \description{
   Color palettes based on the HCL and HSV color spaces.
 }
@@ -68,6 +69,17 @@ diverge_hsv(n, h = c(2/3, 0), s = 1, v = 1, power = 1, \dots)
   The diverging palettes are used for choosing the colors for mosaic 
   displays in \code{\link{mosaic}}.
 }
+
+\references{
+  Zeileis A. and Hornik K. (2006), Choosing Color Palettes for Statistical Graphics.
+  Report 41, Department of Statistics and Mathematics, Wirtschaftsuniversität Wien,
+  Research Report Series, \url{http://epub.wu-wien.ac.at/}.
+}
+
+\value{
+  A character vector with RGB codings of the colors in the palette.
+}
+
 \author{
   Achim Zeileis \email{Achim.Zeileis@R-project.org}
 }

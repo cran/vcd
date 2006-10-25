@@ -132,20 +132,27 @@
   The \code{"structable"} visualized is returned invisibly.
 }
 \references{
-  Hartigan, J.A., and Kleiner, B. (1984)
+  Hartigan, J.A., and Kleiner, B. (1984),
   A mosaic of television ratings.
   \emph{The American Statistician},
   \bold{38}, 32--35.
 
-  Emerson, J. W. (1998)
+  Emerson, J. W. (1998),
   Mosaic displays in S-PLUS: A general implementation and a case study.
   \emph{Statistical Computing and Graphics Newsletter (ASA)},
   \bold{9}, 1, 17--23.
 
-  Friendly, M. (1994)
+  Friendly, M. (1994),
   Mosaic displays for multi-way contingency tables.
   \emph{Journal of the American Statistical Association}, \bold{89},
   190--200.
+
+  Meyer, D., Zeileis, A., and Hornik, K. (2006),
+  The strucplot framework: Visualizing multi-way contingency tables with
+  \pkg{vcd}.
+  \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
+  URL http://www.jstatsoft.org/v17/i03/ and available as 
+  \code{vignette("strucplot")}.
 
   The home page of Michael Friendly
   (\url{http://www.math.yorku.ca/SCS/friendly.html}) provides
@@ -155,6 +162,7 @@
 \author{
   David Meyer \email{David.Meyer@R-project.org}
 }
+
 \seealso{
   \code{\link{assoc}},
   \code{\link{strucplot}},

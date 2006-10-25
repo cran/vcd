@@ -37,15 +37,23 @@ struc_sieve(sievetype = c("observed","expected"))
   \code{\link{structable}}
 }
 \references{
-  H. Riedwyl & M. Schüpbach (1994),
+  Riedwyl, H., and Schüpbach, M. (1994),
   Parquet diagram to plot contingency tables.
   In F. Faulbaum (ed.),
   \emph{Softstat '93: Advances in Statistical Software}, 293--299.
   Gustav Fischer, New York.
 
-  M. Friendly (2000),
+  Friendly, M. (2000),
   Visualizing Categorical Data,
   SAS Institute, Cary, NC.
+
+  Meyer, D., Zeileis, A., and Hornik, K. (2006),
+  The strucplot framework: Visualizing multi-way contingency tables with
+  \pkg{vcd}.
+  \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
+  URL http://www.jstatsoft.org/v17/i03/ and available as 
+  \code{vignette("strucplot")}.
+
 }
 \examples{
 ## Titanic data

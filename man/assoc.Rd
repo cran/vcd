@@ -145,23 +145,31 @@
   \code{\link{structable}}
 }
 \references{
-  A. Cohen (1980),
+  Cohen, A. (1980),
   On the graphical display of the significant components in a two-way
   contingency table.
   \emph{Communications in Statistics---Theory and Methods}, \bold{A9},
   1025--1041.
 
-  M. Friendly (1992),
+  Friendly, M. (1992),
   Graphical methods for categorical data.
   \emph{SAS User Group International Conference Proceedings}, \bold{17},
   190--200.
   \url{http://www.math.yorku.ca/SCS/sugi/sugi17-paper.html}
   
-  D. Meyer, A. Zeileis, K. Hornik (2003), Visualizing independence using
+  Meyer, D., Zeileis, A., Hornik, K. (2003), Visualizing independence using
   extended association plots. \emph{Proceedings of the 3rd International
   Workshop on Distributed Statistical Computing}, K. Hornik, F. Leisch,
   A. Zeileis (eds.), ISSN 1609-395X.
   \url{http://www.ci.tuwien.ac.at/Conferences/DSC-2003/Proceedings/}
+
+  Meyer, D., Zeileis, A., and Hornik, K. (2006),
+  The strucplot framework: Visualizing multi-way contingency tables with
+  \pkg{vcd}.
+  \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
+  URL http://www.jstatsoft.org/v17/i03/ and available as 
+  \code{vignette("strucplot")}.
+
 }
 \author{
   David Meyer \email{David.Meyer@R-project.org}
