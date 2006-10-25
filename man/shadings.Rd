@@ -79,7 +79,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
     values are then used as \code{interpolate} cut-offs.}
   \item{n}{number of permutations used in the call to \code{coindep_test}.}
   \item{col}{a vector of two colors for positive and negative residuals respectively.}
-  \item{\dots}{Other arguments passed to \code{\link[colorspace]{hcl}}
+  \item{\dots}{Other arguments passed to \code{\link{hcl2hex}}
     or \code{\link{hsv}}, respectively.}
 }
 \details{
@@ -113,7 +113,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   (1994) for more details. \code{shading_sieve} is similar, but uses HCL colors.
   
   The shading \code{shading_binary} just visualizes the sign of the residuals by using
-  two different colors (default: blue and red, \code{hcl(c(260, 0), 50, 70)})).
+  two different colors (default: blue HCL(260, 50, 70) and red HCL(0, 50, 70)).
 }
 
 \references{
@@ -149,7 +149,9 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   Achim Zeileis \email{Achim.Zeileis@R-project.org}
 }
 \seealso{
-  \code{\link[colorspace]{hcl}},
+  \code{\link[colorspace]{hex}},
+  \code{\link[colorspace]{polarLUV}},
+  \code{\link{hcl2hex}},
   \code{\link{hsv}},
   \code{\link{mosaic}},
   \code{\link{assoc}},

@@ -5,7 +5,7 @@ function (x, stratum = NULL, log = TRUE) {
     stratum <- 3:l
   if (l - length(stratum) > 2)
     stop("All but 2 dimensions must be specified as strata.")
-  if (l == 2 && dim(x) != c(2,2))
+  if (l == 2 && dim(x) != c(2, 2))
     stop("Not a 2x2 table.")
   if (!is.null(stratum) && dim(x)[-stratum] != c(2,2))
     stop("Need strata of 2x2 tables.")
@@ -82,41 +82,71 @@ function(x, ...) {
 function(x,
          conf_level = 0.95,
          type = "o",
-         xlab = "Strata",
+         xlab = NULL,
          ylab = NULL,
+         xlim = NULL,
 	 ylim = NULL,
          whiskers = 0.1,
+         baseline = TRUE,
+         transpose = FALSE,
          ...)
 {
   if (length(dim(x)) > 1)
     stop ("Plot function works only on vectors.")
 
+  LOG <- attr(x, "log")
   confidence <- !(is.null(conf_level) || conf_level == FALSE)
-  yrange <- range(x)
+  oddsrange <- range(x)
   
   if(confidence) {
     CI  <- confint(x, level = conf_level)
     lwr <- CI[,1]
     upr <- CI[,2]
-    yrange[1] <- trunc(min(yrange[1], min(lwr)))
-    yrange[2] <- ceiling(max(yrange[2], max(upr)))
+    oddsrange[1] <- trunc(min(oddsrange[1], min(lwr)))
+    oddsrange[2] <- ceiling(max(oddsrange[2], max(upr)))
   }
 
-  plot(unclass(x),
-       xlab = xlab,
-       ylab = if(!is.null(ylab)) ylab else if(attr(x, "log")) "Log Odds Ratio" else "Odds Ratio",
-       type = type,
-       xaxt = "n",
-       ylim = if(is.null(ylim)) yrange else ylim,
-       ...)
-  axis (1, at = 1:length(x), names(x))
+  if (transpose) {
+    plot(x = unclass(x),
+         y = 1:length(x),
+         ylab = if (!is.null(ylab)) ylab else "Strata",
+         xlab = if (!is.null(xlab)) xlab else if (LOG) "Log Odds Ratio" else "Odds Ratio",
+         type = type,
+         yaxt = "n",
+         xlim = if(is.null(xlim)) oddsrange else xlim,
+         ...)
+    axis (2, at = 1:length(x), names(x))
 
-  if (confidence)
-    for (i in 1:length(x)) {
-      lines(c(i, i), c(lwr[i], upr[i]))
-      lines(c(i - whiskers/2, i + whiskers/2), c(lwr[i], lwr[i]))
-      lines(c(i - whiskers/2, i + whiskers/2), c(upr[i], upr[i]))
-    }
+    if (baseline)
+      lines(c(1,1) - LOG, c(0,length(x) + 1), lty = 2, col = "red")
+
+    if (confidence)
+      for (i in 1:length(x)) {
+        lines(c(lwr[i], upr[i]), c(i, i))
+        lines(c(lwr[i], lwr[i]), c(i - whiskers/2, i + whiskers/2))
+        lines(c(upr[i], upr[i]), c(i - whiskers/2, i + whiskers/2))
+      }
+  } else {
+    plot(unclass(x),
+         xlab = if (!is.null(xlab)) xlab else "Strata",
+         ylab = if(!is.null(ylab)) ylab else if(LOG) "Log Odds Ratio" else "Odds Ratio",
+         type = type,
+         xaxt = "n",
+         ylim = if(is.null(ylim)) oddsrange else ylim,
+         ...)
+    axis (1, at = 1:length(x), names(x))
+
+    if (baseline)
+      lines(c(0,length(x) + 1), c(1,1) - LOG, lty = 2, col = "red")
+
+    if (confidence)
+      for (i in 1:length(x)) {
+        lines(c(i, i), c(lwr[i], upr[i]))
+        lines(c(i - whiskers/2, i + whiskers/2), c(lwr[i], lwr[i]))
+        lines(c(i - whiskers/2, i + whiskers/2), c(upr[i], upr[i]))
+      }
+  }
+  
 }
 
 "confint.oddsratio" <-

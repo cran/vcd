@@ -5,6 +5,7 @@
 \alias{heat_hcl}
 \alias{sequential_hcl}
 \alias{terrain_hcl}
+\alias{hcl2hex}
 \title{HCL and HSV Color Palettes}
 \encoding{latin1}
 \description{
@@ -18,10 +19,12 @@ heat_hcl(n, h = c(0, 90), c. = c(100, 30), l = c(50, 90), power = c(1/5, 1), \do
 terrain_hcl(n, h = c(130, 0), c. = c(80, 0), l = c(60, 95), power = c(1/10, 1), \dots)
 
 diverge_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5, \dots)
-diverge_hsv(n, h = c(2/3, 0), s = 1, v = 1, power = 1, \dots)  
+diverge_hsv(n, h = c(2/3, 0), s = 1, v = 1, power = 1, \dots)
+
+hcl2hex(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
 }
 \arguments{
-  \item{n}{the number of colors (\deqn{\ge 1}{>= 1}) to be in the palette.}
+  \item{n}{the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.}
   \item{c, c.}{chroma value in the HCL color description.}
   \item{l}{luminance value in the HCL color description.}
   \item{start}{the hue at which the rainbow begins.}
@@ -32,19 +35,30 @@ diverge_hsv(n, h = c(2/3, 0), s = 1, v = 1, power = 1, \dots)
   \item{v}{value value in the HSV color description.}
   \item{power}{control parameter determining how chroma
     and luminance should be increased (1 = linear, 2 = quadratic, etc.).}
-  \item{\dots}{Other arguments passed to \code{\link[colorspace]{hcl}}
-    or \code{\link{hsv}}, respectively.}
+  \item{gamma}{gamma value of the display.}
+  \item{fixup}{logical. Should the color be corrected to a valid RGB
+    value before correction?}
+  \item{\dots}{Other arguments passed to \code{hcl2hex} or \code{\link{hsv}}, respectively.}
 }
 \details{
   All functions compute palettes based on either the HCL or
-  the HSV color space. \code{rainbow_hcl} computes a rainbow of colors
+  the HSV color space. For the latter, the implementation \code{\link{hsv}}
+  from base R is used. The former is implemented in the \pkg{colorspace}
+  package: HCL color space is obtained by taking polar coordinates
+  in CIELUV space which is available via \code{\link[colorspace]{polarLUV}}
+  from the \pkg{colorspace} package. To transform the HCL coordinates to
+  a hexadecimal color string (as returned by \code{hsv}), the function
+  \code{\link[colorspace]{hex}} is employed. A convenience wrapper \code{hcl2hex}
+  is provided.
+  
+  \code{rainbow_hcl} computes a rainbow of colors
   defined by different hues given a single value of each chroma and luminance.
   It corresponds to \code{\link{rainbow}} which computes a rainbow in
   HSV space.
 
   \code{sequential_hcl} gives a sequential palette starting at the full
-  color \code{hcl(h, c[1], l[1])} through to a light color
-  \code{hcl(h, c[2], l[2])} by interpolation.
+  color HCL(\code{h}, \code{c[1]}, \code{l[1]}) through to a light color
+  HCL(\code{h}, \code{c[2]}, \code{l[2]}) by interpolation.
   
   \code{diverge_hcl} and \code{diverge_hsv}, compute 
   a set of colors diverging from a neutral center (grey or white, without
@@ -55,8 +69,8 @@ diverge_hsv(n, h = c(2/3, 0), s = 1, v = 1, power = 1, \dots)
   diverging colors. For the diverging HCL colors, again two hues \code{h}
   are needed, a maximal chroma \code{c} and two luminances \code{l}.
   The colors are then created by an interpolation between the 
-  full color \code{hcl(h[1], c, l[1])}, a neutral color \code{hcl(h, 0, l[2])}
-  and the other full color \code{hcl(h[2], c, l[1])}.
+  full color HCL(\code{h[1]}, \code{c}, \code{l[1]}), a neutral color HCL(\code{h}, 0, \code{l[2]})
+  and the other full color HCL(\code{h[2]}, \code{c}, \code{l[1]}).
 
   The palette \code{heat_hcl} gives an implementation of \code{\link{heat.colors}}
   in HCL space. By default, it goes from a red to a yellow hue, while
@@ -84,7 +98,8 @@ diverge_hsv(n, h = c(2/3, 0), s = 1, v = 1, power = 1, \dots)
   Achim Zeileis \email{Achim.Zeileis@R-project.org}
 }
 \seealso{
-  \code{\link[colorspace]{hcl}},
+  \code{\link[colorspace]{polarLUV}},
+  \code{\link[colorspace]{hex}},
   \code{\link{hsv}},
   \code{\link{shadings}}}
 }

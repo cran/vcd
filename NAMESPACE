@@ -61,6 +61,7 @@ export(
        "heat_hcl",
        "terrain_hcl",
        "sequential_hcl",
+       "hcl2hex",
        
 ## panel functions
        "pairs_barplot",

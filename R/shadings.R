@@ -144,7 +144,7 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   if(!is.null(col.bins)) {
     res2 <- col.bins
     res2 <- c(head(res2, 1) - 1, res2[-1] - diff(res2)/2, tail(res2, 1) + 1)
-    legend.col <- colorspace::hcl(ifelse(res2 > 0, my.h[1], my.h[2]),
+    legend.col <- hcl2hex(ifelse(res2 > 0, my.h[1], my.h[2]),
                       max.c * pmax(pmin(interpolate(abs(res2)), 1), 0),
 	              my.l[1] + diff(my.l) * pmax(pmin(interpolate(abs(res2)), 1), 0),
 		      ...)
@@ -158,7 +158,7 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   rval <- function(x) {
     res <- as.vector(x)
 
-    fill <- colorspace::hcl(ifelse(res > 0, my.h[1], my.h[2]),
+    fill <- hcl2hex(ifelse(res > 0, my.h[1], my.h[2]),
                 max.c * pmax(pmin(interpolate(abs(res)), 1), 0),
 	        my.l[1] + diff(my.l) * pmax(pmin(interpolate(abs(res)), 1), 0),
 	        ...)
@@ -167,8 +167,8 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
     col <- rep(line_col, length.out = length(res))
     if(!is.null(eps)) {
       eps <- abs(eps)
-      col[res > eps] <- colorspace::hcl(my.h[1], max.c, my.l[2], ...)
-      col[res < -eps] <- colorspace::hcl(my.h[2], max.c, my.l[2], ...)
+      col[res > eps] <- hcl2hex(my.h[1], max.c, my.l[2], ...)
+      col[res < -eps] <- hcl2hex(my.h[2], max.c, my.l[2], ...)
     }
     dim(col) <- dim(x)
     
@@ -224,7 +224,7 @@ shading_binary <- function(observed = NULL, residuals = NULL, expected = NULL, d
   col = NULL)
 {
   ## check col argument
-  if(is.null(col)) col <- colorspace::hcl(c(260, 0), 50, 70)
+  if(is.null(col)) col <- hcl2hex(c(260, 0), 50, 70)
   col <- rep(col, length.out = 2)
   
   ## store color information for legend

@@ -22,7 +22,8 @@ hls(h = 1, l = 0.5, s = 1)
 }
 \seealso{
   \code{\link{hsv}},
-  \code{\link[colorspace]{hcl}}
+  \code{\link{hcl2hex}},
+  \code{\link[colorspace]{polarLUV}}
 }
 \examples{
 ## an HLS color wheel

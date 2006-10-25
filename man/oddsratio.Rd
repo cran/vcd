@@ -13,7 +13,8 @@
 \usage{
 oddsratio(x, stratum = NULL, log = TRUE)
 \method{plot}{oddsratio}(x, conf_level = 0.95, type = "o",
-  xlab = "Strata", ylab = NULL, ylim = NULL, whiskers = 0.1, \dots)
+  xlab = NULL, ylab = NULL, xlim = NULL, ylim = NULL, whiskers = 0.1,
+  baseline = TRUE, transpose = FALSE, \dots)
 }
 \arguments{
   \item{x}{a 2 by 2 by \dots table.}
@@ -23,9 +24,15 @@ oddsratio(x, stratum = NULL, log = TRUE)
     \code{conf_level}-\% confidence intervals are plotted for each data
     point.}
   \item{type}{plot type.}
-  \item{xlab}{label for the x-axis.}
-  \item{ylab}{label for the y-axis.}
-  \item{ylim}{y-axis limits.}
+  \item{xlab}{label for the x-axis. Defaults to \code{"Strata"} if
+    \code{transpose} is \code{FALSE}.}
+  \item{ylab}{label for the y-axis. Defaults to \code{"Strata"} if
+    \code{transpose} is \code{TRUE}.}
+  \item{xlim}{x-axis limits. Ignored if \code{transpose} is \code{FALSE}.}
+  \item{ylim}{y-axis limits. Ignored if \code{transpose} is \code{TRUE}.}
+  \item{baseline}{if \code{TRUE}, a red dashed line is plotted at a
+    value of 1 (in case of odds) or 0 (in case of log-odds).}
+  \item{transpose}{if \code{TRUE}, the plot is transposed.}
   \item{whiskers}{width of the confidence interval whiskers.}
   \item{\dots}{other graphics parameters (see \code{\link{par}}).}
 }
