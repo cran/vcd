@@ -4,7 +4,7 @@
 \title{Corporal Punishment Data}
 \description{
   Data from a study of the Gallup Institute in Denmark in 1979 about the
-  attitude of a random sample of 783 persons towards corporal punishment
+  attitude of a random sample of 1,456 persons towards corporal punishment
   of children.
 }
 \usage{
@@ -24,6 +24,8 @@ data("Punishment")
   }
 }
 
+\note{Anderson (1991) erroneously indicates the total sum of respondents to be 783.}
+
 \references{
   E. B. Andersen (1991),
   \emph{The Statistical Analysis of Categorical Data}.
@@ -32,7 +34,7 @@ data("Punishment")
 }
 \source{
   E. B. Andersen (1991),
-  The Statistical Analysis of Categorical Data, page 208.
+  The Statistical Analysis of Categorical Data, pages 207--208.
 }
 \examples{
 data("Punishment", package = "vcd")

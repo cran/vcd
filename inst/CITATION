@@ -36,3 +36,19 @@ citEntry(entry="Article",
                "Journal of Statistical Software, 17(3), 1-48.",
 	       "URL http://www.jstatsoft.org/v17/i03/")
 )
+
+citEntry(entry="Article",
+	 header="If you use the residual-based shadings (in mosaic() or assoc()), please cite:",
+         title = "Residual-based Shadings for Visualizing (Conditional) Independence",
+         author = personList(as.person("Achim Zeileis"),
+	                     as.person("David Meyer"),
+			     as.person("Kurt Hornik")),
+         journal      = "Journal of Computational and Graphical Statistics",
+         year         = "2007",
+         note         = "Forthcoming",
+         
+         textVersion = 
+         paste("Achim Zeileis, David Meyer, and Kurt Hornik (2007).", 
+               "Residual-based Shadings for Visualizing (Conditional) Independence.",
+               "Journal of Computational and Graphical Statistics, forthcoming.")
+)

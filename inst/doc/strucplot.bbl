@@ -1,0 +1,192 @@
+\begin{thebibliography}{28}
+\newcommand{\enquote}[1]{``#1''}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{Andersen(1991)}]{vcd:andersen:1991}
+Andersen EB (1991).
+\newblock \emph{The Statistical Analysis of Categorical Data}.
+\newblock Springer-Verlag, Berlin, 2nd edition.
+
+\bibitem[{Bickel \emph{et~al.}(1975)Bickel, Hammel, and
+  O'Connell}]{vcd:Bickel+Hammel+O'Connell:1975}
+Bickel PJ, Hammel EA, O'Connell JW (1975).
+\newblock \enquote{Sex Bias in Graduate Admissions: Data from {B}erkeley.}
+\newblock \emph{Science}, \textbf{187}, 398--403.
+
+\bibitem[{Cohen(1980)}]{vcd:Cohen:1980}
+Cohen A (1980).
+\newblock \enquote{On the Graphical Display of the Significant Components in a
+  Two-Way Contingency Table.}
+\newblock \emph{Communications in Statistics---Theory and Methods},
+  \textbf{A9}, 1025--1041.
+
+\bibitem[{Dawson(1995)}]{vcd:dawson:1995}
+Dawson RJM (1995).
+\newblock \enquote{The ``Unusual Episode'' Data Revisited.}
+\newblock \emph{Journal of Statistics Education}, \textbf{3}.
+\newblock
+  \urlprefix\url{http://www.amstat.org/publications/jse/v3n3/datasets.dawson.h%
+tml}.
+
+\bibitem[{Friendly(1994)}]{vcd:Friendly:1994}
+Friendly M (1994).
+\newblock \enquote{Mosaic Displays for Multi-Way Contingency Tables.}
+\newblock \emph{Journal of the American Statistical Association}, \textbf{89},
+  190--200.
+
+\bibitem[{Friendly(1999)}]{vcd:Friendly:1999}
+Friendly M (1999).
+\newblock \enquote{Extending Mosaic Displays: Marginal, Conditional, and
+  Partial Views of Categorical Data.}
+\newblock \emph{Journal of Computational and Graphical Statistics},
+  \textbf{8}(3), 373--395.
+
+\bibitem[{Friendly(2000)}]{vcd:Friendly:2000}
+Friendly M (2000).
+\newblock \emph{Visualizing Categorical Data}.
+\newblock \textsf{SAS} Insitute, Carey, NC.
+\newblock \urlprefix\url{http://www.math.yorku.ca/SCS/vcd/}.
+
+\bibitem[{Gilbert(1981)}]{vcd:gilbert:1981}
+Gilbert GN (1981).
+\newblock \emph{Modelling Society: An Introduction to Loglinear Analysis for
+  Social Researchers}.
+\newblock Allen and Unwin, London.
+
+\bibitem[{Hartigan and Kleiner(1984)}]{vcd:Hartigan+Kleiner:1984}
+Hartigan JA, Kleiner B (1984).
+\newblock \enquote{A Mosaic of Television Ratings.}
+\newblock \emph{The American Statistician}, \textbf{38}, 32--35.
+
+\bibitem[{Hofmann(2001)}]{vcd:hofmann:2001}
+Hofmann H (2001).
+\newblock \enquote{Generalized Odds Ratios for Visual Modelling.}
+\newblock \emph{Journal of Computational and Graphical Statistics},
+  \textbf{10}, 1--13.
+
+\bibitem[{Hofmann and Theus(2005)}]{vcd:hofmann+theus}
+Hofmann H, Theus M (2005).
+\newblock \enquote{Interactive Graphics for Visualizing Conditional
+  Distributions.}
+\newblock Unpublished Manuscript.
+
+\bibitem[{Hummel(1996)}]{vcd:hummel:1996}
+Hummel J (1996).
+\newblock \enquote{Linked Bar Charts: Analysing Categorical Data Graphically.}
+\newblock \emph{Computational Statistics}, \textbf{11}, 23--33.
+
+\bibitem[{{Insightful Inc.}(2005)}]{vcd:SPLUS:2005}
+{Insightful Inc} (2005).
+\newblock \emph{\proglang{S-PLUS} 7}.
+\newblock Seattle, WA.
+
+\bibitem[{Knorr-Held(1999)}]{vcd:Knorr-Held:1999}
+Knorr-Held L (1999).
+\newblock \enquote{Dynamic Rating of Sports Teams.}
+\newblock \emph{Discussion Paper~98}, SFB 386 ``Statistical Analysis of
+  Discrete Structures''.
+\newblock \urlprefix\url{http://www.stat.uni-muenchen.de/sfb386/}.
+
+\bibitem[{Koch and Edwards(1988)}]{vcd:Koch+Edwards:1988}
+Koch G, Edwards S (1988).
+\newblock \enquote{Clinical Efficiency Trials with Categorical Data.}
+\newblock In KE~Peace (ed.), \enquote{Biopharmaceutical Statistics for Drug
+  Development,} pp. 403--451. Marcel Dekker, New York.
+
+\bibitem[{Meyer \emph{et~al.}(2003)Meyer, Zeileis, and
+  Hornik}]{vcd:Meyer+Zeileis+Hornik:2003}
+Meyer D, Zeileis A, Hornik K (2003).
+\newblock \enquote{Visualizing Independence Using Extended Association Plots.}
+\newblock In K~Hornik, F~Leisch, A~Zeileis (eds.), \enquote{Proceedings of the
+  3rd International Workshop on Distributed Statistical Computing, Vienna,
+  Austria,} {ISSN 1609-395X},
+  \urlprefix\url{http://www.ci.tuwien.ac.at/Conferences/DSC-2003/Proceedings/}.
+
+\bibitem[{Meyer \emph{et~al.}(2006)Meyer, Zeileis, and
+  Hornik}]{vcd:Meyer+Zeileis+Hornik:2006b}
+Meyer D, Zeileis A, Hornik K (2006).
+\newblock \enquote{The Strucplot Framework: Visualizing Multi-way Contingency
+  Tables with \textbf{vcd}.}
+\newblock \emph{Journal of Statistical Software}, \textbf{17}(3), 1--48.
+\newblock \urlprefix\url{http://www.jstatsoft.org/v17/i03/}.
+
+\bibitem[{Obel(1975)}]{vcd:obel:1975}
+Obel E (1975).
+\newblock \enquote{A Comparative Study of Patients with Cancer of the Ovary Who
+  Have Survived More or Less Than 10 Years.}
+\newblock \emph{Acta Obstetricia et Gynecologica Scandinavica}, \textbf{55},
+  429--439.
+
+\bibitem[{\proglang{SAS} Institute~Inc.(2005)}]{vcd:SAS:2005}
+\proglang{SAS} Institute~Inc (2005).
+\newblock \emph{\proglang{SAS/STAT} Version 9}.
+\newblock Cary, NC.
+
+\bibitem[{{\textsf{R} Development Core Team}(2006)}]{vcd:R:2006}
+{\textsf{R} Development Core Team} (2006).
+\newblock \emph{\textsf{R}: {A} Language and Environment for Statistical
+  Computing}.
+\newblock \textsf{R} Foundation for Statistical Computing, Vienna, Austria.
+\newblock {ISBN} 3-900051-00-3, \urlprefix\url{http://www.R-project.org/}.
+
+\bibitem[{Riedwyl and Sch{\"u}pbach(1994)}]{vcd:riedwyl+schuepbach:1994}
+Riedwyl H, Sch{\"u}pbach M (1994).
+\newblock \enquote{Parquet Diagram to Plot Contingency Tables.}
+\newblock In F~Faulbaum (ed.), \enquote{Softstat '93: Advances in Statistical
+  Software,} pp. 293--299. Gustav Fischer, New York.
+
+\bibitem[{Snee(1974)}]{vcd:Snee:1974}
+Snee RD (1974).
+\newblock \enquote{Graphical Display of Two-Way Contingency Tables.}
+\newblock \emph{The American Statistician}, \textbf{28}, 9--12.
+
+\bibitem[{Theus(2003)}]{vcd:Theus:2003}
+Theus M (2003).
+\newblock \enquote{Interactive Data Visualization Using \pkg{Mondrian}.}
+\newblock \emph{Journal of Statistical Software}, \textbf{7}(11), 1--9.
+\newblock \urlprefix\url{http://www.jstatsoft.org/v07/i11/}.
+
+\bibitem[{Thornes and Collard(1979)}]{vcd:thornes+collard:1979}
+Thornes B, Collard J (1979).
+\newblock \emph{Who Divorces?}
+\newblock Routledge \& Kegan, London.
+
+\bibitem[{Unwin \emph{et~al.}(1996)Unwin, Hawkins, Hofmann, and
+  Siegl}]{vcd:Unwin+Hawkins+Hofmann:1996}
+Unwin AR, Hawkins G, Hofmann H, Siegl B (1996).
+\newblock \enquote{Interactive Graphics for Data Sets with Missing Values --
+  \pkg{MANET}.}
+\newblock \emph{Journal of Computational and Graphical Statistics},
+  \textbf{4}(6), 113--122.
+
+\bibitem[{Urbanek and Wichtrey(2006)}]{vcd:urbanek+wichtrey:2006}
+Urbanek S, Wichtrey T (2006).
+\newblock \emph{\pkg{iplots}: Interactive Graphics for \textsf{R}}.
+\newblock \textsf{R} package version 1.0-3,
+  \urlprefix\url{http://www.rosuda.org/iPlots/}.
+
+\bibitem[{Young(1996)}]{vcd:young:1996}
+Young FW (1996).
+\newblock \enquote{{\pkg{ViSta}}: The Visual Statistics System.}
+\newblock \emph{Technical Report 94--1(c)}, UNC L.~L.~Thurstone Psychometric
+  Laboratory Research Memorandum.
+
+\bibitem[{Zeileis \emph{et~al.}(2005)Zeileis, Meyer, and
+  Hornik}]{vcd:Zeileis+Meyer+Hornik:2005}
+Zeileis A, Meyer D, Hornik K (2005).
+\newblock \enquote{Residual-based Shadings for Visualizing (Conditional)
+  Independence.}
+\newblock \emph{Report~20}, Department of Statistics and Mathematics,
+  Wirtschaftsuniversit\"at Wien, Research Report Series.
+\newblock
+  \urlprefix\url{http://epub.wu-wien.ac.at/dyn/openURL?id=oai:epub.wu-wien.ac.%
+at:epub-wu-01_871}.
+
+\end{thebibliography}

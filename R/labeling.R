@@ -130,6 +130,8 @@ labeling_cells <- function(labels = TRUE, varnames = TRUE,
       }
     }
     split()
+    seekViewport(paste(prefix, "base", sep = ""))
+    upViewport(1)
   }
 }
 class(labeling_cells) <- "grapcon_generator"
@@ -554,6 +556,8 @@ labeling_border <- function(labels = TRUE, varnames = labels,
       ## label again
       split()
     }
+    seekViewport(paste(prefix, "base", sep = ""))
+    upViewport(1)
   }
 }
 class(labeling_border) <- "grapcon_generator"

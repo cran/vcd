@@ -100,7 +100,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   be specified by setting \code{interpolate}. Furthermore, the result of a significance
   test can be visualized by the amount of grey in the colors. If significant, a colorful
   palette is used, if not, the amount of color is reduced.
-  See Zeileis, Meyer, and Hornik (2005) and \code{\link{diverge_hcl}} for more details.
+  See Zeileis, Meyer, and Hornik (2007) and \code{\link{diverge_hcl}} for more details.
   
   The shading \code{shading_max} is applicable in 2-way contingency tables and uses
   a similar strategy as \code{shading_hcl}. But instead of using the cut-offs 2 and 4,
@@ -125,18 +125,16 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   Meyer, D., Zeileis, A., and Hornik, K. (2006),
   The strucplot framework: Visualizing multi-way contingency tables with
   \pkg{vcd}.
-  \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
-  URL http://www.jstatsoft.org/v17/i03/ and available as 
-  \code{vignette("strucplot")}.
-
-  Zeileis A., Meyer D., Hornik K. (2005), Residual-based Shadings for Visualizing
-  (Conditional) Independence. Report 20, Department of Statistics and Mathematics,
-  Wirtschaftsuniversität Wien, Research Report Series, \url{http://epub.wu-wien.ac.at/}.
+  \emph{Journal of Statistical Software}, \bold{17}(3), 1--48.
+  URL http://www.jstatsoft.org/v17/i03/. See also \code{vignette("strucplot")}.
 
   Zeileis A. and Hornik K. (2006), Choosing Color Palettes for Statistical Graphics.
   Report 41, Department of Statistics and Mathematics, Wirtschaftsuniversität Wien,
   Research Report Series, \url{http://epub.wu-wien.ac.at/}.
   
+  Zeileis A., Meyer D., Hornik K. (2007), Residual-based Shadings for Visualizing
+  (Conditional) Independence. \emph{Journal of Computational and Graphical Statistics},
+  forthcoming.
 }
 
 \value{A shading function which takes only a single argument, interpreted as a

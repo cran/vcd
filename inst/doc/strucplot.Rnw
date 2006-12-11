@@ -1,11 +1,9 @@
 \documentclass{Z}
 
-\usepackage{thumbpdf}
+%%\usepackage{thumbpdf}
 
 %% almost as usual
-\author{David Meyer\\Wirtschaftsuniversit\"at Wien \And 
-        Achim Zeileis\\Wirtschaftsuniversit\"at Wien \And 
-        Kurt Hornik\\Wirtschaftsuniversit\"at Wien}
+\author{Achim Zeileis, David Meyer, \textnormal{and} Kurt Hornik\\Wirtschaftsuniversit\"at Wien, Austria}
 \title{The Strucplot Framework:\\ Visualizing Multi-way Contingency
   Tables with \pkg{vcd}}
 
