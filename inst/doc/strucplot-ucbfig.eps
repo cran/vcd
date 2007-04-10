@@ -25,8 +25,8 @@
 /c   { newpath 0 360 arc } def
 /r   { 4 2 roll moveto 1 copy 3 -1 roll exch 0 exch rlineto 0 rlineto -1 mul 0 exch rlineto closepath } def
 /p1  { stroke } def
-/p2  { gsave bg setrgbcolor fill grestore newpath } def
-/p3  { gsave bg setrgbcolor fill grestore stroke } def
+/p2  { gsave bg fill grestore newpath } def
+/p3  { gsave bg fill grestore stroke } def
 /t   { 6 -2 roll moveto gsave rotate
        ps mul neg 0 2 1 roll rmoveto
        1 index stringwidth pop
@@ -95,40 +95,40 @@ bp
 -252.00 -216.00 756.00 648.00 cl
 -252.00 -216.00 756.00 648.00 cl
 -252.00 -216.00 756.00 648.00 cl
-/bg { 0 0.5451 0.5451 } def
+/bg { 0 0.5451 0.5451 rgb } def
 72.00 258.08 242.79 137.92 r p2
 -252.00 -216.00 756.00 648.00 cl
-/bg { 0.7451 0.7451 0.7451 } def
+/bg { 0.7451 setgray } def
 319.11 258.08 112.89 137.92 r p2
 -252.00 -216.00 756.00 648.00 cl
 -252.00 -216.00 756.00 648.00 cl
-/bg { 0.7451 0.7451 0.7451 } def
+/bg { 0.7451 setgray } def
 72.00 36.00 191.64 217.76 r p2
 -252.00 -216.00 756.00 648.00 cl
-/bg { 0.5451 0 0.5451 } def
+/bg { 0.5451 0 0.5451 rgb } def
 267.96 36.00 164.04 217.76 r p2
 -252.00 -216.00 756.00 648.00 cl
 -252.00 -216.00 756.00 648.00 cl
 -252.00 -216.00 756.00 648.00 cl
 /ps 12 def /Font2 findfont 12 s
-0 0 0 rgb
+0 setgray
 252.00 420.49 (Gender) .5 0 0 t
 47.51 216.00 (Admit) .5 0 90 t
 -252.00 -216.00 756.00 648.00 cl
 /ps 12 def /Font1 findfont 12 s
-0 0 0 rgb
+0 setgray
 61.91 144.88 (Rejected) .5 0 90 t
 -252.00 -216.00 756.00 648.00 cl
 /ps 12 def /Font1 findfont 12 s
-0 0 0 rgb
+0 setgray
 61.91 327.04 (Admitted) .5 0 90 t
 -252.00 -216.00 756.00 648.00 cl
 /ps 12 def /Font1 findfont 12 s
-0 0 0 rgb
+0 setgray
 193.40 406.09 (Male) .5 0 0 t
 -252.00 -216.00 756.00 648.00 cl
 /ps 12 def /Font1 findfont 12 s
-0 0 0 rgb
+0 setgray
 375.56 406.09 (Female) .5 0 0 t
 -252.00 -216.00 756.00 648.00 cl
 -252.00 -216.00 756.00 648.00 cl

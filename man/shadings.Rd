@@ -38,9 +38,9 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   col = NULL)
 }
 \arguments{
-  \item{observed}{contingecy table of observed values}
-  \item{residuals}{contingecy table of residuals}
-  \item{expected}{contingecy table of expected values}
+  \item{observed}{contingency table of observed values}
+  \item{residuals}{contingency table of residuals}
+  \item{expected}{contingency table of expected values}
   \item{df}{degrees of freedom of the associated independence model.}  
   \item{h}{hue value in the HCL or HSV color description, has to be
     in [0, 360] for HCL and in [0, 1] for HSV colors. The default is

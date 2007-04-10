@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{9}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -24,25 +24,20 @@ Friendly M (1994).
   Zeileis}]{vcd:Hothorn+Hornik+VanDeWiel:2006}
 Hothorn T, Hornik K, van~de Wiel MA, Zeileis A (2006).
 \newblock \enquote{A {L}ego System for Conditional Inference.}
-\newblock \emph{The American Statistician}, \textbf{60}, 257--263.
+\newblock \emph{The American Statistician}, \textbf{60}(3), 257--263.
 \newblock \doi{10.1198/000313006X118430}.
-
-\bibitem[{Ihaka(2004)}]{vcd:Ihaka:2004}
-Ihaka R (2004).
-\newblock \emph{\pkg{colorspace}: Colorspace Manipulation}.
-\newblock \textsf{R} package version 0.95.
 
 \bibitem[{Meyer \emph{et~al.}(2006{\natexlab{a}})Meyer, Zeileis, and
   Hornik}]{vcd:Meyer+Zeileis+Hornik:2006}
 Meyer D, Zeileis A, Hornik K (2006{\natexlab{a}}).
 \newblock \emph{\pkg{vcd}: Visualizing Categorical Data}.
-\newblock \textsf{R} package version 1.0-1.
+\newblock \textsf{R} package version 1.0-2.
 
 \bibitem[{Meyer \emph{et~al.}(2006{\natexlab{b}})Meyer, Zeileis, and
   Hornik}]{vcd:Meyer+Zeileis+Hornik:2006b}
 Meyer D, Zeileis A, Hornik K (2006{\natexlab{b}}).
 \newblock \enquote{The Strucplot Framework: Visualizing Multi-way Contingency
-  Tables with \textbf{vcd}.}
+  Tables with \pkg{vcd}.}
 \newblock \emph{Journal of Statistical Software}, \textbf{17}(3), 1--48.
 \newblock \urlprefix\url{http://www.jstatsoft.org/v17/i03/}.
 

@@ -1,6 +1,6 @@
 Package: vcd
-Version: 1.0-2
-Date: 2006-12-11
+Version: 1.0-3
+Date: 2007-04-10
 Title: Visualizing Categorical Data
 Author: David Meyer, Achim Zeileis, Kurt Hornik
 Maintainer: David Meyer <David.Meyer@R-project.org>
@@ -15,4 +15,4 @@ Depends: R (>= 2.4.0), MASS, grid, colorspace
 Suggests: KernSmooth, mvtnorm, kernlab
 Imports: stats, utils, MASS, grDevices
 License: GPL
-Packaged: Wed Dec 13 18:04:15 2006; meyer
+Packaged: Wed Apr 11 11:33:49 2007; meyer

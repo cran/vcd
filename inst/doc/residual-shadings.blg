@@ -1,46 +1,48 @@
-This is BibTeX, Version 0.99c (Web2C 7.5.5)
+This is BibTeX, Version 0.99c (Web2C 7.5.4)
 The top-level auxiliary file: residual-shadings.aux
 The style file: jss.bst
 Database file #1: vcd.bib
+Warning--I didn't find a database entry for "vcd:Ihaka:2004"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 10 entries,
+You've used 9 entries,
             3179 wiz_defined-function locations,
-            710 strings with 7102 characters,
-and the built_in function-call counts, 7741 in all, are:
-= -- 641
-> -- 194
-< -- 7
-+ -- 82
-- -- 63
-* -- 619
-:= -- 1071
-add.period$ -- 41
-call.type$ -- 10
-change.case$ -- 64
-chr.to.int$ -- 9
-cite$ -- 10
-duplicate$ -- 714
-empty$ -- 710
-format.name$ -- 89
-if$ -- 1561
+            706 strings with 7013 characters,
+and the built_in function-call counts, 7256 in all, are:
+= -- 601
+> -- 184
+< -- 6
++ -- 78
+- -- 60
+* -- 594
+:= -- 997
+add.period$ -- 38
+call.type$ -- 9
+change.case$ -- 58
+chr.to.int$ -- 8
+cite$ -- 9
+duplicate$ -- 668
+empty$ -- 666
+format.name$ -- 85
+if$ -- 1464
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 110
-newline$ -- 67
-num.names$ -- 40
-pop$ -- 241
+missing$ -- 102
+newline$ -- 62
+num.names$ -- 36
+pop$ -- 219
 preamble$ -- 1
-purify$ -- 61
+purify$ -- 56
 quote$ -- 0
-skip$ -- 170
+skip$ -- 152
 stack$ -- 0
-substring$ -- 633
-swap$ -- 235
+substring$ -- 606
+swap$ -- 224
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 84
+type$ -- 75
 warning$ -- 0
-while$ -- 59
+while$ -- 55
 width$ -- 0
-write$ -- 151
+write$ -- 139
+(There was 1 warning)

@@ -1,13 +1,13 @@
-This is pdfeTeXk, Version 3.141592-1.30.5-2.2 (Web2C 7.5.5) (format=pdflatex 2006.12.12)  13 DEC 2006 18:01
+This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2006.12.18)  11 APR 2007 11:31
 entering extended mode
  file:line:error style messages enabled.
 **\nonstopmode \input /home/meyer/src/pkg/vcd/inst/doc/hcl-colors.tex
 (/home/meyer/src/pkg/vcd/inst/doc/hcl-colors.tex
 (/home/Meyer/lib/texmf/tex/latex/Z.cls
 Document Class: Z 2006/10/11 1.1 Z class by Achim Zeileis
-(/usr/share/texmf/tex/latex/base/article.cls
+(/usr/share/texmf-tetex/tex/latex/base/article.cls
 Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
-(/usr/share/texmf/tex/latex/base/size10.clo
+(/usr/share/texmf-tetex/tex/latex/base/size10.clo
 File: size10.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -22,52 +22,52 @@ File: size10.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/share/texmf/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-tetex/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf/tex/latex/graphics/keyval.sty
+(/usr/share/texmf-tetex/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/share/texmf/tex/latex/graphics/graphics.sty
+(/usr/share/texmf-tetex/tex/latex/graphics/graphics.sty
 Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf/tex/latex/graphics/trig.sty
+(/usr/share/texmf-tetex/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/share/texmf/tex/latex/graphics/graphics.cfg
+(/usr/share/texmf-tetex/tex/latex/graphics/graphics.cfg
 File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 80.
 
-(/usr/share/texmf/tex/latex/graphics/pdftex.def
+(/usr/share/texmf-tetex/tex/latex/graphics/pdftex.def
 File: pdftex.def 2002/06/19 v0.03k graphics/color for pdftex
 \Gread@gobject=\count87
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-(/usr/share/texmf/tex/latex/a4wide/a4wide.sty
+(/usr/share/texmf-tetex/tex/latex/a4wide/a4wide.sty
 Package: a4wide 1994/08/30
 
-(/usr/share/texmf/tex/latex/ntgclass/a4.sty
+(/usr/share/texmf-tetex/tex/latex/ntgclass/a4.sty
 Package: a4 2004/04/15 v1.2g A4 based page layout
 ))
-(/usr/share/texmf/tex/latex/graphics/color.sty
+(/usr/share/texmf-tetex/tex/latex/graphics/color.sty
 Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
 
-(/usr/share/texmf/tex/latex/graphics/color.cfg
+(/usr/share/texmf-tetex/tex/latex/graphics/color.cfg
 File: color.cfg 2005/02/03 v1.3 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 125.
 )
-(/usr/share/texmf/tex/latex/hyperref/hyperref.sty
+(/usr/share/texmf-tetex/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2003/11/30 v6.74m Hypertext links for LaTeX
 \@linkdim=\dimen105
 \Hy@linkcounter=\count88
 \Hy@pagecounter=\count89
 
-(/usr/share/texmf/tex/latex/hyperref/pd1enc.def
+(/usr/share/texmf-tetex/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2003/11/30 v6.74m Hyperref: PDFDocEncoding definition (HO)
 )
 (/home/Meyer/lib/texmf/tex/latex/hyperref.cfg
@@ -84,7 +84,7 @@ Package hyperref Info: Backreferencing OFF on input line 1900.
 
 Implicit mode ON; LaTeX internals redefined
 Package hyperref Info: Bookmarks ON on input line 2004.
-(/usr/share/texmf/tex/latex/url/url.sty
+(/usr/share/texmf-tetex/tex/latex/url/url.sty
 \Urlmuskip=\muskip10
 Package: url 2004/03/15  ver 3.1  Verb mode for urls, etc.
 )
@@ -103,40 +103,40 @@ Package hyperref Info: Link coloring ON on input line 2636.
 \c@Hfootnote=\count92
 )
 *hyperref using default driver hpdftex*
-(/usr/share/texmf/tex/latex/hyperref/hpdftex.def
+(/usr/share/texmf-tetex/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2003/11/30 v6.74m Hyperref driver for pdfTeX
 
-(/usr/share/texmf/tex/latex/psnfss/pifont.sty
+(/usr/share/texmf-tetex/tex/latex/psnfss/pifont.sty
 Package: pifont 2004/09/15 PSNFSS-v9.2 Pi font support (SPQR) 
 LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
 
-(/usr/share/texmf/tex/latex/psnfss/upzd.fd
+(/usr/share/texmf-tetex/tex/latex/psnfss/upzd.fd
 File: upzd.fd 2001/06/04 font definitions for U/pzd.
 )
 LaTeX Font Info:    Try loading font information for U+psy on input line 64.
 
-(/usr/share/texmf/tex/latex/psnfss/upsy.fd
+(/usr/share/texmf-tetex/tex/latex/psnfss/upsy.fd
 File: upsy.fd 2001/06/04 font definitions for U/psy.
 ))
 \Fld@listcount=\count93
 \@outlinefile=\write3
 )
-(/usr/share/texmf/tex/latex/ae/ae.sty
+(/usr/share/texmf-tetex/tex/latex/ae/ae.sty
 Package: ae 2001/02/12 1.3 Almost European Computer Modern
 
-(/usr/share/texmf/tex/latex/base/fontenc.sty
+(/usr/share/texmf-tetex/tex/latex/base/fontenc.sty
 Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
 
-(/usr/share/texmf/tex/latex/base/t1enc.def
+(/usr/share/texmf-tetex/tex/latex/base/t1enc.def
 File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 )
 LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 
-(/usr/share/texmf/tex/latex/ae/t1aer.fd
+(/usr/share/texmf-tetex/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 )))
-(/usr/share/texmf/tex/latex/fancyvrb/fancyvrb.sty
+(/usr/share/texmf-tetex/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 1998/07/17
 
 Style option: `fancyvrb' v2.6, with DG/SPQR fixes <1998/07/17> (tvz)
@@ -148,14 +148,14 @@ Style option: `fancyvrb' v2.6, with DG/SPQR fixes <1998/07/17> (tvz)
 \FV@OutFile=\write4
 
 No file fancyvrb.cfg.
-) (/usr/share/texmf/tex/latex/base/fontenc.sty
+) (/usr/share/texmf-tetex/tex/latex/base/fontenc.sty
 Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
 
-(/usr/share/texmf/tex/latex/base/t1enc.def
+(/usr/share/texmf-tetex/tex/latex/base/t1enc.def
 File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-(/usr/share/texmf/tex/latex/natbib/natbib.sty
+(/usr/share/texmf-tetex/tex/latex/natbib/natbib.sty
 Package: natbib 2003/06/06 7.1 (PWD)
 \bibhang=\skip43
 \bibsep=\skip44
@@ -193,8 +193,8 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
- (/usr/share/texmf/tex/context/base/supp-pdf.tex
-(/usr/share/texmf/tex/context/base/supp-mis.tex
+ (/usr/share/texmf-tetex/tex/context/base/supp-pdf.tex
+(/usr/share/texmf-tetex/tex/context/base/supp-mis.tex
 loading : Context Support Macros / Miscellaneous (2004.10.26)
 \protectiondepth=\count98
 \scratchcounter=\count99
@@ -228,7 +228,7 @@ loading : Context Support Macros / PDF (2004.03.26)
 \everyMPtoPDFconversion=\toks20
 )
 Package hyperref Info: Link coloring ON on input line 20.
- (/usr/share/texmf/tex/latex/hyperref/nameref.sty
+ (/usr/share/texmf-tetex/tex/latex/hyperref/nameref.sty
 Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
 \c@section@level=\count108
 )
@@ -239,7 +239,7 @@ LaTeX Info: Redefining \pageref on input line 20.
 \openout3 = `hcl-colors.out'.
 
 LaTeX Font Info:    Try loading font information for T1+aess on input line 20.
- (/usr/share/texmf/tex/latex/ae/t1aess.fd
+ (/usr/share/texmf-tetex/tex/latex/ae/t1aess.fd
 File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -248,7 +248,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 20.
 LaTeX Font Info:    Try loading font information for T1+aett on input line 37.
 
-(/usr/share/texmf/tex/latex/ae/t1aett.fd
+(/usr/share/texmf-tetex/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 ) [1
 
@@ -312,16 +312,14 @@ Overfull \hbox (5.0pt too wide) has occurred while \output is active
 [][] \T1/aer/m/n/10 7
  []
 
-[7 <./bkde.png (PNG copy)>] <bkde2.png, id=181, 843.15pt x 421.575pt>
+[7 <./bkde.png>] <bkde2.png, id=181, 843.15pt x 421.575pt>
 File: bkde2.png Graphic file (type png)
-
-<use bkde2.png>
+ <use bkde2.png>
 Overfull \hbox (5.0pt too wide) has occurred while \output is active
 []\T1/aer/m/n/10 8 []
  []
 
-[8 <./bkde2.png (PNG copy)>]
-<hcl-colors-arthritis1.pdf, id=196, 505.89pt x 433.62pt>
+[8 <./bkde2.png>] <hcl-colors-arthritis1.pdf, id=196, 505.89pt x 433.62pt>
 File: hcl-colors-arthritis1.pdf Graphic file (type pdf)
 
 <use hcl-colors-arthritis1.pdf> <class.png, id=197, 642.4pt x 481.8pt>
@@ -337,31 +335,32 @@ Overfull \hbox (10.0pt too wide) has occurred while \output is active
 []\T1/aer/m/n/10 10 []
  []
 
-[10 <./hcl-colors-arthritis1.pdf> <./class.png (PNG copy)>] (./hcl-colors.aux) 
-) 
+[10 <./hcl-colors-arthritis1.pdf> <./class.png>] (./hcl-colors.aux) ) 
 Here is how much of TeX's memory you used:
- 3749 strings out of 94432
- 50350 string characters out of 1175565
+ 3749 strings out of 94500
+ 50793 string characters out of 1175787
  102337 words of memory out of 1000000
- 6820 multiletter control sequences out of 10000+50000
+ 6779 multiletter control sequences out of 10000+50000
  45262 words of font info for 82 fonts, out of 500000 for 2000
- 580 hyphenation exceptions out of 1000
+ 580 hyphenation exceptions out of 8191
  35i,9n,34p,354b,321s stack positions out of 1500i,500n,5000p,200000b,5000s
 PDF statistics:
  217 PDF objects out of 300000
  40 named destinations out of 131072
- 134 words of extra memory for PDF output out of 10000
-</usr/share/texmf/fonts/type1/bluesky/cm/cmr5.pfb></usr/share/texmf/fonts/type
-1/bluesky/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr7.pfb></usr
-/share/texmf/fonts/type1/bluesky/cm/cmmi7.pfb></usr/share/texmf/fonts/type1/blu
-esky/cm/cmmi10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmssi10.pfb></usr/s
-hare/texmf/fonts/type1/bluesky/cm/cmsl10.pfb></usr/share/texmf/fonts/type1/blue
-sky/cm/cmtt10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsltt10.pfb></usr/s
-hare/texmf/fonts/type1/bluesky/cm/cmss10.pfb></usr/share/texmf/fonts/type1/blue
-sky/cm/cmti10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmss9.pfb></usr/shar
-e/texmf/fonts/type1/bluesky/cm/cmb10.pfb></usr/share/texmf/fonts/type1/bluesky/
-cm/cmr9.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx9.pfb></usr/share/texm
-f/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr
-12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmssbx10.pfb></usr/share/texmf/
-fonts/type1/bluesky/cm/cmbx12.pfb>
-Output written on hcl-colors.pdf (10 pages, 216602 bytes).
+ 134 words of extra memory for PDF output out of 65536
+</usr/shar
+e/texmf-tetex/fonts/type1/bluesky/cm/cmr5.pfb></usr/share/texmf-tetex/fonts/typ
+e1/bluesky/cm/cmsy10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmr7.pf
+b></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmmi7.pfb></usr/share/texmf-te
+tex/fonts/type1/bluesky/cm/cmmi10.pfb></usr/share/texmf-tetex/fonts/type1/blues
+ky/cm/cmssi10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmsl10.pfb></u
+sr/share/texmf-tetex/fonts/type1/bluesky/cm/cmtt10.pfb></usr/share/texmf-tetex/
+fonts/type1/bluesky/cm/cmsltt10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky
+/cm/cmss10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmti10.pfb></usr/
+share/texmf-tetex/fonts/type1/bluesky/cm/cmss9.pfb></usr/share/texmf-tetex/font
+s/type1/bluesky/cm/cmb10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmr
+9.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmbx9.pfb></usr/share/texm
+f-tetex/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf-tetex/fonts/type1/bl
+uesky/cm/cmr12.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmssbx10.pfb>
+</usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmbx12.pfb>
+Output written on hcl-colors.pdf (10 pages, 214592 bytes).

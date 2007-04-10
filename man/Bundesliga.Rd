@@ -1,37 +1,44 @@
 \name{Bundesliga}
 \alias{Bundesliga}
-\docType{data}
 \title{Ergebnisse der Fussball-Bundesliga}
 \description{
-  Results from the first German soccer league in the years 1995/6 and
-  2001/2.
+  Results from the first German soccer league (1963-2005).
 }
 \usage{
 data("Bundesliga")
 }
-\format{A data frame with 612 observations and 6 variables.
+\format{A data frame with 13100 observations and 7 variables.
   \describe{
-    \item{HomeTeam}{character. Name of the home team.}
-    \item{AwayTeam}{character. Name of the away team.}
+    \item{HomeTeam}{factor. Name of the home team.}
+    \item{AwayTeam}{factor. Name of the away team.}
     \item{HomeGoals}{number of goals scored by the home team.}
     \item{AwayGoals}{number of goals scored by the away team.}
-    \item{Round}{day of the game.}
+    \item{Round}{round of the game.}
     \item{Year}{year in which the season started.}
+    \item{Date}{starting time of the game (in \code{"POSIXct"} format).}
   }
 }
 \details{
-  The data for the season 1995/6 is taken from Knorr-Held (1999),
-  the data for the season 2001/2 was collected by Achim Zeileis.
-}
-\references{
-  Leonhard Knorr-Held (1999),
-  Dynamic rating of sports teams.
-  SFB 386 \dQuote{Statistical Analysis of Discrete Structures},
-  Discussion paper \bold{98}.
+  The data comprises all games in the first German soccer league since
+  its foundation in 1963. The data have been queried online from the 
+  official Web page of the DFB and prepared as a data frame in R by
+  Daniel Dekic and Achim Zeileis (replacing an earlier version of the
+  data in the vcd package containing only two selected years).
+  
+  Each year/season comprises 34 rounds (except 1963, 1964, 1991) so that
+  all 18 teams play twice against each other (switching home court advantage).
+  In 1963/64, there were only 16 teams, hence only 30 rounds.
+  In 1991, after the German unification, there was one season with 20 teams
+  and 38 rounds.
 }
 \source{
-  SFB 386 \dQuote{Statistical Analysis of Discrete Structures}
-  \url{http://www.stat.uni-muenchen.de/service/datenarchiv/bundesliga/bundesliga.html}
+  Homepage of the Deutscher Fussball-Bund (DFB, German Football Association):
+  \url{http://www.dfb.de/}
+}
+\references{
+Leonhard Knorr-Held (1999), Dynamic rating of sports teams.
+SFB 386 \dQuote{Statistical Analysis of Discrete Structures},
+Discussion paper \bold{98}.
 }
 \seealso{
   \code{\link{UKSoccer}}

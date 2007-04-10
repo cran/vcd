@@ -535,10 +535,12 @@ dimnames.structable <- function(x) attr(x,"dnames")
 as.vector.structable <- function(x, ...)
   as.vector(as.table(x), ...)
   
-as.matrix.structable <- function(x) matrix(as.vector(unclass(x)), ncol = attr(x, "dim")[2])
+as.matrix.structable <- function(x, ...) 
+  matrix(as.vector(unclass(x)), ncol = attr(x, "dim")[2])
 
 length.structable <- function(x) dim(x)[1]
 
-is.na.structable <- function(x) sapply(seq(along = x), function(sub) any(is.na(sub)))
+is.na.structable <- function(x) 
+  sapply(seq(along = x), function(sub) any(is.na(sub)))
 
 
