@@ -154,7 +154,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   \code{\link{mosaic}},
   \code{\link{assoc}},
   \code{\link{strucplot}},
-  \code{\link{diverge_hcl}}}
+  \code{\link{diverge_hcl}}
 }
 \examples{
 ## load Arthritis data

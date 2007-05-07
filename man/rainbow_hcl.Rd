@@ -101,7 +101,7 @@ hcl2hex(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
   \code{\link[colorspace]{polarLUV}},
   \code{\link[colorspace]{hex}},
   \code{\link{hsv}},
-  \code{\link{shadings}}}
+  \code{\link{shadings}}
 }
 \examples{
 ## convenience demo functions
