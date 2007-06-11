@@ -88,7 +88,7 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
         matrix(c(t - x, x, m - t + x, n - x), nr = 2)
     }
 
-    drawPie <- function(r, from, to, n = 500, color = NA) {
+    drawPie <- function(r, from, to, n = 500, color = "transparent") {
         p <- 2 * pi * seq(from, to, length = n) / 360
         x <- c(cos(p), 0) * r
         y <- c(sin(p), 0) * r
@@ -351,7 +351,8 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
         ## drawBoxes()
         grid.polygon(c(-1,  1, 1, -1),
                      c(-1, -1, 1,  1),
-                     default.units = "native"
+                     default.units = "native",
+                     gp = gpar(fill = "transparent")
                      )
         grid.lines(c(-1, 1), c(0, 0), default.units = "native")
         for(j in seq(from = -0.8, to = 0.8, by = 0.2))

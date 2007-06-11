@@ -1,6 +1,7 @@
 \name{struc_sieve}
 \alias{struc_sieve}
 \title{Core-generating Function for Sieve Plots}
+\encoding{UTF-8}
 \description{
   Core-generating function for \code{strucplot} returning a function
   producing sieve plots.
@@ -37,7 +38,7 @@ struc_sieve(sievetype = c("observed","expected"))
   \code{\link{structable}}
 }
 \references{
-  Riedwyl, H., and Schüpbach, M. (1994),
+  Riedwyl, H., and SchÃ¼pbach, M. (1994),
   Parquet diagram to plot contingency tables.
   In F. Faulbaum (ed.),
   \emph{Softstat '93: Advances in Statistical Software}, 293--299.

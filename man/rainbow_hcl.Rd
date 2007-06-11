@@ -7,7 +7,7 @@
 \alias{terrain_hcl}
 \alias{hcl2hex}
 \title{HCL and HSV Color Palettes}
-\encoding{latin1}
+\encoding{UTF-8}
 \description{
   Color palettes based on the HCL and HSV color spaces.
 }
@@ -86,7 +86,7 @@ hcl2hex(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
 
 \references{
   Zeileis A. and Hornik K. (2006), Choosing Color Palettes for Statistical Graphics.
-  Report 41, Department of Statistics and Mathematics, Wirtschaftsuniversit‰t Wien,
+  Report 41, Department of Statistics and Mathematics, Wirtschaftsuniversit√§t Wien,
   Research Report Series, \url{http://epub.wu-wien.ac.at/}.
 }
 

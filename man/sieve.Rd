@@ -3,6 +3,7 @@
 \alias{sieve.default}
 \alias{sieve.formula}
 \title{Extended Sieve Plots}
+\encoding{UTF-8}
 \description{
   (Extended) sieve displays for n-way contingency tables: plots rectangles with
   areas proportional to the expected cell frequencies and filled with a
@@ -93,10 +94,10 @@
 \value{
   The \code{"structable"} visualized is returned invisibly.
 }
-\note{To be faithful to the original definition by Riedwyl & Schüpbach,
+\note{To be faithful to the original definition by Riedwyl & SchÃ¼pbach,
    the default is to have no spacing between the tiles for two-way tables.}
 \references{
-  H. Riedwyl & M. Schüpbach (1994),
+  H. Riedwyl & M. SchÃ¼pbach (1994),
   Parquet diagram to plot contingency tables.
   In F. Faulbaum (ed.),
   \emph{Softstat '93: Advances in Statistical Software}, 293--299.

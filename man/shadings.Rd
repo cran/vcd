@@ -6,7 +6,7 @@
 \alias{shading_Friendly}
 \alias{shading_sieve}
 \alias{shading_binary}
-\encoding{latin1}
+\encoding{UTF-8}
 \title{Shading-generating Functions for Residual-based Shadings}
 \description{
   Shading-generating functions for computing residual-based shadings 
@@ -129,7 +129,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   URL http://www.jstatsoft.org/v17/i03/. See also \code{vignette("strucplot")}.
 
   Zeileis A. and Hornik K. (2006), Choosing Color Palettes for Statistical Graphics.
-  Report 41, Department of Statistics and Mathematics, Wirtschaftsuniversit‰t Wien,
+  Report 41, Department of Statistics and Mathematics, Wirtschaftsuniversit√§t Wien,
   Research Report Series, \url{http://epub.wu-wien.ac.at/}.
   
   Zeileis A., Meyer D., Hornik K. (2007), Residual-based Shadings for Visualizing

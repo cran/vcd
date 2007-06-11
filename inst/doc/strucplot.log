@@ -1,4 +1,4 @@
-This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.4.20)  10 MAY 2007 10:49
+This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.4.20)  11 JUN 2007 14:48
 entering extended mode
  file:line:error style messages enabled.
 **\nonstopmode \input /home/meyer/src/pkg/vcd/inst/doc/strucplot.tex
@@ -710,4 +710,4 @@ r/share/texmf-tetex/fonts/type1/bluesky/cm/cmbx9.pfb></usr/share/texmf-tetex/fo
 nts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/c
 mr12.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmb10.pfb></usr/share/t
 exmf-tetex/fonts/type1/bluesky/cm/cmbx12.pfb>
-Output written on strucplot.pdf (43 pages, 902994 bytes).
+Output written on strucplot.pdf (43 pages, 902989 bytes).
