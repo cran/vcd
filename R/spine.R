@@ -3,7 +3,7 @@ spine <- function(x, ...)
 
 spine.formula <- function(formula, data = list(),
   breaks = NULL, ylab_tol = 0.05, off = NULL,
-  main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
+  main = "", xlab = NULL, ylab = NULL, ylim = c(0, 1), margins = c(5.1, 4.1, 4.1, 3.1),
   gp = gpar(), name = "spineplot", newpage = TRUE, pop = TRUE,
   ...)
 {
@@ -18,13 +18,13 @@ spine.formula <- function(formula, data = list(),
      
   spine(x, y,
     breaks = breaks, ylab_tol = ylab_tol, off = off,
-    main = main, xlab = xlab, ylab = ylab, margins = margins,
+    main = main, xlab = xlab, ylab = ylab, ylim = ylim, margins = margins,
     gp = gp, name = name, newpage = newpage, pop = pop, ...)
 }
 
 spine.default <- function(x, y = NULL,
   breaks = NULL, ylab_tol = 0.05, off = NULL,
-  main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
+  main = "", xlab = NULL, ylab = NULL, ylim = c(0, 1), margins = c(5.1, 4.1, 4.1, 3.1),
   gp = gpar(), name = "spineplot", newpage = TRUE, pop = TRUE,
   ...)
 {
@@ -84,12 +84,16 @@ spine.default <- function(x, y = NULL,
   
   ## setup plot
   if(newpage) grid.newpage()
-  pushViewport(plotViewport(xscale = c(0, 1 + off * (nx-1)), yscale = c(0, 1),
+  pushViewport(plotViewport(xscale = c(0, 1 + off * (nx-1)), yscale = ylim,
     default.unit = "native", name = name, margins = margins, ...))
 
   ## compute coordinates
   ybottom <- as.vector(yat[-(ny+1),])
+  ybottom[ybottom < ylim[1]] <- ylim[1]
+  ybottom[ybottom > ylim[2]] <- ylim[2]
   ytop <- as.vector(yat[-1,])
+  ytop[ytop < ylim[1]] <- ylim[1]
+  ytop[ytop > ylim[2]] <- ylim[2]
   xleft <- rep(xat[1:nx], rep(ny, nx))
   xright <- rep(xat[2:(nx+1)] - off, rep(ny, nx))
   gp$fill <- rep(gp$fill, nx)

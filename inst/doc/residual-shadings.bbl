@@ -31,7 +31,7 @@ Hothorn T, Hornik K, van~de Wiel MA, Zeileis A (2006).
   Hornik}]{vcd:Meyer+Zeileis+Hornik:2006}
 Meyer D, Zeileis A, Hornik K (2006{\natexlab{a}}).
 \newblock \emph{\pkg{vcd}: Visualizing Categorical Data}.
-\newblock \textsf{R} package version 1.0-2.
+\newblock \textsf{R} package version 1.0-6.
 
 \bibitem[{Meyer \emph{et~al.}(2006{\natexlab{b}})Meyer, Zeileis, and
   Hornik}]{vcd:Meyer+Zeileis+Hornik:2006b}

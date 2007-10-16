@@ -72,9 +72,9 @@ cotab_coindep(x, condvars,
   URL http://www.jstatsoft.org/v17/i03/ and available as 
   \code{vignette("strucplot")}.
 
-  Zeileis, A., Meyer, D., Hornik K. (2005), \emph{Residual-based shadings for visualizing
-  (conditional) independence}, Research Report, \bold{20}.
-  \url{http://epub.wu-wien.ac.at/}
+  Zeileis, A., Meyer, D., Hornik K. (2007), \emph{Residual-based shadings for visualizing
+  (conditional) independence}, \emph{Journal of Computational and Graphical Statistics}, \bold{16},
+  507--525.
 }
 \author{
   Achim Zeileis \email{Achim.Zeileis@R-project.org}

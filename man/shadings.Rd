@@ -134,7 +134,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   
   Zeileis A., Meyer D., Hornik K. (2007), Residual-based Shadings for Visualizing
   (Conditional) Independence. \emph{Journal of Computational and Graphical Statistics},
-  forthcoming.
+  \bold{16}, 507--525.
 }
 
 \value{A shading function which takes only a single argument, interpreted as a

@@ -1,4 +1,4 @@
-This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.4.20)  11 JUN 2007 14:46
+This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.4.20)  16 OCT 2007 15:55
 entering extended mode
  file:line:error style messages enabled.
 **\nonstopmode \input /home/meyer/src/pkg/vcd/inst/doc/hcl-colors.tex
@@ -363,4 +363,4 @@ s/type1/bluesky/cm/cmb10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmr
 f-tetex/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf-tetex/fonts/type1/bl
 uesky/cm/cmr12.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmssbx10.pfb>
 </usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmbx12.pfb>
-Output written on hcl-colors.pdf (10 pages, 214565 bytes).
+Output written on hcl-colors.pdf (10 pages, 214567 bytes).

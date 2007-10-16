@@ -44,14 +44,21 @@ Kappa(x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
   intervals.
 }
 \references{
-  Jacob Cohen (1960),
+  Cohen, J. (1960),
   A coefficient of agreement for nominal scales.
-  \emph{Educational and Psychological Measurement}, \bold{20}, 37--46.
+  \emph{Educational and Psychological Measurement},
+  \bold{20}, 37--46.
 
-  B. S. Everitt, (1968),
+  Everitt, B.S. (1968),
   Moments of statistics kappa and weighted kappa.
   \emph{The British Journal of Mathematical and Statistical Psychology},
   \bold{21}, 97--103.
+
+  Fleiss, J.L., Cohen, J., and Everitt, B.S. (1969),
+  Large sample standard errors of kappa and weighted kappa.
+  \emph{Psychological Bulletin},
+  \bold{72}, 332--327.
+
 }
 \author{
   David Meyer \email{David.Meyer@R-project.org}

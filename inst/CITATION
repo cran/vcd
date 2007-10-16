@@ -45,10 +45,12 @@ citEntry(entry="Article",
 			     as.person("Kurt Hornik")),
          journal      = "Journal of Computational and Graphical Statistics",
          year         = "2007",
-         note         = "Forthcoming",
+	 volume       = "16",
+	 number       = "3",
+	 pages        = "507--525",
          
          textVersion = 
          paste("Achim Zeileis, David Meyer, and Kurt Hornik (2007).", 
                "Residual-based Shadings for Visualizing (Conditional) Independence.",
-               "Journal of Computational and Graphical Statistics, forthcoming.")
+               "Journal of Computational and Graphical Statistics, 16(3), 507-525.")
 )

@@ -3,25 +3,26 @@ legend_resbased <- function(fontsize = 12,
                             y = unit(0.1, "npc"),
                             height = unit(0.8, "npc"),
                             width = unit(0.7, "lines"),
-			    digits = 3, 
+			    digits = 3,
 			    check_overlap = TRUE,
                             text = NULL,
                             steps = 200,
                             ticks = 10,
-                            pvalue = TRUE) {
+                            pvalue = TRUE,
+                            range = NULL) {
 
   if(!is.unit(x)) x <- unit(x, "native")
   if(!is.unit(y)) y <- unit(y, "npc")
   if(!is.unit(width)) width <- unit(width, "lines")
   if(!is.unit(height)) height <- unit(height, "npc")
-  
+
   function(residuals, shading, autotext) {
     res <- as.vector(residuals)
-    
+
     if(is.null(text)) text <- autotext
     p.value <- attr(shading, "p.value")
     legend <- attr(shading, "legend")
-    
+
     if (all(residuals == 0)) {
       pushViewport(viewport(x = x, y = y, just = c("left", "bottom"),
                             default.unit = "native",
@@ -29,19 +30,28 @@ legend_resbased <- function(fontsize = 12,
       grid.lines(y = 0.5)
       grid.text(0, x = unit(1, "npc") + unit(0.8, "lines"),  y = 0.5)
       warning("All residuals are zero.")
-      
-    } else {
 
-      pushViewport(viewport(x = x, y = y, just = c("left", "bottom"),
-                            yscale = range(res), default.unit = "native",
-                            height = height, width = width))
+    } else {
+        if (is.null(range))
+            range <- range(res)
+        if (length(range) != 2)
+            stop("Range must have length two!")
+        if (is.na(range[1]))
+            range[1] <- min(res)
+        if (is.na(range[2]))
+            range[2] <- max(res)
+
+        pushViewport(viewport(x = x, y = y, just = c("left", "bottom"),
+                              yscale = range, default.unit = "native",
+                              height = height, width = width))
+
 
       if(is.null(legend$col.bins)) {
-        col.bins <- seq(min(res), max(res), length = steps)
+        col.bins <- seq(range[1], range[2], length = steps)
         at <- NULL
       } else {
-        col.bins <- sort(unique(c(legend$col.bins, range(res))))
-        col.bins <- col.bins[col.bins <= max(res) & col.bins >= min(res)]
+        col.bins <- sort(unique(c(legend$col.bins, range)))
+        col.bins <- col.bins[col.bins <= range[2] & col.bins >= range[1]]
         at <- col.bins
       }
       y.pos <- col.bins[-length(col.bins)]
@@ -67,9 +77,9 @@ legend_resbased <- function(fontsize = 12,
                     y0 = at, y1 = at, default.unit = "native")
 
     }
-    
+
     popViewport(1)
-    
+
     grid.text(text, x = x, y = unit(1, "npc") - y + unit(1, "lines"),
               gp = gpar(fontsize = fontsize, lineheight = 0.8),
               just = c("left", "bottom")
@@ -93,8 +103,9 @@ legend_fixed <- function(fontsize = 12,
                          steps = 200,
 			 digits = 1,
                          space = 0.05,
-                         text = NULL) {
-  
+                         text = NULL,
+                         range = NULL) {
+
   if(!is.unit(x)) x <- unit(x, "native")
   if(!is.unit(y) && !is.null(y)) y <- unit(y, "npc")
   if(!is.unit(width)) width <- unit(width, "lines")
@@ -107,19 +118,28 @@ legend_fixed <- function(fontsize = 12,
 
     if (is.null(y)) y <- unit(1, "strwidth", text) + unit(1, "lines")
     if (is.null(height)) height <- unit(1, "npc") - y
-    
+
     pushViewport(viewport(x = x, y = y, just = c("left", "bottom"),
                           yscale = c(0,1), default.unit = "npc",
                           height = height, width = width))
 
     p.value <- attr(shading, "p.value")
     legend <- attr(shading, "legend")
-    
+
+        if (is.null(range))
+            range <- range(res)
+        if (length(range) != 2)
+            stop("Range must have length two!")
+        if (is.na(range[1]))
+            range[1] <- min(res)
+        if (is.na(range[2]))
+            range[2] <- max(res)
+
     if(is.null(legend$col.bins)) {
-      col.bins <- seq(min(res), max(res), length = steps)
+      col.bins <- seq(range[1], range[2], length = steps)
     } else {
-      col.bins <- sort(unique(c(legend$col.bins, range(res))))
-      col.bins <- col.bins[col.bins <= max(res) & col.bins >= min(res)]
+      col.bins <- sort(unique(c(legend$col.bins, range)))
+      col.bins <- col.bins[col.bins <= range[2] & col.bins >= range[1]]
     }
     l <- length(col.bins)
     y.height <- (1 - (l - 2) * space) / (l - 1)

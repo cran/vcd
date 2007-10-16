@@ -34,7 +34,12 @@ labeling_cboxed(tl_labels = TRUE, boxes = TRUE, clip = TRUE,
 labeling_lboxed(tl_labels = FALSE, boxes = TRUE, clip = TRUE,
   pos_labels = "left", just_labels = "left",
   labbl_varnames = FALSE, \dots)
-labeling_doubledecker(lab_pos = c("bottom", "top"), \dots)
+labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
+  boxes = NULL, clip = NULL, labbl_varnames = FALSE,
+  rot_labels = rep.int(0, 4),
+  pos_labels = c("left", "center", "left", "center"),
+  just_labels = c("left", "left", "left", "center"), varnames = NULL,
+  offset_varnames = c(0, -0.6, 0, 0), tl_labels = NULL, \dots)
 }
 \arguments{
   \item{labels}{vector of logicals indicating whether labels should be
@@ -114,6 +119,10 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), \dots)
   \item{lab_pos}{character string switching between \code{"top"} or
     \code{"bottom"} position of the labels (only used for
     \code{labeling_doubledecker}).}
+  \item{dep_varname}{logical or character string. If logical, this is
+    indicating whether the name of the dependent varable should be
+    printed or not. A character string will be printed instead of the
+    variable name taken from the dimnames.}
   \item{\dots}{only used for \code{labeling_conditional} and
     \code{labeling_doubledecker}: parameters
     passed to \code{labeling_cells} and \code{labeling_border}.}

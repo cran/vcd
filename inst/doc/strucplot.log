@@ -1,4 +1,4 @@
-This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.4.20)  11 JUN 2007 14:48
+This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.4.20)  16 OCT 2007 15:57
 entering extended mode
  file:line:error style messages enabled.
 **\nonstopmode \input /home/meyer/src/pkg/vcd/inst/doc/strucplot.tex
@@ -290,7 +290,7 @@ Overfull \hbox (5.0pt too wide) has occurred while \output is active
 LaTeX Font Info:    Try loading font information for OMS+aer on input line 277.
 
 
-(/home/meyer/bin/R-build/share/texmf/omsaer.fd
+(/usr/share/R/share/texmf/omsaer.fd
 File: omsaer.fd 1999/12/27
 )
 LaTeX Font Info:    Font shape `OMS/aer/m/n' in size <10> not available
@@ -682,7 +682,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
  ) 
 Here is how much of TeX's memory you used:
  4234 strings out of 94500
- 62936 string characters out of 1175788
+ 62903 string characters out of 1175788
  114972 words of memory out of 1000000
  7096 multiletter control sequences out of 10000+50000
  53497 words of font info for 96 fonts, out of 500000 for 2000
@@ -710,4 +710,4 @@ r/share/texmf-tetex/fonts/type1/bluesky/cm/cmbx9.pfb></usr/share/texmf-tetex/fo
 nts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/c
 mr12.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmb10.pfb></usr/share/t
 exmf-tetex/fonts/type1/bluesky/cm/cmbx12.pfb>
-Output written on strucplot.pdf (43 pages, 902989 bytes).
+Output written on strucplot.pdf (43 pages, 902698 bytes).

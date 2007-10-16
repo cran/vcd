@@ -12,12 +12,12 @@
 spine(x, \dots)
 \method{spine}{default}(x, y = NULL,
   breaks = NULL, ylab_tol = 0.05, off = NULL,
-  main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
+  main = "", xlab = NULL, ylab = NULL, ylim = c(0, 1), margins = c(5.1, 4.1, 4.1, 3.1),
   gp = gpar(), name = "spineplot", newpage = TRUE, pop = TRUE,
   \dots)
 \method{spine}{formula}(formula, data = list(),
   breaks = NULL, ylab_tol = 0.05, off = NULL,
-  main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
+  main = "", xlab = NULL, ylab = NULL, ylim = c(0, 1), margins = c(5.1, 4.1, 4.1, 3.1),
   gp = gpar(), name = "spineplot", newpage = TRUE, pop = TRUE,
   \dots)
 }
@@ -37,6 +37,7 @@ spine(x, \dots)
   \item{off}{vertical offset between the bars (in per cent). It is fixed to
     \code{0} for spinograms and defaults to \code{2} for spine plots.}
   \item{main, xlab, ylab}{character strings for annotation}
+  \item{ylim}{limits for the y axis}
   \item{margins}{margins when calling \code{\link{plotViewport}}}
   \item{gp}{a \code{"gpar"} object controlling the grid graphical
     parameters of the rectangles. It should specify in particular a vector of
