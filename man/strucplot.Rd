@@ -14,7 +14,7 @@ strucplot(x, residuals = NULL, expected = NULL,
   labeling = labeling_border, labeling_args = list(),
   core = struc_mosaic, core_args = list(),
   legend = NULL, legend_args = list(),
-  main = NULL, sub = NULL, margins = unit(2.5, "lines"),
+  main = NULL, sub = NULL, margins = unit(3, "lines"),
   title_margins = NULL, legend_width = NULL,
   main_gp = gpar(fontsize = 20), sub_gp = gpar(fontsize = 15),
   newpage = TRUE, pop = TRUE, keep_aspect_ratio = NULL, prefix = "", \dots)

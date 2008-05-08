@@ -181,7 +181,7 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
 ##                     function(i) paste(dnn, i, collapse=",", sep = "=")
 ##                     )
     
-##     for (i in seq(along = mnames)) {
+##     for (i in seq_along(mnames)) {
 ##       seekViewport(paste(prefix, "cell:", mnames[i], sep = ""))
 ##       vp <- current.viewport()
 ##       gpobj <- structure(lapply(gp, function(x) x[i]), class = "gpar")

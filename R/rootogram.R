@@ -88,7 +88,7 @@ grid_barplot <- function(height, width = 0.8, offset = 0,
   if(is.null(ylim)) ylim <- c(min(offset), max(height + offset))
 
   if(newpage) grid.newpage()
-  pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.unit = "native", name = name))
+  pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.units = "native", name = name))
   grid.rect(x = 1:n, y = offset, width = width, height = height,
     just = c("centre", "bottom"), default.units = "native", gp = gp)
   grid.yaxis()

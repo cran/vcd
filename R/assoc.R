@@ -162,7 +162,7 @@ assoc.default <- function(x,
 ##                           function(i) paste(dnn, i, collapse = ",", sep = "=")
 ##                           )
 ##                     )
-##     for (i in seq(along = mnames)) {
+##     for (i in seq_along(mnames)) {
 ##       seekViewport(paste(prefix, "cell:", mnames[i], sep = ""))
 ##       grid.lines(y = unit(0, "native"), gp = gp_axis)
 ##       grid.rect(y = 0, x = 0,

@@ -85,7 +85,7 @@ spine.default <- function(x, y = NULL,
   ## setup plot
   if(newpage) grid.newpage()
   pushViewport(plotViewport(xscale = c(0, 1 + off * (nx-1)), yscale = ylim,
-    default.unit = "native", name = name, margins = margins, ...))
+    default.units = "native", name = name, margins = margins, ...))
 
   ## compute coordinates
   ybottom <- as.vector(yat[-(ny+1),])

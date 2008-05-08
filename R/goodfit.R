@@ -95,9 +95,9 @@ goodfit <- function(x, type = c("poisson", "binomial", "nbinomial"),
 	  stop("`par' must specify `size' and possibly `prob'")
 	if(!is.null(par$prob)) method <- "fixed"
       }
-      
+
       switch(method,
-      
+
       "ML" = {
         if(is.null(par$size)) {
           df <- df - 2
@@ -109,10 +109,10 @@ goodfit <- function(x, type = c("poisson", "binomial", "nbinomial"),
 
 	  size <- par$size
           xbar <- weighted.mean(count,freq)
-          par <- c(size, size/(xbar+size))	  
+          par <- c(size, size/(xbar+size))
 	}
       },
-      
+
       "MinChisq" = {
         if(is.null(par$size)) {
           df <- df - 2
@@ -140,17 +140,17 @@ goodfit <- function(x, type = c("poisson", "binomial", "nbinomial"),
 	  chi2 <- function(x)
 	  {
 	    p.hat <- diff(c(0, pnbinom(count[-n], size = par$size, prob = x), 1))
-	    expected <- sum(freq) * p.hat 
+	    expected <- sum(freq) * p.hat
 	    sum((freq - expected)^2/expected)
 	  }
 	  par <- c(par$size, optimize(chi2, c(0, 1))$minimum)
 	}
       },
-      
+
       "fixed" = {
-        par <- c(par$size, par$prob)      
+        par <- c(par$size, par$prob)
       })
-      
+
       par <- list(size = par[1], prob = par[2])
       p.hat <- dnbinom(count, size = par$size, prob = par$prob)
     })
@@ -199,12 +199,15 @@ summary.goodfit <- function(object, ...)
 
     names(G2) <- "Likelihood Ratio"
     names(X2) <- "Pearson"
-    if(any(expctd) < 5 & object$method[1] != "ML") warning("Chi-squared approximation may be incorrect")
+    if(any(expctd < 5) & object$method[1] != "ML")
+        warning("Chi-squared approximation may be incorrect")
 
     switch(object$method[1],
     "ML" = { RVAL <- G2 },
     "MinChisq" = { RVAL <- X2 },
     "fixed" = { RVAL <- c(X2, G2) })
+
+## FIXME: some methods or a default seem missing here?
 
     RVAL <- cbind(RVAL, df, pchisq(RVAL, df = df, lower = FALSE))
     colnames(RVAL) <- c("X^2", "df", "P(> X^2)")

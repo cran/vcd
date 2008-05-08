@@ -10,7 +10,7 @@ class(spacing_equal) <- "grapcon_generator"
 spacing_dimequal <- function(sp) {
   if (!is.unit(sp)) sp <- unit(sp, "lines")
   function(d, condvars = NULL)
-    lapply(seq(along = d), function(i) if(d[i] > 1) rep(sp[i], d[i] - 1) else NA)
+    lapply(seq_along(d), function(i) if(d[i] > 1) rep(sp[i], d[i] - 1) else NA)
 }
 class(spacing_dimequal) <- "grapcon_generator"
 

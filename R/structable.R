@@ -79,11 +79,11 @@ structable.formula <- function(formula, data = NULL, direction = NULL,
         rvars <- pmatch(rvars, dnames)
         cvars <- pmatch(cvars, dnames)
         if (rhs.has.dot) 
-            rvars <- seq(along = dnames)[-cvars]
+            rvars <- seq_along(dnames)[-cvars]
         else if (any(is.na(rvars))) 
           stop("incorrect variable names in rhs of formula")
         if (lhs.has.dot) 
-            cvars <- seq(along = dnames)[-rvars]
+            cvars <- seq_along(dnames)[-rvars]
         else if (any(is.na(cvars))) 
           stop("incorrect variable names in lhs of formula")
         split_vertical <- c(rep(FALSE, length(rvars)), rep(TRUE, length(cvars)))
@@ -95,9 +95,9 @@ structable.formula <- function(formula, data = NULL, direction = NULL,
         if (!is.null(data) && is.environment(data)) {
             dnames <- names(data)
             if (rhs.has.dot) 
-                rvars <- seq(along = dnames)[-cvars]
+                rvars <- seq_along(dnames)[-cvars]
             if (lhs.has.dot) 
-                cvars <- seq(along = dnames)[-rvars]
+                cvars <- seq_along(dnames)[-rvars]
         }
         else {
             if (lhs.has.dot || rhs.has.dot) 
@@ -405,14 +405,14 @@ structable.default <- function(..., direction = NULL, split_vertical = FALSE) {
   
   ## handle calls like x[c(1,2), 3]
   if (length(args[[1]]) > 1) {
-    for (i in seq(along = args[[1]]))
+    for (i in seq_along(args[[1]]))
       x[ args[[1]][i], args[[2]] ] <- value[i,]
     return(x)
   }
     
   ## handle calls like x[1, c(2,3)]
   if (length(args[[2]]) > 1) {
-    for (i in seq(along = args[[2]]))
+    for (i in seq_along(args[[2]]))
       x[ args[[1]], args[[2]][i] ] <- value[,i]
     return(x)
   }
@@ -541,6 +541,6 @@ as.matrix.structable <- function(x, ...)
 length.structable <- function(x) dim(x)[1]
 
 is.na.structable <- function(x) 
-  sapply(seq(along = x), function(sub) any(is.na(sub)))
+  sapply(seq_along(x), function(sub) any(is.na(sub)))
 
 

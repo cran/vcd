@@ -1,14 +1,14 @@
-This is pdfeTeXk, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.4.20)  16 OCT 2007 15:56
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2008.4.27)  8 MAY 2008 18:20
 entering extended mode
  file:line:error style messages enabled.
-**\nonstopmode \input /home/meyer/src/pkg/vcd/inst/doc/residual-shadings.tex
-(/home/meyer/src/pkg/vcd/inst/doc/residual-shadings.tex
-(/home/Meyer/lib/texmf/tex/latex/Z.cls
+ %&-line parsing enabled.
+**\nonstopmode \input ./residual-shadings.tex
+(./residual-shadings.tex (./Z.cls
 Document Class: Z 2006/10/11 1.1 Z class by Achim Zeileis
-(/usr/share/texmf-tetex/tex/latex/base/article.cls
-Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
-(/usr/share/texmf-tetex/tex/latex/base/size10.clo
-File: size10.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -22,53 +22,53 @@ File: size10.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/share/texmf-tetex/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-tetex/tex/latex/graphics/keyval.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/share/texmf-tetex/tex/latex/graphics/graphics.sty
-Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-tetex/tex/latex/graphics/trig.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/share/texmf-tetex/tex/latex/graphics/graphics.cfg
-File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: pdftex.def on input line 80.
+Package graphics Info: Driver file: pdftex.def on input line 90.
 
-(/usr/share/texmf-tetex/tex/latex/graphics/pdftex.def
-File: pdftex.def 2002/06/19 v0.03k graphics/color for pdftex
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
 \Gread@gobject=\count87
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-(/usr/share/texmf-tetex/tex/latex/a4wide/a4wide.sty
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/a4wide.sty
 Package: a4wide 1994/08/30
 
-(/usr/share/texmf-tetex/tex/latex/ntgclass/a4.sty
+(/usr/share/texmf-texlive/tex/latex/ntgclass/a4.sty
 Package: a4 2004/04/15 v1.2g A4 based page layout
 ))
-(/usr/share/texmf-tetex/tex/latex/graphics/color.sty
-Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
+(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/usr/share/texmf-tetex/tex/latex/graphics/color.cfg
-File: color.cfg 2005/02/03 v1.3 color configuration of teTeX/TeXLive
+(/etc/texmf/tex/latex/config/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 125.
+Package color Info: Driver file: pdftex.def on input line 130.
 )
-(/usr/share/texmf-tetex/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2003/11/30 v6.74m Hypertext links for LaTeX
+(/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2007/02/07 v6.75r Hypertext links for LaTeX
 \@linkdim=\dimen105
 \Hy@linkcounter=\count88
 \Hy@pagecounter=\count89
 
-(/usr/share/texmf-tetex/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2003/11/30 v6.74m Hyperref: PDFDocEncoding definition (HO)
+(/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2007/02/07 v6.75r Hyperref: PDFDocEncoding definition (HO)
 )
 (/home/Meyer/lib/texmf/tex/latex/hyperref.cfg
 Package hyperref Info: Option `hyperindex' set `true' on input line 11.
@@ -76,91 +76,82 @@ Package hyperref Info: Option `colorlinks' set `true' on input line 11.
 Package hyperref Info: Option `linktocpage' set `true' on input line 11.
 Package hyperref Info: Option `plainpages' set `false' on input line 11.
 )
-Package hyperref Info: Hyper figures OFF on input line 1880.
-Package hyperref Info: Link nesting OFF on input line 1885.
-Package hyperref Info: Hyper index ON on input line 1888.
-Package hyperref Info: Plain pages OFF on input line 1895.
-Package hyperref Info: Backreferencing OFF on input line 1900.
+(/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2006/08/22 v2.4 Connects package keyval with LaTeX options (
+HO)
+)
+Package hyperref Info: Hyper figures OFF on input line 2288.
+Package hyperref Info: Link nesting OFF on input line 2293.
+Package hyperref Info: Hyper index ON on input line 2296.
+Package hyperref Info: Plain pages OFF on input line 2303.
+Package hyperref Info: Backreferencing OFF on input line 2308.
 
 Implicit mode ON; LaTeX internals redefined
-Package hyperref Info: Bookmarks ON on input line 2004.
-(/usr/share/texmf-tetex/tex/latex/url/url.sty
+Package hyperref Info: Bookmarks ON on input line 2444.
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
 \Urlmuskip=\muskip10
-Package: url 2004/03/15  ver 3.1  Verb mode for urls, etc.
+Package: url 2005/06/27  ver 3.2  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 2143.
+LaTeX Info: Redefining \url on input line 2599.
 \Fld@menulength=\count90
 \Field@Width=\dimen106
 \Fld@charsize=\dimen107
 \Choice@toks=\toks15
 \Field@toks=\toks16
-Package hyperref Info: Hyper figures OFF on input line 2618.
-Package hyperref Info: Link nesting OFF on input line 2623.
-Package hyperref Info: Hyper index ON on input line 2626.
-Package hyperref Info: backreferencing OFF on input line 2633.
-Package hyperref Info: Link coloring ON on input line 2636.
-\c@Item=\count91
-\c@Hfootnote=\count92
+Package hyperref Info: Hyper figures OFF on input line 3102.
+Package hyperref Info: Link nesting OFF on input line 3107.
+Package hyperref Info: Hyper index ON on input line 3110.
+Package hyperref Info: backreferencing OFF on input line 3117.
+Package hyperref Info: Link coloring ON on input line 3120.
+\Hy@abspage=\count91
+\c@Item=\count92
+\c@Hfootnote=\count93
 )
 *hyperref using default driver hpdftex*
-(/usr/share/texmf-tetex/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2003/11/30 v6.74m Hyperref driver for pdfTeX
-
-(/usr/share/texmf-tetex/tex/latex/psnfss/pifont.sty
-Package: pifont 2004/09/15 PSNFSS-v9.2 Pi font support (SPQR) 
-LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
-
-(/usr/share/texmf-tetex/tex/latex/psnfss/upzd.fd
-File: upzd.fd 2001/06/04 font definitions for U/pzd.
+(/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2007/02/07 v6.75r Hyperref driver for pdfTeX
+\Fld@listcount=\count94
 )
-LaTeX Font Info:    Try loading font information for U+psy on input line 64.
-
-(/usr/share/texmf-tetex/tex/latex/psnfss/upsy.fd
-File: upsy.fd 2001/06/04 font definitions for U/psy.
-))
-\Fld@listcount=\count93
-\@outlinefile=\write3
-)
-(/usr/share/texmf-tetex/tex/latex/ae/ae.sty
+(/usr/share/texmf-texlive/tex/latex/ae/ae.sty
 Package: ae 2001/02/12 1.3 Almost European Computer Modern
 
-(/usr/share/texmf-tetex/tex/latex/base/fontenc.sty
-Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
+(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(/usr/share/texmf-tetex/tex/latex/base/t1enc.def
-File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 )
 LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 
-(/usr/share/texmf-tetex/tex/latex/ae/t1aer.fd
+(/usr/share/texmf-texlive/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 )))
-(/usr/share/texmf-tetex/tex/latex/fancyvrb/fancyvrb.sty
+(/usr/share/texmf-texlive/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 1998/07/17
 
 Style option: `fancyvrb' v2.6, with DG/SPQR fixes <1998/07/17> (tvz)
-\FV@CodeLineNo=\count94
+\FV@CodeLineNo=\count95
 \FV@InFile=\read1
 \FV@TabBox=\box26
-\c@FancyVerbLine=\count95
-\FV@StepNumber=\count96
-\FV@OutFile=\write4
+\c@FancyVerbLine=\count96
+\FV@StepNumber=\count97
+\FV@OutFile=\write3
 
 No file fancyvrb.cfg.
-) (/usr/share/texmf-tetex/tex/latex/base/fontenc.sty
-Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
+) (/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(/usr/share/texmf-tetex/tex/latex/base/t1enc.def
-File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-(/usr/share/texmf-tetex/tex/latex/natbib/natbib.sty
-Package: natbib 2003/06/06 7.1 (PWD)
+(/usr/share/texmf-texlive/tex/latex/natbib/natbib.sty
+Package: natbib 2007/02/05 8.0 (PWD)
 \bibhang=\skip43
 \bibsep=\skip44
-LaTeX Info: Redefining \cite on input line 518.
-\c@NAT@ctr=\count97
+LaTeX Info: Redefining \cite on input line 602.
+\c@NAT@ctr=\count98
 )
 \preXLskip=\skip45
 \preLskip=\skip46
@@ -176,13 +167,13 @@ Package hyperref Warning: Option `hyperindex' has already been used,
 Package hyperref Info: Option `colorlinks' set `true' on input line 212.
 Package hyperref Info: Option `linktocpage' set `true' on input line 212.
 Package hyperref Info: Option `plainpages' set `false' on input line 212.
-) (/usr/share/texmf-tetex/tex/latex/rotating/rotating.sty
-Package: rotating 1997/09/26 v2.13 Rotation package
+) (/usr/share/texmf-texlive/tex/latex/rotating/rotating.sty
+Package: rotating 1997/09/26, v2.13 Rotation package
 
-(/usr/share/texmf-tetex/tex/latex/base/ifthen.sty
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\c@r@tfl@t=\count98
+\c@r@tfl@t=\count99
 \rot@float@box=\box27
 ) (./residual-shadings.aux
 
@@ -205,50 +196,21 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
- (/usr/share/texmf-tetex/tex/context/base/supp-pdf.tex
-(/usr/share/texmf-tetex/tex/context/base/supp-mis.tex
-loading : Context Support Macros / Miscellaneous (2004.10.26)
-\protectiondepth=\count99
-\scratchcounter=\count100
-\scratchtoks=\toks17
-\scratchdimen=\dimen108
-\scratchskip=\skip51
-\scratchmuskip=\muskip11
-\scratchbox=\box28
-\scratchread=\read2
-\scratchwrite=\write5
-\zeropoint=\dimen109
-\onepoint=\dimen110
-\onebasepoint=\dimen111
-\minusone=\count101
-\thousandpoint=\dimen112
-\onerealpoint=\dimen113
-\emptytoks=\toks18
-\nextbox=\box29
-\nextdepth=\dimen114
-\everyline=\toks19
-\!!counta=\count102
-\!!countb=\count103
-\recursecounter=\count104
-)
-loading : Context Support Macros / PDF (2004.03.26)
-\nofMPsegments=\count105
-\nofMParguments=\count106
-\MPscratchCnt=\count107
-\MPscratchDim=\dimen115
-\MPnumerator=\count108
-\everyMPtoPDFconversion=\toks20
-)
 Package hyperref Info: Link coloring ON on input line 24.
- (/usr/share/texmf-tetex/tex/latex/hyperref/nameref.sty
-Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
-\c@section@level=\count109
+ (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+Package: nameref 2006/12/27 v2.28 Cross-referencing by name of section
+
+(/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
+Package: refcount 2006/02/20 v3.0 Data extraction from references (HO)
+)
+\c@section@level=\count100
 )
 LaTeX Info: Redefining \ref on input line 24.
 LaTeX Info: Redefining \pageref on input line 24.
 
 (./residual-shadings.out) (./residual-shadings.out)
-\openout3 = `residual-shadings.out'.
+\@outlinefile=\write4
+\openout4 = `residual-shadings.out'.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 24.
@@ -256,12 +218,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 24.
 LaTeX Font Info:    Try loading font information for T1+aess on input line 36.
 
-(/usr/share/texmf-tetex/tex/latex/ae/t1aess.fd
+(/usr/share/texmf-texlive/tex/latex/ae/t1aess.fd
 File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
 )
 LaTeX Font Info:    Try loading font information for T1+aett on input line 36.
 
-(/usr/share/texmf-tetex/tex/latex/ae/t1aett.fd
+(/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
 
@@ -271,7 +233,7 @@ line 39.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<residual-shadings-Arthritis-classic1.pdf, id=91, 794.97pt x 433.62pt>
+<residual-shadings-Arthritis-classic1.pdf, id=70, 794.97pt x 433.62pt>
 File: residual-shadings-Arthritis-classic1.pdf Graphic file (type pdf)
 
 <use residual-shadings-Arthritis-classic1.pdf>
@@ -280,7 +242,7 @@ Overfull \hbox (5.0pt too wide) has occurred while \output is active
  []
 
 [2 <./residual-shadings-Arthritis-classic1.pdf>]
-<residual-shadings-shadings.pdf, id=112, 1300.86pt x 867.24pt>
+<residual-shadings-shadings.pdf, id=92, 1300.86pt x 867.24pt>
 File: residual-shadings-shadings.pdf Graphic file (type pdf)
 
 <use residual-shadings-shadings.pdf> Adding sideways figure on  left hand page
@@ -294,7 +256,7 @@ Overfull \hbox (5.0pt too wide) has occurred while \output is active
  []
 
 [4 <./residual-shadings-shadings.pdf>]
-<residual-shadings-alzheimer-plot1.pdf, id=134, 650.43pt x 361.35pt>
+<residual-shadings-alzheimer-plot1.pdf, id=115, 650.43pt x 361.35pt>
 File: residual-shadings-alzheimer-plot1.pdf Graphic file (type pdf)
 
 <use residual-shadings-alzheimer-plot1.pdf>
@@ -308,11 +270,11 @@ Overfull \hbox (5.0pt too wide) has occurred while \output is active
  []
 
 [6 <./residual-shadings-alzheimer-plot1.pdf>]
-<residual-shadings-Punishment-assoc1.pdf, id=163, 794.97pt x 794.97pt>
+<residual-shadings-Punishment-assoc1.pdf, id=137, 794.97pt x 794.97pt>
 File: residual-shadings-Punishment-assoc1.pdf Graphic file (type pdf)
 
 <use residual-shadings-Punishment-assoc1.pdf>
-<residual-shadings-Punishment-mosaic1.pdf, id=164, 794.97pt x 794.97pt>
+<residual-shadings-Punishment-mosaic1.pdf, id=138, 794.97pt x 794.97pt>
 File: residual-shadings-Punishment-mosaic1.pdf Graphic file (type pdf)
 
 <use residual-shadings-Punishment-mosaic1.pdf>
@@ -334,41 +296,42 @@ Overfull \hbox (5.0pt too wide) has occurred while \output is active
 LaTeX Font Info:    Font shape `T1/aess/m/it' in size <10> not available
 (Font)              Font shape `T1/aess/m/sl' tried instead on input line 14.
 )
-
-Package natbib Warning: There were undefined citations.
-
-
 Overfull \hbox (10.0pt too wide) has occurred while \output is active
 []\T1/aer/m/n/10 10 []
  []
 
-[10] (./residual-shadings.aux)
+[10]
+
+Package natbib Warning: There were undefined citations.
+
+(./residual-shadings.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3822 strings out of 94500
- 52011 string characters out of 1175788
- 106633 words of memory out of 1000000
- 6855 multiletter control sequences out of 10000+50000
- 44424 words of font info for 82 fonts, out of 500000 for 2000
- 580 hyphenation exceptions out of 8191
- 35i,9n,34p,513b,334s stack positions out of 1500i,500n,5000p,200000b,5000s
+ 3739 strings out of 94101
+ 51960 string characters out of 1165810
+ 110152 words of memory out of 1500000
+ 6892 multiletter control sequences out of 10000+50000
+ 43734 words of font info for 80 fonts, out of 1200000 for 2000
+ 637 hyphenation exceptions out of 8191
+ 35i,9n,34p,482b,504s stack positions out of 5000i,500n,6000p,200000b,5000s
+</usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmb10.pfb></usr/share/texmf-
+texlive/fonts/type1/bluesky/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1
+/bluesky/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx9.p
+fb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmmi10.pfb></usr/share/texm
+f-texlive/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type
+1/bluesky/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr9.pf
+b></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsl10.pfb></usr/share/texmf
+-texlive/fonts/type1/bluesky/cm/cmsltt10.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/bluesky/cm/cmss10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmss
+i10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share
+/texmf-texlive/fonts/type1/bluesky/cm/cmti10.pfb></usr/share/texmf-texlive/font
+s/type1/bluesky/cm/cmtt10.pfb>
+Output written on residual-shadings.pdf (10 pages, 240755 bytes).
 PDF statistics:
- 214 PDF objects out of 300000
- 35 named destinations out of 131072
- 82 words of extra memory for PDF output out of 65536
-</usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmssi10.pfb></usr/share/texmf-
-tetex/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf-tetex/fonts/type1/blu
-esky/cm/cmmi10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmsl10.pfb></
-usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmsltt10.pfb></usr/share/texmf-tet
-ex/fonts/type1/bluesky/cm/cmbx10.pfb></usr/share/texmf-tetex/fonts/type1/bluesk
-y/cm/cmtt10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmss10.pfb></usr
-/share/texmf-tetex/fonts/type1/bluesky/cm/cmti10.pfb></usr/share/texmf-tetex/fo
-nts/type1/bluesky/cm/cmr9.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cm
-bx9.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/te
-xmf-tetex/fonts/type1/bluesky/cm/cmr12.pfb></usr/share/texmf-tetex/fonts/type1/
-bluesky/cm/cmb10.pfb></usr/share/texmf-tetex/fonts/type1/bluesky/cm/cmbx12.pfb>
+ 241 PDF objects out of 1000 (max. 8388607)
+ 35 named destinations out of 1000 (max. 131072)
+ 82 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Output written on residual-shadings.pdf (10 pages, 245131 bytes).

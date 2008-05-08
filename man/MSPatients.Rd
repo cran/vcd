@@ -41,7 +41,8 @@ data("MSPatients")
 
 \examples{
 data("MSPatients")
-get(getOption("device"))(width = 12)
+## best visualized using a resized device, e.g. using:
+## get(getOption("device"))(width = 12)
 pushViewport(viewport(layout = grid.layout(ncol = 2)))
 pushViewport(viewport(layout.pos.col = 1))
 agreementplot(t(MSPatients[,,1]), main = "Winnipeg Patients",

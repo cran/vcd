@@ -242,7 +242,7 @@ mosaic.default <- function(x, condvars = NULL,
 ##     }
 
 ##     # draw boxes
-##     for (i in seq(along = mnames)) {
+##     for (i in seq_along(mnames)) {
 ##       seekViewport(paste(prefix, "cell:", mnames[i], sep = ""))
 ##       gpobj <- structure(lapply(gp, function(x) x[i]), class = "gpar")
 ##       if (!zeros[i]) {

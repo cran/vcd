@@ -12,7 +12,8 @@ mondrian[3] <- "#FFD83B"
 mondrian[12] <- "#032349"
 
 ## plot
-get(getOption("device"))(width = 4.9, height = 7.5)
+## best visualized with resized display, e.g. using:
+## get(getOption("device"))(width = 4.9, height = 7.5)
 grid.newpage()
 grid.rect(gp = gpar(fill = 1))
 

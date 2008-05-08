@@ -7,13 +7,13 @@ cotabplot.formula <- function(formula, data = NULL, ...)
 {
   m <- match.call()
   edata <- eval(m$data, parent.frame())
-  
+
   fstr <- deparse(formula)
-  fstr <- gsub("*", "+", fstr, extended = FALSE, fixed = TRUE)
-  fstr <- gsub("/", "+", fstr, extended = FALSE, fixed = TRUE)
-  fstr <- gsub("(", "", fstr, extended = FALSE, fixed = TRUE)
-  fstr <- gsub(")", "", fstr, extended = FALSE, fixed = TRUE)  
-  
+  fstr <- gsub("*", "+", fstr,  fixed = TRUE)
+  fstr <- gsub("/", "+", fstr,  fixed = TRUE)
+  fstr <- gsub("(", "", fstr,  fixed = TRUE)
+  fstr <- gsub(")", "", fstr,  fixed = TRUE)
+
   fstr <- strsplit(paste(fstr, collapse = ""), "~")
   vars <- strsplit(strsplit(gsub(" ", "", fstr[[1]][2]), "\\|")[[1]], "\\+")
   varnames <- vars[[1]]
@@ -25,7 +25,7 @@ cotabplot.formula <- function(formula, data = NULL, ...)
       ind <- match(varnames, names(dimnames(tab)))
       if (any(is.na(ind)))
         stop(paste("Can't find", paste(varnames[is.na(ind)], collapse=" / "), "in", deparse(substitute(data))))
-      
+
       if (!is.null(condnames)) {
         condind <- match(condnames, names(dimnames(tab)))
         if (any(is.na(condind)))
@@ -56,7 +56,7 @@ cotabplot.default <- function(x, cond = NULL,
 {
   ## coerce to table
   x <- as.table(x)
-  
+
   ## initialize newpage
   if(newpage) grid.newpage()
 
@@ -68,13 +68,13 @@ cotabplot.default <- function(x, cond = NULL,
   } else {
     if(is.character(cond)) cond <- match(cond, names(dimnames(x)))
     cond <- as.integer(cond)
-    indep <- (1:ldx)[!(1:ldx %in% cond)] 
+    indep <- (1:ldx)[!(1:ldx %in% cond)]
   }
 
-  ## sort margins      
+  ## sort margins
   x <- margin.table(x, c(indep, cond))
 
-  ## convenience variables that describe conditioning variables  
+  ## convenience variables that describe conditioning variables
   if(is.null(cond)) {
     cond.n <- 0
     cond.num <- cond.dnam <- cond.char <- NULL
@@ -91,7 +91,7 @@ cotabplot.default <- function(x, cond = NULL,
 
   if(cond.n < 1) panel(x, NULL) ## no conditioning variables
   else {
-  
+
     cond.nlevels <- sapply(cond.dnam, length)
     nplots <- prod(cond.nlevels)
     condition <- as.matrix(expand.grid(cond.dnam))
@@ -147,7 +147,7 @@ cotabplot.default <- function(x, cond = NULL,
       grid.rect(gp = gpar(fill = "transparent"))
       upViewport()
     }
-    
+
   upViewport()
   if(pop) popViewport() else upViewport()
 }
@@ -180,7 +180,7 @@ cotab_assoc <- function(x = NULL, condvars = NULL, ylim = NULL, ...) {
     fm <- coindep_test(x, condvars, n = 1)
     if(is.null(ylim)) ylim <- range(residuals(fm))
   }
-  
+
   function(x, condlevels) {
     if(is.null(condlevels)) assoc(x, newpage = FALSE, pop = FALSE, ylim = ylim, ...)
       else assoc(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
@@ -192,7 +192,7 @@ class(cotab_assoc) <- "grapcon_generator"
 
 cotab_fourfold <- function (x = NULL, condvars = NULL, ...) {
   function(x, condlevels) {
-    if (is.null(condlevels)) 
+    if (is.null(condlevels))
       fourfold(x, newpage = FALSE, ...)
     else
       fourfold(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
@@ -214,26 +214,26 @@ cotab_coindep <- function(x, condvars,
   ## set color defaults
   if(is.null(h)) h <- c(260, 0)
   if(is.null(c)) c <- c(100, 20)
-  if(is.null(l)) l <- c(90, 50)  
-  
+  if(is.null(l)) l <- c(90, 50)
+
   ## process conditional variables and get independent variables
   ## store some convenience information
   ldx <- length(dim(x))
   if(is.character(condvars)) condvars <- match(condvars, names(dimnames(x)))
   condvars <- as.integer(condvars)
-  indep <- (1:ldx)[!(1:ldx %in% condvars)] 
-  
-  ## sort margins      
+  indep <- (1:ldx)[!(1:ldx %in% condvars)]
+
+  ## sort margins
   x <- margin.table(x, c(indep, condvars))
 
-  ind.n <- length(indep)            
-  ind.num <- 1:ind.n                
-  ind.dnam <- dimnames(x)[ind.num]  
-  ind.char <- names(ind.dnam)       
-  cond.n <- length(condvars)		
+  ind.n <- length(indep)
+  ind.num <- 1:ind.n
+  ind.dnam <- dimnames(x)[ind.num]
+  ind.char <- names(ind.dnam)
+  cond.n <- length(condvars)
   cond.num <- (ind.n + 1):length(dim(x))
-  cond.dnam <- dimnames(x)[cond.num]	
-  cond.char <- names(cond.dnam) 	
+  cond.dnam <- dimnames(x)[cond.num]
+  cond.char <- names(cond.dnam)
 
   test <- match.arg(test)
   switch(test,
@@ -253,7 +253,7 @@ cotab_coindep <- function(x, condvars,
     resids <- residuals(fm)
 
     chisqs <- sapply(co_table(residuals(fm), fm$margin), function(x) sum(x^2))
-    pvals <- 1 - fm$pdist(chisqs)        
+    pvals <- 1 - fm$pdist(chisqs)
     gpfun <- sapply(pvals, function(p)
       shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
       h = h, c = c, l = l, interpolate = interpolate, lty = lty, level = level, p.value = p))
@@ -263,7 +263,7 @@ cotab_coindep <- function(x, condvars,
     level <- level[1]
     fm <- coindep_test(x, cond.num, n = n, indepfun = function(x) sum(x^2), aggfun = sum)
     resids <- residuals(fm)
-    
+
     gpfun <- shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
       h = h, c = c, l = l, interpolate = interpolate, lty = lty, level = level, p.value = fm$p.value)
   })

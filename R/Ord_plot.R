@@ -28,7 +28,7 @@ Ord_plot <- function(obj, legend = TRUE, estimate = TRUE, tol = 0.1,
   ylim <- ylim + c(-1, 1) * diff(ylim) * 0.04
 
   if(newpage) grid.newpage()
-  pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.unit = "native", name = name))
+  pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.units = "native", name = name))
   grid.points(x = count, y = y, default.units = "native", gp = gp, ...)
   grid.lines(x = count, y = fit1, default.units = "native")
   grid.lines(x = count, y = fit2, default.units = "native", gp = gpar(col = 2))

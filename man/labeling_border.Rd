@@ -38,7 +38,8 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
   boxes = NULL, clip = NULL, labbl_varnames = FALSE,
   rot_labels = rep.int(0, 4),
   pos_labels = c("left", "center", "left", "center"),
-  just_labels = c("left", "left", "left", "center"), varnames = NULL,
+  just_labels = c("left", "left", "left", "center"),
+  varnames = NULL, gp_varnames = gpar(fontsize = 12, fontface = 2),
   offset_varnames = c(0, -0.6, 0, 0), tl_labels = NULL, \dots)
 }
 \arguments{

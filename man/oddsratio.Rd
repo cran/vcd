@@ -45,6 +45,8 @@ oddsratio(x, stratum = NULL, log = TRUE)
     ratios are computed.}
 }
 \note{
+  In case of zero entries, 0.5 will be added to the table.
+  
   The \code{summary} method prints the standard errors and---for log
   odds ratios---also computes and prints asymptotic \eqn{z} tests
   (standardized log odds ratios) and the corresponding \eqn{p} values.

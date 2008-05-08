@@ -76,7 +76,7 @@ cd_plot.default <- function(x, y,
     ## setup
     if(newpage) grid.newpage()
     pushViewport(plotViewport(xscale = range(x1), yscale = c(0, 1),
-      default.unit = "native", name = name, margins = margins, ...))
+      default.units = "native", name = name, margins = margins, ...))
   
     ## polygons
     for(i in 1:(NROW(y1)-1)) {

@@ -26,7 +26,7 @@ function(x, type = c("poisson", "binomial", "nbinomial"),
   switch(match.arg(type),
 
   "poisson" = {
-    par.ml <- goodfit(x, type = type)$par$lambda
+    par.ml <- suppressWarnings(goodfit(x, type = type)$par$lambda)
 
     phi <- function(nk, k, N, size = NULL)
       ifelse(nk > 0, lgamma(k + 1) + log(nk/N), NA)
@@ -45,7 +45,7 @@ function(x, type = c("poisson", "binomial", "nbinomial"),
       size <- max(count)
       warning("size was not given, taken as maximum count")
     }
-    par.ml <- goodfit(x, type = type, par = list(size = size))$par$prob
+    par.ml <- suppressWarnings(goodfit(x, type = type, par = list(size = size))$par$prob)
 
     phi <- function(nk, k, N, size)
       log(nk) - log(N * choose(size, k))
@@ -60,7 +60,7 @@ function(x, type = c("poisson", "binomial", "nbinomial"),
 
   "nbinomial" = {
     if(is.null(size)) {
-      par.ml <- goodfit(x, type = type)$par
+      par.ml <- suppressWarnings(goodfit(x, type = type)$par)
       size <- par.ml$size
       par.ml <- par.ml$prob
     }else{
@@ -97,7 +97,7 @@ function(x, type = c("poisson", "binomial", "nbinomial"),
   ylim <- ylim + c(-1, 1) * diff(ylim) * 0.04
   
   if(newpage) grid.newpage()
-  pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.unit = "native", name = name))
+  pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.units = "native", name = name))
   grid.points(x = RVAL[,1], y = RVAL[,3], default.units = "native", gp = gp, ...)
   grid.lines(x = xlim, y = predict(fm, newdata = data.frame(mycount = xlim)),
     default.units = "native", gp = gpar(col = 2))

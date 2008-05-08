@@ -25,7 +25,7 @@ legend_resbased <- function(fontsize = 12,
 
     if (all(residuals == 0)) {
       pushViewport(viewport(x = x, y = y, just = c("left", "bottom"),
-                            default.unit = "native",
+                            default.units = "native",
                             height = height, width = width))
       grid.lines(y = 0.5)
       grid.text(0, x = unit(1, "npc") + unit(0.8, "lines"),  y = 0.5)
@@ -42,7 +42,7 @@ legend_resbased <- function(fontsize = 12,
             range[2] <- max(res)
 
         pushViewport(viewport(x = x, y = y, just = c("left", "bottom"),
-                              yscale = range, default.unit = "native",
+                              yscale = range, default.units = "native",
                               height = height, width = width))
 
 
@@ -59,7 +59,7 @@ legend_resbased <- function(fontsize = 12,
 
       grid.rect(x = unit(rep.int(0, length(y.pos)), "npc"),
                 y = y.pos,
-                height = y.height, default.unit = "native",
+                height = y.height, default.units = "native",
                 gp = gpar(fill = shading(y.pos + 0.5 * y.height)$fill, col = 0),
                 just = c("left", "bottom"))
 
@@ -67,14 +67,20 @@ legend_resbased <- function(fontsize = 12,
 
       if(is.null(at))
         at <- seq(from = head(col.bins, 1), to = tail(col.bins, 1), length = ticks)
+      tw <- paste(rep("4", digits), collapse = "")
+      if (any(trunc(at) != at))
+        tw <- paste(tw, ".", sep = "")
+      if (any(at < 0))
+        tw <- paste(tw, "-", sep = "")
+
       grid.text(format(signif(at, digits = digits)),
-                x = unit(1, "npc") + unit(0.8, "lines") + unit(1, "strwidth", "-4.44"),
+                x = unit(1, "npc") + unit(0.8, "lines") + unit(1, "strwidth", tw),
                 y = at,
-                default.unit = "native",
+                default.units = "native",
                 just = c("right", "center"),
                 check.overlap = check_overlap)
       grid.segments(x0 = unit(1, "npc"), x1 = unit(1,"npc") + unit(0.5, "lines"),
-                    y0 = at, y1 = at, default.unit = "native")
+                    y0 = at, y1 = at, default.units = "native")
 
     }
 
@@ -120,7 +126,7 @@ legend_fixed <- function(fontsize = 12,
     if (is.null(height)) height <- unit(1, "npc") - y
 
     pushViewport(viewport(x = x, y = y, just = c("left", "bottom"),
-                          yscale = c(0,1), default.unit = "npc",
+                          yscale = c(0,1), default.units = "npc",
                           height = height, width = width))
 
     p.value <- attr(shading, "p.value")
@@ -149,7 +155,7 @@ legend_fixed <- function(fontsize = 12,
     grid.rect(x = unit(rep.int(0, length(y.pos)), "npc"),
               y = y.pos,
               height = y.height,
-              default.unit = "npc",
+              default.units = "npc",
               gp = shading(res),
               just = c("left", "bottom"))
     numbers <- format(col.bins, nsmall = digits, digits = digits)
@@ -158,11 +164,11 @@ legend_fixed <- function(fontsize = 12,
     grid.text(numbers[-l],
               x = unit(1, "npc") + unit(0.6, "lines") + wid,
               y = y.pos, gp = gpar(fontsize = fontsize),
-              default.unit = "npc", just = c("right", "bottom"))
+              default.units = "npc", just = c("right", "bottom"))
     grid.text(numbers[-1],
               x = unit(1, "npc") + unit(0.6, "lines") + wid,
               y = y.pos + y.height, gp = gpar(fontsize = fontsize),
-              default.unit = "npc", just = c("right", "top"))
+              default.units = "npc", just = c("right", "top"))
     wid2 <- unit(1, "strwidth", format(max(abs(trunc(col.bins))))) +
       unit(0.3, "strwidth", ".")
     grid.segments(x0 = unit(1, "npc") + wid2 + unit(0.6, "lines"),

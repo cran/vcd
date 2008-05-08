@@ -11,26 +11,26 @@ strucplot <- function(## main parameters
                       shade = NULL,
                       type = c("observed", "expected"),
                       residuals_type = c("Pearson", "deviance", "FT"),
-                      
+
                       ## layout
-                      split_vertical = NULL, 
+                      split_vertical = NULL,
                       spacing = spacing_equal,
                       spacing_args = list(),
                       gp = NULL,
-		      gp_args = list(),   
+		      gp_args = list(),
                       labeling = labeling_border,
                       labeling_args = list(),
                       core = struc_mosaic,
                       core_args = list(),
                       legend = NULL,
                       legend_args = list(),
-                      
+
                       main = NULL,
                       sub = NULL,
-                      margins = unit(2.5, "lines"),
+                      margins = unit(3, "lines"),
                       title_margins = NULL,
                       legend_width = NULL,
-                      
+
                       ## control parameters
                       main_gp = gpar(fontsize = 20),
                       sub_gp = gpar(fontsize = 15),
@@ -42,7 +42,7 @@ strucplot <- function(## main parameters
                       ) {
   ## default behaviour of shade
   if (is.null(shade)) shade <- !is.null(gp) || !is.null(expected)
-		      
+
   type <- match.arg(type)
   residuals_type <- match.arg(tolower(residuals_type), c("pearson", "deviance", "ft"))
 
@@ -54,7 +54,7 @@ strucplot <- function(## main parameters
   }
   if (is.null(split_vertical))
     split_vertical <- FALSE
-  
+
   ## table characteristics
   d <- dim(x)
   dl <- length(d)
@@ -89,7 +89,7 @@ strucplot <- function(## main parameters
       df <- fm$df
     }
   }
-  
+
   ## compute residuals
   if (is.null(residuals))
     residuals <- switch(residuals_type,
@@ -110,7 +110,7 @@ strucplot <- function(## main parameters
 
   if (is.null(keep_aspect_ratio))
     keep_aspect_ratio <- dl < 3
-  
+
   ## spacing
   if (is.function(spacing)) {
     if (inherits(spacing, "grapcon_generator"))
@@ -147,13 +147,13 @@ strucplot <- function(## main parameters
     if (length(par) < size) aperm(array(par, dim = rev(d))) else par
   }
   gp <- structure(lapply(gp, FUN), class = "gpar")
-  
+
   ## set up page
   if (newpage)
     grid.newpage()
   if (keep_aspect_ratio)
-    pushViewport(viewport(width = 1, height = 1, default.unit = "snpc"))
-  
+    pushViewport(viewport(width = 1, height = 1, default.units = "snpc"))
+
   pushViewport(vcdViewport(mar = margins,
                            oma = title_margins,
                            legend = shade && !(is.null(legend) || is.logical(legend) && !legend),
@@ -188,7 +188,7 @@ strucplot <- function(## main parameters
 
   ## make plot
   seekViewport(paste(prefix, "plot", sep = ""))
-  
+
   if (inherits(core, "grapcon_generator"))
     core <- do.call("core", core_args)
   core(residuals = residuals,
@@ -212,7 +212,7 @@ strucplot <- function(## main parameters
 
   ## pop/move up viewport
 
-  seekViewport(paste(prefix, "base", sep = "")) 
+  seekViewport(paste(prefix, "base", sep = ""))
   ## one more up if sandwich-mode
   if (pop) popViewport(1 + keep_aspect_ratio) else upViewport(1 + keep_aspect_ratio)
 
@@ -256,7 +256,7 @@ vcdViewport <- function(mar = rep.int(2.5, 4),
     unit(pexpand(oma, 2, rep.int(2, 2), c("top","bottom")), "lines")
   else
     rep(oma, length.out = 2)
-  
+
   ## set up viewports
   vpPlot <- vpStack(viewport(layout.pos.col = 2, layout.pos.row = 3),
                     viewport(width = 1, height = 1, name = paste(prefix, "plot", sep = ""),
@@ -292,7 +292,7 @@ vcdViewport <- function(mar = rep.int(2.5, 4),
                      name = paste(prefix, "main", sep = ""))
   vpSub <- viewport(layout.pos.col = 1:4, layout.pos.row = 5,
                     name = paste(prefix, "sub", sep = ""))
-  
+
   vpTree(vpBase, vpList(vpMain, vpMarginBottom, vpMarginLeft, vpMarginTop,
                         vpMarginRight, vpLegendTop, vpLegend,
                         vpLegendSub, vpCornerTL, vpCornerTR,

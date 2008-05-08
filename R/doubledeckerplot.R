@@ -39,7 +39,7 @@ function(formula, data = NULL, ..., main = NULL)
           ind <- match(dep, names(dimnames(dat)))
           if (is.na(ind))
             stop(paste("Can't find", dep, "in", deparse(substitute(data))))
-          dat <- aperm(dat, c(seq(along = dim(dat))[-ind], ind))
+          dat <- aperm(dat, c(seq_along(dim(dat))[-ind], ind))
         }
         doubledecker.default(dat, main = main, ...)
       } else {

@@ -36,17 +36,17 @@ function (x,
     dimnames <- colnames(x)
 
   if(is.logical(prop_size) && prop_size) prop_size <- 3
-  
+
   ## some error handling
   if(ncol(x) != 3)
     stop("Need a matrix with 3 columns")
-  if(any(x) < 0) stop("X must be non-negative")
+  if(any(x < 0)) stop("X must be non-negative")
   s <- rowSums(x)
   if(any(s <= 0)) stop("each row of X must have a positive sum")
 
   ## rescaling
   x <- x / s
-  
+
   ## prepare plot
   top <- sqrt(3) / 2
   if (newpage) grid.newpage()
@@ -99,7 +99,7 @@ function (x,
               gp = gpar(col = labels_color), rot = -120)
         grid.text(x = 0.5, y = i * top + eps, label = i * scale,
                   gp = gpar(col = labels_color))
-      } 
+      }
       if (labels == "outside") {
         grid.text(x = (1 - i) / 2 - 6 * eps, y = (1 - i) * top,
                   label = (1 - i) * scale, gp = gpar(col = labels_color))
@@ -109,7 +109,7 @@ function (x,
                   rot = 120, gp = gpar(col = labels_color))
       }
     }
-  
+
 
   ## plot points
   xp <- x[,2] + x[,3] / 2
@@ -118,7 +118,7 @@ function (x,
   grid.points(xp, yp, pch = pch, gp = gpar(col = col), default.units = "snpc",
               size = size, ...)
 
-  ## plot 
+  ## plot
   if (!is.null(id))
     grid.text(x = xp,
               y = unit(yp - 0.015, "snpc") - 0.5 * size,
@@ -127,7 +127,7 @@ function (x,
 
   ## clenup
   if(pop) popViewport(2) else upViewport(2)
-  
+
 }
 
 

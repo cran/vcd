@@ -16,7 +16,7 @@ assocstats(x)
 }
 \value{
   A list with components:
-  \item{chisq.tests}{a \eqn{2 \times 3}{2 x 3} table with the
+  \item{chisq_tests}{a \eqn{2 \times 3}{2 x 3} table with the
     chi-squared statistics.}
   \item{phi}{The phi coefficient.}
   \item{cont}{The contingency coefficient.}

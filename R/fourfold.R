@@ -56,7 +56,7 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
         i <- 1 : 3
     else
         i <- which(is.null(names(dnx)))
-    if(any(i))
+    if(any(i > 0))
         names(dnx)[i] <- c("Row", "Col", "Strata")[i]
     dimnames(x) <- dnx
     k <- dim(x)[3]
@@ -179,7 +179,7 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
                             y = 0.5 - 0.05 * sum(!is.null(main), - !is.null(sub))
                             )
                    )
-                  
+
     pushViewport(viewport(xscale = xlim, yscale = ylim,
                            width = unit(min(totalWidth / totalHeight, 1), "snpc"),
                            height = unit(min(totalHeight / totalWidth, 1), "snpc")))
@@ -193,12 +193,12 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
                              }),
                              method = p_adjust_method
                              )
-    
+
     scale <- space / (2 * convertY(unit(1, "strheight", "Ag"), "native", valueOnly = TRUE) )
     v <- 0.95 - max(convertX(unit(1, "strwidth", as.character(c(x))), "native", valueOnly = TRUE) ) / 2
 
     fontsize = fontsize * scale
-    
+
     for(i in 1 : k) {
 
         tab <- x[ , , i]
@@ -262,12 +262,12 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
           }
 
         ## drawFrequencies()
-        
+
         ### in extended plots, emphasize charts with significant logoddsratios
         emphasize <- if(extended && is.numeric(conf_level))
           2 * extended * (1 + (p.lor.test[i] < 1 - conf_level))
         else 0
-        
+
         d <- odds(tab)$or
         drawPie(sqrt(fit[1,1]),  90, 180, col = color[1 + (d > 1) + emphasize])
         drawPie(sqrt(fit[2,1]), 180, 270, col = color[2 - (d > 1) + emphasize])
@@ -295,7 +295,7 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
                   just = c("right", "bottom"),
                   gp = gpar(fontsize = fontsize),
                   default.units = "native")
-        
+
         ## draw ticks
         if(extended && ticks)
           if(d > 1) {
@@ -311,7 +311,7 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
                        c(sqrt(fit[2,2])           * sin(-pi/4),
                          (sqrt(fit[2,2]) + ticks) * sin(-pi/4)),
                        gp = gpar(lwd = 1),
-                       default.units = "native"                                           
+                       default.units = "native"
                        )
           } else {
             grid.lines(c(sqrt(fit[1,2])           * cos(pi/4),
@@ -319,17 +319,17 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
                        c(sqrt(fit[1,2])           * sin(pi/4),
                          (sqrt(fit[1,2]) + ticks) * sin(pi/4)),
                        gp = gpar(lwd = 1),
-                       default.units = "native"                                           
+                       default.units = "native"
                        )
             grid.lines(c(sqrt(fit[2,1])           * cos(-3*pi/4),
                          (sqrt(fit[2,1]) + ticks) * cos(-3*pi/4)),
                        c(sqrt(fit[2,1])           * sin(-3*pi/4),
                          (sqrt(fit[2,1]) + ticks) * sin(-3*pi/4)),
                        gp = gpar(lwd = 1),
-                       default.units = "native"                                           
+                       default.units = "native"
                        )
           }
-        
+
         ## drawConfBands()
         if(is.numeric(conf_level)) {
             or <- o$or[i]
@@ -366,7 +366,7 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
             grid.lines(c(-0.01, 0.01), c(j, j), default.units = "native")
 
         popViewport(1)
-        
+
     }
 
     if(!is.null(main) || !is.null(sub)) {
@@ -382,6 +382,6 @@ function(x, color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#0000
       }
 
     popViewport(1)
-    
+
     return(invisible())
 }
