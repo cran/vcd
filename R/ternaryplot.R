@@ -55,7 +55,8 @@ function (x,
   pushViewport(viewport(width = unit(1, "snpc")))
   if (!is.null(main))
     grid.text(main, y = 0.9, gp = gpar(fontsize = 18, fontstyle = 1))
-  pushViewport(viewport(width = 0.8, height = 0.8, xscale = xlim, yscale = ylim))
+  pushViewport(viewport(width = 0.8, height = 0.8,
+                        xscale = xlim, yscale = ylim, name = "plot"))
   eps <- 0.01
 
   ## coordinates of point P(a,b,c): xp = b + c/2, yp = c * sqrt(3)/2
@@ -125,7 +126,7 @@ function (x,
               label = as.character(id),
               gp = gpar(col = id_color))
 
-  ## clenup
+  ## cleanup
   if(pop) popViewport(2) else upViewport(2)
 
 }

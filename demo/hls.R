@@ -1,12 +1,12 @@
-if(require(tcltk))
+if(require("tcltk"))
 {
     hue  <- tclVar("hue")
+    luminance  <- tclVar("luminance")
     saturation  <- tclVar("saturation")
-    value  <- tclVar("value")
     hue <- tclVar(0)
     hue.sav <- 0
-    luminance <- tclVar(1)
-    luminance.sav <- 1
+    luminance <- tclVar(0.5)
+    luminance.sav <- 0.5
     saturation <- tclVar(1)
     saturation.sav <- 1
 

@@ -1,4 +1,4 @@
-if(require(tcltk))
+if(require("tcltk"))
 {
     hue  <- tclVar("hue")
     saturation  <- tclVar("saturation")

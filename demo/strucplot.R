@@ -1,7 +1,7 @@
-data(Titanic)
-data(UCBAdmissions)
-data(HairEyeColor)
-data(PreSex)
+data("Titanic")
+data("UCBAdmissions")
+data("HairEyeColor")
+data("PreSex")
  
 mosaic(Titanic)
 mosaic(Titanic, shade = TRUE)
@@ -35,5 +35,3 @@ assoc(Hair ~ Eye, data = HairEyeColor, compress = FALSE)
 assoc(HairEyeColor, labeling = labeling_lboxed())
 pairs(Titanic, shade = TRUE)
 pairs(Titanic, panel_upper = pairs_assoc, shade = TRUE)
-
-mondrian()

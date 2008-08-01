@@ -1,23 +1,23 @@
-if(require(tcltk))
+if(require("tcltk"))
 {
     hue  <- tclVar("hue")
     chroma  <- tclVar("chroma")
     luminance  <- tclVar("luminance")
-    correct <- tclVar("correct")
+    fixup <- tclVar("fixup")
     hue <- tclVar(230)
     hue.sav <- 230
     chroma <- tclVar(55)
     chroma.sav <- 55
     luminance <- tclVar(75)
     luminance.sav <- 75
-    correct <- tclVar(FALSE)
+    fixup <- tclVar(FALSE)
 
     replot <- function(...) {
         hue.sav <- my.h <- as.numeric(tclvalue(hue))
         chroma.sav <- my.c <- as.numeric(tclvalue(chroma))
         luminance.sav <- my.l <- as.numeric(tclvalue(luminance))
-	correct <- as.logical(tclvalue(correct))
-	barplot(1, col = hcl(my.h, my.c, my.l, correct = correct, verbose = FALSE), axes = FALSE)
+	my.fixup <- as.logical(as.numeric(tclvalue(fixup)))
+	barplot(1, col = hcl2hex(my.h, my.c, my.l, fixup = my.fixup), axes = FALSE)
     }
 
     replot.maybe <- function(...)
@@ -35,7 +35,7 @@ if(require(tcltk))
     hue.frm <- tkframe(spec.frm, relief = "groove", borderwidth = 2)
     chroma.frm <- tkframe(spec.frm, relief = "groove", borderwidth = 2)
     luminance.frm <- tkframe(spec.frm, relief = "groove", borderwidth = 2)
-    correct.frm <- tkframe(spec.frm, relief = "groove", borderwidth = 2)
+    fixup.frm <- tkframe(spec.frm, relief = "groove", borderwidth = 2)
 
     tkpack(tklabel(hue.frm, text = "Hue"))
     tkpack(tkscale(hue.frm, command = replot.maybe, from = 0, to = 360,
@@ -51,14 +51,14 @@ if(require(tcltk))
     tkpack(tkscale(luminance.frm, command = replot.maybe, from = 0, to = 100,
                    showvalue = TRUE, variable = luminance,
                    resolution = 5, orient = "horiz"))
-    tkpack(tklabel(correct.frm, text="Correction"))
+    tkpack(tklabel(fixup.frm, text="Fixup"))
     for (i in c("TRUE", "FALSE") ) {
-        tmp <- tkradiobutton(correct.frm, command = replot,
-                             text = i, value = as.logical(i), variable = correct)
+        tmp <- tkradiobutton(fixup.frm, command = replot,
+                             text = i, value = as.logical(i), variable = fixup)
         tkpack(tmp, anchor="w")
     }
 
-    tkpack(hue.frm, chroma.frm, luminance.frm, correct.frm, fill="x")
+    tkpack(hue.frm, chroma.frm, luminance.frm, fixup.frm, fill="x")
 
     ## Bottom frame on base:
     q.but <- tkbutton(base, text = "Quit",
