@@ -660,7 +660,7 @@ class(labeling_lboxed) <- "grapcon_generator"
 
 labeling_values <-
 function(value_type = c("observed", "expected", "residuals"),
-         suppress = NULL, digits = 1, ...)
+         suppress = NULL, digits = 1, clip_cells = FALSE, ...)
 {
    value_type <- match.arg(value_type)
    if (value_type == "residuals" && is.null(suppress))
@@ -679,13 +679,13 @@ function(value_type = c("observed", "expected", "residuals"),
        values <- ifelse((values > suppress[2]) | (values < suppress[1]),
                         round(values, digits), NA)
        labeling_border(...)(d, split_vertical, condvars, prefix)
-       labeling_cells(text = values, ...)(d, split_vertical, condvars, prefix)
+       labeling_cells(text = values, clip_cells = clip_cells, ...)(d, split_vertical, condvars, prefix)
    }
 }
 class(labeling_values) <- "grapcon_generator"
 
 labeling_residuals <-
-function(suppress = NULL, digits = 1, ...)
-    labeling_values(values_type = "residuals", suppress = suppress,
-                    digits = digits, ...)
+function(suppress = NULL, digits = 1, clip_cells = FALSE, ...)
+    labeling_values(value_type = "residuals", suppress = suppress,
+                    digits = digits, clip_cells = clip_cells, ...)
 class(labeling_residuals) <- "grapcon_generator"

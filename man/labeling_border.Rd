@@ -27,8 +27,8 @@ labeling_border(labels = TRUE, varnames = labels,
   labbl_varnames = NULL, labels_varnames = FALSE, sep = ": ",
   abbreviate = FALSE, rep = TRUE, clip = FALSE, \dots)
 labeling_values(value_type = c("observed", "expected", "residuals"),
-                suppress = NULL, digits = 1, \dots)
-labeling_residuals(suppress = NULL, digits = 1, \dots)
+                suppress = NULL, digits = 1, clip_cells = FALSE, \dots)
+labeling_residuals(suppress = NULL, digits = 1, clip_cells = FALSE, \dots)
 labeling_conditional(\dots)
 labeling_left(rep = FALSE, pos_varnames = "left",
   pos_labels = "left", just_labels = "left", \dots)
@@ -134,6 +134,8 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
   \item{suppress}{numeric vector of length 2 specifying an interval of
     values that are not displayed. 0 values are never displayed.}
   \item{digits}{integer specifying the number of digits used for rounding.}
+  \item{clip_cells}{logical indicating whether the values should be clipped at
+    the cell borders.}
   \item{\dots}{only used for \code{labeling_conditional} and
     \code{labeling_doubledecker}: parameters
     passed to \code{labeling_cells} and \code{labeling_border}.}
@@ -198,6 +200,7 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
 data("Titanic")
 
 mosaic(Titanic)
+
 mosaic(Titanic, labeling = labeling_left)
 labeling_left
 
@@ -229,6 +232,9 @@ mosaic(Titanic, labeling_args = list(set_varnames = c(Sex = "Gender")))
 ## change labels
 mosaic(Titanic, labeling_args = list(set_varnames = c(Survived = "Status"),
   set_labels = list(Survived = c("Survived", "Not Survived")), rep = FALSE))
+
+## show frequencies
+mosaic(Titanic, labeling = labeling_values)
 }
 \keyword{hplot}
 
