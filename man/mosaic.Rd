@@ -12,7 +12,7 @@
   spacing_args = list(), gp = NULL, expected = NULL, shade = NULL,
   highlighting = NULL, highlighting_fill = grey.colors, highlighting_direction = NULL,
   zero_size = 0.5, zero_split = FALSE, zero_shade = NULL,
-  zero_gp = gpar(col = 0), main = NULL, sub = NULL, \dots)
+  zero_gp = gpar(col = 0), panel = NULL, main = NULL, sub = NULL, \dots)
 \method{mosaic}{formula}(formula, data, highlighting = NULL,
   \dots, main = NULL, sub = NULL, subset = NULL, na.action = NULL)
 }
@@ -89,6 +89,14 @@
   \item{highlighting_direction}{Either \code{"left"}, \code{"right"},
     \code{"top"}, or \code{"bottom"} specifying the direction of
     highlighting in the cells.}
+  \item{panel}{Optional function with arguments: \code{residuals},
+    \code{observed}, \code{expected}, \code{index}, \code{gp}, and
+    \code{name} called by the
+    \code{struc_mosaic} workhorse for each tile that is drawn in the
+    mosaic. \code{index} is an integer vector with the tile's
+    coordinates in the contingency table, \code{gp} a \code{gpar} object
+    for the tile, and \code{name} a label to be assigned to the drawn
+    grid object.}
   \item{main, sub}{either a logical, or a character string used for plotting
     the main (sub) title.  If logical and \code{TRUE}, the
     name of the \code{data} object is used.}

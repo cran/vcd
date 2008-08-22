@@ -6,6 +6,8 @@
 \alias{labeling_cboxed}
 \alias{labeling_lboxed}
 \alias{labeling_doubledecker}
+\alias{labeling_values}
+\alias{labeling_residuals}
 \alias{labelings}
 \title{Labeling Functions for Strucplots}
 \description{
@@ -24,6 +26,9 @@ labeling_border(labels = TRUE, varnames = labels,
   offset_labels = c(0, 0, 0, 0), offset_varnames = offset_labels,
   labbl_varnames = NULL, labels_varnames = FALSE, sep = ": ",
   abbreviate = FALSE, rep = TRUE, clip = FALSE, \dots)
+labeling_values(value_type = c("observed", "expected", "residuals"),
+                suppress = NULL, digits = 1, \dots)
+labeling_residuals(suppress = NULL, digits = 1, \dots)
 labeling_conditional(\dots)
 labeling_left(rep = FALSE, pos_varnames = "left",
   pos_labels = "left", just_labels = "left", \dots)
@@ -124,6 +129,11 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
     indicating whether the name of the dependent varable should be
     printed or not. A character string will be printed instead of the
     variable name taken from the dimnames.}
+  \item{value_type}{character string specifying which values should be
+    displayed in the cells.}
+  \item{suppress}{numeric vector of length 2 specifying an interval of
+    values that are not displayed. 0 values are never displayed.}
+  \item{digits}{integer specifying the number of digits used for rounding.}
   \item{\dots}{only used for \code{labeling_conditional} and
     \code{labeling_doubledecker}: parameters
     passed to \code{labeling_cells} and \code{labeling_border}.}
@@ -151,6 +161,11 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
   and \code{labeling_lboxed}
   are really just wrappers to \code{labeling_border}, and good examples for
   the parameter usage.
+
+  \code{labeling_residuals} is a trivial wrapper for
+  \code{labeling_values}, which in turn calls \code{labeling_border} by
+  additionally adding the observed or expected frequencies or residuals
+  to the cells.
 }
 \value{
   A function with arguments:

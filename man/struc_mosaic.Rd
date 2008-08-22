@@ -7,7 +7,7 @@
 }
 \usage{
 struc_mosaic(zero_size = 0.5, zero_split = FALSE, zero_shade = TRUE,
-             zero_gp = gpar(col = 0))
+             zero_gp = gpar(col = 0), panel = NULL)
 }
 \arguments{
   \item{zero_size}{size of the bullets used for zero-entries in the
@@ -22,6 +22,14 @@ struc_mosaic(zero_size = 0.5, zero_split = FALSE, zero_shade = TRUE,
     shaded.}
   \item{zero_gp}{object of class \code{"gpar"} used
     for zero bullets in case they are \emph{not} shaded.}
+  \item{panel}{Optional function with arguments: \code{residuals},
+    \code{observed}, \code{expected}, \code{index}, \code{gp}, and
+    \code{name} called by the
+    \code{struc_mosaic} workhorse for each tile that is drawn in the
+    mosaic. \code{index} is an integer vector with the tile's
+    coordinates in the contingency table, \code{gp} a \code{gpar} object
+    for the tile, and \code{name} a label to be assigned to the drawn
+    grid object.}
 }
 \details{
   This function is usually called by \code{\link{strucplot}} (typically

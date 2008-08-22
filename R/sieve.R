@@ -11,10 +11,10 @@ function(formula, data = NULL, ..., main = NULL, sub = NULL, subset = NULL)
     main <- deparse(substitute(data))
   else if (is.logical(sub) && sub)
     sub <- deparse(substitute(data))
-  
+
   m <- match.call(expand.dots = FALSE)
   edata <- eval(m$data, parent.frame())
-  
+
   fstr <- strsplit(paste(deparse(formula), collapse = ""), "~")
   vars <- strsplit(strsplit(gsub(" ", "", fstr[[1]][2]), "\\|")[[1]], "\\+")
   varnames <- vars[[1]]
@@ -27,7 +27,7 @@ function(formula, data = NULL, ..., main = NULL, sub = NULL, subset = NULL)
       ind <- match(varnames, names(dimnames(dat)))
       if (any(is.na(ind)))
         stop(paste("Can't find", paste(varnames[is.na(ind)], collapse=" / "), "in", deparse(substitute(data))))
-      
+
       if (!is.null(condnames)) {
         condind <- match(condnames, names(dimnames(dat)))
         if (any(is.na(condind)))
@@ -45,7 +45,7 @@ function(formula, data = NULL, ..., main = NULL, sub = NULL, subset = NULL)
     else
       xtabs(formula(paste("~", paste(c(condnames, varnames), collapse = "+"))),
             data = data, subset = subset)
-    
+
     sieve.default(tab, main = main, sub = sub, ...)
   }
 }
@@ -74,7 +74,7 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
   }
   if (is.null(split_vertical))
     split_vertical <- FALSE
-  
+
   dl <- length(dim(x))
 
   ## splitting argument
@@ -93,7 +93,7 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
     if (is.null(spacing))
       spacing <- spacing_conditional
   }
-  
+
   ## spacing argument
   if (is.null(spacing))
     spacing <- if (dl < 3) spacing_equal(sp = 0) else spacing_increase
@@ -106,7 +106,7 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
             spacing_args = spacing_args,
             main = main,
             sub = sub,
-            shade = shade, 
+            shade = shade,
             legend = legend,
             gp = gp,
             ...)
@@ -122,7 +122,7 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
 ##     dx <- dim(expected)
 ##     dl <- length(dx)
 ##     n <- sum(expected)
-    
+
 ##     ## split workhorse
 ##     split <- function(x, i, name, row, col, rowmargin, colmargin) {
 ##       cotab <- co_table(x, 1)
@@ -139,7 +139,7 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
 ##         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
 ##       vproot <- viewport(layout.pos.col = col, layout.pos.row = row,
 ##                          layout = layout, name = remove_trailing_comma(name))
-      
+
 ##       ## next level: either create further splits, or final viewports
 ##       name <- paste(name, dnn[i], "=", dn[[i]], ",", sep = "")
 ##       row <- col <- rep.int(1, d)
@@ -180,12 +180,12 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
 ##     mnames <- apply(expand.grid(dn), 1,
 ##                     function(i) paste(dnn, i, collapse=",", sep = "=")
 ##                     )
-    
+
 ##     for (i in seq_along(mnames)) {
 ##       seekViewport(paste(prefix, "cell:", mnames[i], sep = ""))
 ##       vp <- current.viewport()
 ##       gpobj <- structure(lapply(gp, function(x) x[i]), class = "gpar")
-      
+
 ##       div <- if (sievetype == "observed") observed[i] else expected[i]
 ##       if (div > 0) {
 ##         square.side <- sqrt(vp$yscale[2] * vp$xscale[2] / div)
@@ -213,7 +213,7 @@ struc_sieve <- function(sievetype = c("observed", "expected")) {
     dx <- dim(expected)
     dl <- length(dx)
     n <- sum(expected)
-    
+
     ## split workhorse
     split <- function(x, i, name, row, col, rowmargin, colmargin, index) {
       cotab <- co_table(x, 1)
@@ -234,7 +234,7 @@ struc_sieve <- function(sievetype = c("observed", "expected")) {
       pushViewport(viewport(layout.pos.col = col, layout.pos.row = row,
                             layout = layout, name = paste(prefix, "cell:",
                                                remove_trailing_comma(name), sep = "")))
-      
+
       ## next level: either create further splits, or final viewports
       row <- col <- rep.int(1, d)
       if (v) col <- 2 * 1:d - 1 else row <- 2 * 1:d - 1
@@ -256,19 +256,20 @@ struc_sieve <- function(sievetype = c("observed", "expected")) {
                                 name = paste(prefix, "cell:",
                                   remove_trailing_comma(nametmp), sep = ""),
                                 yscale = c(0, rowmargintmp), xscale = c(0, colmargintmp)))
-          
+
           gpobj <- structure(lapply(gp, function(x) x[cbind(index, m)]), class = "gpar")
-      
+
+          ## draw sieve
           div <- if (sievetype == "observed")
             observed[cbind(index, m)]
           else
             expected[cbind(index, m)]
           if (div > 0) {
             square.side <- sqrt(colmargintmp * rowmargintmp / div)
-            
+
             ii <- seq(0, colmargintmp, by = square.side)
             jj <- seq(0, rowmargintmp, by = square.side)
-            
+
             grid.segments(x0 = ii, x1 = ii, y0 = 0, y1 = rowmargintmp,
                           default.units = "native", gp = gpobj)
             grid.segments(x0 = 0, x1 = colmargintmp, y0 = jj, y1 = jj,
@@ -276,7 +277,7 @@ struc_sieve <- function(sievetype = c("observed", "expected")) {
           }
           grid.rect(name = paste(prefix, "rect:", nametmp, sep = ""),
                     gp = gpar(fill = "transparent"))
-          
+
         }
         upViewport(1)
       }

@@ -9,15 +9,16 @@ export(
        "assoc",
        "cd_plot",
        "cotabplot",
-       "distplot",	    
+       "distplot",
        "doubledecker",
        "fourfold",
        "goodfit",
        "mosaic",
        "oddsratio",
-       "rootogram", 
+       "rootogram",
        "sieve",
        "spine",
+       "tile",
        "structable",
 
 ## spacings
@@ -36,6 +37,8 @@ export(
        "labeling_conditional",
        "labeling_list",
        "labeling_doubledecker",
+       "labeling_values",
+       "labeling_residuals",
 
 ## legends
        "legend_resbased",
@@ -62,7 +65,7 @@ export(
        "terrain_hcl",
        "sequential_hcl",
        "hcl2hex",
-       
+
 ## panel functions
        "pairs_barplot",
        "pairs_text",
@@ -88,7 +91,7 @@ export(
        "hls",
        "is.structable",
        "independence_table",
-       "mar_table", 
+       "mar_table",
        "Ord_estimate",
        "Ord_plot",
        "strucplot",
@@ -136,6 +139,9 @@ S3method("doubledecker", "formula")
 S3method("mosaic", "default")
 S3method("mosaic", "formula")
 S3method("mosaic", "loglm")
+
+S3method("tile", "default")
+S3method("tile", "formula")
 
 S3method("rootogram", "default")
 S3method("rootogram", "goodfit")

@@ -577,11 +577,11 @@ labeling_doubledecker <- function(lab_pos = c("bottom", "top"),
                                   tl_labels = NULL,
                                   ...) {
   lab_pos <- match.arg(lab_pos)
-  
+
   if (inherits(gp_varnames, "gpar"))
       gp_varnames <- list(gp_varnames)
   gp_varnames <- pexpand(gp_varnames, 4, list(gpar(fontsize = 12, fontface = 2)), c("top", "right", "bottom", "left"))
-  
+
   function(d, split_vertical, condvars, prefix = "") {
     if (is.table(d))
       d <- dimnames(d)
@@ -657,3 +657,35 @@ class(labeling_cboxed) <- "grapcon_generator"
 labeling_lboxed <- function(tl_labels = FALSE, boxes = TRUE, clip = TRUE, pos_labels = "left", just_labels = "left", labbl_varnames = FALSE, ...)
   labeling_border(tl_labels = tl_labels, boxes = boxes, clip = clip, pos_labels = pos_labels, labbl_varnames = labbl_varnames, just_labels = just_labels, ...)
 class(labeling_lboxed) <- "grapcon_generator"
+
+labeling_values <-
+function(value_type = c("observed", "expected", "residuals"),
+         suppress = NULL, digits = 1, ...)
+{
+   value_type <- match.arg(value_type)
+   if (value_type == "residuals" && is.null(suppress))
+       suppress <- 2
+   if (is.null(suppress))
+       suppress <- 0
+   if (length(suppress) == 1)
+       suppress <- c(-suppress, suppress)
+
+   function(d, split_vertical, condvars, prefix) {
+       lookup <- if (value_type == "observed") "x" else value_type
+       if (!exists(lookup, envir = parent.frame()))
+           stop(paste("Could not find", dQuote(value_type), "object."))
+
+       values <- get(lookup, envir = parent.frame())
+       values <- ifelse((values > suppress[2]) | (values < suppress[1]),
+                        round(values, digits), NA)
+       labeling_border(...)(d, split_vertical, condvars, prefix)
+       labeling_cells(text = values, ...)(d, split_vertical, condvars, prefix)
+   }
+}
+class(labeling_values) <- "grapcon_generator"
+
+labeling_residuals <-
+function(suppress = NULL, digits = 1, ...)
+    labeling_values(values_type = "residuals", suppress = suppress,
+                    digits = digits, ...)
+class(labeling_residuals) <- "grapcon_generator"

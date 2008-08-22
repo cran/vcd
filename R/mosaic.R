@@ -15,13 +15,13 @@ function(formula, data = NULL, highlighting = NULL,
 
   m <- match.call(expand.dots = FALSE)
   edata <- eval(m$data, parent.frame())
-  
+
   fstr <- strsplit(paste(deparse(formula), collapse = ""), "~")
   vars <- strsplit(strsplit(gsub(" ", "", fstr[[1]][2]), "\\|")[[1]], "\\+")
   varnames <- vars[[1]]
 
   condnames <- if (length(vars) > 1) vars[[2]] else NULL
-  
+
   dep <- gsub(" ", "", fstr[[1]][1])
   if (is.null(highlighting) && (!dep %in% c("","Freq"))) {
      if (all(varnames == ".")) {
@@ -31,11 +31,11 @@ function(formula, data = NULL, highlighting = NULL,
          names(dimnames(as.table(data)))
        varnames <- varnames[-which(varnames %in% dep)]
      }
-                     
+
     varnames <- c(varnames, dep)
     highlighting <- length(varnames) + length(condnames)
   }
-    
+
 
   if (inherits(edata, "ftable") || inherits(edata, "table") || length(dim(edata)) > 2) {
     condind <- NULL
@@ -44,7 +44,7 @@ function(formula, data = NULL, highlighting = NULL,
       ind <- match(varnames, names(dimnames(dat)))
       if (any(is.na(ind)))
         stop(paste("Can't find", paste(varnames[is.na(ind)], collapse=" / "), "in", deparse(substitute(data))))
-      
+
       if (!is.null(condnames)) {
         condind <- match(condnames, names(dimnames(dat)))
         if (any(is.na(condind)))
@@ -63,7 +63,7 @@ function(formula, data = NULL, highlighting = NULL,
                         "~",
                         paste(c(condnames, varnames), collapse = "+")))
       tab <- eval(m, parent.frame())
-      mosaic.default(tab, main = main, sub = sub, highlighting = highlighting, ...)  
+      mosaic.default(tab, main = main, sub = sub, highlighting = highlighting, ...)
   }
 }
 
@@ -71,17 +71,18 @@ mosaic.default <- function(x, condvars = NULL,
                            split_vertical = NULL, direction = NULL,
                            spacing = NULL, spacing_args = list(),
                            gp = NULL, expected = NULL, shade = NULL,
-                           highlighting = NULL, 
+                           highlighting = NULL,
                            highlighting_fill = grey.colors,
                            highlighting_direction = NULL,
                            zero_size = 0.5,
                            zero_split = FALSE,
                            zero_shade = NULL,
                            zero_gp = gpar(col = 0),
+                           panel = NULL,
                            main = NULL, sub = NULL, ...) {
   zero_shade <- !is.null(shade) && shade || !is.null(expected) || !is.null(gp)
   if (!is.null(shade) && !shade) zero_shade = FALSE
-  
+
   if (is.logical(main) && main)
     main <- deparse(substitute(x))
   else if (is.logical(sub) && sub)
@@ -94,7 +95,7 @@ mosaic.default <- function(x, condvars = NULL,
   }
   if (is.null(split_vertical))
     split_vertical <- FALSE
-  
+
   dl <- length(dim(x))
 
   ## splitting argument
@@ -134,26 +135,26 @@ mosaic.default <- function(x, condvars = NULL,
       }
     }
   }
-  
+
   ## Conditioning only
   if (!is.null(condvars)) {
     if (is.character(condvars))
       condvars <- match(condvars, names(dimnames(x)))
     if (length(condvars) > 0)
       x <- aperm(x, c(condvars, seq(dl)[-condvars]))
-    
+
     if (is.null(spacing))
       spacing <- spacing_conditional
   }
-  
+
   ## spacing argument
   if (is.null(spacing))
     spacing <- if (dl < 3) spacing_equal else spacing_increase
-  
+
   strucplot(x,
             condvars = if (is.null(condvars)) NULL else length(condvars),
             core = struc_mosaic(zero_size = zero_size, zero_split = zero_split,
-              zero_shade = zero_shade, zero_gp = zero_gp),
+              zero_shade = zero_shade, zero_gp = zero_gp, panel = panel),
             split_vertical = split_vertical,
             spacing = spacing,
             spacing_args = spacing_args,
@@ -192,12 +193,12 @@ mosaic.default <- function(x, condvars = NULL,
 ##         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
 ##       vproot <- viewport(layout.pos.col = col, layout.pos.row = row,
 ##                          layout = layout, name = remove_trailing_comma(name))
-      
+
 ##       ## next level: either create further splits, or final viewports
 ##       name <- paste(name, dnn[i], "=", dn[[i]], ",", sep = "")
 ##       row <- col <- rep.int(1, d)
 ##       if (v) col <- 2 * 1:d - 1 else row <- 2 * 1:d - 1
-##       f <- if (i < dl) 
+##       f <- if (i < dl)
 ##         function(m) {
 ##           co <- cotab[[m]]
 ##           z <- mean(co) <= .Machine$double.eps
@@ -247,7 +248,7 @@ mosaic.default <- function(x, condvars = NULL,
 ##       gpobj <- structure(lapply(gp, function(x) x[i]), class = "gpar")
 ##       if (!zeros[i]) {
 ##         grid.rect(gp = gpobj, name = paste(prefix, "rect:", mnames[i], sep = ""))
-##       } else { 
+##       } else {
 ##         if (zero_shade && zero_size > 0) {
 ##           grid.points(0.5, 0.5, pch = 19, size = unit(zero_size, "char"),
 ##                       gp = gpar(col = gp$fill[i]),
@@ -261,8 +262,10 @@ mosaic.default <- function(x, condvars = NULL,
 ## class(struc_mosaic2) <- "grapcon_generator"
 
 struc_mosaic <- function(zero_size = 0.5, zero_split = FALSE,
-                         zero_shade = TRUE, zero_gp = gpar(col = 0))
-  function(residuals, observed, expected = NULL, spacing, gp, split_vertical, prefix = "") {
+                         zero_shade = TRUE, zero_gp = gpar(col = 0),
+                         panel = NULL)
+  function(residuals, observed, expected = NULL,
+           spacing, gp, split_vertical, prefix = "") {
     dn <- dimnames(observed)
     dnn <- names(dn)
     dx <- dim(observed)
@@ -301,8 +304,9 @@ struc_mosaic <- function(zero_size = 0.5, zero_split = FALSE,
         grid.layout(nrow = 2 * d - 1, heights = dist[idx])
       pushViewport(viewport(layout.pos.col = col, layout.pos.row = row,
                             layout = layout, name = paste(prefix, "cell:",
-                              remove_trailing_comma(name), sep = "")))
-      
+                                             remove_trailing_comma(name),
+                                             sep = "")))
+
       ## next level: either create further splits, or final viewports
       row <- col <- rep.int(1, d)
       if (v) col <- 2 * 1:d - 1 else row <- 2 * 1:d - 1
@@ -313,22 +317,30 @@ struc_mosaic <- function(zero_size = 0.5, zero_split = FALSE,
 
           ## zeros
           z <- mean(co) <= .Machine$double.eps
-          split(co, i + 1, nametmp, row[m], col[m], z && !zero_split, cbind(index, m))
+          split(co, i + 1, nametmp, row[m], col[m],
+                z && !zero_split, cbind(index, m))
           if (z && !zero && !zero_split && !zero_shade && (zero_size > 0))
             zeros(zero_gp, nametmp)
         } else {
-          pushViewport(viewport(layout.pos.col = col[m], layout.pos.row = row[m],
+          pushViewport(viewport(layout.pos.col = col[m],
+                                layout.pos.row = row[m],
                                 name = paste(prefix, "cell:",
-                                  remove_trailing_comma(nametmp), sep = "")))
+                                remove_trailing_comma(nametmp), sep = "")))
 
           ## zeros
           if (cotab[[m]] <= .Machine$double.eps && !zero) {
             zeros(if (!zero_shade) zero_gp else gpar(col = gp$fill[cbind(index,m)]), nametmp)
           } else {
             ## rectangles
-            gpobj <- structure(lapply(gp, function(x) x[cbind(index, m)]), class = "gpar")
-            grid.rect(gp = gpobj, name = paste(prefix, "rect:",
-                                    remove_trailing_comma(nametmp), sep = ""))
+            gpobj <- structure(lapply(gp, function(x) x[cbind(index, m)]),
+                               class = "gpar")
+            nam <- paste(prefix, "rect:",
+                         remove_trailing_comma(nametmp), sep = "")
+            if (!is.null(panel))
+                panel(residuals, observed, expected, c(cbind(index, m)),
+                      gpobj, nam)
+            else
+                grid.rect(gp = gpobj, name = nam)
           }
         }
         upViewport(1)
@@ -336,6 +348,7 @@ struc_mosaic <- function(zero_size = 0.5, zero_split = FALSE,
     }
 
     ## start splitting on top, creates viewport-tree
-    split(observed, i = 1, name = "", row = 1, col = 1, zero = FALSE, index = cbind())
+    split(observed, i = 1, name = "", row = 1, col = 1,
+          zero = FALSE, index = cbind())
   }
 class(struc_mosaic) <- "grapcon_generator"
