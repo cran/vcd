@@ -10,7 +10,7 @@ strucplot <- function(## main parameters
 		      condvars = NULL,
                       shade = NULL,
                       type = c("observed", "expected"),
-                      residuals_type = c("Pearson", "deviance", "FT"),
+                      residuals_type = NULL,
 
                       ## layout
                       split_vertical = NULL,
@@ -44,7 +44,13 @@ strucplot <- function(## main parameters
   if (is.null(shade)) shade <- !is.null(gp) || !is.null(expected)
 
   type <- match.arg(type)
-  residuals_type <- match.arg(tolower(residuals_type), c("pearson", "deviance", "ft"))
+  if (is.null(residuals)) {
+      residuals_type <- if (is.null(residuals_type))
+          "pearson"
+       else
+           match.arg(tolower(residuals_type),
+                     c("pearson", "deviance", "ft"))
+  }
 
   ## convert structable object
   if (is.structable(x)) {
@@ -167,8 +173,12 @@ strucplot <- function(## main parameters
     legend <- do.call("legend", legend_args)
   if (shade && !is.null(legend) && !(is.logical(legend) && !legend)) {
     seekViewport(paste(prefix, "legend", sep = ""))
-    residuals_type = switch(residuals_type, deviance = "deviance", ft = "Freeman-Tukey", pearson = "Pearson")
-    legend(residuals, gpfun, paste(residuals_type, "residuals:", sep = "\n"))
+    residuals_type <- switch(residuals_type,
+                             deviance = "deviance\nresiduals:",
+                             ft = "Freeman-Tukey\nresiduals:",
+                             pearson = "Pearson\nresiduals:",
+                             residuals_type)
+    legend(residuals, gpfun, residuals_type)
   }
 
   ## titles

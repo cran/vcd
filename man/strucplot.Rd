@@ -8,7 +8,7 @@
 \usage{
 strucplot(x, residuals = NULL, expected = NULL,
   condvars = NULL, shade = NULL, type = c("observed", "expected"),
-  residuals_type = c("Pearson", "deviance", "FT"), split_vertical = NULL, 
+  residuals_type = NULL, split_vertical = NULL, 
   spacing = spacing_equal, spacing_args = list(),
   gp = NULL, gp_args = list(),
   labeling = labeling_border, labeling_args = list(),
@@ -38,10 +38,13 @@ strucplot(x, residuals = NULL, expected = NULL,
     independence model.}
   \item{residuals_type}{a character string indicating the type of
     residuals to be computed when none are supplied.
-    Must be one of \code{"pearson"} (giving components of Pearson's
+    If \code{residuals} is \code{NULL}, \code{residuals_type} must
+    be one of \code{"pearson"} (default; giving components of Pearson's
     chi-squared), \code{"deviance"} (giving components of the likelihood
     ratio chi-squared), or \code{"FT"} for the Freeman-Tukey residuals.
-    The value of this argument can be abbreviated.}
+    The value of this argument can be abbreviated. If \code{residuals}
+    are specified, the value of \code{residuals_type} is just passed
+    \dQuote{as is} to the legend function.}
   \item{type}{a character string indicating whether the observed or the
     expected values of the table should be visualized.}
   \item{split_vertical}{vector of logicals of length \eqn{k}, where
@@ -121,7 +124,7 @@ strucplot(x, residuals = NULL, expected = NULL,
   \item{prefix}{optional character string used as a prefix for the
     generated viewport and grob names.}
   \item{\dots}{For convenience, list of arguments passed to the
-    labeling-generating function, if specified.}
+    labeling-generating function used.}
 }
 \details{
   This function---usually called by higher-level functions such as
