@@ -6,6 +6,7 @@
 \alias{shading_Friendly}
 \alias{shading_sieve}
 \alias{shading_binary}
+\alias{hcl2hex}
 \encoding{UTF-8}
 \title{Shading-generating Functions for Residual-based Shadings}
 \description{
@@ -36,6 +37,8 @@ shading_sieve(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
 
 shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   col = NULL)
+
+hcl2hex(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
 }
 \arguments{
   \item{observed}{contingency table of observed values}
@@ -79,6 +82,9 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
     values are then used as \code{interpolate} cut-offs.}
   \item{n}{number of permutations used in the call to \code{coindep_test}.}
   \item{col}{a vector of two colors for positive and negative residuals respectively.}
+  \item{gamma}{gamma value of the display.}
+  \item{fixup}{logical. Should the color be corrected to a valid RGB
+    value before correction?}
   \item{\dots}{Other arguments passed to \code{\link{hcl2hex}}
     or \code{\link{hsv}}, respectively.}
 }
@@ -92,7 +98,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   
   The shadings \code{shading_hcl} and \code{shading_hsv} do the same thing conceptually,
   but use HCL or HSV colors respectively. The former is usually preferred because they
-  are perceptually uniform. Both shadings visualize the \emph{sign} of the residuals of
+  are perceptually based. Both shadings visualize the \emph{sign} of the residuals of
   an independence model using two hues (by default: blue and red). The \emph{absolute size} of 
   the residuals is visualized by the colorfulness and the amount of grey, by default in three categories:
   very colorful for large residuals (> 4), less colorful for medium sized residuals (< 4 and > 2),
@@ -100,7 +106,7 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   be specified by setting \code{interpolate}. Furthermore, the result of a significance
   test can be visualized by the amount of grey in the colors. If significant, a colorful
   palette is used, if not, the amount of color is reduced.
-  See Zeileis, Meyer, and Hornik (2007) and \code{\link{diverge_hcl}} for more details.
+  See Zeileis, Meyer, and Hornik (2007) and \code{\link[colorspace]{diverge_hcl}} for more details.
   
   The shading \code{shading_max} is applicable in 2-way contingency tables and uses
   a similar strategy as \code{shading_hcl}. But instead of using the cut-offs 2 and 4,
@@ -114,6 +120,13 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   
   The shading \code{shading_binary} just visualizes the sign of the residuals by using
   two different colors (default: blue HCL(260, 50, 70) and red HCL(0, 50, 70)).
+
+  The color implementations employed are \code{\link{hsv}}
+  from base R and \code{\link[colorspace]{polarLUV}} from the \pkg{colorspace}
+  package, respectively. To transform the HCL coordinates to
+  a hexadecimal color string (as returned by \code{hsv}), the function
+  \code{\link[colorspace]{hex}} is employed. A convenience wrapper \code{hcl2hex}
+  is provided.
 }
 
 \references{
@@ -149,12 +162,11 @@ shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
 \seealso{
   \code{\link[colorspace]{hex}},
   \code{\link[colorspace]{polarLUV}},
-  \code{\link{hcl2hex}},
   \code{\link{hsv}},
   \code{\link{mosaic}},
   \code{\link{assoc}},
   \code{\link{strucplot}},
-  \code{\link{diverge_hcl}}
+  \code{\link[colorspace]{diverge_hcl}}
 }
 \examples{
 ## load Arthritis data

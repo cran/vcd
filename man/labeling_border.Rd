@@ -132,7 +132,10 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
   \item{value_type}{character string specifying which values should be
     displayed in the cells.}
   \item{suppress}{numeric vector of length 2 specifying an interval of
-    values that are not displayed. 0 values are never displayed.}
+    values that are not displayed. 0 values are never displayed.
+    A single number, \var{k}, is treated as \code{c(-\var{k},
+      \var{k})}. The default for labeling residuals is
+    \code{c(-2,2)}. Use \code{suppress = 0} to show all non-zero values.}
   \item{digits}{integer specifying the number of digits used for rounding.}
   \item{clip_cells}{logical indicating whether the values should be clipped at
     the cell borders.}

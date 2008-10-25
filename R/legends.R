@@ -28,7 +28,8 @@ legend_resbased <- function(fontsize = 12,
                             default.units = "native",
                             height = height, width = width))
       grid.lines(y = 0.5)
-      grid.text(0, x = unit(1, "npc") + unit(0.8, "lines"),  y = 0.5)
+      grid.text(0, x = unit(1, "npc") + unit(0.8, "lines"),  y = 0.5,
+                gp = gpar(fontsize = fontsize))
       warning("All residuals are zero.")
 
     } else {
@@ -78,6 +79,7 @@ legend_resbased <- function(fontsize = 12,
                 y = at,
                 default.units = "native",
                 just = c("right", "center"),
+                gp = gpar(fontsize = fontsize),
                 check.overlap = check_overlap)
       grid.segments(x0 = unit(1, "npc"), x1 = unit(1,"npc") + unit(0.5, "lines"),
                     y0 = at, y1 = at, default.units = "native")

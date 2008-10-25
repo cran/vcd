@@ -1,0 +1,6 @@
+Changes in Version 1.2-0
+
+  o Moved color palettes from vcd to colorspace,
+    including vignette("hcl-colors"). Package colorspace
+    is (as before) loaded automatically with vcd.
+

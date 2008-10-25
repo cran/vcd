@@ -1,3 +1,10 @@
+## convenience function for interfacing
+## HCL colors as implemented in colorspace
+hcl2hex <- function(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
+{
+  hex(polarLUV(l, c, h), gamma = gamma, fixup = fixup)
+}
+
 ## shading-generating functions should take at least the arguments
 ##   observed, residuals, expected, df
 ## and return a function which takes a single argument (interpreted

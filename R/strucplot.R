@@ -50,6 +50,9 @@ strucplot <- function(## main parameters
        else
            match.arg(tolower(residuals_type),
                      c("pearson", "deviance", "ft"))
+  } else {
+      if (is.null(residuals_type))
+          residuals_type <- ""
   }
 
   ## convert structable object

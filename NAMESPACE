@@ -51,20 +51,12 @@ export(
        "shading_max",
        "shading_Friendly",
        "shading_sieve",
+       "hcl2hex",
 
 # core functions
        "struc_mosaic",
        "struc_assoc",
        "struc_sieve",
-
-## palettes
-       "rainbow_hcl",
-       "diverge_hcl",
-       "diverge_hsv",
-       "heat_hcl",
-       "terrain_hcl",
-       "sequential_hcl",
-       "hcl2hex",
 
 ## panel functions
        "pairs_barplot",
