@@ -5,7 +5,7 @@ pexpand <- function(par, len, default_value, default_names, choices = NULL) {
   if (is.null(par))
       par <- default_value
   if (!is.null(choices))
-    par <- as.character(sapply(par, match.arg, choices))
+    par <- sapply(par, match.arg, choices)
   nam <- names(par)
   if (is.null(nam))
     default_value <- par

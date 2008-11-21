@@ -130,24 +130,24 @@ hcl2hex(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
 }
 
 \references{
-  Friendly, M. (1994),
-  Mosaic displays for multi-way contingency tables.
-  \emph{Journal of the American Statistical Association}, \bold{89},
-  190--200.
+  Friendly M. (1994),
+  Mosaic Displays for Multi-Way Contingency Tables.
+  \emph{Journal of the American Statistical Association},
+  \bold{89}, 190--200.
 
-  Meyer, D., Zeileis, A., and Hornik, K. (2006),
-  The strucplot framework: Visualizing multi-way contingency tables with
-  \pkg{vcd}.
+  Meyer D., Zeileis A., and Hornik K. (2006),
+  The Strucplot Framework: Visualizing Multi-Way Contingency Tables with \pkg{vcd}.
   \emph{Journal of Statistical Software}, \bold{17}(3), 1--48.
-  URL http://www.jstatsoft.org/v17/i03/. See also \code{vignette("strucplot")}.
+  URL http://www.jstatsoft.org/v17/i03/. See also \code{vignette("strucplot", package = "vcd")}.
 
-  Zeileis A. and Hornik K. (2006), Choosing Color Palettes for Statistical Graphics.
-  Report 41, Department of Statistics and Mathematics, Wirtschaftsuniversität Wien,
-  Research Report Series, \url{http://epub.wu-wien.ac.at/}.
-  
-  Zeileis A., Meyer D., Hornik K. (2007), Residual-based Shadings for Visualizing
+  Zeileis A., Meyer D., Hornik K. (2007), Residual-Based Shadings for Visualizing
   (Conditional) Independence. \emph{Journal of Computational and Graphical Statistics},
   \bold{16}, 507--525.
+
+  Zeileis A., Hornik K. and Murrell P. (2008),
+  Escaping RGBland: Selecting Colors for Statistical Graphics.
+  \emph{Computational Statistics & Data Analysis}, Forthcoming.
+  Preprint available from \url{http://statmath.wu-wien.ac.at/~zeileis/papers/Zeileis+Hornik+Murrell-2008.pdf}.
 }
 
 \value{A shading function which takes only a single argument, interpreted as a
