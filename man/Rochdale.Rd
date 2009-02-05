@@ -37,8 +37,8 @@ data("Rochdale")
 \references{
   H. Hofmann (2003).
   Constructing and reading mosaicplots.
-  \emph{Computational Statistics \& Data Analysis},
-  \bold(43), 4, 565--580.
+  \emph{Computational Statistics & Data Analysis},
+  \bold{43}, 4, 565--580.
 
   J. Whittaker (1990),
   \emph{Graphical Models on Applied Multivariate Statistics},

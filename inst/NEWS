@@ -1,3 +1,9 @@
+Changes in Version 1.2-2
+
+  o strucplot() now accepts a `df` argument that is passed to the shading
+    functions. Also, expected values are no longer
+    computed if residuals are given.
+
 Changes in Version 1.2-1
 
   o Fixed a bug in labeling (incorrect handling of some parameters)

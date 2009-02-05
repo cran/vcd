@@ -8,7 +8,7 @@
 \usage{
 strucplot(x, residuals = NULL, expected = NULL,
   condvars = NULL, shade = NULL, type = c("observed", "expected"),
-  residuals_type = NULL, split_vertical = NULL, 
+  residuals_type = NULL, df = NULL, split_vertical = NULL, 
   spacing = spacing_equal, spacing_args = list(),
   gp = NULL, gp_args = list(),
   labeling = labeling_border, labeling_args = list(),
@@ -26,7 +26,12 @@ strucplot(x, residuals = NULL, expected = NULL,
     as \code{x} (see details).}
   \item{expected}{optionally, an array of expected values of the same dimension
     as \code{x}, or alternatively the corresponding independence model specification
-    as used by \code{\link[stats]{loglin}} or \code{\link[MASS]{loglm}} (see details).}
+    as used by \code{\link[stats]{loglin}} or \code{\link[MASS]{loglm}}
+    (see details).}
+  \item{df}{degrees of freedom passed to the shading functions
+    used for inference. Will be calculated (and overwritten if
+    specified) if both \code{expected} and
+    \code{residuals} are \code{NULL}, or if \code{expected} is given a formula.}
   \item{condvars}{number of conditioning variables, if any; those are
     expected to be ordered first in the table.
     This information is used for computing the expected values, and is

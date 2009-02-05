@@ -11,6 +11,7 @@ strucplot <- function(## main parameters
                       shade = NULL,
                       type = c("observed", "expected"),
                       residuals_type = NULL,
+                      df = NULL,
 
                       ## layout
                       split_vertical = NULL,
@@ -77,26 +78,29 @@ strucplot <- function(## main parameters
   ## replace NAs by 0
   if (any(nas <- is.na(x))) x[nas] <- 0
 
-  ## model fitting
-  ## A parameter df is added for inference
-  ## (which is done in the shading (generating) functions).
-  df <- NULL
-  if (is.null(expected) || !is.numeric(expected)) {
-    if (inherits(expected, "formula")) {
-      fm <- loglm(expected, x, fitted = TRUE)
-      expected <- fitted(fm)
-      df <- fm$df
-    } else {
-      if (is.null(expected))
-        expected <- if (is.null(condvars))
-          as.list(1:dl)
-        else
-          lapply((condvars + 1):dl, c, seq(condvars))
+  ## model fitting:
+  ## calculate df and expected if needed
+  ## (used for inference in some shading (generating) functions).
+  ## note: will *not* be calculated if residuals are given
+  if ((is.null(expected) && is.null(residuals)) ||
+      !is.numeric(expected)) {
+      if (!is.null(df))
+          warning("Using calculated degrees of freedom.")
+      if (inherits(expected, "formula")) {
+          fm <- loglm(expected, x, fitted = TRUE)
+          expected <- fitted(fm)
+          df <- fm$df
+      } else {
+          if (is.null(expected))
+              expected <- if (is.null(condvars))
+                  as.list(1:dl)
+              else
+                  lapply((condvars + 1):dl, c, seq(condvars))
 
-      fm <- loglin(x, expected, fit = TRUE, print = FALSE)
-      expected <- fm$fit
-      df <- fm$df
-    }
+          fm <- loglin(x, expected, fit = TRUE, print = FALSE)
+          expected <- fm$fit
+          df <- fm$df
+      }
   }
 
   ## compute residuals
