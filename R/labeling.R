@@ -4,19 +4,21 @@
 pexpand <- function(par, len, default_value, default_names, choices = NULL) {
   if (is.null(par))
       par <- default_value
-  if (!is.null(choices))
-    par <- sapply(par, match.arg, choices)
   nam <- names(par)
-  if (is.null(nam))
-    default_value <- par
-  else if (length(nam[nam == ""])) {
-    default_value <- par[nam == ""]
-    nam <- nam[nam != ""]
+  if (!is.null(choices))
+      par <- sapply(par, match.arg, choices)
+  if (is.null(nam)) {
+      default_value <- par
+      par <- rep(par, length.out = len)
+      nam <- names(par) <- default_names
+  } else if (length(nam[nam == ""])) {
+      default_value <- par[nam == ""]
+      nam <- nam[nam != ""]
   }
   ret <- rep(default_value, length.out = len)
   if (!is.null(nam)) {
-    names(ret) <- default_names
-    ret[nam] <- par[nam]
+      names(ret) <- default_names
+      ret[nam] <- par[nam]
   }
   ret
 }

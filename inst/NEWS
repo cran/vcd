@@ -1,3 +1,11 @@
+Changes in Version 1.2-4
+
+  o Bug fix: labeling arguments were incorrectly handled when the options
+    were not provided as named vector
+
+  o ternaryplot() now makes use of the `cex` argument also for 
+    the rendering of optional labels, if any
+
 Changes in Version 1.2-3
 
   o hcl-colors.pdf removed from source ball (vignette now in colorspace)

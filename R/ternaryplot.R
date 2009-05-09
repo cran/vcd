@@ -124,7 +124,7 @@ function (x,
     grid.text(x = xp,
               y = unit(yp - 0.015, "snpc") - 0.5 * size,
               label = as.character(id),
-              gp = gpar(col = id_color))
+              gp = gpar(col = id_color, cex = cex))
 
   ## cleanup
   if(pop) popViewport(2) else upViewport(2)
