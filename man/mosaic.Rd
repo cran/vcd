@@ -36,8 +36,8 @@
   \item{zero_size}{size of the bullets used for zero entries (if 0, no
     bullets are drawn).}
   \item{zero_split}{logical controlling whether zero cells should be
-    further splitted. If \code{FALSE} and \code{zero_shade} is
-    \code{FALSE}, only one bullet is drawn (centered) for unsplitted
+    further split. If \code{FALSE} and \code{zero_shade} is
+    \code{FALSE}, only one bullet is drawn (centered) for unsplit
     zero cells. If \code{FALSE} and \code{zero_shade} is
     \code{TRUE}, a bullet for each zero cell is drawn to allow, e.g.,
     residual-based shadings to be effective also for zero cells.}

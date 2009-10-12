@@ -7,11 +7,14 @@
   producing sieve plots.
 }
 \usage{
-struc_sieve(sievetype = c("observed","expected"))
+struc_sieve(sievetype = c("observed","expected"), gp_tile = gpar())
 }
 \arguments{
   \item{sievetype}{logical indicating whether rectangles should be filled
     according to \code{observed} or \code{expected} frequencies.}
+  \item{gp_tile}{object of class \code{"gpar"}, controlling the
+    appearance of all \emph{static}
+    elements of the cells (e.g., border and fill color).}
 }
 \details{
   This function is usually called by \code{\link{strucplot}} (typically

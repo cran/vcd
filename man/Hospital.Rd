@@ -5,7 +5,7 @@
 \description{
 The table relates the length of stay (in years) of 132
 long-term schizophrenic patients in two London mental hospitals with
-the freqency of visits.
+the frequency of visits.
 }
 \usage{
 data("Hospital")

@@ -25,7 +25,7 @@ fourfold(x,
     non-significant/significant log-odds ratios, respectively, the latter
     being visualized in brighter colors.}
   \item{conf_level}{confidence level used for the confidence rings on
-    the odds ratios.  Must be a single nonnegative number less than 1;
+    the odds ratios.  Must be a single non-negative number less than 1;
     if set to 0, confidence rings are suppressed.}
   \item{std}{a character string specifying how to standardize the table.
     Must be one of \code{"margins"}, \code{"ind.max"}, or

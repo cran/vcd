@@ -47,7 +47,7 @@
     information).}
   \item{set_labels}{An optional character vector with named components
     replacing the so-specified variable names. The component names must
-    exacty match the variable names to be replaced.}
+    exactly match the variable names to be replaced.}
   \item{shade}{logical specifying whether shading should be enabled or
     not (see \code{\link{strucplot}}).}
   \item{margins}{either an object of class \code{"unit"} of length 4, or

@@ -543,6 +543,8 @@ length.structable <- function(x) dim(x)[1]
 is.na.structable <- function(x)
   sapply(seq_along(x), function(sub) any(is.na(sub)))
 
+str.structable <- function(object, ...)
+    str(unclass(object), ...)
 
 ############# helper function
 .massage_args <- function(...) {

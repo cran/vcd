@@ -2,7 +2,7 @@
 \alias{grid_barplot}
 \title{Barplot}
 \description{
-  Barplots of 1-way tables in grid.
+  Bar plots of 1-way tables in grid.
 }
 \usage{
 grid_barplot(height, width = 0.8, offset = 0,

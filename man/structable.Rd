@@ -62,9 +62,9 @@ direction = NULL, split_vertical = NULL, \dots, subset, na.action)
   left-hand side should be left empty---the \code{Freq} column will be
   handled correctly.
 
-  \code{"structable"} objects can be subsetted using the \code{[} and \code{[[}
+  \code{"structable"} objects can be subset using the \code{[} and \code{[[}
   operators, using either level indices or names (see
-  examples). The corresponsing replacement functions are available as well. In
+  examples). The corresponding replacement functions are available as well. In
   addition, appropriate \code{\link{cbind}},
   \code{\link{rbind}}, \code{\link{length}}, \code{\link{dim}}, and
   \code{\link{is.na}} methods do exist. 

@@ -70,7 +70,7 @@ hcl2hex(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
     If set to a numeric value, all border colors corresponding
     to residuals with a larger absolute value are set to the full positive or negative
     color, respectively.}
-  \item{line_col}{default border color.}
+  \item{line_col}{default border color (for \code{shading_sieve}: default sieve color).}
   \item{p.value}{the \eqn{p} value associated with the independence model. By default,
     this is computed from a Chi-squared distribution with \code{df} degrees of freedom.
     \code{p.value} can be either a scalar or a \code{function(observed, residuals, expected, df)}

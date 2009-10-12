@@ -16,7 +16,7 @@ co_table(x, margin, collapse = ".")
     (if more than 1 \code{margin} is specified).}
 }
 \details{
-  This is essentially an interface to \code{\link[base]{"["}}
+  This is essentially an interface to \code{\link[base]{[}}
   which is more convenient for arrays of arbitrary dimension.   
 }
 \value{

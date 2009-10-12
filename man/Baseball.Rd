@@ -35,7 +35,7 @@ data("Baseball")
       consecutive.}
     \item{atbat}{career times at bat.}
     \item{hits}{career hits.}
-    \item{homeruns}{career homeruns.}
+    \item{homeruns}{career home runs.}
     \item{runs}{career runs.}
     \item{rbi}{career runs batted in.}
     \item{walks}{career walks.}
@@ -46,7 +46,7 @@ data("Baseball")
     \item{outs86}{number of putouts (see \code{\link{Hitters}})}
     \item{assist86}{number of assists (see \code{\link{Hitters}})}
     \item{error86}{number of assists (see \code{\link{Hitters}})}
-    \item{sal87}{annary salary on opening day (in USD 1000).}
+    \item{sal87}{annual salary on opening day (in USD 1000).}
     \item{league87}{league in 1987.}
     \item{team87}{team in 1987.}
   }

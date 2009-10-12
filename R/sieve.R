@@ -55,6 +55,7 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
                           split_vertical = NULL, direction = NULL,
                           spacing = NULL, spacing_args = list(),
                           sievetype = c("observed","expected"),
+                          gp_tile = gpar(),
                           main = NULL, sub = NULL, ...) {
     if (is.logical(main) && main)
         main <- deparse(substitute(x))
@@ -100,7 +101,7 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
 
     strucplot(x,
               condvars = if (is.null(condvars)) NULL else length(condvars),
-              core = struc_sieve(sievetype = sievetype),
+              core = struc_sieve(sievetype = sievetype, gp_tile = gp_tile),
               split_vertical = split_vertical,
               spacing = spacing,
               spacing_args = spacing_args,
@@ -205,7 +206,8 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
 ## }
 ##class(struc_sieve) <- "grapcon_generator"
 
-struc_sieve <- function(sievetype = c("observed", "expected")) {
+struc_sieve <- function(sievetype = c("observed", "expected"),
+                        gp_tile = gpar()) {
     sievetype = match.arg(sievetype)
     function(residuals, observed, expected, spacing,
              gp, split_vertical, prefix = "") {
@@ -252,20 +254,30 @@ struc_sieve <- function(sievetype = c("observed", "expected")) {
                 }
                 if (i < dl)
                     split(cotab[[m]], i + 1, nametmp, row[m], col[m],
-                          colmargin = colmargintmp, rowmargin = rowmargintmp, index = cbind(index, m))
+                          colmargin = colmargintmp,
+                          rowmargin = rowmargintmp, index = cbind(index, m))
                 else {
-                    pushViewport(viewport(layout.pos.col = col[m], layout.pos.row = row[m],
+                    pushViewport(viewport(layout.pos.col = col[m],
+                                          layout.pos.row = row[m],
                                           name = paste(prefix, "cell:",
-                                          remove_trailing_comma(nametmp), sep = ""),
-                                          yscale = c(0, rowmargintmp), xscale = c(0, colmargintmp)))
+                                              remove_trailing_comma(nametmp),
+                                              sep = ""),
+                                          yscale = c(0, rowmargintmp),
+                                          xscale = c(0, colmargintmp)))
 
-                    gpobj <- structure(lapply(gp, function(x) x[cbind(index, m)]), class = "gpar")
+                    gpobj <- structure(lapply(gp,
+                                              function(x) x[cbind(index, m)]),
+                                       class = "gpar")
 
                     ## draw sieve
                     div <- if (sievetype == "observed")
                         observed[cbind(index, m)]
                     else
                         expected[cbind(index, m)]
+                    gptmp <- gp_tile
+                    gptmp$col <- "transparent"
+                    grid.rect(name = paste(prefix, "rect:", nametmp, sep = ""),
+                              gp = gptmp)
                     if (div > 0) {
                         square.side <- sqrt(colmargintmp * rowmargintmp / div)
 
@@ -277,8 +289,10 @@ struc_sieve <- function(sievetype = c("observed", "expected")) {
                         grid.segments(x0 = 0, x1 = colmargintmp, y0 = jj, y1 = jj,
                                       default.units = "native", gp = gpobj)
                     }
-                    grid.rect(name = paste(prefix, "rect:", nametmp, sep = ""),
-                              gp = gpar(fill = "transparent"))
+                    gptmp <- gp_tile
+                    gptmp$fill <- "transparent"
+                    grid.rect(name = paste(prefix, "border:", nametmp, sep = ""),
+                              gp = gptmp)
 
                 }
                 upViewport(1)

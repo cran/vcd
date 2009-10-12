@@ -23,7 +23,7 @@ Kappa(x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
   frequencies, corrected for expected values and standardized by its
   maximum value.
   The equal-spacing weights are defined by \eqn{1 - |i - j| / (r -
-    1)}{1 - abs(i - j) / (r - 1)}, \eqn{r} number of colums/rows, and
+    1)}{1 - abs(i - j) / (r - 1)}, \eqn{r} number of columns/rows, and
   the Fleiss-Cohen weights by \eqn{1 - |i - j|^2 / (r - 1)^2}{1 -
     abs(i - j)^2 / (r - 1)^2}.
   The latter one attaches greater importance to near disagreements.

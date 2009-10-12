@@ -15,7 +15,7 @@
 \method{sieve}{default}(x, condvars = NULL, gp = NULL, shade = NULL,
   legend = FALSE, split_vertical = NULL, direction = NULL, spacing = NULL,
   spacing_args = list(), sievetype = c("observed","expected"),
-  main = NULL, sub = NULL, \dots)
+  gp_tile = gpar(), main = NULL, sub = NULL, \dots)
 \method{sieve}{formula}(formula, data, \dots, main = NULL, sub = NULL, subset = NULL)
 }
 \arguments{
@@ -47,9 +47,13 @@
     dimension. The default is a modified version of
     \code{\link{shading_Friendly}}:
     if \code{sievetype} is \code{"observed"}, cells with positive
-    residuals are painted red, and cells with negative residuals
-    blue. If \code{sievetype} is \code{"expected"}, the sieves' color is
-    gray. Ignored if \code{shade = FALSE}.} 
+    residuals are painted with a red sieve, and cells with negative residuals
+    with a blue one.
+    If \code{sievetype} is \code{"expected"}, the sieves' color is
+    gray. Ignored if \code{shade = FALSE}.}
+  \item{gp_tile}{object of class \code{"gpar"}, controlling the
+    appearance of all \emph{static}
+    elements of the cells (e.g., border and fill color).}
   \item{legend}{either a legend-generating function, a legend
     function (see details of \code{\link{strucplot}} and
     \code{\link{legends}}), or a logical value.

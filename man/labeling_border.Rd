@@ -54,11 +54,11 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
     should be drawn for a particular dimension.}
   \item{set_labels}{An optional character vector with named components
     replacing the so-specified variable names. The component names must
-    exacty match the variable names to be replaced.}
+    exactly match the variable names to be replaced.}
   \item{set_varnames}{An optional list with named components of
     character vectors replacing the labels of the so-specified
     variables. The component names must
-    exacty match the variable names whose labels should be replaced.}
+    exactly match the variable names whose labels should be replaced.}
   \item{tl_labels}{vector of logicals indicating whether labels should
     be positioned on top (column labels) / left (row labels) for a
     particular dimension.}
@@ -126,7 +126,7 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
     \code{"bottom"} position of the labels (only used for
     \code{labeling_doubledecker}).}
   \item{dep_varname}{logical or character string. If logical, this is
-    indicating whether the name of the dependent varable should be
+    indicating whether the name of the dependent variable should be
     printed or not. A character string will be printed instead of the
     variable name taken from the dimnames.}
   \item{value_type}{character string specifying which values should be

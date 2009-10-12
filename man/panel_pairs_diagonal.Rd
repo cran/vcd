@@ -78,7 +78,7 @@ pairs_diagonal_mosaic(split_vertical = TRUE, margins = unit(0, "lines"),
     indicating the offset of the
     labels (variable names) for each of the four sides of the plot.}
   \item{var_offset}{object of class \code{"unit"} specifying the
-        offset of variable names from the bottom of the barplots
+        offset of variable names from the bottom of the bar plots
         created by \code{pairs_barplot}. If numeric, the unit defaults to "npc".}
   \item{\dots}{other parameters passed to the underlying graphics
     functions.}
@@ -87,7 +87,7 @@ pairs_diagonal_mosaic(split_vertical = TRUE, margins = unit(0, "lines"),
   In the diagonal cells, the pairsplot visualizes statistics or
   information for each dimension (that is: the single factors) alone.
   \code{\link{pairs_text}} displays the factor's name, and optionally
-  also the factor levels. \code{\link{pairs_barplot}} produces a barplot
+  also the factor levels. \code{\link{pairs_barplot}} produces a bar plot
   of the corresponding factor, along with the factor's name.
 }
 \value{

@@ -1,3 +1,23 @@
+Changes in Version 1.2-6
+
+  o Small typo in doc of co_table.
+
+Changes in Version 1.2-5
+
+  o Bundesliga data set has been augmented with the results of the
+    seasons 2006/7, 2007/8, 2008/9 (thanks to Torsten Hothorn).
+
+  o goodfit() was modified to treat zero cells better: "Internal"
+    zero cells (i.e., counts below the maximal observed count that
+    did not occur in the sample) are retained (and not dropped as
+    before). "Trailing" zero cells (i.e., counts above the maximal
+    observed count) are still not considered. As it is unclear how
+    the minimum Chi-squared estimate and associated test should be
+    computed, a warning is now issued.
+
+  o sieve() now accepts a gp_tile argument to control the appearance of
+    the cells (apart from the sieve color)
+
 Changes in Version 1.2-4
 
   o Bug fix: labeling arguments were incorrectly handled when the options
@@ -6,23 +26,27 @@ Changes in Version 1.2-4
   o ternaryplot() now makes use of the `cex` argument also for 
     the rendering of optional labels, if any
 
+
 Changes in Version 1.2-3
 
-  o hcl-colors.pdf removed from source ball (vignette now in colorspace)
+  o hcl-colors.pdf removed from source ball (vignette now in
+    colorspace)
+
 
 Changes in Version 1.2-2
 
-  o strucplot() now accepts a `df` argument that is passed to the shading
-    functions. Also, expected values are no longer
-    computed if residuals are given.
+  o strucplot() now accepts a `df` argument that is passed to the
+    shading functions. Also, expected values are no longer computed
+    if residuals are given.
+
 
 Changes in Version 1.2-1
 
   o Fixed a bug in labeling (incorrect handling of some parameters)
 
+
 Changes in Version 1.2-0
 
-  o Moved color palettes from vcd to colorspace,
-    including vignette("hcl-colors"). Package colorspace
-    is (as before) loaded automatically with vcd.
-
+  o Moved color palettes from vcd to colorspace, including
+    vignette("hcl-colors"). Package colorspace is (as before) loaded
+    automatically with vcd.

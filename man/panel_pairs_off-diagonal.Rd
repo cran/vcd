@@ -39,7 +39,7 @@ pairs_sieve(\dots)
 \value{
   A function with arguments:
   \item{x}{contingency table.}
-  \item{i,j}{cell coordiantes.}
+  \item{i, j}{cell coordinates.}
 }
 \seealso{
   \code{\link{pairs.table}},

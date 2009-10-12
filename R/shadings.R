@@ -33,7 +33,7 @@ shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
     expected <- expected$fit
   }
   if(is.null(residuals) && !is.null(observed)) residuals <- (observed - expected)/sqrt(expected)
-    
+
   ## conduct significance test (if specified)
   if(is.null(p.value)) p.value <- function(observed, residuals, expected, df)
     pchisq(sum(as.vector(residuals)^2), df, lower.tail = FALSE)
@@ -76,16 +76,16 @@ shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
                 pmax(pmin(interpolate(abs(res)), 1), 0),
 	        v, ...)
     dim(fill) <- dim(x)
-    
+
     col <- rep(line_col, length.out = length(res))
     if(!is.null(eps)) {
       eps <- abs(eps)
       col[res > eps] <- hsv(my.h[1], 1, v, ...)
-      col[res < -eps] <- hsv(my.h[2], 1, v, ...)      
+      col[res < -eps] <- hsv(my.h[2], 1, v, ...)
     }
     dim(col) <- dim(x)
-    
-    lty <- ifelse(x > 0, lty[1], lty[2])    
+
+    lty <- ifelse(x > 0, lty[1], lty[2])
     dim(lty) <- dim(x)
 
     return(structure(list(col = col, fill = fill, lty = lty), class = "gpar"))
@@ -125,7 +125,7 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
     expected <- expected$fit
   }
   if(is.null(residuals) && !is.null(observed)) residuals <- (observed - expected)/sqrt(expected)
-    
+
   ## conduct significance test (if specified)
   if(is.null(p.value)) p.value <- function(observed, residuals, expected, df)
     pchisq(sum(as.vector(residuals)^2), df, lower.tail = FALSE)
@@ -170,7 +170,7 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
 	        my.l[1] + diff(my.l) * pmax(pmin(interpolate(abs(res)), 1), 0),
 	        ...)
     dim(fill) <- dim(x)
-    
+
     col <- rep(line_col, length.out = length(res))
     if(!is.null(eps)) {
       eps <- abs(eps)
@@ -178,8 +178,8 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
       col[res < -eps] <- hcl2hex(my.h[2], max.c, my.l[2], ...)
     }
     dim(col) <- dim(x)
-    
-    lty <- ifelse(x > 0, lty[1], lty[2])    
+
+    lty <- ifelse(x > 0, lty[1], lty[2])
     dim(lty) <- dim(x)
 
     return(structure(list(col = col, fill = fill, lty = lty), class = "gpar"))
@@ -199,12 +199,15 @@ shading_Friendly <- function(observed = NULL, residuals = NULL, expected = NULL,
 }
 class(shading_Friendly) <- "grapcon_generator"
 
-shading_sieve <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
-  h = c(260, 0), lty = 1:2, interpolate = c(2, 4), eps = 0.01, line_col = "black", ...)
+shading_sieve <-
+    function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
+             h = c(260, 0), lty = 1:2, interpolate = c(2, 4), eps = 0.01,
+             line_col = "black", ...)
 {
-  shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
-              h = h, c = 100, l = 50, lty = lty, interpolate = interpolate,
-	      eps = eps, line_col = line_col, p.value = NA, ...)
+    shading_hcl(observed = NULL, residuals = NULL, expected = NULL,
+                df = NULL, h = h, c = 100, l = 50, lty = lty,
+                interpolate = interpolate,
+                eps = eps, line_col = line_col, p.value = NA, ...)
 }
 class(shading_sieve) <- "grapcon_generator"
 
@@ -212,12 +215,12 @@ shading_max <- function(observed = NULL, residuals = NULL, expected = NULL, df =
   h = NULL, c = NULL, l = NULL, lty = 1, eps = NULL, line_col = "black", level = c(0.9, 0.99), n = 1000, ...)
 {
   stopifnot(length(dim(observed)) == 2)
-  
+
   ## set defaults
   if(is.null(h)) h <- c(260, 0)
   if(is.null(c)) c <- c(100, 20)
-  if(is.null(l)) l <- c(90, 50)  
-  
+  if(is.null(l)) l <- c(90, 50)
+
   obs.test <- coindep_test(observed, n = n)
   col.bins <- obs.test$qdist(sort(level))
   rval <- shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
@@ -233,7 +236,7 @@ shading_binary <- function(observed = NULL, residuals = NULL, expected = NULL, d
   ## check col argument
   if(is.null(col)) col <- hcl2hex(c(260, 0), 50, 70)
   col <- rep(col, length.out = 2)
-  
+
   ## store color information for legend
   legend <- list(col = col[2:1], col.bins = 0, lty = NULL, lty.bins = NULL)
 
@@ -244,7 +247,7 @@ shading_binary <- function(observed = NULL, residuals = NULL, expected = NULL, d
   ## add meta information for legend
   attr(rval, "legend") <- legend
   attr(rval, "p.value") <- NULL
-  
+
   rval
 }
 class(shading_binary) <- "grapcon_generator"

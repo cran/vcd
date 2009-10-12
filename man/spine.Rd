@@ -28,7 +28,7 @@ spine(x, \dots)
   \item{formula}{a \code{"formula"} of type \code{y ~ x} with a single dependent \code{"factor"}
     and a single explanatory variable.}    
   \item{data}{an optional data frame.}
-  \item{breaks}{if the explantory variable is numeric, this controls how
+  \item{breaks}{if the explanatory variable is numeric, this controls how
     it is discretized. \code{breaks} is passed to \code{\link{hist}} and can
     be a list of arguments.}
   \item{ylab_tol}{convenience tolerance parameter for y-axis annotation.

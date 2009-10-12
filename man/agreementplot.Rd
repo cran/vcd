@@ -51,7 +51,7 @@
   Invisibly returned, a list with components
   \item{Bangdiwala}{the unweighted agreement strength statistic.}
   \item{Bangdiwala_Weighted}{the weighted statistic.}
-  \item{weights}{the weigtht vector used.}
+  \item{weights}{the weight vector used.}
 }
 \references{
   Michael Friendly (2000),

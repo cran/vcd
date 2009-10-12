@@ -2,12 +2,12 @@
 \alias{Bundesliga}
 \title{Ergebnisse der Fussball-Bundesliga}
 \description{
-  Results from the first German soccer league (1963-2005).
+  Results from the first German soccer league (1963-2008).
 }
 \usage{
 data("Bundesliga")
 }
-\format{A data frame with 13100 observations and 7 variables.
+\format{A data frame with 14018 observations and 7 variables.
   \describe{
     \item{HomeTeam}{factor. Name of the home team.}
     \item{AwayTeam}{factor. Name of the away team.}
@@ -22,8 +22,8 @@ data("Bundesliga")
   The data comprises all games in the first German soccer league since
   its foundation in 1963. The data have been queried online from the 
   official Web page of the DFB and prepared as a data frame in R by
-  Daniel Dekic and Achim Zeileis (replacing an earlier version of the
-  data in the vcd package containing only two selected years).
+  Daniel Dekic, Torsten Hothorn, and Achim Zeileis (replacing earlier versions of the
+  data in the package containing only subsets of years).
   
   Each year/season comprises 34 rounds (except 1963, 1964, 1991) so that
   all 18 teams play twice against each other (switching home court advantage).
@@ -46,20 +46,14 @@ Discussion paper \bold{98}.
 \examples{
 data("Bundesliga")
 
-## independence of home and away goals
-tore95 <- xtabs(~ HomeGoals + AwayGoals, data = Bundesliga,
-                subset = Year == 1995)
-tore95
-mosaic(tore95, gp = shading_max)
-
 ## number of goals per game poisson distributed?
-ntore1 <- xtabs(~ HomeGoals, data = Bundesliga, subset = Year == 1995)
-ntore2 <- xtabs(~ AwayGoals, data = Bundesliga, subset = Year == 1995)
-ntore3 <- table(apply(subset(Bundesliga, Year == 1995)[,3:4], 1, sum))
+ngoals1 <- xtabs(~ HomeGoals, data = Bundesliga, subset = Year == 1995)
+ngoals2 <- xtabs(~ AwayGoals, data = Bundesliga, subset = Year == 1995)
+ngoals3 <- table(apply(subset(Bundesliga, Year == 1995)[,3:4], 1, sum))
 
-gf1 <- goodfit(ntore1)
-gf2 <- goodfit(ntore2)
-gf3 <- goodfit(ntore3)
+gf1 <- goodfit(ngoals1)
+gf2 <- goodfit(ngoals2)
+gf3 <- goodfit(ngoals3)
 
 summary(gf1)
 summary(gf2)
@@ -68,8 +62,8 @@ plot(gf1)
 plot(gf2)
 plot(gf3)
 
-Ord_plot(ntore1)
-distplot(ntore1)
+Ord_plot(ngoals1)
+distplot(ngoals1)
 }
 
 \keyword{datasets}
