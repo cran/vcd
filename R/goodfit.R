@@ -20,9 +20,10 @@ goodfit <- function(x, type = c("poisson", "binomial", "nbinomial"),
     nfreq[count + 1] <- freq
     freq <- nfreq
     count <- 0:max(count)
-
     n <- length(count)
-    df <- n - 1
+
+    ## starting value for degrees of freedom
+    df <- -1
 
     type <- match.arg(type)
     method <- match.arg(method)
@@ -65,12 +66,11 @@ goodfit <- function(x, type = c("poisson", "binomial", "nbinomial"),
       }
 
       if(size > max(count)) {
-        nfreq <- rep(0, max(count) + 1)
+        nfreq <- rep(0, size + 1)
         nfreq[count + 1] <- freq
         freq <- nfreq
-        count <- 0:max(count)
-        n <- length(count)
-        df <- n - 1      
+        count <- 0:size
+	n <- length(count)
       }
 
       if(!is.null(par$prob)) {
@@ -169,6 +169,12 @@ goodfit <- function(x, type = c("poisson", "binomial", "nbinomial"),
 
     expected <- sum(freq) * p.hat
 
+    df <- switch(method[1],
+      "MinChisq" = { length(freq) + df },
+      "ML" = { sum(freq > 0) + df },
+      "fixed" = { c(length(freq), sum(freq > 0)) + df }
+    )
+
     RVAL <- list(observed = freq,
                  count = count, fitted = expected,
 		 type = type, method = method, df = df,
@@ -214,12 +220,11 @@ summary.goodfit <- function(object, ...)
     if(any(expctd < 5) & object$method[1] != "ML")
         warning("Chi-squared approximation may be incorrect")
 
-    switch(object$method[1],
-    "ML" = { RVAL <- G2 },
-    "MinChisq" = { RVAL <- X2 },
-    "fixed" = { RVAL <- c(X2, G2) })
-
-## FIXME: some methods or a default seem missing here?
+    RVAL <- switch(object$method[1],
+      "ML" = { G2 },
+      "MinChisq" = { X2 },
+      "fixed" = { c(X2, G2) }
+    )
 
     RVAL <- cbind(RVAL, df, pchisq(RVAL, df = df, lower = FALSE))
     colnames(RVAL) <- c("X^2", "df", "P(> X^2)")

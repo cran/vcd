@@ -1,6 +1,17 @@
+Changes in Version 1.2-7
+
+  o Corrected df handling in goodfit() with ML estimation:
+    only non-zero cells are used. This is backward compatible
+    with versions <= 1.2-4.
+    
+  o Fixed bug in goodfit() for binomial distribution with
+    specified "size" parameter (introduced in 1.2-5).
+
+
 Changes in Version 1.2-6
 
   o Small typo in doc of co_table.
+
 
 Changes in Version 1.2-5
 
@@ -11,12 +22,13 @@ Changes in Version 1.2-5
     zero cells (i.e., counts below the maximal observed count that
     did not occur in the sample) are retained (and not dropped as
     before). "Trailing" zero cells (i.e., counts above the maximal
-    observed count) are still not considered. As it is unclear how
-    the minimum Chi-squared estimate and associated test should be
-    computed, a warning is now issued.
+    observed count) are still not considered. The documentation now
+    points out the problems with the minimum-chi-squared method in
+    the latter situation.
 
   o sieve() now accepts a gp_tile argument to control the appearance of
     the cells (apart from the sieve color)
+
 
 Changes in Version 1.2-4
 
