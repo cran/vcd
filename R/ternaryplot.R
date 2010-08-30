@@ -6,6 +6,7 @@ function (x,
           dimnames_color = "black",
           id = NULL,
           id_color = "black",
+          id_just = c("center", "center"),
           coordinates = FALSE,
           grid = TRUE,
           grid_color = "gray",
@@ -124,6 +125,7 @@ function (x,
     grid.text(x = xp,
               y = unit(yp - 0.015, "snpc") - 0.5 * size,
               label = as.character(id),
+              just = id_just,
               gp = gpar(col = id_color, cex = cex))
 
   ## cleanup

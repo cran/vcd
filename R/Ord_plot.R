@@ -19,7 +19,7 @@ Ord_plot <- function(obj, legend = TRUE, estimate = TRUE, tol = 0.1,
 
   y <- count * x/c(NA, x[-length(x)])
   fm <- lm(y ~ count)
-  fmw <- lm(y ~ count, weights = sqrt(x - 1))
+  fmw <- lm(y ~ count, weights = sqrt(pmax(x, 1) - 1))
   fit1 <- predict(fm, data.frame(count))
   fit2 <- predict(fmw, data.frame(count))
   if(is.null(xlim)) xlim <- range(count)  
@@ -32,7 +32,7 @@ Ord_plot <- function(obj, legend = TRUE, estimate = TRUE, tol = 0.1,
   grid.points(x = count, y = y, default.units = "native", gp = gp, ...)
   grid.lines(x = count, y = fit1, default.units = "native")
   grid.lines(x = count, y = fit2, default.units = "native", gp = gpar(col = 2))
-  grid.rect()
+  grid.rect(gp = gpar(fill = "transparent"))
   grid.xaxis()
   grid.yaxis()
   grid.text(xlab, y = unit(-3.5, "lines"))

@@ -9,6 +9,7 @@
 ternaryplot(x, scale = 1, dimnames = NULL,
   dimnames_position = c("corner","edge","none"),
   dimnames_color = "black", id = NULL, id_color = "black",
+  id_just = c("center", "center"),
   coordinates = FALSE, grid = TRUE, grid_color = "gray",
   labels = c("inside", "outside", "none"),
   labels_color = "darkgray", border = "black", bg = "white",
@@ -25,6 +26,8 @@ ternaryplot(x, scale = 1, dimnames = NULL,
   \item{id}{optional labels to be plotted below the plot
     symbols. \code{coordinates} and \code{id} are mutual exclusive.}
   \item{id_color}{color of these labels.}
+  \item{id_just}{character vector of length 1 or 2 indicating the
+    justification of these labels.}
   \item{coordinates}{if \code{TRUE}, the coordinates of the points are
     plotted below them. \code{coordinates} and \code{id} are mutual
     exclusive.}

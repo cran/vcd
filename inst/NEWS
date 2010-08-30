@@ -1,3 +1,21 @@
+Changes in Version 1.2-9
+
+  o Fixed Ord_plot() for devices where the default filling is
+    "white" and not "transparent" by explicitly setting it to
+    the latter.
+
+  o Bug fix in as.table.structable, returning the table in a different order
+    than defined in the structable object, confusing in particular
+    plot.structable.
+
+  o add parameter to ternaryplot() to control the positioning of the
+    plot labels.
+
+Changes in Version 1.2-8
+
+  o Small bug fixes in handling of some graphical parameters.
+
+
 Changes in Version 1.2-7
 
   o Corrected df handling in goodfit() with ML estimation:

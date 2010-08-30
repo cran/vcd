@@ -159,13 +159,15 @@
   The strucplot framework: Visualizing multi-way contingency tables with
   \pkg{vcd}.
   \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
-  URL http://www.jstatsoft.org/v17/i03/ and available as 
-  \code{vignette("strucplot")}.
+  URL \url{http://www.jstatsoft.org/v17/i03/} and available as 
+  \code{vignette("strucplot", package = "vcd")}.
 
   The home page of Michael Friendly
   (\url{http://www.math.yorku.ca/SCS/friendly.html}) provides
   information on various aspects of graphical methods for analyzing
-  categorical data, including mosaic plots.
+  categorical data, including mosaic plots. In particular, there are
+  many materials for his course \dQuote{Visualizing Categorical Data with SAS and R}
+  at \url{http://www.math.yorku.ca/SCS/Courses/VCD/}.
 }
 \author{
   David Meyer \email{David.Meyer@R-project.org}

@@ -83,7 +83,7 @@ function (formula, data = NULL, ..., subset)
   grid.text(xlab, y = -0.12, gp = gpar(fontsize = 20))
   grid.text(ylab, x = -0.1, gp = gpar(fontsize = 20), rot = 90)
   
-  grid.rect()
+  grid.rect(gp = gpar(fill = "transparent"))
 
   xc <- c(0, cumsum(colFreqs))
   yc <- c(0, cumsum(rowFreqs))

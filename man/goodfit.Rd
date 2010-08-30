@@ -51,7 +51,9 @@ goodfit(x, type = c("poisson", "binomial", "nbinomial"),
 
   The corresponding Pearson Chi-squared or likelihood ratio statistic,
   respectively, is computed and given with their \eqn{p} values by the
-  \code{summary} method.  The \code{plot} method produces a
+  \code{summary} method. The \code{summary} method always prints this
+  information and returns a matrix  with the printed information
+  invisibly. The \code{plot} method produces a
   \code{\link{rootogram}} of the observed and fitted values.
   
   In case of count distribtions (Poisson and negative binomial), the
