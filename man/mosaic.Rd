@@ -163,11 +163,11 @@
   \code{vignette("strucplot", package = "vcd")}.
 
   The home page of Michael Friendly
-  (\url{http://www.math.yorku.ca/SCS/friendly.html}) provides
+  (\url{http://datavis.ca}) provides
   information on various aspects of graphical methods for analyzing
   categorical data, including mosaic plots. In particular, there are
   many materials for his course \dQuote{Visualizing Categorical Data with SAS and R}
-  at \url{http://www.math.yorku.ca/SCS/Courses/VCD/}.
+  at \url{http://datavis.ca/courses/VCD/}.
 }
 \author{
   David Meyer \email{David.Meyer@R-project.org}

@@ -143,7 +143,7 @@ structable.default <- function(..., direction = NULL, split_vertical = FALSE) {
 
 
   ## permute & reshape
-  ret <- aperm(x, c(rev(which(!split_vertical)), rev(which(split_vertical))))
+  ret <- base::aperm(x, c(rev(which(!split_vertical)), rev(which(split_vertical))))
 
   dn <- dimnames(x)
   rv <- dn[split_vertical]
@@ -503,7 +503,8 @@ rbind.structable <- function(..., deparse.level = 1) {
 
 as.table.structable <- function(x, ...) {
   ret <- stats:::as.table.ftable(x)
-  structure(aperm(ret, match(names(attr(x, "dnames")), names(dimnames(ret)))),
+  structure(base::aperm(ret, match(names(attr(x, "dnames")),
+                                   names(dimnames(ret)))),
             class = "table")
 }
 
@@ -545,6 +546,17 @@ is.na.structable <- function(x)
 
 str.structable <- function(object, ...)
     str(unclass(object), ...)
+
+find.perm <- function(vec1, vec2) {
+  unlist(Map(function(x) which(x == vec2), vec1))
+}
+
+aperm.structable <- function(a, perm, resize=TRUE, ...){
+  newtable <- aperm(as.table(a), perm = perm, resize = resize, ...)
+  if (!is.numeric(perm))
+      perm <- find.perm(names(dimnames(newtable)), names(dimnames(a)))
+  structable(newtable, split_vertical = attr(a, "split_vertical")[perm])
+}
 
 ############# helper function
 .massage_args <- function(...) {

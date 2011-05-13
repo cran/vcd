@@ -1,3 +1,20 @@
+Changes in Version 1.2-10
+
+  o Add aperm method for structable objects
+
+  o For use with shading_Friendly(), shading_hsv() now sets the line type of
+    borders corresponding to abs(residual)<eps to lty[1] in addition to setting
+    color to line_color.
+
+  o In fourfold(), modified default colors[3:4] for non-significant log odds ratios
+    to be more visually distinct from the fully saturated colors[5:6] for significant ones.
+
+  o In fourfold(), allow the function to work with >3-dimensional tables, by restructuring
+    all strata dimensions into a single combined 3rd dimension.
+
+  o In fourfold(), modified defaults for mfrow/mfcol to give landscape display, nr <= nc, 
+    rather than nr >= nc. If length(dim(x))>3, set nr=dim(x)[3].
+ 
 Changes in Version 1.2-9
 
   o Fixed Ord_plot() for devices where the default filling is

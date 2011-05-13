@@ -3,6 +3,7 @@
 \alias{structable.formula}
 \alias{structable}
 \alias{Extract.structable}
+\alias{aperm.structable}
 \alias{t.structable}
 \alias{is.structable}
 \alias{cbind.structable}
@@ -65,7 +66,7 @@ direction = NULL, split_vertical = NULL, \dots, subset, na.action)
   \code{"structable"} objects can be subset using the \code{[} and \code{[[}
   operators, using either level indices or names (see
   examples). The corresponding replacement functions are available as well. In
-  addition, appropriate \code{\link{cbind}},
+  addition, appropriate \code{\link{aperm}}, \code{\link{cbind}},
   \code{\link{rbind}}, \code{\link{length}}, \code{\link{dim}}, and
   \code{\link{is.na}} methods do exist. 
 }

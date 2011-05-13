@@ -65,11 +65,12 @@ hcl2hex(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
   \item{lty}{a vector of two line types for positive and negative residuals respectively.
     Recycled if necessary.}
   \item{eps}{numeric tolerance value below which absolute residuals are considered to be
-    zero, which is used for coding the border color. If set to \code{NULL} (default),
+    zero, which is used for coding the border color and line type. If set to \code{NULL} (default),
     all borders have the default color specified by \code{line\_col}.
     If set to a numeric value, all border colors corresponding
     to residuals with a larger absolute value are set to the full positive or negative
-    color, respectively.}
+    color, respectively;  borders corresponding to smaller residuals are are drawn with
+    \code{line\_col} and \code{lty[1]}}.  This is used principally in \code{shading\_Friendly}.
   \item{line_col}{default border color (for \code{shading_sieve}: default sieve color).}
   \item{p.value}{the \eqn{p} value associated with the independence model. By default,
     this is computed from a Chi-squared distribution with \code{df} degrees of freedom.

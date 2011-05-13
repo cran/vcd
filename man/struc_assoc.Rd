@@ -77,7 +77,7 @@ struc_assoc(compress = TRUE, xlim = NULL, ylim = NULL,
   Graphical methods for categorical data.
   \emph{SAS User Group International Conference Proceedings}, \bold{17},
   190--200.
-  \url{http://www.math.yorku.ca/SCS/sugi/sugi17-paper.html}
+  \url{http://datavis.ca/sugi/sugi17.pdf}
 
   Meyer, D., Zeileis, A., and Hornik, K. (2006),
   The strucplot framework: Visualizing multi-way contingency tables with

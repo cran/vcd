@@ -8,7 +8,7 @@
 }
 \usage{
 fourfold(x,
-  color = c("#99CCFF", "#6699CC", "#FF5050", "#6060A0", "#FF0000", "#000080"),
+  color = c("#99CCFF", "#6699CC", "#FFA0A0", "#A0A0FF", "#FF0000", "#000080"),
   conf_level = 0.95, std = c("margins", "ind.max", "all.max"),
   margin = c(1, 2), space = 0.2, main = NULL, sub = NULL,
   mfrow = NULL, mfcol = NULL, extended = TRUE, ticks = 0.15,
@@ -17,7 +17,9 @@ fourfold(x,
 }
 \arguments{
   \item{x}{a \eqn{2 \times 2 \times k}{2 x 2 x k} contingency table in array form, or a
-    \eqn{2 \times 2}{2 x 2} matrix if \eqn{k} is 1.}
+    \eqn{2 \times 2}{2 x 2} matrix if \eqn{k} is 1.  If \code{length(dim(x)>3}, 
+    dimensions \code{3:length(dim(x)} are silently raveled into a combined strata dimension
+    with \code{k=prod(dim(x)[-(1:2)]))}.} 
   \item{color}{a vector of length 6 specifying the colors to use for the
     smaller and larger diagonals of each \eqn{2 \times 2}{2 x 2} table. The first pair
     is used for the standard (non-extended) plots, the other two
@@ -46,18 +48,21 @@ fourfold(x,
   \item{mfrow, mfcol}{a numeric vector with two components:
     \var{nr} and \var{nc}, indicating that the displays for the \eqn{2 \times 2}{2 x 2}
     tables should be arranged in an \var{nr} by \var{nc} layout, filled
-    by rows/columns.}
+    by rows/columns. The defaults are calculated to give a collection of plots in
+    landscape orientation when \var{k} is not a perfect square.}
   \item{extended}{logical; if \code{TRUE}, extended plots are plotted,
     i.e., colors are brighter for significant log-odds ratios, and ticks
-    are plotted for pies with positive log-odds.}
+    are plotted showing the direction of association for positive log-odds.}
   \item{ticks}{the length of the ticks. If set to 0, no ticks are
     plotted.}
   \item{p_adjust_method}{method to be used for p-value adjustments for
-    multi-stratum plots.  The p-values are used for the \sQuote{visual}
+    multi-stratum plots, as provided by \code{link[stats]{p.adjust}}.
+    Use \code{p_adjust_method="none"} to disable this adjustment.
+    The p-values are used for the \sQuote{visual}
     significance tests of the odds ratios.}
   \item{newpage}{logical; if \code{TRUE}, \code{grid.newpage()} is
     called before plotting.}
-  \item{fontsize}{fontsize of main title.}
+  \item{fontsize}{fontsize of main title.  Other labels are scaled relative to this.}
 }
 \details{
   The fourfold display is designed for the display of \eqn{2 \times 2 \times k}{2 x 2 x k}
@@ -85,7 +90,7 @@ fourfold(x,
   Friendly, M. (1994),
   \emph{A fourfold display for 2 by 2 by \eqn{k} tables}.
   Technical Report 217, York University, Psychology Department,
-  \url{http://www.math.yorku.ca/SCS/Papers/4fold/4fold.ps.gz}.
+  \url{http://datavis.ca/papers/4fold/4fold.pdf}.
 
   Friendly, M. (2000),
   \emph{Visualizing Categorical Data}.
@@ -94,6 +99,8 @@ fourfold(x,
 \seealso{
   \code{\link{mosaic}},
   \code{\link{assoc}}
+  
+  \code{link[stats]{p.adjust}} for methods of p value adjustment
 }
 \examples{
 data("UCBAdmissions")

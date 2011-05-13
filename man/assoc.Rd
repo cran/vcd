@@ -155,7 +155,7 @@
   Graphical methods for categorical data.
   \emph{SAS User Group International Conference Proceedings}, \bold{17},
   190--200.
-  \url{http://www.math.yorku.ca/SCS/sugi/sugi17-paper.html}
+  \url{http://datavis.ca/papers/sugi/sugi17.pdf}
   
   Meyer, D., Zeileis, A., Hornik, K. (2003), Visualizing independence using
   extended association plots. \emph{Proceedings of the 3rd International
