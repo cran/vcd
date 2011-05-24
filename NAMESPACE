@@ -102,7 +102,6 @@ S3method("[[<-", "structable")
 export("rbind.structable")
 export("cbind.structable")
 
-S3method("aperm", "structable")
 S3method("str", "structable")
 S3method("is.na", "structable")
 S3method("length", "structable")

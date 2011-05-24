@@ -1,6 +1,6 @@
 Package: vcd
-Version: 1.2-10
-Date: 2011-05-13
+Version: 1.2-11
+Date: 2011-05-24
 Title: Visualizing Categorical Data
 Author@R: c(person(given = "David", family = "Meyer", role = c("aut",
         "cre"), email = "David.Meyer@R-project.org"), person(given =
@@ -21,6 +21,6 @@ Depends: R (>= 2.4.0), MASS, grid, colorspace
 Suggests: KernSmooth, mvtnorm, kernlab, HSAUR
 Imports: stats, utils, MASS, grDevices
 License: GPL-2
-Packaged: 2011-05-13 22:07:58 UTC; meyer
+Packaged: 2011-05-24 13:03:06 UTC; meyer
 Repository: CRAN
-Date/Publication: 2011-05-19 12:59:16
+Date/Publication: 2011-05-24 14:29:05

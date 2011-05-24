@@ -1,8 +1,8 @@
 ## convenience function for interfacing
 ## HCL colors as implemented in colorspace
-hcl2hex <- function(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
+hcl2hex <- function(h = 0, c = 35, l = 85, fixup = TRUE)
 {
-  hex(polarLUV(l, c, h), gamma = gamma, fixup = fixup)
+  hex(polarLUV(l, c, h), fixup = fixup)
 }
 
 ## shading-generating functions should take at least the arguments

@@ -38,7 +38,7 @@ shading_sieve(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
 shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   col = NULL)
 
-hcl2hex(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
+hcl2hex(h = 0, c = 35, l = 85, fixup = TRUE)
 }
 \arguments{
   \item{observed}{contingency table of observed values}
@@ -83,7 +83,6 @@ hcl2hex(h = 0, c = 35, l = 85, gamma = 2.2, fixup = TRUE)
     values are then used as \code{interpolate} cut-offs.}
   \item{n}{number of permutations used in the call to \code{coindep_test}.}
   \item{col}{a vector of two colors for positive and negative residuals respectively.}
-  \item{gamma}{gamma value of the display.}
   \item{fixup}{logical. Should the color be corrected to a valid RGB
     value before correction?}
   \item{\dots}{Other arguments passed to \code{\link{hcl2hex}}
