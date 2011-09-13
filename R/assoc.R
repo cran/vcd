@@ -202,6 +202,7 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
                 rfunc(as.matrix(resid))
         if (!is.matrix(ylim))
             ylim <- matrix(as.matrix(ylim), nrow = 2, ncol = nrow(as.matrix(resid)))
+        ylim[2,] <- ylim[2,] + .Machine$double.eps
 
         attr(ylim, "split_vertical") <- rep(TRUE, sum(!split_vertical))
         attr(ylim, "dnames") <- dn[!split_vertical]

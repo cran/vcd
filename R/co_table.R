@@ -16,8 +16,11 @@ co_table <- function(x, margin, collapse = ".")
   idxm <- expand.grid(idx[margin])    
   cotab1 <- function(i) {
     idx[margin] <- lapply(1:length(margin), function(j) idxm[i,j])
-    rval <- as.table(do.call("[", c(list(x), idx)))
-    names(dimnames(rval)) <- names(dimnames(x))[-margin]
+    rval <- as.table(do.call("[", c(list(x), idx, list(drop = FALSE))))
+    if(length(dim(rval)) > 1) {
+      dim(rval) <- dim(x)[-margin]
+      dimnames(rval) <- dimnames(x)[-margin]
+    }
     return(rval)
   }    
   rval <- lapply(1:NROW(idxm), cotab1)

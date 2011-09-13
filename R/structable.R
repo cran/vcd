@@ -132,6 +132,14 @@ structable.default <- function(..., direction = NULL, split_vertical = FALSE) {
   else
     x
 
+  if (is.null(dimnames(x)))
+      dimnames(x) <- lapply(dim(x), function(i) letters[seq_len(i)])
+  if (is.null(names(dimnames(x))))
+      names(dimnames(x)) <- LETTERS[seq_along(dim(x))]
+  idx <- sapply(names(dimnames(x)), nchar) < 1
+  if(any(idx))
+      names(dimnames(x))[idx] <- LETTERS[seq_len(sum(idx))]
+
   ## splitting argument
   dl <- length(dim(x))
   if (!is.null(direction))
@@ -165,6 +173,8 @@ structable.default <- function(..., direction = NULL, split_vertical = FALSE) {
 }
 
 "[[.structable" <- function(x, ...) {
+  if(nargs() > 3)
+    stop("Incorrect number of dimensions (max: 2).")
   args <- if (nargs() < 3)
     list(..1)
   else
@@ -319,6 +329,8 @@ structable.default <- function(..., direction = NULL, split_vertical = FALSE) {
 }
 
 "[.structable" <- function(x, ...) {
+  if(nargs() > 3)
+        stop("Incorrect number of dimensions (max: 2).")
   args <- if (nargs() < 3)
     list(..1)
   else
