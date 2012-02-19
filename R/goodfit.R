@@ -226,7 +226,7 @@ summary.goodfit <- function(object, ...)
       "fixed" = { c(X2, G2) }
     )
 
-    RVAL <- cbind(RVAL, df, pchisq(RVAL, df = df, lower = FALSE))
+    RVAL <- cbind(RVAL, df, pchisq(RVAL, df = df, lower.tail = FALSE))
     colnames(RVAL) <- c("X^2", "df", "P(> X^2)")
 
     cat(paste("\n\t Goodness-of-fit test for", object$type, "distribution\n\n"))

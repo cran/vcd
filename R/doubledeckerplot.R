@@ -9,13 +9,13 @@ function(formula, data = NULL, ..., main = NULL)
 {
     if (is.logical(main) && main)
       main <- deparse(substitute(data))
-    
+
     if (is.structable(data))
       data <- as.table(data)
 
     m <- match.call(expand.dots = FALSE)
     edata <- eval(m$data, parent.frame())
-    
+
     fstr <- strsplit(paste(deparse(formula), collapse = ""), "~")
     vars <- strsplit(strsplit(gsub(" ", "", fstr[[1]][2]), "\\|")[[1]], "\\+")
     dep <- gsub(" ", "", fstr[[1]][1])
@@ -29,11 +29,11 @@ function(formula, data = NULL, ..., main = NULL)
        || length(dim(edata)) > 2) {
         dat <- as.table(data)
         if(all(varnames != ".")) {
-          
+
           ind <- match(varnames, names(dimnames(dat)))
           if (any(is.na(ind)))
             stop(paste("Can't find", paste(varnames[is.na(ind)], collapse=" / "), "in", deparse(substitute(data))))
-          
+
           dat <- margin.table(dat, ind)
         } else {
           ind <- match(dep, names(dimnames(dat)))
@@ -55,12 +55,12 @@ function(formula, data = NULL, ..., main = NULL)
   }
 
 doubledecker.default <- function(x,
-                         depvar = length(dim(x)), 
+                         depvar = length(dim(x)),
                          margins = c(1, 4, length(dim(x)) + 1, 1),
                          gp = gpar(fill = rev(gray.colors(tail(dim(x), 1)))),
                          labeling = labeling_doubledecker,
                          spacing = spacing_highlighting,
-                         main = NULL, 
+                         main = NULL,
                          keep_aspect_ratio = FALSE,
                          ...) {
   x <- as.table(x)
@@ -74,7 +74,7 @@ doubledecker.default <- function(x,
             core = struc_mosaic(zero_split = FALSE, zero_shade = FALSE),
             condvars = l - 1,
             spacing = spacing,
-            split = c(rep.int(TRUE, l - 1), FALSE),
+            split_vertical = c(rep.int(TRUE, l - 1), FALSE),
             gp = gp,
             shade = TRUE,
             labeling = labeling,

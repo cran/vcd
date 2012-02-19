@@ -71,7 +71,7 @@ confint.Kappa <- function(object, parm, level = 0.95, ...) {
            object[[1]][1] + object[[1]][2] * q,
            object[[2]][1] - object[[2]][2] * q,
            object[[2]][1] + object[[2]][2] * q),
-         nc = 2, byrow = T, 
+         ncol = 2, byrow = TRUE, 
          dimnames = list(Kappa = c("Unweighted","Weighted"), c("lwr","upr"))
          )
 }

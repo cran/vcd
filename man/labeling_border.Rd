@@ -25,7 +25,7 @@ labeling_border(labels = TRUE, varnames = labels,
   boxes = FALSE, fill_boxes = FALSE,
   offset_labels = c(0, 0, 0, 0), offset_varnames = offset_labels,
   labbl_varnames = NULL, labels_varnames = FALSE, sep = ": ",
-  abbreviate = FALSE, rep = TRUE, clip = FALSE, \dots)
+  abbreviate_labs = FALSE, rep = TRUE, clip = FALSE, \dots)
 labeling_values(value_type = c("observed", "expected", "residuals"),
                 suppress = NULL, digits = 1, clip_cells = FALSE, \dots)
 labeling_residuals(suppress = NULL, digits = 1, clip_cells = FALSE, \dots)
@@ -112,7 +112,7 @@ labeling_doubledecker(lab_pos = c("bottom", "top"), dep_varname = TRUE,
     corresponding labels or not.}
   \item{sep}{separator used if any component of \code{"labels_varnames"}
     is \code{TRUE}.}
-  \item{abbreviate}{vector of integers or logicals indicating, for each
+  \item{abbreviate_labs}{vector of integers or logicals indicating, for each
     dimension, the number of characters the labels should be abbreviated
     to.
     \code{TRUE} means 1 character, \code{FALSE} causes no abbreviation.
@@ -218,7 +218,7 @@ mosaic(~ PremaritalSex + ExtramaritalSex | Gender + MaritalStatus,
   data = PreSex, labeling = labeling_conditional)
 
 ## specification of vectorized arguments 
-mosaic(Titanic, labeling_args = list(abbreviate = c(Survived = TRUE)))
+mosaic(Titanic, labeling_args = list(abbreviate_labs = c(Survived = TRUE)))
 
 mosaic(Titanic, labeling_args = list(clip = TRUE, boxes = TRUE,
   fill_boxes = c(Survived = "green", "red")))

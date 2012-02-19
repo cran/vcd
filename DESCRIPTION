@@ -1,6 +1,6 @@
 Package: vcd
-Version: 1.2-12
-Date: 2011-09-13
+Version: 1.2-13
+Date: 2012-02-19
 Title: Visualizing Categorical Data
 Authors@R: c(person(given = "David", family = "Meyer", role = c("aut",
         "cre"), email = "David.Meyer@R-project.org"), person(given =
@@ -18,9 +18,9 @@ Description: Visualization techniques, data sets, summary and inference
 LazyLoad: yes
 LazyData: yes
 Depends: R (>= 2.4.0), MASS, grid, colorspace
-Suggests: KernSmooth, mvtnorm, kernlab, HSAUR
+Suggests: KernSmooth, mvtnorm, kernlab, HSAUR, coin
 Imports: stats, utils, MASS, grDevices
 License: GPL-2
-Packaged: 2011-09-13 13:07:49 UTC; meyer
+Packaged: 2012-02-20 11:25:08 UTC; meyer
 Repository: CRAN
-Date/Publication: 2011-09-13 13:22:52
+Date/Publication: 2012-02-20 11:37:19

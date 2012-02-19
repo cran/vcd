@@ -4,18 +4,18 @@
 pairs.table <- function(x,
                         upper_panel = pairs_mosaic,
                         upper_panel_args = list(),
-                        
+
                         lower_panel = pairs_mosaic,
                         lower_panel_args = list(),
-                        
+
                         diag_panel = pairs_barplot,
                         diag_panel_args = list(),
-                  
+
                         main = NULL,
                         sub = NULL,
                         main_gp = gpar(fontsize = 20),
                         sub_gp = gpar(fontsize = 15),
-                  
+
                         space = 0.3,
                         newpage = TRUE,
                         pop = TRUE,
@@ -30,7 +30,7 @@ pairs.table <- function(x,
     lower_panel <- do.call("lower_panel", c(lower_panel_args, list(...)))
   if (inherits(diag_panel, "grapcon_generator"))
     diag_panel <- do.call("diag_panel", diag_panel_args)
-  
+
   d <- length(dim(x))
   l <- grid.layout(d, d)
   pushViewport(viewport(width = unit(1, "snpc"), height = unit(1, "snpc")))
@@ -102,7 +102,7 @@ pairs_strucplot <- function(panel = mosaic,
            legend = legend,
 
            split_vertical = TRUE,
-           
+
            newpage = FALSE,
            pop = FALSE,
            prefix = paste("panel:Y=",names(dimnames(x))[i],",X=",
@@ -111,7 +111,7 @@ pairs_strucplot <- function(panel = mosaic,
   }
 }
 class(pairs_strucplot) <- "grapcon_generator"
-  
+
 ## diagonal panels
 
 pairs_text <- function(dimnames = TRUE,
@@ -142,13 +142,13 @@ pairs_diagonal_text <- function(varnames = TRUE,
   xc <- unit(switch(pos[1], left = 0.1, center = 0.5, 0.9), "npc")
   yc <- unit(switch(pos[2], top = 0.9, center = 0.5, 0.1), "npc")
   distribute <- match.arg(distribute)
-  
+
   function(x, i) {
     x <- margin.table(x, i)
     grid.rect(gp = gp_border)
     if (varnames)
       grid.text(names(dimnames(x)), gp = gp_vartext, x = xc, y = yc, just = pos, ...)
-    
+
     l <- length(dimnames(x)[[1]])
     po <- if (distribute == "equal")
       unit(cumsum(rep(1 / (l + 1), l)), "npc")
@@ -187,7 +187,7 @@ pairs_barplot <- function(gp_bars = NULL,
     halfstep <- (xpos[2] - xpos[1]) / 2
     grid.rect(xpos - halfstep, rep.int(0, length(x)), height = x,
               just = c("center", "bottom"), width = halfstep,
-              gp = gp_bars, default = "native",
+              gp = gp_bars, default.units = "native",
               name = paste("panel:diag=", dn[i], "|bars", sep = ""),
               ...)
     grid.yaxis(at = pretty(c(0,max(x))))

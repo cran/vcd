@@ -1,20 +1,25 @@
+## Modified 1/25/2012 11:43AM by M. friendly
+# -- added fill_col argument, specifying a function to be used to fill the tiles
+# -- added xscale, yscale arguments to show the marginal frequencies at top & right
+# -- added line_col to change the color of the diagonal line
+
 "agreementplot" <- function (x, ...)
   UseMethod ("agreementplot")
 
 "agreementplot.formula" <-
-function (formula, data = NULL, ..., subset) 
+function (formula, data = NULL, ..., subset)
 {
     m <- match.call(expand.dots = FALSE)
     edata <- eval(m$data, parent.frame())
     if (inherits(edata, "ftable") || inherits(edata, "table")) {
         data <- as.table(data)
         varnames <- attr(terms(formula), "term.labels")
-        if (all(varnames != ".")) 
+        if (all(varnames != "."))
             data <- margin.table(data, match(varnames, names(dimnames(data))))
         agreementplot(data, ...)
     }
     else {
-        if (is.matrix(edata)) 
+        if (is.matrix(edata))
             m$data <- as.data.frame(data)
         m$... <- NULL
         m[[1]] <- as.name("model.frame")
@@ -29,14 +34,14 @@ function (formula, data = NULL, ..., subset)
           y <- mf[[i]]
         }
         by <- lapply(by, factor)
-        x <- if (is.null(y)) 
+        x <- if (is.null(y))
           do.call("table", by)
-        else if (NCOL(y) == 1) 
+        else if (NCOL(y) == 1)
           tapply(y, by, sum)
         else {
           z <- lapply(as.data.frame(y), tapply, by, sum)
           array(unlist(z), dim = c(dim(z[[1]]), length(z)),
-                dimnames = c(dimnames(z[[1]]), 
+                dimnames = c(dimnames(z[[1]]),
                   list(names(z))))
         }
         x[is.na(x)] <- 0
@@ -56,15 +61,18 @@ function (formula, data = NULL, ..., subset)
            ylab = names(dimnames(x))[1],
            xlab_rot = 0, xlab_just = "center",
            ylab_rot = 90, ylab_just = "center",
+           fill_col = function(j) gray((1 - (weights[j]) ^ 2) ^ 0.5),
+           line_col = "red",
+           xscale = TRUE, yscale = TRUE,
            ...)
 {
   if (length(dim(x)) > 2)
     stop("Function implemented for two-way tables only!")
   if (ncol(x) != nrow(x))
     stop("Dimensions must have equal length!")
-  
+
   nc <- ncol(x)
-  
+
   ## compute relative frequencies
   n <- sum(x)
   colFreqs <- colSums(x) / n
@@ -73,8 +81,8 @@ function (formula, data = NULL, ..., subset)
   ## open viewport
   if (newpage) grid.newpage()
   pushViewport(plotViewport(margins))
-  pushViewport(viewport(w = unit(1, "snpc"), h = unit(1, "snpc")))
-  
+  pushViewport(viewport(width = unit(1, "snpc"), height = unit(1, "snpc")))
+
   if(!is.null(main))
     grid.text(main, y = unit(1.1, "npc"),
               gp = gpar(fontsize = 25))
@@ -82,7 +90,7 @@ function (formula, data = NULL, ..., subset)
   ## axis labels
   grid.text(xlab, y = -0.12, gp = gpar(fontsize = 20))
   grid.text(ylab, x = -0.1, gp = gpar(fontsize = 20), rot = 90)
-  
+
   grid.rect(gp = gpar(fill = "transparent"))
 
   xc <- c(0, cumsum(colFreqs))
@@ -101,7 +109,7 @@ function (formula, data = NULL, ..., subset)
     function(xleft, ybottom, xright, ytop, ...)
       grid.rect(x = xleft, y = 1 - ybottom, width = xright - xleft,
                 height = ytop - ybottom, just = c("left","top"), ...)
-  
+
   A <- matrix(0, length(weights), nc)
   for (i in 1:nc) {
     ## x - axis
@@ -113,10 +121,10 @@ function (formula, data = NULL, ..., subset)
     my.text(dimnames(x)[[1]][i],
             y = yc[i] + (yc[i + 1] - yc[i]) / 2,
             x = - 0.03, check.overlap = TRUE, rot = ylab_rot, just = ylab_just, ...)
-    
+
     ## expected rectangle
     my.rect(xc[i], yc[i], xc[i + 1], yc[i + 1])
-    
+
     ## observed rectangle
     y0 <- c(0, cumsum(x[i,])) / sum(x[i,])
     x0 <- c(0, cumsum(x[,i])) / sum(x[,i])
@@ -126,7 +134,7 @@ function (formula, data = NULL, ..., subset)
               yc[i] + (yc[i + 1] - yc[i]) * y0[lb],
               xc[i] + (xc[i + 1] - xc[i]) * x0[tr],
               yc[i] + (yc[i + 1] - yc[i]) * y0[tr],
-              gp = gpar(fill = gray((1 - (weights[j]) ^ 2) ^ 0.5), col = col, rot = 135)
+              gp = gpar(fill = fill_col(j), col = col, rot = 135)
               )
 
     for (j in length(weights):1) {
@@ -138,18 +146,35 @@ function (formula, data = NULL, ..., subset)
     }
 
     ## correct A[j,i] -> not done by Friendly==Bug?
-    for (j in length(weights):1) 
+    for (j in length(weights):1)
       if (j > 1) A[j, i] <- A[j, i] - A[j - 1, i]
   }
   if (reverse_y)
-    grid.lines(c(0, 1), c(0, 1), gp = gpar(col = "red", linetype = "longdash"))
+    grid.lines(c(0, 1), c(0, 1), gp = gpar(col = line_col, linetype = "longdash"))
   else
-    grid.lines(c(0, 1), c(1, 0), gp = gpar(col = "red", linetype = "longdash"))
+    grid.lines(c(0, 1), c(1, 0), gp = gpar(col = line_col, linetype = "longdash"))
+
+  if (xscale) {
+      cx <- xc[-(nc+1)] + diff(xc)/2
+      grid.text(colSums(x),
+                x = cx,
+                y =  1.02, rot = xlab_rot, just = xlab_just, ...)
+      grid.xaxis(at = xc, label = FALSE, main=FALSE,
+                 gp = gpar(fontsize=10), draw = TRUE, vp = NULL)
+  }
+  if (yscale) {
+      cy <- yc[-(nc+1)] + diff(yc)/2
+      my.text(rowSums(x),
+              x = 1.03,
+              y = cy, rot = 0, just = ylab_just, ...)
+      grid.yaxis(at = yc, FALSE, main=FALSE,
+                 gp = gpar(fontsize=10), draw = TRUE, vp = NULL)
+  }
 
   if (pop) popViewport(2) else upViewport(2)
-  
+
   ## Statistics - Returned invisibly
-  ads <- crossprod(diag(x)) 
+  ads <- crossprod(diag(x))
   ar  <- n * n * crossprod(colFreqs, rowFreqs)
   invisible(list(
                  Bangdiwala = ads / ar,

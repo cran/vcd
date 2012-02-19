@@ -49,7 +49,7 @@ cotabplot.formula <- function(formula, data = NULL, ...)
 
 cotabplot.default <- function(x, cond = NULL,
   panel = cotab_mosaic, panel_args = list(),
-  margins = rep(1, 4),
+  margins = rep(1, 4), layout = NULL,
   text_gp = gpar(fontsize = 12), rect_gp = gpar(fill = grey(0.9)),
   pop = TRUE, newpage = TRUE,
   ...)
@@ -97,19 +97,23 @@ cotabplot.default <- function(x, cond = NULL,
     condition <- as.matrix(expand.grid(cond.dnam))
 
     ## compute layout
-                                        #Z# needs fixing for more than two conditioning variables
-    layout <- c(1,1,1) ## rows, cols, pages
-    if(cond.n == 1) {
-      layout[2] <- ceiling(sqrt(floor(cond.nlevels)))
-      layout[1] <- ceiling(cond.nlevels/layout[2])
-      layout <- expand.grid(lapply(layout, function(x) 1:x))[1:nplots,]
+    #Z# needs fixing for more than two conditioning variables
+    if(is.null(layout)) {
+      layout <- c(1,1,1) ## rows, cols, pages
+      if(cond.n == 1) {
+        layout[2] <- ceiling(sqrt(floor(cond.nlevels)))
+        layout[1] <- ceiling(cond.nlevels/layout[2])
+      } else {
+        layout[1] <- cond.nlevels[1]
+        layout[2] <- cond.nlevels[2]
+        if(cond.n >= 3) layout[3] <- nplots/prod(cond.nlevels[1:2]) #Z# FIXME
+        if(layout[3] > 1) stop("multiple pages not supported yet")
+      }
     } else {
-      layout[1] <- cond.nlevels[1]
-      layout[2] <- cond.nlevels[2]
-      if(cond.n >= 3) layout[3] <- nplots/prod(cond.nlevels[1:2]) #Z# FIXME
-      if(layout[3] > 1) stop("multiple pages not supported yet")
-      layout <- expand.grid(lapply(layout, function(x) 1:x))
+      layout <- c(rep(layout, length.out = 2), 1)
+      if(layout[1] * layout[2] < nplots) stop("number of panels specified in 'layout' is too small")
     }
+    layout <- expand.grid(lapply(layout, function(x) 1:x))[1:nplots,]
 
     ## push basic grid of nr x nc cells
     nr <- max(layout[,1])

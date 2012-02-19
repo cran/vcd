@@ -16,7 +16,10 @@
               newpage = TRUE, pop = TRUE, xlab = names(dimnames(x))[2],
               ylab = names(dimnames(x))[1],
               xlab_rot = 0, xlab_just = "center",
-              ylab_rot = 90, ylab_just = "center", ...)
+              ylab_rot = 90, ylab_just = "center",
+              fill_col = function(j) gray((1 - (weights[j]) ^ 2) ^ 0.5),
+              line_col = "red", xscale = TRUE, yscale = TRUE,
+               ...)
 \method{agreementplot}{formula}(formula, data = NULL, ..., subset)
 }
 \arguments{
@@ -33,12 +36,16 @@
   \item{xlab, ylab}{labels of x- and y-axis.}
   \item{xlab_rot, ylab_rot}{rotation angle for the category labels.}
   \item{xlab_just, ylab_just}{justification for the category labels.}
+  \item{fill_col}{a function, giving the fill colors used for exact and partial agreement}
+  \item{line_col}{color used for the diagonal reference line}
   \item{formula}{a formula, such as \code{y ~ x}.
     For details, see \code{\link{xtabs}}.}
   \item{data}{a data frame (or list), or a contingency table from which
     the variables in \code{formula} should be taken.}
   \item{subset}{an optional vector specifying a subset of the rows in
     the data frame to be used for plotting.}
+  \item{xscale, yscale}{logicals indicating whether the marginals should
+  be added on the x-axis/y-axis, respectively.}
   \item{\dots}{further graphics parameters (see \code{\link{par}}).}
 }
 \details{

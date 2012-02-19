@@ -11,7 +11,7 @@
 cotabplot(x, \dots)
 \method{cotabplot}{default}(x, cond = NULL,
   panel = cotab_mosaic, panel_args = list(),
-  margins = rep(1, 4),
+  margins = rep(1, 4), layout = NULL,
   text_gp = gpar(fontsize = 12), rect_gp = gpar(fill = grey(0.9)),
   pop = TRUE, newpage = TRUE,
   \dots)
@@ -25,10 +25,12 @@ cotabplot(x, \dots)
   \item{panel}{panel function applied for each conditioned plot,
     see details.}
   \item{panel_args}{list of arguments passed to \code{panel} if this is
-    a panel-generating function inheriting from class \code{"panel_generator"}.}
+    a panel-generating function inheriting from class \code{"grapcon_generator"}.}
   \item{margins}{either an object of class \code{"unit"} of length 4, or
     a numeric vector of length 4. The elements are recycled as needed.
     giving the margins around the whole plot.}
+  \item{layout}{integer vector (of length two), giving the number of
+    rows and columns for the panel.}
   \item{text_gp}{object of class \code{"gpar"} used for the text in the panel titles.}
   \item{rect_gp}{object of class \code{"gpar"} used for the rectangles with the panel titles.}
   \item{pop}{logical indicating whether the generated viewport tree
@@ -66,7 +68,7 @@ cotabplot(x, \dots)
   \code{c(z = "z1")} in the example above). 
   
   Alternatively, \code{panel} can also be a panel-generating function
-  of class \code{"panel_generator"} which creates a function with the
+  of class \code{"grapcon_generator"} which creates a function with the
   interface described above. The panel-generating function is called
   with the interface
   

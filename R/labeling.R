@@ -156,7 +156,7 @@ labeling_border <- function(labels = TRUE, varnames = labels,
                             labbl_varnames = NULL,
                             labels_varnames = FALSE, sep = ": ",
 
-                            abbreviate = FALSE, rep = TRUE,
+                            abbreviate_labs = FALSE, rep = TRUE,
                             clip = FALSE, ...
                             ) {
     ## expand parameters that apply to the four table margins
@@ -223,11 +223,11 @@ labeling_border <- function(labels = TRUE, varnames = labels,
     alternate_labels <- pexpand(alternate_labels, ld, FALSE, dn)
 
     ## abbreviate
-    abbreviate <- pexpand(abbreviate, ld, FALSE, dn)
+    abbreviate_labs <- pexpand(abbreviate_labs, ld, FALSE, dn)
     labs <- d
     for (i in seq_along(d))
-      if (abbreviate[i])
-        labs[[i]] <- abbreviate(labs[[i]], abbreviate[i])
+      if (abbreviate_labs[i])
+        labs[[i]] <- abbreviate(labs[[i]], abbreviate_labs[i])
 
     ## gp_labels
     if (inherits(gp_labels, "gpar"))

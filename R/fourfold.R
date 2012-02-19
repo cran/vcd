@@ -27,7 +27,7 @@ array3d <- function(x, sep=':') {
 }
 
 "fourfold" <-
-function(x, 
+function(x,
 #        color = c("#99CCFF","#6699CC","#FF5050","#6060A0", "#FF0000", "#000080"),
          color = c("#99CCFF","#6699CC","#FFA0A0","#A0A0FF", "#FF0000", "#000080"),
          conf_level = 0.95,
@@ -109,7 +109,7 @@ function(x,
             C <- - t * n
             x <- (- B + sqrt(B ^ 2 - 4 * A * C)) / (2 * A)
         }
-        matrix(c(t - x, x, m - t + x, n - x), nr = 2)
+        matrix(c(t - x, x, m - t + x, n - x), nrow = 2)
     }
 
     drawPie <- function(r, from, to, n = 500, color = "transparent") {
@@ -127,7 +127,7 @@ function(x,
                 ## standardize to equal row and col margins
                 u <- sqrt(odds(tab)$or)
                 u <- u / (1 + u)
-                y <- matrix(c(u, 1 - u, 1 - u, u), nr = 2)
+                y <- matrix(c(u, 1 - u, 1 - u, u), nrow = 2)
             }
             else if(margin %in% c(1, 2))
                 y <- prop.table(tab, margin)

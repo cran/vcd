@@ -2,6 +2,15 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.2-13}{
+  \itemize{
+    \item \code{agreementplot()} now allows to add marginals to the plot
+    \item \code{abbreviate} argument of \code{labeling_border()} renamed to
+    \code{abbreviate_labs} to prevent name clash with
+    \code{abbreviate_foo} args in \code{labeling_cells()}
+    \item Several partial matches fixed in code
+  }
+}
 \section{Changes in version 1.2-12}{
   \itemize{
     \item Bug fix: \code{assoc()} would not plot tables with 0 residuals
