@@ -39,6 +39,7 @@ data("Trucks")
   The Statistical Analysis of Categorical Data, Table 6.8.
 }
 \examples{
+library(MASS)
 data("Trucks")
 tab <- xtabs(Freq ~ period + collision + light + parked, data = Trucks)
 loglm(~ (collision + period) * parked * light, data = tab)

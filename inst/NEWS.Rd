@@ -2,6 +2,12 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.3-1}{
+  \itemize{
+    \item several namespace issues fixed
+  }
+}
+
 \section{Changes in version 1.3-0}{
   \itemize{
     \item Bug fixed in \code{assoc()}

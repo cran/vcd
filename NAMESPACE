@@ -1,6 +1,6 @@
 import(MASS)
-import(stats)
 import(grDevices)
+import(colorspace)
 importFrom("utils","head","tail")
 
 export(

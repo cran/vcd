@@ -1,5 +1,5 @@
 Package: vcd
-Version: 1.3-0
+Version: 1.3-1
 Date: 2013-09-11
 Title: Visualizing Categorical Data
 Authors@R: c(person(given = "David", family = "Meyer", role = c("aut", "cre"), email = "David.Meyer@R-project.org"),
@@ -14,11 +14,11 @@ Description: Visualization techniques, data sets, summary and inference
         by Michael Friendly.
 LazyLoad: yes
 LazyData: yes
-Depends: R (>= 2.4.0), MASS, grid, colorspace
+Depends: R (>= 2.10), grid, stats
 Suggests: KernSmooth, mvtnorm, kernlab, HSAUR, coin
-Imports: stats, utils, MASS, grDevices
+Imports: utils, MASS, grDevices, colorspace
 License: GPL-2
-Packaged: 2013-09-11 08:13:36 UTC; david
+Packaged: 2013-09-11 13:39:47 UTC; hornik
 Author: David Meyer [aut, cre],
   Achim Zeileis [aut],
   Kurt Hornik [aut],
@@ -27,4 +27,4 @@ Author: David Meyer [aut, cre],
 Maintainer: David Meyer <David.Meyer@R-project.org>
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-09-11 10:22:15
+Date/Publication: 2013-09-11 19:01:10

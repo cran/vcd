@@ -514,7 +514,8 @@ rbind.structable <- function(..., deparse.level = 1) {
 }
 
 as.table.structable <- function(x, ...) {
-  ret <- stats:::as.table.ftable(x)
+  class(x) <- "ftable"
+  ret <- NextMethod("as.table", object = x)
   structure(base::aperm(ret, match(names(attr(x, "dnames")),
                                    names(dimnames(ret)))),
             class = "table")

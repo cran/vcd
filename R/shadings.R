@@ -2,7 +2,7 @@
 ## HCL colors as implemented in colorspace
 hcl2hex <- function(h = 0, c = 35, l = 85, fixup = TRUE)
 {
-  hex(polarLUV(l, c, h), fixup = fixup)
+  colorspace::hex(polarLUV(l, c, h), fixup = fixup)
 }
 
 ## shading-generating functions should take at least the arguments

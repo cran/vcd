@@ -44,6 +44,7 @@ that resulted from the election.
 }
 
 \examples{
+library(colorspace)
 ## The outcome of the election in terms of seats in the
 ## parliament was:
 seats <- structure(c(226, 61, 54, 51, 222),

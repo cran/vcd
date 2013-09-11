@@ -74,6 +74,7 @@ coindep_test(x, margin = NULL, n = 1000,
 }
 
 \examples{
+library(MASS)
 TeaTasting <- matrix(c(3, 1, 1, 3), nr = 2,
                      dimnames = list(Guess = c("Milk", "Tea"),
                                      Truth = c("Milk", "Tea"))

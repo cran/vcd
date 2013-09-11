@@ -120,7 +120,8 @@ data("UCBAdmissions")
 cotabplot(~ Admit + Gender | Dept, data = UCBAdmissions)
 cotabplot(~ Admit + Gender | Dept, data = UCBAdmissions, panel = cotab_assoc)
 
-ucb <- cotab_coindep(UCBAdmissions, condvars = "Dept", type = "assoc", n = 5000, margins = c(3, 1, 1, 3))
+ucb <- cotab_coindep(UCBAdmissions, condvars = "Dept", type = "assoc",
+                     n = 5000, margins = c(3, 1, 1, 3))
 cotabplot(~ Admit + Gender | Dept, data = UCBAdmissions, panel = ucb)
 }
 \keyword{hplot}

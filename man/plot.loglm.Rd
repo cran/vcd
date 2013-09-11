@@ -51,6 +51,7 @@
   \code{\link{strucplot}}
 }
 \examples{
+library(MASS)
 ## mosaic display for PreSex model
 data("PreSex")
 fm <- loglm(~ PremaritalSex * ExtramaritalSex * (Gender + MaritalStatus),

@@ -5,7 +5,12 @@
   This function can be used to add legends to \emph{grid-based} plots.
 }
 \usage{
-grid_legend(x, y, pch = NA, col = par('col'), labels, frame = TRUE, hgap = unit(0.8, "lines"), vgap = unit(0.8, "lines"), default_units = "lines", gp = gpar(), draw = TRUE, title = NULL, just = 'center', lwd = NA, lty = NA, gp_title = NULL, gp_labels = NULL, gp_frame = gpar(fill = "transparent"))
+grid_legend(x, y, pch = NA, col = par('col'), labels, frame = TRUE,
+            hgap = unit(0.8, "lines"), vgap = unit(0.8, "lines"),
+            default_units = "lines", gp = gpar(), draw = TRUE,
+            title = NULL, just = 'center', lwd = NA, lty = NA,
+            gp_title = NULL, gp_labels = NULL,
+            gp_frame = gpar(fill = "transparent"))
 }
 \arguments{
   \item{x}{character string 'topright', 'topleft', 'bottomright',

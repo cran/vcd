@@ -181,6 +181,7 @@
   \code{\link{doubledecker}}
 }
 \examples{
+library(MASS)
 data("Titanic")
 mosaic(Titanic)
 
@@ -215,6 +216,7 @@ mosaic(Survived ~ ., data = Titanic)
 
 data("Arthritis")
 mosaic(Improved ~ Treatment | Sex, data = Arthritis, zero_size = 0)
-mosaic(Improved ~ Treatment | Sex, data = Arthritis, zero_size = 0, highlighting_direction = "right")
+mosaic(Improved ~ Treatment | Sex, data = Arthritis, zero_size = 0,
+       highlighting_direction = "right")
 }
 \keyword{hplot}
