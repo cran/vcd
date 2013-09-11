@@ -22,7 +22,7 @@ pairs_diagonal_text(varnames = TRUE, gp_vartext = gpar(fontsize = 17, fontface =
   distribute = c("equal","margin"), rot = 0, \dots)
 pairs_diagonal_mosaic(split_vertical = TRUE, margins = unit(0, "lines"),
   offset_labels = -0.4, offset_varnames = 0,
-  gp = NULL, fill = "grey", ...)
+  gp = NULL, fill = "grey", labeling = labeling_values, alternate_labels = TRUE, ...)
 }
 \arguments{
   \item{dimnames}{vector of logicals indicating whether the factor
@@ -43,7 +43,10 @@ pairs_diagonal_mosaic(split_vertical = TRUE, margins = unit(0, "lines"),
     If unspecified, the default is to set the \code{fill}
     component of this object to the \code{fill} argument.}
   \item{fill}{color vector or palette function used for the fill colors
-    of bars (for \code{pairs_barplot}) or tiles (for \code{pairs_diagonal_mosaic}).}
+    of bars (for \code{pairs_barplot}) or tiles (for
+    \code{pairs_diagonal_mosaic}).}
+  \item{labeling}{labeling function, passed to \code{mosaic()}}
+  \item{alternate_labels}{should labels alternate top/bottom?}
   \item{just_leveltext, just_vartext}{character string indicating the
     justification for variable names and levels.}
   \item{pos}{character string of length 2 controlling the

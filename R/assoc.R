@@ -226,8 +226,7 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
 
             splitbase <- if (v) sexp else res
             splittab <- lapply(seq(d), function(j) splitbase[[j]])
-            len <- sapply(splittab, function(x) sum(unclass(x)[1,] - unclass(x)[2,]))
-
+            len <- abs(sapply(splittab, function(x) sum(unclass(x)[1,] - unclass(x)[2,])))
 
             ## compute total cols/rows and build split layout
             dist <- if (d > 1)
@@ -258,7 +257,7 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
                                           remove_trailing_comma(nametmp), sep = ""),
                                           yscale = unclass(res)[,if (v) 1 else m],
                                           xscale = unclass(sexp)[,if (v) m else 1],
-                                          default.units = "null")
+                                          default.units = "npc")
                                  )
 
                     ## draw tiles

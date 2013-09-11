@@ -22,7 +22,7 @@
   \item{scale}{a character string indicating whether the values should be
     plotted on the raw or square root scale.}
   \item{type}{a character string indicating if the bars for the observed
-    frequencies should be hanging or standing or indicate the deviation
+    frequencies should be \code{hanging} or \code{standing} or indicate the \code{deviation}
     between observed and fitted frequencies.}
   \item{rect_gp}{a \code{"gpar"} object controlling the grid graphical
     parameters of the rectangles.}

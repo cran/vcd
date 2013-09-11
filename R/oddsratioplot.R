@@ -9,7 +9,7 @@ function (x, stratum = NULL, log = TRUE) {
     stop("Not a 2x2 table.")
   if (!is.null(stratum) && dim(x)[-stratum] != c(2,2))
     stop("Need strata of 2x2 tables.")
- 
+
   lor <- function (y) {
     if (any(y == 0))
       y <- y + 0.5
@@ -18,7 +18,11 @@ function (x, stratum = NULL, log = TRUE) {
     if (log) or else exp(or)
   }
 
-  ase <- function(y) sqrt(sum(1/(y + 0.5)))
+  ase <- function(y) {
+    if (any(y == 0))
+        y <- y + 0.5
+    sqrt(sum(1/y))
+  }
 
   if(is.null(stratum)) {
     LOR <- lor(x)
@@ -51,15 +55,15 @@ function(object, ...) {
     LOG <- attr(object, "log")
     ASE <- attr(object, "ASE")
     Z <- object / ASE
-    
+
     ret <- cbind("Estimate"   = object,
                  "Std. Error" = if (LOG) ASE,
                  "z value"    = if (LOG) Z,
-                 "Pr(>|z|)"   = if (LOG) 1 - pnorm(abs(Z))
+                 "Pr(>|z|)"   = if (LOG) 2 * pnorm(-abs(Z))
                  )
     colnames(ret)[1] <- if (LOG) "Log Odds Ratio" else "Odds Ratio"
   }
-  
+
   class(ret) <- "summary.oddsratio"
   ret
 }
@@ -97,7 +101,7 @@ function(x,
   LOG <- attr(x, "log")
   confidence <- !(is.null(conf_level) || conf_level == FALSE)
   oddsrange <- range(x)
-  
+
   if(confidence) {
     CI  <- confint(x, level = conf_level)
     lwr <- CI[,1]
@@ -146,7 +150,7 @@ function(x,
         lines(c(i - whiskers/2, i + whiskers/2), c(upr[i], upr[i]))
       }
   }
-  
+
 }
 
 "confint.oddsratio" <-

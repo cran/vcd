@@ -1555,7 +1555,7 @@ in the original \proglang{SAS} implementation of the Friendly mosaic plots.)
 
 % ## non-significant colors
 % rect(-1, 0.5, -.90, 0.55, col = hsv(0, 1, 0.5))
-% rect(-0.45, 0.5, -.55, 0.55, col = hsv(0, 0.5, 0.5))
+% rect(-0.4, 0.5, -.55, 0.55, col = hsv(0, 0.5, 0.5))
 % rect(-.05, .5, .05, 0.55, col = hsv(2/3, 0, 0.5))
 % rect(0.45, 0.5, .55, 0.55, col = hsv(2/3, 0.5, 0.5))
 % rect(.90, .5, 1, 0.55, col = hsv(2/3, 1, 0.5))
@@ -2315,7 +2315,7 @@ structable(survival ~ ., data = tab)
 
 <<oc3>>=
 dpa <- list(var_offset = 1.2, rot = -30, just_leveltext= "left")
-pairs(tab, diag_panel_args = dpa)
+pairs(tab, diag_panel = pairs_barplot, diag_panel_args = dpa)
 @
 
 \begin{figure}[h]

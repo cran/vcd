@@ -50,7 +50,11 @@
 }
 \details{
   Weights can be specified to allow for partial agreement, taking into
-  account contributions from off-diagonal cells.  A weight vector of
+  account contributions from off-diagonal cells.  Partial agreement
+  is typically represented in the display by lighter shading, as given by
+  \code{fill_col(j)}, corresponding to \code{weights[j]}.
+  
+  A weight vector of
   length 1 means strict agreement only, each additional element
   increases the maximum number of disagreement steps.
 }
@@ -61,7 +65,17 @@
   \item{weights}{the weight vector used.}
 }
 \references{
-  Michael Friendly (2000),
+Bangdiwala, S. I. (1988). The Agreement Chart.  Department of Biostatistics,
+University of North Carolina at Chapel Hill,
+Institute of Statistics Mimeo Series No. 1859,
+\url{http://www.stat.ncsu.edu/information/library/mimeo.archive/ISMS_1988_1859.pdf}
+
+Bangdiwala, S. I.,  Ana S. Haedo, Marcela L. Natal, and Andres
+Villaveces. The agreement chart as an alternative to the
+receiver-operating characteristic curve for diagnostic tests. 
+\emph{Journal of Clinical Epidemiology}, 61 (9), 866-874.
+
+Michael Friendly (2000),
   \emph{Visualizing Categorical Data}.
   SAS Institute, Cary, NC.
 }

@@ -157,7 +157,7 @@ strucplot <- function(## main parameters
   FUN <- function(par) {
     if (is.structable(par))
       par <- as.table(par)
-    if (length(par) < size) aperm(array(par, dim = rev(d))) else par
+    if (length(par) < size || is.null(dim(par))) aperm(array(par, dim = rev(d))) else par
   }
   gp <- structure(lapply(gp, FUN), class = "gpar")
 

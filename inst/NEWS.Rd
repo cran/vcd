@@ -2,6 +2,20 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.3-0}{
+  \itemize{
+    \item Bug fixed in \code{assoc()}
+    \item \code{grid_legend()} extended for better finetuning of graphical parameters
+    \item \code{legend_resbased()} better handles spacing for labels.
+    \item \code{legend_resbased()} and \code{legend_fixed()}
+    now allow changing the font family.
+    \item default diagonal panel in \code{pairs()} is now set to
+    \code{pairs_diagonal_mosaic()}, with alternating labels and
+    frequencies shown on the bars.
+    \item labeling is more customizable in \code{fourfold()}
+  }
+}
+
 \section{Changes in version 1.2-13}{
   \itemize{
     \item \code{agreementplot()} now allows to add marginals to the plot

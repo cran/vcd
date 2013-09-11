@@ -67,10 +67,10 @@ print.summary.Kappa <- function (x, ...) {
 
 confint.Kappa <- function(object, parm, level = 0.95, ...) {
   q <- qnorm((1 + level) / 2)
-  matrix(c(object[[1]][1] - object[[1]][2] * q,
-           object[[1]][1] + object[[1]][2] * q,
-           object[[2]][1] - object[[2]][2] * q,
-           object[[2]][1] + object[[2]][2] * q),
+  matrix(c(max(-1, object[[1]][1] - object[[1]][2] * q),
+           min(1, object[[1]][1] + object[[1]][2] * q),
+           max(-1, object[[2]][1] - object[[2]][2] * q),
+           min(1, object[[2]][1] + object[[2]][2] * q)),
          ncol = 2, byrow = TRUE, 
          dimnames = list(Kappa = c("Unweighted","Weighted"), c("lwr","upr"))
          )

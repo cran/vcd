@@ -13,7 +13,7 @@ fourfold(x,
   margin = c(1, 2), space = 0.2, main = NULL, sub = NULL,
   mfrow = NULL, mfcol = NULL, extended = TRUE, ticks = 0.15,
   p_adjust_method = p.adjust.methods, newpage = TRUE,
-  fontsize = 12)
+  fontsize = 12, default_prefix = c("Row", "Col", "Strata"), sep = ": ")
 }
 \arguments{
   \item{x}{a \eqn{2 \times 2 \times k}{2 x 2 x k} contingency table in array form, or a
@@ -62,7 +62,11 @@ fourfold(x,
     significance tests of the odds ratios.}
   \item{newpage}{logical; if \code{TRUE}, \code{grid.newpage()} is
     called before plotting.}
-  \item{fontsize}{fontsize of main title.  Other labels are scaled relative to this.}
+  \item{fontsize}{fontsize of main title.  Other labels are scaled
+    relative to this.}
+  \item{default_prefix}{character vector of length 3 with default labels
+    for possibly missing row/column/strata variable names.}
+  \item{sep}{default separator between variable names and levels for labels.}
 }
 \details{
   The fourfold display is designed for the display of \eqn{2 \times 2 \times k}{2 x 2 x k}

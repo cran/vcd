@@ -84,6 +84,8 @@ goodfit(x, type = c("poisson", "binomial", "nbinomial"),
   \emph{Visualizing Categorical Data}.
   SAS Institute, Cary, NC.
 }
+\seealso{\code{\link{rootogram}}}
+
 \examples{
 ## Simulated data examples:
 dummy <- rnbinom(200, size = 1.5, prob = 0.8)

@@ -8,7 +8,7 @@ pairs.table <- function(x,
                         lower_panel = pairs_mosaic,
                         lower_panel_args = list(),
 
-                        diag_panel = pairs_barplot,
+                        diag_panel = pairs_diagonal_mosaic,
                         diag_panel_args = list(),
 
                         main = NULL,
@@ -209,6 +209,8 @@ pairs_diagonal_mosaic <- function(split_vertical = TRUE,
                                   offset_varnames = 0,
                                   gp = NULL,
                                   fill = "grey",
+                                  labeling = labeling_values,
+                                  alternate_labels = TRUE,
                                   ...)
   function(x, i) {
     if (is.function(fill))
@@ -223,6 +225,8 @@ pairs_diagonal_mosaic <- function(split_vertical = TRUE,
            offset_varnames = offset_varnames,
            prefix = "diag",
            gp = gp,
+           labeling = labeling_values,
+           labeling_args = list(alternate_labels = TRUE),
            ...)
   }
 class(pairs_diagonal_mosaic) <- "grapcon_generator"

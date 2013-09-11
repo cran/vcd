@@ -34,7 +34,8 @@ function(x,
          std = c("margins", "ind.max", "all.max"), margin = c(1, 2),
          space = 0.2, main = NULL, sub = NULL, mfrow = NULL, mfcol = NULL, extended = TRUE,
          ticks = 0.15, p_adjust_method = p.adjust.methods, newpage = TRUE,
-         fontsize = 12)
+         fontsize = 12, default_prefix = c("Row", "Col", "Strata"), sep = ": ")
+
 {
     ## Code for producing fourfold displays.
     ## Reference:
@@ -81,7 +82,7 @@ function(x,
     else
         i <- which(is.null(names(dnx)))
     if(any(i > 0))
-        names(dnx)[i] <- c("Row", "Col", "Strata")[i]
+        names(dnx)[i] <- default_prefix[i]
     dimnames(x) <- dnx
     k <- dim(x)[3]
 
@@ -250,7 +251,7 @@ function(x,
         grid.text(
                   paste(names(dimnames(x))[1],
                         dimnames(x)[[1]][1],
-                        sep = ": "),
+                        sep = sep),
                   0, u,
                   gp = gpar(fontsize = fontsize),
                   default.units = "native"
@@ -258,7 +259,7 @@ function(x,
         grid.text(
                   paste(names(dimnames(x))[2],
                         dimnames(x)[[2]][1],
-                        sep = ": "),
+                        sep = sep),
                   -u, 0,
                   default.units = "native",
                   gp = gpar(fontsize = fontsize),
@@ -266,7 +267,7 @@ function(x,
         grid.text(
                   paste(names(dimnames(x))[1],
                         dimnames(x)[[1]][2],
-                        sep = ": "),
+                        sep = sep),
                   0, -u,
                   gp = gpar(fontsize = fontsize),
                   default.units = "native"
@@ -274,7 +275,7 @@ function(x,
         grid.text(
                   paste(names(dimnames(x))[2],
                         dimnames(x)[[2]][2],
-                        sep = ": "),
+                        sep = sep),
                   u, 0,
                   default.units = "native",
                   gp = gpar(fontsize = fontsize),
@@ -283,7 +284,7 @@ function(x,
             grid.text(
                       paste(names(dimnames(x))[3],
                             dimnames(x)[[3]][i],
-                            sep = ": "),
+                            sep = sep),
                       0, 1 + (1 + gamma / 2) * space,
                       gp = gpar(fontsize = fontsize * gamma),
                       default.units = "native"

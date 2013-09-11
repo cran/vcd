@@ -7,18 +7,19 @@
   These functions generate legend functions for residual-based shadings.
 }
 \usage{
-legend_resbased(fontsize = 12,
+legend_resbased(fontsize = 12, fontfamily = "",
   x = unit(1, "lines"), y = unit(0.1,"npc"),
   height = unit(0.8, "npc"),
   width = unit(0.7, "lines"),
-  digits = 3, check_overlap = TRUE, text = NULL,
+  digits = 2, check_overlap = TRUE, text = NULL,
   steps = 200, ticks = 10, pvalue = TRUE,  range = NULL)
-legend_fixed(fontsize = 12, x = unit(1, "lines"), y = NULL,
+legend_fixed(fontsize = 12, fontfamily = "", x = unit(1, "lines"), y = NULL,
   height = NULL, width = unit(1.5, "lines"), steps = 200,
   digits = 1, space = 0.05, text = NULL, range = NULL)
 }
 \arguments{
   \item{fontsize}{fontsize of title and p-value text.}
+  \item{fontfamily}{fontfamily of all text.}
   \item{x, y}{objects of class \code{"unit"} indicating the coordinates
     of the title. For \code{legend_fixed}, the default for \code{y} is
     computed as to leave enough space for the specified \code{text}.}

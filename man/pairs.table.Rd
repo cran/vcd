@@ -8,7 +8,7 @@
 \usage{
 \method{pairs}{table}(x, upper_panel = pairs_mosaic, upper_panel_args = list(),
   lower_panel = pairs_mosaic, lower_panel_args = list(),
-  diag_panel = pairs_barplot, diag_panel_args = list(),
+  diag_panel = pairs_diagonal_mosaic, diag_panel_args = list(),
   main = NULL, sub = NULL, main_gp = gpar(fontsize = 20),
   sub_gp = gpar(fontsize = 15), space = 0.3,
   newpage = TRUE, pop = TRUE, margins = unit(1, "lines"), \dots)
@@ -99,6 +99,7 @@ Hence, the second approach is equivalent to the first if
   \code{\link{pairs_assoc}},
   \code{\link{pairs_sieve}},
   \code{\link{pairs_diagonal_text}},
+  \code{\link{pairs_diagonal_mosaic}},
   \code{\link{pairs_text}},
   \code{\link{pairs_barplot}},
   \code{\link{assoc}},

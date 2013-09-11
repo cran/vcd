@@ -1,9 +1,10 @@
 legend_resbased <- function(fontsize = 12,
+                            fontfamily = "",
                             x = unit(1, "lines"),
                             y = unit(0.1, "npc"),
                             height = unit(0.8, "npc"),
                             width = unit(0.7, "lines"),
-			    digits = 3,
+			    digits = 2,
 			    check_overlap = TRUE,
                             text = NULL,
                             steps = 200,
@@ -29,7 +30,7 @@ legend_resbased <- function(fontsize = 12,
                             height = height, width = width))
       grid.lines(y = 0.5)
       grid.text(0, x = unit(1, "npc") + unit(0.8, "lines"),  y = 0.5,
-                gp = gpar(fontsize = fontsize))
+                gp = gpar(fontsize = fontsize, fontfamily = fontfamily))
       warning("All residuals are zero.")
 
     } else {
@@ -67,19 +68,25 @@ legend_resbased <- function(fontsize = 12,
       grid.rect(gp = gpar(fill = "transparent"))
 
       if(is.null(at))
-        at <- seq(from = head(col.bins, 1), to = tail(col.bins, 1), length = ticks)
-      tw <- paste(rep("4", digits), collapse = "")
-      if (any(trunc(at) != at))
-        tw <- paste(tw, ".", sep = "")
-      if (any(at < 0))
-        tw <- paste(tw, "-", sep = "")
+            at <- seq(from = head(col.bins, 1), to = tail(col.bins, 1),
+                      length = ticks)
+      lab <- format(round(at, digits = digits), nsmall = digits)
+      tw <- lab[which.max(nchar(lab))]
+
+      ## if(is.null(at))
+      ##   at <- seq(from = head(col.bins, 1), to = tail(col.bins, 1), length = ticks)
+      ## tw <- paste(rep("4", digits), collapse = "")
+      ## if (any(trunc(at) != at))
+      ##   tw <- paste(tw, ".", sep = "")
+      ## if (any(at < 0))
+      ##   tw <- paste(tw, "-", sep = "")
 
       grid.text(format(signif(at, digits = digits)),
                 x = unit(1, "npc") + unit(0.8, "lines") + unit(1, "strwidth", tw),
                 y = at,
                 default.units = "native",
                 just = c("right", "center"),
-                gp = gpar(fontsize = fontsize),
+                gp = gpar(fontsize = fontsize, fontfamily = fontfamily),
                 check.overlap = check_overlap)
       grid.segments(x0 = unit(1, "npc"), x1 = unit(1,"npc") + unit(0.5, "lines"),
                     y0 = at, y1 = at, default.units = "native")
@@ -89,14 +96,16 @@ legend_resbased <- function(fontsize = 12,
     popViewport(1)
 
     grid.text(text, x = x, y = unit(1, "npc") - y + unit(1, "lines"),
-              gp = gpar(fontsize = fontsize, lineheight = 0.8),
+              gp = gpar(fontsize = fontsize, fontfamily = fontfamily,
+              lineheight = 0.8),
               just = c("left", "bottom")
               )
     if(!is.null(p.value) && pvalue) {
       grid.text(paste("p-value =\n", format.pval(p.value), sep = ""),
                 x = x,
                 y = y - unit(1, "lines"),
-                gp = gpar(fontsize = fontsize, lineheight = 0.8),
+                gp = gpar(fontsize = fontsize, fontfamily = fontfamily,
+                lineheight = 0.8),
                 just = c("left", "top"))
     }
   }
@@ -104,6 +113,7 @@ legend_resbased <- function(fontsize = 12,
 class(legend_resbased) <- "grapcon_generator"
 
 legend_fixed <- function(fontsize = 12,
+                         fontfamily = "",
                          x = unit(1, "lines"),
                          y = NULL,
                          height = NULL,
@@ -165,11 +175,11 @@ legend_fixed <- function(fontsize = 12,
                                       nsmall = digits, digits = digits))
     grid.text(numbers[-l],
               x = unit(1, "npc") + unit(0.6, "lines") + wid,
-              y = y.pos, gp = gpar(fontsize = fontsize),
+              y = y.pos, gp = gpar(fontsize = fontsize, fontfamily = fontfamily),
               default.units = "npc", just = c("right", "bottom"))
     grid.text(numbers[-1],
               x = unit(1, "npc") + unit(0.6, "lines") + wid,
-              y = y.pos + y.height, gp = gpar(fontsize = fontsize),
+              y = y.pos + y.height, gp = gpar(fontsize = fontsize, fontfamily = fontfamily),
               default.units = "npc", just = c("right", "top"))
     wid2 <- unit(1, "strwidth", format(max(abs(trunc(col.bins))))) +
       unit(0.3, "strwidth", ".")
@@ -181,7 +191,8 @@ legend_fixed <- function(fontsize = 12,
 
     popViewport(1)
     grid.text(text, x = x + 0.5 * width, y = 0,
-              gp = gpar(fontsize = fontsize, lineheight = 0.8),
+              gp = gpar(fontsize = fontsize, fontfamily = fontfamily,
+              lineheight = 0.8),
               just = c("left", "top"),
               rot = 90
               )

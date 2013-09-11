@@ -18,7 +18,7 @@ assocstats(x)
   A list with components:
   \item{chisq_tests}{a \eqn{2 \times 3}{2 x 3} table with the
     chi-squared statistics.}
-  \item{phi}{The phi coefficient.}
+  \item{phi}{The \emph{absolute value} of the phi coefficient.}
   \item{cont}{The contingency coefficient.}
   \item{cramer}{Cramer's V.}
 }
@@ -26,6 +26,10 @@ assocstats(x)
   Michael Friendly (2000),
   \emph{Visualizing Categorical Data}.
   SAS Institute, Cary, NC.
+
+  Fleiss, J. L. (1981).
+  \emph{Statistical methods for rates and proportions}
+  (2nd ed). New York: Wiley 
 }
 \author{
   David Meyer \email{David.Meyer@R-project.org}
