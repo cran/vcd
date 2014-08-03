@@ -8,20 +8,21 @@ Kappa <- function (x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
   nc <- ncol(x)
   colFreqs <- colSums(x)/n
   rowFreqs <- rowSums(x)/n
-  
+
   ## Kappa
   kappa <- function (po, pc)
     (po - pc) / (1 - pc)
-  std  <- function (po, pc, W = 1)
-    sqrt(sum(W * W * po * (1 - po)) / crossprod(1 - pc) / n)
-    
+  std  <- function (p, pc, kw, W = diag(1, ncol = nc, nrow = nc)) {
+    sqrt((sum(p * sweep(sweep(W, 1, W %*% colSums(p) * (1 - kw)), 2, W %*% rowSums(p) * (1 - kw)) ^ 2) - (kw - pc * (1 - kw)) ^ 2) / crossprod(1 - pc) / n)
+  }
+
   ## unweighted
   po <- sum(d) / n
-  pc <- crossprod(colFreqs, rowFreqs)
+  pc <- crossprod(colFreqs, rowFreqs)[1]
   k <- kappa(po, pc)
-  s <- std(po, pc)
-  
-  ## weighted 
+  s <- std(x / n, pc, k)
+
+  ## weighted
   W <- if (is.matrix(weights))
     weights
   else if (weights == "Equal-Spacing")
@@ -31,7 +32,7 @@ Kappa <- function (x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
   pow <- sum(W * x) / n
   pcw <- sum(W * colFreqs %o% rowFreqs)
   kw <- kappa(pow, pcw)
-  sw <- std(x / n, 1 - pcw, W)
+  sw <- std(x / n, pcw, kw, W)
 
   structure(
             list(Unweighted = c(
@@ -71,7 +72,7 @@ confint.Kappa <- function(object, parm, level = 0.95, ...) {
            min(1, object[[1]][1] + object[[1]][2] * q),
            max(-1, object[[2]][1] - object[[2]][2] * q),
            min(1, object[[2]][1] + object[[2]][2] * q)),
-         ncol = 2, byrow = TRUE, 
+         ncol = 2, byrow = TRUE,
          dimnames = list(Kappa = c("Unweighted","Weighted"), c("lwr","upr"))
          )
 }

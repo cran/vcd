@@ -1,9 +1,11 @@
+# added lwd arg, changed default point sizes 
+
 distplot <-
 function(x, type = c("poisson", "binomial", "nbinomial"),
          size = NULL, lambda = NULL, legend = TRUE, xlim = NULL, ylim = NULL,
          conf_int = TRUE, conf_level = 0.95, main = NULL,
          xlab = "Number of occurrences", ylab = "Distribution metameter",
-	 gp = gpar(cex = 0.5), name = "distplot", newpage = TRUE, pop = TRUE, ...)
+	 gp = gpar(cex = 0.8), lwd=2, name = "distplot", newpage = TRUE, pop = TRUE, ...)
 {
   if(is.vector(x)) {
       x <- table(x)
@@ -100,7 +102,7 @@ function(x, type = c("poisson", "binomial", "nbinomial"),
   pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.units = "native", name = name))
   grid.points(x = RVAL[,1], y = RVAL[,3], default.units = "native", gp = gp, ...)
   grid.lines(x = xlim, y = predict(fm, newdata = data.frame(mycount = xlim)),
-    default.units = "native", gp = gpar(col = 2))
+    default.units = "native", gp = gpar(lwd=lwd, col = 2))
   grid.rect(gp = gpar(fill = "transparent"))
   grid.xaxis()
   grid.yaxis()
@@ -109,7 +111,7 @@ function(x, type = c("poisson", "binomial", "nbinomial"),
   grid.text(main, y = unit(1, "npc") + unit(2, "lines"), gp = gpar(fontface = "bold"))
 
   if(conf_int) {  
-    grid.points(x = RVAL[,1], y = RVAL[,4], pch = 19, gp = gpar(cex = 0.3))
+    grid.points(x = RVAL[,1], y = RVAL[,4], pch = 19, gp = gpar(cex = 0.5))
     grid.segments(RVAL[,1], RVAL[,6], RVAL[,1], RVAL[,7], default.units = "native", gp = gpar(lty = 3))
   }
 

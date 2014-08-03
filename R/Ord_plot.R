@@ -1,6 +1,11 @@
+# This should be revised to allow graphical parameters to be more easily passed
+# for points and lines
+# For now, added lwd, lty and col args for lines, with more useful defaults
+
 Ord_plot <- function(obj, legend = TRUE, estimate = TRUE, tol = 0.1,
                      type = NULL, xlim = NULL, ylim = NULL, xlab = "Number of occurrences",
 		     ylab = "Frequency ratio", main = "Ord plot", gp = gpar(cex = 0.5),
+		     lwd = c(2,2), lty=c(2,1), col=c("black", "red"),
 		     name = "Ord_plot", newpage = TRUE, pop = TRUE, ...)
 {
   if(is.vector(obj)) {
@@ -27,11 +32,15 @@ Ord_plot <- function(obj, legend = TRUE, estimate = TRUE, tol = 0.1,
   xlim <- xlim + c(-1, 1) * diff(xlim) * 0.04
   ylim <- ylim + c(-1, 1) * diff(ylim) * 0.04
 
+	lwd <- rep_len(lwd, 2)  # assure length=2
+	lty <- rep_len(lty, 2)
+	col <- rep_len(col, 2)
+	
   if(newpage) grid.newpage()
   pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.units = "native", name = name))
   grid.points(x = count, y = y, default.units = "native", gp = gp, ...)
-  grid.lines(x = count, y = fit1, default.units = "native")
-  grid.lines(x = count, y = fit2, default.units = "native", gp = gpar(col = 2))
+  grid.lines(x = count, y = fit1, default.units = "native", gp = gpar(lwd=lwd[1], lty=lty[1], col=col[1]))
+  grid.lines(x = count, y = fit2, default.units = "native", gp = gpar(lwd=lwd[2], lty=lty[2], col=col[2]))
   grid.rect(gp = gpar(fill = "transparent"))
   grid.xaxis()
   grid.yaxis()

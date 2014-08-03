@@ -133,23 +133,28 @@
 data("HairEyeColor")
 
 ## aggregate over 'sex':
-(tab <- margin.table(HairEyeColor, c(2,1)))
+(haireye <- margin.table(HairEyeColor, c(2,1)))
 
 ## plot expected values:
-sieve(tab, sievetype = "expected", shade = TRUE)
+sieve(haireye, sievetype = "expected", shade = TRUE)
 
 ## plot observed table:
-sieve(tab, shade = TRUE)
+sieve(haireye, shade = TRUE)
 
 ## plot complete diagram:
 sieve(HairEyeColor, shade = TRUE)
+
+## example with observed values in the cells:
+sieve(haireye, shade = TRUE, labeling = labeling_values,
+               gp_text = gpar(fontface = 2))
+
+## example with expected values in the cells:
+sieve(haireye, shade = TRUE, labeling = labeling_values,
+               value_type = "expected", gp_text = gpar(fontface = 2))
 
 ## an example for the formula interface:
 data("VisualAcuity")
 sieve(Freq ~ right + left,  data = VisualAcuity)
 
-## example with observed values in the cells:
-sieve(Titanic, pop = FALSE, shade = TRUE)
-labeling_cells(text = Titanic, gp_text = gpar(fontface = 2))(Titanic)
 }
 \keyword{hplot}

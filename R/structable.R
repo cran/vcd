@@ -549,8 +549,30 @@ dimnames.structable <- function(x) attr(x,"dnames")
 as.vector.structable <- function(x, ...)
   as.vector(as.table(x), ...)
 
-as.matrix.structable <- function(x, ...)
-  matrix(as.vector(unclass(x)), ncol = attr(x, "dim")[2])
+## FIXME: copy as.matrix.ftable, committed to R-devel on 2014/1/12
+## replace by call to as.matrix.ftable when this becomes stable
+
+as_matrix_ftable <-
+function (x, sep = "_", ...)
+{
+    if (!inherits(x, "ftable"))
+        stop("'x' must be an \"ftable\" object")
+    make_dimnames <- function(vars) {
+        structure(list(do.call(paste, c(rev(expand.grid(rev(vars))),
+            list(sep = sep)))), names = paste(collapse = sep,
+            names(vars)))
+    }
+    structure(unclass(x), dimnames = c(make_dimnames(attr(x,
+        "row.vars")), make_dimnames(attr(x, "col.vars"))), row.vars = NULL,
+        col.vars = NULL)
+}
+
+as.matrix.structable <- function(x, sep="_", ...) {
+    structure(as_matrix_ftable(x, sep, ...),
+              dnames = NULL,
+              split_vertical = NULL
+              )
+}
 
 length.structable <- function(x) dim(x)[1]
 

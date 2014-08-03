@@ -30,11 +30,11 @@
   data(CoalMiners)
   
   ## Fourfold display, both margins equated
-  fourfold(CoalMiners, mfcol = c(2,4))
+  fourfold(CoalMiners, mfcol = c(3,3))
 
   ## Log Odds Ratio Plot
   summary(l <- oddsratio(CoalMiners))
-  g <- seq(25, 60, by = 5)
+  g <- seq(20, 60, by = 5)
   plot(l,
        xlab = "Age Group",
        main = "Breathelessness and Wheeze in Coal Miners")
@@ -42,7 +42,7 @@
   lines(fitted(m), col = "red")
   
   ## Fourfold display, strata equated
-  fourfold(CoalMiners, std = "ind.max", mfcol = c(2,4))
+  fourfold(CoalMiners, std = "ind.max", mfcol = c(3,3))
   
   ####################
   ## Sieve Diagrams ##

@@ -1,7 +1,8 @@
-\documentclass[noJSS]{jss}
+\documentclass[nojss]{jss}
 %% need no \usepackage{Sweave}
 
-\usepackage{thumbpdf}
+%% omit thumbpdf at the moment due to problems on some systems
+%% \usepackage{thumbpdf}
 
 %% almost as usual
 \author{David Meyer, Achim Zeileis, \textnormal{and} Kurt
@@ -38,7 +39,18 @@ residual-based shading, \pkg{grid}, \proglang{R}}
   sieve plots, categorical data, independence,
   conditional independence, HSV, HCL, residual-based shading, grid, R}
 
-\SweaveOpts{engine=R,eps=TRUE,height=6,width=7,results=hide,fig=FALSE,echo=TRUE}
+\Address{
+David Meyer\\
+E-mail: \email{David.Meyer@R-project.org}\\
+
+Achim Zeileis\\
+E-mail: \email{Achim.Zeileis@R-project.org}\\
+
+Kurt Hornik\\
+E-mail: \email{Kurt.Hornik@R-project.org}\\
+}
+
+\SweaveOpts{engine=R,eps=TRUE,height=6,width=7,results=hide,fig=FALSE,echo=TRUE,eps=FALSE}
 \setkeys{Gin}{width=0.7\textwidth}
 %\VignetteIndexEntry{The Strucplot Framework: Visualizing Multi-way Contingency Tables with vcd}
 %\VignetteDepends{vcd}
@@ -112,7 +124,7 @@ aspects.
   spinograms \citep{vcd:hofmann+theus}.
 \item Using residual-based shadings to visualize log-linear models
   \citep{vcd:Friendly:1994,vcd:Friendly:2000} and significance of
-  statistical tests \citep{vcd:Meyer+Zeileis+Hornik:2003,vcd:Zeileis+Meyer+Hornik:2005}.
+  statistical tests \citep{vcd:Meyer+Zeileis+Hornik:2003,vcd:Zeileis+Meyer+Hornik:2007}.
 \item Using pairs plots and trellis-like layouts for marginal, conditional and
   partial views \citep{vcd:Friendly:1999}.
 \item Adding direct user interaction, allowing quick exploration and
@@ -1061,7 +1073,7 @@ frequencies under a given log-linear model.
 The idea is to visualize at least sign and absolute size of the residuals, but some
 shadings, additionally, indicate overall significance. One particular
 shading, the maximum shading
-\citep{vcd:Meyer+Zeileis+Hornik:2003,vcd:Zeileis+Meyer+Hornik:2005},
+\citep{vcd:Meyer+Zeileis+Hornik:2003,vcd:Zeileis+Meyer+Hornik:2007},
 even allows to identify the cells that cause the rejection of the null hypothesis.
 
 Conceptually, the strucplot framework offers three alternatives to
@@ -1241,7 +1253,7 @@ Hue-Saturation-Value (HSV) and the Hue-Chroma-Luminance (HCL) scheme,
 respectively. We will first expose the basic concept of these shading
 functions using HSV space, and
 then briefly explain the differences to HCL space \citep[a detailed
-discussion can be found in][]{vcd:Zeileis+Meyer+Hornik:2005}.
+discussion can be found in][]{vcd:Zeileis+Meyer+Hornik:2007}.
 Color palettes in HCL space are
 preferable to palettes derived
 from HSV space from a perceptual point of view. Functions for creating
@@ -1659,7 +1671,7 @@ is \codefun{shading\_max}, using the
 maximum statistic both to conduct the independence test and to
 visualize significant \emph{cells} causing the
 rejection of the independence hypothesis
-\citep{vcd:Meyer+Zeileis+Hornik:2003,vcd:Zeileis+Meyer+Hornik:2005}. The
+\citep{vcd:Meyer+Zeileis+Hornik:2003,vcd:Zeileis+Meyer+Hornik:2007}. The
 \code{level} argument of \codefun{shading\_max}
 then can be used to specify several confidence
 levels from which the corresponding cut-off points are computed.

@@ -2,6 +2,21 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.3-2}{
+  \itemize{
+    \item \code{Ord_plot()} gets \code{lwd}, \code{lty} and \code{col} arguments
+    to control plotting of the OLS and WLS lines.
+    \item \code{distplot()} gets an \code{lwd} argument.
+    \item Changed default line types for \code{sieve} so that positive residuals are
+    shown with solid lines, as per Friendly specifications.
+    \item fixed problems with \code{pairs_strucplot()} type argument, particularly for
+    \code{type="conditional"}
+    \item Fixed error in \code{CoalMiners} data (missing group, labels
+    switched)
+    \item Change default area type for sieve plots to "area"
+  }
+}
+
 \section{Changes in version 1.3-1}{
   \itemize{
     \item several namespace issues fixed

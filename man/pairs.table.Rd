@@ -69,7 +69,7 @@
   independence, i.e., for marginal and conditional independence among
   all pairs of variables.
   The conditional independence mosaic matrix shows mosaic plots for
-  marginal independence given all other variables.
+  conditional independence for each pair of variables, given all other variables.
   The joint independence mosaic matrix shows mosaic plots for joint
   independence of all pairs of variables from the others.
 

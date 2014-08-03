@@ -8,7 +8,7 @@
 }
 \usage{
 \method{tile}{default}(x,
-         tile_type = c("squaredarea", "area", "height", "width"),
+         tile_type = c("area", "squaredarea", "height", "width"),
          halign = c("left", "center", "right"),
          valign = c("bottom", "center", "top"),
          split_vertical = NULL,
@@ -111,6 +111,7 @@ tile(Titanic, type = "expected")
 tile(Titanic, shade = TRUE)
 
 ## some variations
+tile(Titanic, tile_type = "squaredarea")
 tile(Titanic, tile_type = "width", squared_tiles = FALSE)
 tile(Titanic, tile_type = "height", squared_tiles = FALSE)
 tile(Titanic, tile_type = "area", halign = "center", valign = "center")

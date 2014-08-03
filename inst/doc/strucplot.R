@@ -150,7 +150,7 @@ assoc(HEC, compress = FALSE)
 
 
 ###################################################
-### code chunk number 17: strucplot.Rnw:579-580
+### code chunk number 17: strucplot.Rnw:591-592
 ###################################################
 options(width=60)
 
@@ -163,7 +163,7 @@ labeling_args = list(abbreviate_labs = c(Eye = 3)))
 
 
 ###################################################
-### code chunk number 19: strucplot.Rnw:588-589
+### code chunk number 19: strucplot.Rnw:600-601
 ###################################################
 options(width=70)
 
@@ -194,7 +194,7 @@ doubledecker(Survived ~ Class + Sex + Age, data = Titanic)
 
 
 ###################################################
-### code chunk number 24: strucplot.Rnw:652-653
+### code chunk number 24: strucplot.Rnw:664-665
 ###################################################
 options(width=75)
 
@@ -208,7 +208,7 @@ STD["Male", c("1st","2nd","3rd")]
 
 
 ###################################################
-### code chunk number 26: strucplot.Rnw:662-663
+### code chunk number 26: strucplot.Rnw:674-675
 ###################################################
 options(width=70)
 

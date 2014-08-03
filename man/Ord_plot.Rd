@@ -9,6 +9,7 @@
 Ord_plot(obj, legend = TRUE, estimate = TRUE, tol = 0.1, type = NULL,
   xlim = NULL, ylim = NULL, xlab = "Number of occurrences",
   ylab = "Frequency ratio", main = "Ord plot", gp = gpar(cex = 0.5),
+  lwd = c(2,2), lty=c(2,1), col=c("black", "red"),
   name = "Ord_plot", newpage = TRUE, pop = TRUE, \dots)
 Ord_estimate(x, type = NULL, tol = 0.1)
 }
@@ -31,7 +32,11 @@ Ord_estimate(x, type = NULL, tol = 0.1)
   \item{ylab}{a label for the y axis.}
   \item{main}{a title for the plot.}
   \item{gp}{a \code{"gpar"} object controlling the grid graphical
-    parameters of the points.}  
+    parameters of the points.}
+  \item{lwd, lty}{vectors of length 2, giving the line width and line type
+  used for drawing the OLS line and the WLS lines.} 
+  \item{col}{vector of length 2 giving the colors used for drawing the OLS
+  and WLS lines.}
   \item{name}{name of the plotting viewport.}
   \item{newpage}{logical. Should \code{\link{grid.newpage}} be called 
     before plotting?}

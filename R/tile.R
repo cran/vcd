@@ -55,7 +55,7 @@ function(formula, data = NULL,
 
 tile.default <-
 function(x,
-         tile_type = c("squaredarea", "area", "height", "width"),
+         tile_type = c("area", "squaredarea", "height", "width"),
          halign = c("left", "center", "right"),
          valign = c("bottom", "center", "top"),
          split_vertical = NULL,

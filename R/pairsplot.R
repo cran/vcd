@@ -1,5 +1,6 @@
 #################################################################
 ### pairsplot
+## modified, 2-14-2014, MF:  fix expected values for type=
 
 pairs.table <- function(x,
                         upper_panel = pairs_mosaic,
@@ -94,10 +95,17 @@ pairs_strucplot <- function(panel = mosaic,
     index <- 1:length(dim(x))
     rest <- index[!index %in% c(i, j)]
     rest2 <- index[!index %in% 1:2]
-    panel(x = margin.table(x, if (type == "pairwise") c(j, i) else c(j, i, rest)),
-           expected = if (type == "joint") list(1:2, rest2) else NULL,
-           condvars = if (type == "conditional") rest2 else NULL,
-           labeling = labeling,
+	expected <- switch(type,
+			joint = list(1:2, rest2),   # shouldn't this be list(c(j,i), rest) ??
+			conditional = list(c(1,rest2), c(2,rest2)),
+#			conditional = list(c(j,rest), c(i,rest)),
+			total = sapply(c(j, i, rest), list),
+			NULL)
+	panel(x = margin.table(x, if (type == "pairwise") c(j, i) else c(j, i, rest)),
+			expected = expected,
+#           expected = if (type == "joint") list(1:2, rest2) else NULL,
+#           condvars = if (type == "conditional") rest2 else NULL,
+			labeling = labeling,
            margins = margins,
            legend = legend,
 

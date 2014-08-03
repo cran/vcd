@@ -141,6 +141,7 @@ S3method("rootogram", "goodfit")
 
 S3method("sieve", "default")
 S3method("sieve", "formula")
+S3method("sieve", "loglm")
 
 S3method("structable", "default")
 S3method("structable", "formula")

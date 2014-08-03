@@ -64,8 +64,9 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
     sievetype = match.arg(sievetype)
     if (is.logical(shade) && shade && is.null(gp))
         gp <- if (sievetype == "observed")
-            shading_sieve(interpolate = 0, lty = c("longdash", "solid"))
-        else
+#            shading_sieve(interpolate = 0, lty = c("longdash", "solid"))
+            shading_sieve(interpolate = 0, lty = c("solid", "longdash"))
+	else
             shading_sieve(interpolate = 0, line_col = "darkgray", eps = Inf, lty = "dotted")
 
     if (is.structable(x)) {

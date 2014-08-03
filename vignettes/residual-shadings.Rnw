@@ -1,16 +1,16 @@
-\documentclass{Z}
+\documentclass[nojss]{jss}
 %% need no \usepackage{Sweave}
 \usepackage{rotating}
 \newcommand{\given}{\, | \,}
 
 
-\title{Residual-based Shadings in \pkg{vcd}}
-\Plaintitle{Residual-based Shadings in vcd}
+\title{Residual-Based Shadings in \pkg{vcd}}
+\Plaintitle{Residual-Based Shadings in vcd}
 \author{Achim Zeileis, David Meyer, \textnormal{and} Kurt Hornik\\Wirtschaftsuniversit\"at Wien, Austria}
 \Plainauthor{Achim Zeileis, David Meyer, Kurt Hornik}
 
 \Abstract{
-  This vignette is a companion paper to \cite{vcd:Zeileis+Meyer+Hornik:2005}
+  This vignette is a companion paper to \cite{vcd:Zeileis+Meyer+Hornik:2007}
   which introduces several extensions to residual-based shadings for enhancing
   mosaic and association plots. The paper introduces (a)~perceptually uniform
   Hue-Chroma-Luminance (HCL) palettes and (b)~incorporates the result of an
@@ -20,10 +20,20 @@
 
 \Keywords{association plots, conditional inference, contingency tables, HCL colors, HSV colors, mosaic plots}
 
+\Address{
+Achim Zeileis\\
+E-mail: \email{Achim.Zeileis@R-project.org}\\
+
+David Meyer\\
+E-mail: \email{David.Meyer@R-project.org}\\
+
+Kurt Hornik\\
+E-mail: \email{Kurt.Hornik@R-project.org}\\
+}
 
 \begin{document}
 
-%\VignetteIndexEntry{Residual-based Shadings in vcd}
+%\VignetteIndexEntry{Residual-Based Shadings in vcd}
 %\VignetteDepends{vcd,colorspace,MASS,grid,HSAUR}
 %\VignetteKeywords{association plots, conditional inference, contingency tables, HCL colors, HSV colors, mosaic plots}
 %\VignettePackage{vcd}
@@ -32,7 +42,7 @@
 
 \section{Introduction} \label{sec:intro}
 
-In this vignette, we show how all empirical examples from \cite{vcd:Zeileis+Meyer+Hornik:2005}
+In this vignette, we show how all empirical examples from \cite{vcd:Zeileis+Meyer+Hornik:2007}
 can be reproduced in \proglang{R}\citep[\mbox{\url{http://www.R-project.org/}}]{vcd:R:2006},
 in particular using the package \pkg{vcd} \citep{vcd:Meyer+Zeileis+Hornik:2006}. Additionally,
 the pakcages \pkg{MASS} \citep[see][]{vcd:Venables+Ripley:2002},
@@ -47,7 +57,7 @@ rseed <- 1071
 Furthermore, we define a \code{rseed} which will be used as the random seed for making
 the results of the permutation tests (conditional inference) below exactly reproducible.
 In the following, we focus on the \proglang{R} code and output---for background information
-on the methods and the data sets, please consult \cite{vcd:Zeileis+Meyer+Hornik:2005}.
+on the methods and the data sets, please consult \cite{vcd:Zeileis+Meyer+Hornik:2007}.
 
 \section{Arthritis data} \label{sec:arthritis}
 
@@ -93,7 +103,7 @@ popViewport(2)
 \end{center}
 \end{figure}
 
-For 2-way tables, \cite{vcd:Zeileis+Meyer+Hornik:2005} suggest to extend the
+For 2-way tables, \cite{vcd:Zeileis+Meyer+Hornik:2007} suggest to extend the
 shading of \cite{vcd:Friendly:1994} to also visualize the outcome of an independence
 test---either using the sum of squares of the Pearson residuals as the test statistic
 or their absolute maximum. Both statistics and their corresponding (approximate) permutation
@@ -225,7 +235,7 @@ we set it explicitely to the permtuation-based $p$~value computed above.
 \section{Alzheimer and smoking} \label{sec:alzheimer}
 
 For illustrating that the same ideas can be employed for visualizing (conditional)
-independence in multi-way tables, \cite{vcd:Zeileis+Meyer+Hornik:2005} use a
+independence in multi-way tables, \cite{vcd:Zeileis+Meyer+Hornik:2007} use a
 3-way and a 4-way table. The former is taken from a case-control study of smoking
 and {A}lzheimer's disease (stratified by gender). The data set is available in \proglang{R}
 in the package \pkg{coin} \cite{vcd:Hothorn+Hornik+VanDeWiel:2006}.
@@ -249,7 +259,7 @@ independence of smoking and disease given gender.}
 \end{figure}
 
 To assess whether smoking behaviour and disease status are conditionally independent
-given gender, \cite{vcd:Zeileis+Meyer+Hornik:2005} use three different types of test
+given gender, \cite{vcd:Zeileis+Meyer+Hornik:2007} use three different types of test
 statistics: double maximum (maximum of maximum statistics in the two strata), 
 maximum sum of squares (maximum of sum-of-squares statistics), and sum of squares
 (sum of sum-of-squares statistics). All three can be computed and assessed via

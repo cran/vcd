@@ -90,9 +90,9 @@ plot(lor,
      xlab = "Age Group",
      main = "Breathelessness and Wheeze in Coal Miners")
 
-## add quadratic model
-g <- seq(25, 60, by = 5)
-m <- lm(lor ~ g + I(g^2))
-lines(fitted(m), col = "red")
+## add linear model
+age <- seq(20, 60, by = 5)
+m <- lm(lor ~ age)
+lines(fitted(m), col = "red", lwd=2)
 }
 \keyword{category}
