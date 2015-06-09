@@ -15,7 +15,7 @@
 \method{sieve}{default}(x, condvars = NULL, gp = NULL, shade = NULL,
   legend = FALSE, split_vertical = NULL, direction = NULL, spacing = NULL,
   spacing_args = list(), sievetype = c("observed","expected"),
-  gp_tile = gpar(), main = NULL, sub = NULL, \dots)
+  gp_tile = gpar(), scale = 1, main = NULL, sub = NULL, \dots)
 \method{sieve}{formula}(formula, data, \dots, main = NULL, sub = NULL, subset = NULL)
 }
 \arguments{
@@ -54,6 +54,7 @@
   \item{gp_tile}{object of class \code{"gpar"}, controlling the
     appearance of all \emph{static}
     elements of the cells (e.g., border and fill color).}
+  \item{scale}{scaling factor for the sieve.}
   \item{legend}{either a legend-generating function, a legend
     function (see details of \code{\link{strucplot}} and
     \code{\link{legends}}), or a logical value.

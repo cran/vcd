@@ -51,8 +51,7 @@
 	}
 }
 
-"agreementplot.default" <-
-		function(x,
+"agreementplot.default" <- function(x,
 				reverse_y = TRUE,
 				main = NULL,
 				weights = c(1, 1 - 1 / (ncol(x) - 1)^2),
@@ -66,6 +65,8 @@
 				fill_col = function(j) gray((1 - (weights[j]) ^ 2) ^ 0.5),
 				line_col = "red",
 				xscale=TRUE, yscale = TRUE,
+                                return_grob = FALSE,
+                                prefix = "",
 				...)
 {
 	if (length(dim(x)) > 2)
@@ -82,7 +83,8 @@
 
 	## open viewport
 	if (newpage) grid.newpage()
-	pushViewport(plotViewport(margins))
+	pushViewport(plotViewport(margins,
+                                  name = paste(prefix,"agreementplot")))
 	pushViewport(viewport(width = unit(1, "snpc"),
                               height = unit(1, "snpc")))
 
@@ -180,12 +182,20 @@
 	## Statistics - Returned invisibly
 	ads <- crossprod(diag(x))
 	ar  <- n * n * crossprod(colFreqs, rowFreqs)
-	invisible(list(
-					Bangdiwala = ads / ar,
-					Bangdiwala_Weighted = (sum(weights * A)) /  ar,
-					weights = weights
-			)
-	)
+        if (return_grob)
+            invisible(structure(list(
+                Bangdiwala = ads / ar,
+                Bangdiwala_Weighted = (sum(weights * A)) /  ar,
+                weights = weights),
+                                grob = grid.grab()
+                                )
+                      )
+        else
+            invisible(list(
+                Bangdiwala = ads / ar,
+                Bangdiwala_Weighted = (sum(weights * A)) /  ar,
+                weights = weights)
+                      )
 }
 
 

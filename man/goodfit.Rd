@@ -4,6 +4,7 @@
 \alias{plot.goodfit}
 \alias{predict.goodfit}
 \alias{fitted.goodfit}
+\alias{residuals.goodfit}
 \alias{print.goodfit}
 \title{Goodness-of-fit Tests for Discrete Data}
 \description{
@@ -13,14 +14,24 @@
 goodfit(x, type = c("poisson", "binomial", "nbinomial"),
   method = c("ML", "MinChisq"), par = NULL)
 \method{predict}{goodfit}(object, newcount = NULL, type = c("response", "prob"), \dots)
+\method{residuals}{goodfit}(object, type = c("pearson", "deviance",
+"raw"), \dots)
+\method{print}{goodfit}(x, residuals_type = c("pearson", "deviance",
+"raw"), \dots)
+
 }
 \arguments{
   \item{x}{either a vector of counts, a 1-way table of frequencies of
     counts or a data frame or matrix with frequencies in the first
     column and the corresponding counts in the second column.}
-  \item{type}{a character string indicating which distribution should be
-    fit (for \code{goodfit}) or  indicating the type of prediction
-    (fitted response or probabilities in \code{predict}) respectively.}
+  \item{type}{character string indicating: for \code{goodfit}, which
+    distribution should be fit; for \code{predict}, the
+    type of prediction (fitted response or probabilities); for
+    \code{residuals}, either \code{"pearson"}, \code{"deviance"} or
+    \code{"raw"}.}
+  \item{residuals_type}{character string indicating the type of
+    residuals: either \code{"pearson"}, \code{"deviance"} or
+    \code{"raw"}.}
   \item{method}{a character string indicating whether the distribution
     should be fit via ML (Maximum Likelihood) or Minimum Chi-squared.}
   \item{par}{a named list giving the distribution parameters (named as

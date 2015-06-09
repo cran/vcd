@@ -14,7 +14,8 @@ ternaryplot(x, scale = 1, dimnames = NULL,
   labels = c("inside", "outside", "none"),
   labels_color = "darkgray", border = "black", bg = "white",
   pch = 19, cex = 1, prop_size = FALSE, col = "red",
-  main = "ternary plot", newpage = TRUE, pop = TRUE, \dots)
+  main = "ternary plot", newpage = TRUE, pop = TRUE,
+  return_grob = FALSE, \dots)
 }
 \arguments{
   \item{x}{a matrix with three columns.}
@@ -49,6 +50,8 @@ ternaryplot(x, scale = 1, dimnames = NULL,
   \item{newpage}{if \code{TRUE}, the plot will appear on a new graphics
     page.} 
   \item{pop}{logical; if \code{TRUE}, all newly generated viewports are popped after plotting.}
+  \item{return_grob}{logical. Should a snapshot of the display be
+    returned as a grid grob?}
   \item{\dots}{additional graphics parameters (see \code{par})}
 }
 \details{

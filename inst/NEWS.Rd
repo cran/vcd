@@ -2,6 +2,43 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.4-0}{
+  \itemize{
+    \item Add \code{shading_Marimekko} and \code{shading_diagonal}.
+    \item Add residual-based shading to \code{rootogram()}.
+    \item Add \code{residuals()} method for \code{"goodfit"} objects.
+    \item Add \code{grid_abline()} for convenience.
+    \item Add P-values to the output print.Kappa() produces.
+    \item Fix legend of \code{distplot()} in case of leveled plots.
+    \item \code{cotab_agreementplot} panel function for plotting
+    conditional (stratified) agreement charts added.
+    \item \code{loddsratio} added as an extension of \code{oddsratio} for
+    conditioned generalized odds ratios. The plot method is greatly
+    enhanced, and structural zeros (missing values) are also
+    accepted. \code{oddsratio} is now just an alias for
+    \code{loddsratio}.
+    \item Bug fix in \code{pairs.table()}: for
+    \code{"conditional"} type, tables are now reordered so that the
+    conditioning variables come \emph{first}.
+    
+    \item \code{cotab_loddsratio} panel function for plotting
+    conditional log-odds ratios plots added.
+    \item \code{assocstats} now handles strata (all but the first two
+    dimensions).
+    \item \code{sieve} now accepts a \code{scale=} argument.
+    \item \code{binreg_plot()} added for (conditioned) binary regression plots
+    \item Bug fix in \code{mosaic()}: using \code{highlighting=} and/or
+    \code{condvars=} now not only reorders the table, but also the split
+    information, so that both remain consistent.
+    \item All plot functions now have an option to return the produced
+    plot as a grid object for further use (e.g., in \code{mplot()}).
+    \item \code{mplot()} added for combining multiple grid plots in a
+    multi-panel-layout.
+    \item \code{legend_grid} now allows more options for positioning,
+    and an \code{inset} argument has been added for relative adjustments.
+  }  
+}
+
 \section{Changes in version 1.3-2}{
   \itemize{
     \item \code{Ord_plot()} gets \code{lwd}, \code{lty} and \code{col} arguments

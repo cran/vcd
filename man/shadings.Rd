@@ -4,6 +4,9 @@
 \alias{shading_hcl}
 \alias{shading_max}
 \alias{shading_Friendly}
+\alias{shading_Friendly2}
+\alias{shading_Marimekko}
+\alias{shading_diagonal}
 \alias{shading_sieve}
 \alias{shading_binary}
 \alias{hcl2hex}
@@ -31,12 +34,20 @@ shading_Friendly(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   h = c(2/3, 0), lty = 1:2, interpolate = c(2, 4),
   eps = 0.01, line_col = "black", \dots)
 
+shading_Friendly2(observed = NULL, residuals = NULL,
+  expected = NULL, df = NULL, lty = 1:2, interpolate = c(2, 4), eps =
+  0.01, line_col = "black", \dots)
+
 shading_sieve(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   h = c(260, 0), lty = 1:2, interpolate = c(2, 4),
   eps = 0.01, line_col = "black", \dots)
 
 shading_binary(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   col = NULL)
+
+shading_Marimekko(x, fill = NULL, byrow = FALSE)
+
+shading_diagonal(x, fill = NULL)
 
 hcl2hex(h = 0, c = 35, l = 85, fixup = TRUE)
 }
@@ -85,6 +96,12 @@ hcl2hex(h = 0, c = 35, l = 85, fixup = TRUE)
   \item{col}{a vector of two colors for positive and negative residuals respectively.}
   \item{fixup}{logical. Should the color be corrected to a valid RGB
     value before correction?}
+  \item{x}{object of class \code{table} used to determine the
+    dimension.}
+  \item{fill}{Either a character vector of color codes, or a palette
+    function that generates such a vector. Defaults to
+    \code{\link[colorspace]{rainbow_hcl}}}
+  \item{byrow}{logical; shall tiles be filled by row or by column?}
   \item{\dots}{Other arguments passed to \code{\link{hcl2hex}}
     or \code{\link{hsv}}, respectively.}
 }
@@ -116,11 +133,26 @@ hcl2hex(h = 0, c = 35, l = 85, fixup = TRUE)
   
   The shading \code{shading_Friendly} is very similar to \code{shading_hsv}, but additionally
   codes the sign of the residuals by different line types. See Friendly
-  (1994) for more details. \code{shading_sieve} is similar, but uses HCL colors.
+  (1994) for more details. \code{shading_Friendly2} and
+  \code{shading_sieve} are similar, but use HCL colors.
   
   The shading \code{shading_binary} just visualizes the sign of the residuals by using
   two different colors (default: blue HCL(260, 50, 70) and red HCL(0, 50, 70)).
 
+  \code{shading_Marimekko} is a simple generating function for
+  producing, in conjunction with \code{\link{mosaic}}, so-called
+  \emph{Marimekko-charts}, which paint the tiles of each columns of a
+  mosaic display in the same color to better display departures from
+  independence.
+
+  \code{shading_diagonal} generates a color shading for basically square
+  matrices (or arrays having the first two dimensons of same length)
+  visualizing the diagonal cells, and the off-diagonal cells 1, 2, \dots
+  steps removed.
+  
+  
+  
+  
   The color implementations employed are \code{\link{hsv}}
   from base R and \code{\link[colorspace]{polarLUV}} from the \pkg{colorspace}
   package, respectively. To transform the HCL coordinates to
@@ -147,7 +179,7 @@ hcl2hex(h = 0, c = 35, l = 85, fixup = TRUE)
   Zeileis A., Hornik K. and Murrell P. (2008),
   Escaping RGBland: Selecting Colors for Statistical Graphics.
   \emph{Computational Statistics & Data Analysis}, Forthcoming.
-  Preprint available from \url{http://statmath.wu-wien.ac.at/~zeileis/papers/Zeileis+Hornik+Murrell-2008.pdf}.
+  Preprint available from \url{http://statmath.wu-wien.ac.at/~zeileis/papers/Zeileis+Hornik+Murrell-2009.pdf}.
 }
 
 \value{A shading function which takes only a single argument, interpreted as a
@@ -180,7 +212,7 @@ mosaic(art)
 mosaic(art, shade = TRUE)
 ## which uses the HCL shading
 mosaic(art, gp = shading_hcl)
-## the residuals are two small to have color,
+## the residuals are too small to have color,
 ## hence the cut-offs can be modified
 mosaic(art, gp = shading_hcl, gp_args = list(interpolate = c(1, 1.8)))
 ## the same with the Friendly palette 
@@ -193,5 +225,15 @@ mosaic(art, gp = shading_max)
 
 ## association plot with shading as in base R
 assoc(art, gp = shading_binary(col = c(1, 2)))
+
+## Marimekko Chart
+hec <- margin.table(HairEyeColor, 1:2)
+mosaic(hec, gp = shading_Marimekko(hec))
+mosaic(HairEyeColor, gp = shading_Marimekko(HairEyeColor))
+
+## Diagonal cells shading
+ac <- xtabs(VisualAcuity)
+mosaic(ac, gp = shading_diagonal(ac))
+
 }
 \keyword{hplot}

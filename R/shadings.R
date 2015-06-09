@@ -90,7 +90,7 @@ shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
 	if(!is.null(eps))
 		ltytmp[abs(x) < abs(eps)] <- lty[1]
 	dim(ltytmp) <- dim(x)
-	
+
 	return(structure(list(col = col, fill = fill, lty = ltytmp), class = "gpar"))
 }
   attr(rval, "legend") <- legend
@@ -202,6 +202,14 @@ shading_Friendly <- function(observed = NULL, residuals = NULL, expected = NULL,
 }
 class(shading_Friendly) <- "grapcon_generator"
 
+shading_Friendly2 <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL, lty = 1:2, interpolate = c(2, 4), eps = 0.01, line_col = "black", ...)
+{
+  shading_hcl(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
+              lty = lty, interpolate = interpolate,
+	      eps = eps, line_col = line_col, p.value = NA, ...)
+}
+class(shading_Friendly2) <- "grapcon_generator"
+
 shading_sieve <-
     function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
              h = c(260, 0), lty = 1:2, interpolate = c(2, 4), eps = 0.01,
@@ -255,3 +263,30 @@ shading_binary <- function(observed = NULL, residuals = NULL, expected = NULL, d
 }
 class(shading_binary) <- "grapcon_generator"
 
+shading_Marimekko <-
+function(x, fill = NULL, byrow = FALSE)
+{
+    if (is.null(fill)) fill <- colorspace::rainbow_hcl
+    d <- dim(x)
+    l1 <- if (length(d) > 1L) d[2] else d
+    l2 <- if (length(d) > 1L) d[1] else 1
+    if (is.function(fill)) fill <- fill(l1)
+    fill <- if (byrow) rep(fill, l2) else rep(fill, each = l2)
+    gpar(col = NA, lty = "solid",
+         fill = array(fill, dim = d))
+}
+
+shading_diagonal <-
+function(x, fill = NULL)
+{
+    if (is.null(fill)) fill <- colorspace::rainbow_hcl
+    d <- dim(x)
+    if (length(d) < 1L)
+        stop("Need matrix or array!")
+    if (d[1] != d[2])
+        stop("First two dimensions need to be of same length!")
+    if (is.function(fill)) fill <- fill(d[1])
+    tp = toeplitz(seq_len(d[1]))
+    gpar(col = NA, lty = "solid",
+         fill = array(rep(fill[tp],  d[1]), dim = d))
+}

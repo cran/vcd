@@ -11,12 +11,25 @@
 }
 \usage{
 Kappa(x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
+\S3method{print}{Kappa}(x, digits=max(getOption("digits") - 3, 3),
+CI=FALSE, level=0.95, ...)
+\S3method{confint}{Kappa}(object, parm, level = 0.95, ...)
+\S3method{summary}{Kappa}(object, ...)
+\S3method{print}{summary.Kappa}(x, ...)
 }
 \arguments{
-  \item{x}{a confusion matrix.}
+  \item{x}{For \code{Kappa}: a confusion matrix. For the print methods:
+    object of class \code{"Kappa"} or \code{"summary.Kappa"}}
   \item{weights}{either one of the character strings given in the
     default value, or a user-specified matrix with same dimensions as
     \code{x}.}
+  \item{digits}{minimal number of significant digits.}
+  \item{CI}{logical; shall confidence limits be added to the output?}
+  \item{level}{confidence level between 0 and 1 used for the confidence
+    interval.}
+  \item{object}{object of class \code{"Kappa"}.}
+  \item{parm}{Currently, ignored.}
+  \item{\dots}{Further arguments passed to the default print method.}
 }
 \details{
   Cohen's kappa is the diagonal sum of the (possibly weighted) relative
@@ -69,6 +82,11 @@ Kappa(x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
 }
 \examples{
 data("SexualFun")
-Kappa(SexualFun)
+K <- Kappa(SexualFun)
+K
+confint(K)
+summary(K)
+print(K, CI = TRUE)
+
 }
 \keyword{category}

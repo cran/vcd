@@ -37,6 +37,7 @@ strucplot <- function(## main parameters
                       sub_gp = gpar(fontsize = 15),
                       newpage = TRUE,
                       pop = TRUE,
+                      return_grob = FALSE,
                       keep_aspect_ratio = NULL,
                       prefix = "",
                       ...
@@ -163,9 +164,9 @@ strucplot <- function(## main parameters
 
   ## set up page
   if (newpage)
-    grid.newpage()
+      grid.newpage()
   if (keep_aspect_ratio)
-    pushViewport(viewport(width = 1, height = 1, default.units = "snpc"))
+      pushViewport(viewport(width = 1, height = 1, default.units = "snpc"))
 
   pushViewport(vcdViewport(mar = margins,
                            oma = title_margins,
@@ -231,11 +232,21 @@ strucplot <- function(## main parameters
 
   seekViewport(paste(prefix, "base", sep = ""))
   ## one more up if sandwich-mode
-  if (pop) popViewport(1 + keep_aspect_ratio) else upViewport(1 + keep_aspect_ratio)
+  if (pop)
+      popViewport(1 + keep_aspect_ratio)
+  else
+      upViewport(1 + keep_aspect_ratio)
 
   ## return visualized table
-  invisible(structable(if (type == "observed") x else expected,
-                      split_vertical = split_vertical))
+  if (return_grob)
+      invisible(structure(structable(if (type == "observed") x else expected,
+                                     split_vertical = split_vertical),
+                          grob = grid.grab()
+                          )
+                )
+  else
+      invisible(structable(if (type == "observed") x else expected,
+                           split_vertical = split_vertical))
 }
 
 vcdViewport <- function(mar = rep.int(2.5, 4),

@@ -28,11 +28,13 @@ table2d_summary <- function(object,
                             margins = TRUE,
                             percentages = FALSE,
                             conditionals = c("none", "row", "column"),
+                            chisq.test = TRUE,
                             ...
                             )
 {
   ret <- list()
-  ret$chisq <- summary.table(object, ...)
+  if (chisq.test)
+      ret$chisq <- summary.table(object, ...)
   
   if(is.matrix(object)) {
     

@@ -4,6 +4,7 @@
 ### code chunk number 1: preliminaries
 ###################################################
 set.seed(1071)
+library(grid)
 library(vcd)
 data(Titanic)
 data(HairEyeColor)
@@ -150,7 +151,7 @@ assoc(HEC, compress = FALSE)
 
 
 ###################################################
-### code chunk number 17: strucplot.Rnw:591-592
+### code chunk number 17: strucplot.Rnw:592-593
 ###################################################
 options(width=60)
 
@@ -163,7 +164,7 @@ labeling_args = list(abbreviate_labs = c(Eye = 3)))
 
 
 ###################################################
-### code chunk number 19: strucplot.Rnw:600-601
+### code chunk number 19: strucplot.Rnw:601-602
 ###################################################
 options(width=70)
 
@@ -194,7 +195,7 @@ doubledecker(Survived ~ Class + Sex + Age, data = Titanic)
 
 
 ###################################################
-### code chunk number 24: strucplot.Rnw:664-665
+### code chunk number 24: strucplot.Rnw:665-666
 ###################################################
 options(width=75)
 
@@ -208,7 +209,7 @@ STD["Male", c("1st","2nd","3rd")]
 
 
 ###################################################
-### code chunk number 26: strucplot.Rnw:674-675
+### code chunk number 26: strucplot.Rnw:675-676
 ###################################################
 options(width=70)
 

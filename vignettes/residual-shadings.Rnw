@@ -34,7 +34,7 @@ E-mail: \email{Kurt.Hornik@R-project.org}\\
 \begin{document}
 
 %\VignetteIndexEntry{Residual-Based Shadings in vcd}
-%\VignetteDepends{vcd,colorspace,MASS,grid,HSAUR}
+%\VignetteDepends{vcd,colorspace,MASS,grid,HSAUR,grid}
 %\VignetteKeywords{association plots, conditional inference, contingency tables, HCL colors, HSV colors, mosaic plots}
 %\VignettePackage{vcd}
 
@@ -50,6 +50,7 @@ the pakcages \pkg{MASS} \citep[see][]{vcd:Venables+Ripley:2002},
 are employed. All are automatically loaded together with \pkg{vcd}:
 
 <<preliminaries, results=hide>>=
+library("grid")
 library("vcd")
 rseed <- 1071
 @

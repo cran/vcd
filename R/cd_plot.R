@@ -7,14 +7,14 @@ cd_plot.formula <- function(formula, data = list(),
   bw = "nrd0", n = 512, from = NULL, to = NULL,
   main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
   gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE,
-  ...)
+  return_grob = FALSE, ...)
 {
   ## extract x, y from formula
   mf <- model.frame(formula, data = data)
   if(NCOL(mf) != 2) stop("`formula' should specify exactly two variables")
   y <- mf[,1]
   if(!is.factor(y)) stop("dependent variable should be a factor")
-  x <- mf[,2]	
+  x <- mf[,2]
   if(!is.numeric(x)) stop("explanatory variable should be numeric")
 
   ## graphical parameters
@@ -34,7 +34,7 @@ cd_plot.default <- function(x, y,
   bw = "nrd0", n = 512, from = NULL, to = NULL,
   main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
   gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE,
-  ...)
+  return_grob = FALSE, ...)
 {
   ## check x and y
   if(!is.numeric(x)) stop("explanatory variable should be numeric")
@@ -49,7 +49,7 @@ cd_plot.default <- function(x, y,
 
   ## unconditional density of x
   dx <- if(is.null(from) & is.null(to)) density(x, bw = bw, n = n, ...)
-          else density(x, bw = bw, from = from, to = to, n = n, ...)	  
+          else density(x, bw = bw, from = from, to = to, n = n, ...)
   x1 <- dx$x
 
   ## setup conditional values
@@ -58,7 +58,7 @@ cd_plot.default <- function(x, y,
 
   ## setup return value
   rval <- list()
-  
+
   for(i in 1:(ny-1)) {
     dxi <- density(x[y %in% levels(y)[1:i]], bw = dx$bw, n = n, from = min(dx$x), to = max(dx$x), ...)
     y1[i,] <- dxi$y/dx$y * yprop[i]
@@ -77,7 +77,7 @@ cd_plot.default <- function(x, y,
     if(newpage) grid.newpage()
     pushViewport(plotViewport(xscale = range(x1), yscale = c(0, 1),
       default.units = "native", name = name, margins = margins, ...))
-  
+
     ## polygons
     for(i in 1:(NROW(y1)-1)) {
      gpi <- gp
@@ -88,7 +88,7 @@ cd_plot.default <- function(x, y,
     ## axes
     grid.rect(gp = gpar(fill = "transparent"))
     grid.xaxis()
-    grid.yaxis(main = FALSE)    
+    grid.yaxis(main = FALSE)
     equidist <- any(diff(y1[,1]) < ylab_tol)
     yat <- if(equidist) seq(1/(2*ny), 1-1/(2*ny), by = 1/ny) else (y1[-1,1] + y1[-NROW(y1), 1])/2
     grid.text(x = unit(-1.5, "lines"), y = unit(yat, "native"), label = levels(y),
@@ -102,7 +102,11 @@ cd_plot.default <- function(x, y,
     ## pop
     if(pop) popViewport()
   }
-  
+
   ## return conditional density functions
-  invisible(rval)
+  if (plot && return_grob)
+      invisible(structure(rval, grob = grid.grab()))
+  else
+      invisible(rval)
+
 }

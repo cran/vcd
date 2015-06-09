@@ -41,17 +41,26 @@ data("MSPatients")
 
 \examples{
 data("MSPatients")
+\dontrun{
 ## best visualized using a resized device, e.g. using:
 ## get(getOption("device"))(width = 12)
 pushViewport(viewport(layout = grid.layout(ncol = 2)))
 pushViewport(viewport(layout.pos.col = 1))
-agreementplot(t(MSPatients[,,1]), main = "Winnipeg Patients",
-              newpage = FALSE)
 popViewport()
 pushViewport(viewport(layout.pos.col = 2))
-agreementplot(t(MSPatients[,,2]), main = "New Orleans Patients",
-              newpage = FALSE)
 popViewport(2)
 dev.off()
+}
+
+## alternative, more convenient way
+mplot(
+  agreementplot(t(MSPatients[,,1]), return_grob = TRUE,
+    main = "Winnipeg Patients"),
+  agreementplot(t(MSPatients[,,2]), return_grob = TRUE,
+    main = "New Orleans Patients")
+)
+
+## alternatively, use cotabplot:
+cotabplot(MSPatients, panel = cotab_agreementplot)
 }
 \keyword{datasets}

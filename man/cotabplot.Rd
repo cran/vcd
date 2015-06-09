@@ -13,7 +13,7 @@ cotabplot(x, \dots)
   panel = cotab_mosaic, panel_args = list(),
   margins = rep(1, 4), layout = NULL,
   text_gp = gpar(fontsize = 12), rect_gp = gpar(fill = grey(0.9)),
-  pop = TRUE, newpage = TRUE,
+  pop = TRUE, newpage = TRUE, return_grob = FALSE,
   \dots)
 \method{cotabplot}{formula}(formula, data = NULL, \dots)
 }
@@ -37,6 +37,8 @@ cotabplot(x, \dots)
     should be removed at the end of the drawing or not.}
   \item{newpage}{logical controlling whether a new grid page should be
     created.}
+  \item{return_grob}{logical. Should a snapshot of the display be
+    returned as a grid grob?}
   \item{\dots}{further arguments passed to the panel-generating function.}
   \item{formula}{a formula specifying the variables used to create a 
     contingency table from \code{data}. It has to be of type \code{~ x + y | z}

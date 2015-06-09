@@ -17,7 +17,8 @@ strucplot(x, residuals = NULL, expected = NULL,
   main = NULL, sub = NULL, margins = unit(3, "lines"),
   title_margins = NULL, legend_width = NULL,
   main_gp = gpar(fontsize = 20), sub_gp = gpar(fontsize = 15),
-  newpage = TRUE, pop = TRUE, keep_aspect_ratio = NULL, prefix = "", \dots)
+  newpage = TRUE, pop = TRUE, return_grob = FALSE,
+  keep_aspect_ratio = NULL, prefix = "", \dots)
 }
 \arguments{
   \item{x}{a contingency table in array form, with optional category
@@ -123,6 +124,8 @@ strucplot(x, residuals = NULL, expected = NULL,
     parameters used for the main (sub) title, if specified.}
   \item{newpage}{logical indicating whether a new page should be created
     for the plot or not.}
+  \item{return_grob}{logical. Should a snapshot of the display be
+    returned as a grid grob?}
   \item{keep_aspect_ratio}{logical indicating whether the aspect ratio should be
     fixed or not. If unspecified, the default is \code{TRUE} for
     two-dimensional tables and \code{FALSE} otherwise.}
@@ -188,7 +191,8 @@ strucplot(x, residuals = NULL, expected = NULL,
 
 \value{
   Invisibly, an object of class \code{"structable"} corresponding to the
-  plot.
+  plot. If \code{return_grob} is \code{TRUE}, additionally, the plot as
+  a grob object is returned in a \code{grob} attribute.
 }
 \author{
   David Meyer \email{David.Meyer@R-project.org}

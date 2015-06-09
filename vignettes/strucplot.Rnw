@@ -53,12 +53,13 @@ E-mail: \email{Kurt.Hornik@R-project.org}\\
 \SweaveOpts{engine=R,eps=TRUE,height=6,width=7,results=hide,fig=FALSE,echo=TRUE,eps=FALSE}
 \setkeys{Gin}{width=0.7\textwidth}
 %\VignetteIndexEntry{The Strucplot Framework: Visualizing Multi-way Contingency Tables with vcd}
-%\VignetteDepends{vcd}
+%\VignetteDepends{vcd,grid}
 %\VignetteKeywords{contingency tables, mosaic plots, association plots, sieve plots, categorical data, independence, conditional independence, HSV, HCL, residual-based shading, grid, R}
 %\VignettePackage{vcd}
 
 <<preliminaries,echo=FALSE,results=hide>>=
 set.seed(1071)
+library(grid)
 library(vcd)
 data(Titanic)
 data(HairEyeColor)

@@ -7,7 +7,8 @@
   producing sieve plots.
 }
 \usage{
-struc_sieve(sievetype = c("observed","expected"), gp_tile = gpar())
+struc_sieve(sievetype = c("observed","expected"), gp_tile = gpar(),
+scale = 1)
 }
 \arguments{
   \item{sievetype}{logical indicating whether rectangles should be filled
@@ -15,6 +16,7 @@ struc_sieve(sievetype = c("observed","expected"), gp_tile = gpar())
   \item{gp_tile}{object of class \code{"gpar"}, controlling the
     appearance of all \emph{static}
     elements of the cells (e.g., border and fill color).}
+  \item{scale}{Scaling factor for the sieve.}
 }
 \details{
   This function is usually called by \code{\link{strucplot}} (typically

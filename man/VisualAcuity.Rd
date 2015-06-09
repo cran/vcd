@@ -36,6 +36,9 @@ data("VisualAcuity")
 \examples{
 data("VisualAcuity")
 structable(~ gender + left + right, data = VisualAcuity)
+sieve(Freq ~ left + right | gender, data = VisualAcuity, shade = TRUE)
+cotabplot(Freq ~ left + right | gender, data = VisualAcuity,
+          panel = cotab_agreementplot)
 }
 
 \keyword{datasets}

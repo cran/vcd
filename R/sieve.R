@@ -56,6 +56,7 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
                           spacing = NULL, spacing_args = list(),
                           sievetype = c("observed","expected"),
                           gp_tile = gpar(),
+                          scale = 1,
                           main = NULL, sub = NULL, ...) {
     if (is.logical(main) && main)
         main <- deparse(substitute(x))
@@ -102,7 +103,8 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
 
     strucplot(x,
               condvars = if (is.null(condvars)) NULL else length(condvars),
-              core = struc_sieve(sievetype = sievetype, gp_tile = gp_tile),
+              core = struc_sieve(sievetype = sievetype, gp_tile = gp_tile,
+                                 scale = scale),
               split_vertical = split_vertical,
               spacing = spacing,
               spacing_args = spacing_args,
@@ -208,10 +210,12 @@ sieve.default <- function(x, condvars = NULL, gp = NULL,
 ##class(struc_sieve) <- "grapcon_generator"
 
 struc_sieve <- function(sievetype = c("observed", "expected"),
-                        gp_tile = gpar()) {
+                        gp_tile = gpar(), scale = 1) {
     sievetype = match.arg(sievetype)
     function(residuals, observed, expected, spacing,
              gp, split_vertical, prefix = "") {
+        observed <- scale * observed
+        expected <- scale * expected
         if (is.null(expected)) stop("Need expected values.")
         dn <- dimnames(expected)
         dnn <- names(dn)

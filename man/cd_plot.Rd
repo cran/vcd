@@ -14,14 +14,12 @@ cd_plot(x, \dots)
   plot = TRUE, ylab_tol = 0.05,
   bw = "nrd0", n = 512, from = NULL, to = NULL,
   main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
-  gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE,
-  \dots)
+  gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE, return_grob = FALSE, \dots)
 \method{cd_plot}{formula}(formula, data = list(),
   plot = TRUE, ylab_tol = 0.05,
   bw = "nrd0", n = 512, from = NULL, to = NULL,
   main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
-  gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE,
-  \dots)
+  gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE, return_grob = FALSE, \dots)
 }
 \arguments{
   \item{x}{an object, the default method expects either a single numerical variable.}
@@ -43,6 +41,8 @@ cd_plot(x, \dots)
   \item{name}{name of the plotting viewport.}
   \item{newpage}{logical. Should \code{\link{grid.newpage}} be called 
     before plotting?}
+  \item{return_grob}{logical. Should a snapshot of the display be
+    returned as a grid grob?}
   \item{pop}{logical. Should the viewport created be popped?}
 }
 \details{

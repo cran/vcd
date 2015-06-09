@@ -1,7 +1,19 @@
 assocstats <- function(x) {
-  if(!is.matrix(x))
-    stop("Function only defined for 2-way tables.")
-  
+  if(!is.matrix(x)) {
+      l <- length(dim(x))
+      str <- apply(x, 3 : l, FUN = assocstats)
+      if (l == 3) {
+          names(str) <- paste(names(dimnames(x))[3], names(str), sep = ":")
+      } else {
+          dn <- dimnames(str)
+          dim(str) <- NULL
+          names(str) <-
+              apply(expand.grid(dn), 1,
+                    function(x) paste(names(dn), x, sep = ":", collapse = "|"))
+      }
+      return(str)
+  }
+
   tab    <- summary(loglm(~1+2, x))$tests
   phi    <- sqrt(tab[2,1] / sum(x))
   cont   <- sqrt(phi^2 / (1 + phi^2))
@@ -9,7 +21,7 @@ assocstats <- function(x) {
   structure(
             list(table = x,
                  chisq_tests = tab,
-                 phi = phi,
+                 phi = ifelse(all(dim(x) == 2L), phi, NA),
                  contingency = cont,
                  cramer = cramer),
             class = "assocstats"

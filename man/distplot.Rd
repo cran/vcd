@@ -10,7 +10,8 @@ distplot(x, type = c("poisson", "binomial", "nbinomial"),
   size = NULL, lambda = NULL, legend = TRUE, xlim = NULL, ylim = NULL,
   conf_int = TRUE, conf_level = 0.95, main = NULL,
   xlab = "Number of occurrences", ylab = "Distribution metameter",
-  gp = gpar(cex = 0.8), lwd=2, name = "distplot", newpage = TRUE, pop = TRUE, \dots)
+  gp = gpar(cex = 0.8), lwd=2, name = "distplot", newpage = TRUE,
+  pop =TRUE, return_grob = FALSE, \dots)
 }
 \arguments{
   \item{x}{either a vector of counts, a 1-way table of frequencies of
@@ -41,7 +42,9 @@ distplot(x, type = c("poisson", "binomial", "nbinomial"),
   \item{newpage}{logical. Should \code{\link{grid.newpage}} be called 
     before plotting?}
   \item{pop}{logical. Should the viewport created be popped?}
-  \item{...}{further arguments passed to \code{\link{grid.points}}.}
+  \item{return_grob}{logical. Should a snapshot of the display be
+    returned as a grid grob?}
+  \item{\dots}{further arguments passed to \code{\link{grid.points}}.}
 }
 \details{
   \code{distplot} plots the number of occurrences (counts) against the

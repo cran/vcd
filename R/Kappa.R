@@ -49,11 +49,22 @@ Kappa <- function (x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
        )
 }
 
-print.Kappa <- function (x, ...) {
-  tab <- rbind(x$Unweighted, x$Weighted)
-  rownames(tab) <- names(x)[1:2]
-  print(tab, ...)
-  invisible(x)
+print.Kappa <-
+		function (x, digits=max(getOption("digits") - 3, 3), CI=FALSE, level=0.95, ...)
+{
+	tab <- rbind(x$Unweighted, x$Weighted)
+	z <- tab[,1] / tab[,2]
+	tab <- cbind(tab, z, `Pr(>|z|)` = 2 * pnorm(-abs(z)))
+	if (CI) {
+		q <-  qnorm((1 + level)/2)
+		lower <- tab[,1] - q * tab[,2]
+		upper <- tab[,1] + q * tab[,2]
+		tab <- cbind(tab, lower, upper)
+	}
+
+	rownames(tab) <- names(x)[1:2]
+	print(tab, digits=digits, ...)
+	invisible(x)
 }
 
 summary.Kappa <- function (object, ...)

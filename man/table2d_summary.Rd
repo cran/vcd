@@ -8,7 +8,7 @@
 }
 \usage{
 table2d_summary(object, margins = TRUE, percentages = FALSE,
-  conditionals = c("none", "row", "column"), \dots)
+  conditionals = c("none", "row", "column"), chisq.test = TRUE, \dots)
 }
 \arguments{
   \item{object}{a \eqn{r \times c}{r x c}-contingency table}
@@ -16,6 +16,8 @@ table2d_summary(object, margins = TRUE, percentages = FALSE,
   \item{percentages}{if \code{TRUE}, relative frequencies are computed.}
   \item{conditionals}{if not \code{"none"}, the conditional
     distributions, given the row/column factor, are computed.}
+  \item{chisq.test}{if \code{TRUE}, a chi-squared test of independence
+    is carried out.}
   \item{\dots}{currently not used.}
 }
 \value{

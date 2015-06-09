@@ -17,6 +17,7 @@
          set_labels = NULL,
          margins = unit(3, "lines"),
          keep_aspect_ratio = FALSE,
+         legend = NULL,
          legend_width = NULL,
          squared_tiles = TRUE,
          main = NULL, sub = NULL, ...)
@@ -60,6 +61,11 @@
     (\samp{top}, \samp{right}, \samp{bottom}, and \samp{left}), in which
     case the non-named arguments specify the default values (recycled as
     needed), overloaded by the named arguments.}
+  \item{legend}{either a legend-generating function, or a legend
+    function (see details and \code{\link{legends}}), or a logical.
+    If \code{legend} is \code{NULL} or \code{TRUE} and \code{gp} is a
+    function or missing, legend defaults to \code{\link{legend_resbased}}.
+  }
   \item{legend_width}{An object of class \code{"unit"} of length
     1 specifying the width of the legend (if any). Default: 5 lines.}
   \item{keep_aspect_ratio}{logical indicating whether the aspect ratio should be

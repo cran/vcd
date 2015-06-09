@@ -2,6 +2,8 @@
 \alias{cotab_mosaic}
 \alias{cotab_assoc}
 \alias{cotab_sieve}
+\alias{cotab_loddsratio}
+\alias{cotab_agreementplot}
 \alias{cotab_coindep}
 \alias{cotab_fourfold}
 \title{Panel-generating Functions for Contingency Table Coplots}
@@ -13,6 +15,8 @@
 cotab_mosaic(x = NULL, condvars = NULL, \dots)
 cotab_assoc(x = NULL, condvars = NULL, ylim = NULL, \dots)
 cotab_sieve(x = NULL, condvars = NULL, \dots)
+cotab_loddsratio(x = NULL, condvars = NULL, \dots)
+cotab_agreementplot(x = NULL, condvars = NULL, \dots)
 cotab_fourfold(x = NULL, condvars = NULL, \dots)
 cotab_coindep(x, condvars,
   test = c("doublemax", "maxchisq", "sumchisq"),

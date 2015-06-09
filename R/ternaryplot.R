@@ -21,10 +21,11 @@ function (x,
           main = "ternary plot",
           newpage = TRUE,
 	  pop = TRUE,
+          return_grob = FALSE,
           ...)
 {
   ## parameter handling
-  labels <- match.arg(labels)
+    labels <- match.arg(labels)
   if (grid == TRUE) grid <- "dotted"
 
   if (coordinates)
@@ -130,7 +131,10 @@ function (x,
 
   ## cleanup
   if(pop) popViewport(2) else upViewport(2)
-
+  if (return_grob)
+      invisible(grid.grab())
+  else
+      invisible(NULL)
 }
 
 

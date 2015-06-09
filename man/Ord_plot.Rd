@@ -10,7 +10,8 @@ Ord_plot(obj, legend = TRUE, estimate = TRUE, tol = 0.1, type = NULL,
   xlim = NULL, ylim = NULL, xlab = "Number of occurrences",
   ylab = "Frequency ratio", main = "Ord plot", gp = gpar(cex = 0.5),
   lwd = c(2,2), lty=c(2,1), col=c("black", "red"),
-  name = "Ord_plot", newpage = TRUE, pop = TRUE, \dots)
+  name = "Ord_plot", newpage = TRUE, pop = TRUE,
+  return_grob = FALSE, \dots)
 Ord_estimate(x, type = NULL, tol = 0.1)
 }
 \arguments{
@@ -41,6 +42,8 @@ Ord_estimate(x, type = NULL, tol = 0.1)
   \item{newpage}{logical. Should \code{\link{grid.newpage}} be called 
     before plotting?}
   \item{pop}{logical. Should the viewport created be popped?}
+  \item{return_grob}{logical. Should a snapshot of the display be
+    returned as a grid grob?}
   \item{\dots}{further arguments passed to \code{\link{grid.points}}.}
   \item{x}{a vector giving intercept and slope for the (fitted)
     line in the Ord plot.}
@@ -89,6 +92,7 @@ data("Federalist")
 data("Butterfly")
 data("WomenQueue")
 
+\dontrun{
 grid.newpage()
 pushViewport(viewport(layout = grid.layout(2, 2)))
 
@@ -107,5 +111,14 @@ popViewport()
 pushViewport(viewport(layout.pos.col=2, layout.pos.row=2))
 Ord_plot(WomenQueue, main = "Women in queues of length 10", newpage = FALSE)
 popViewport(2)
+}
+
+## same
+mplot(
+  Ord_plot(HorseKicks, return_grob = TRUE, main = "Death by horse kicks"),
+  Ord_plot(Federalist, return_grob = TRUE, main = "Instances of 'may' in Federalist papers"),
+  Ord_plot(Butterfly, return_grob = TRUE, main = "Butterfly species collected in Malaya"),
+  Ord_plot(WomenQueue, return_grob = TRUE, main = "Women in queues of length 10")
+)
 }
 \keyword{category}

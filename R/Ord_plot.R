@@ -6,7 +6,8 @@ Ord_plot <- function(obj, legend = TRUE, estimate = TRUE, tol = 0.1,
                      type = NULL, xlim = NULL, ylim = NULL, xlab = "Number of occurrences",
 		     ylab = "Frequency ratio", main = "Ord plot", gp = gpar(cex = 0.5),
 		     lwd = c(2,2), lty=c(2,1), col=c("black", "red"),
-		     name = "Ord_plot", newpage = TRUE, pop = TRUE, ...)
+		     name = "Ord_plot", newpage = TRUE, pop = TRUE,
+                     return_grob = FALSE, ...)
 {
   if(is.vector(obj)) {
     obj <- table(obj)
@@ -27,7 +28,7 @@ Ord_plot <- function(obj, legend = TRUE, estimate = TRUE, tol = 0.1,
   fmw <- lm(y ~ count, weights = sqrt(pmax(x, 1) - 1))
   fit1 <- predict(fm, data.frame(count))
   fit2 <- predict(fmw, data.frame(count))
-  if(is.null(xlim)) xlim <- range(count)  
+  if(is.null(xlim)) xlim <- range(count)
   if(is.null(ylim)) ylim <- range(c(y, fit1, fit2), na.rm = TRUE)
   xlim <- xlim + c(-1, 1) * diff(xlim) * 0.04
   ylim <- ylim + c(-1, 1) * diff(ylim) * 0.04
@@ -35,7 +36,7 @@ Ord_plot <- function(obj, legend = TRUE, estimate = TRUE, tol = 0.1,
 	lwd <- rep_len(lwd, 2)  # assure length=2
 	lty <- rep_len(lty, 2)
 	col <- rep_len(col, 2)
-	
+
   if(newpage) grid.newpage()
   pushViewport(plotViewport(xscale = xlim, yscale = ylim, default.units = "native", name = name))
   grid.points(x = count, y = y, default.units = "native", gp = gp, ...)
@@ -64,7 +65,10 @@ Ord_plot <- function(obj, legend = TRUE, estimate = TRUE, tol = 0.1,
   }
 
   if(pop) popViewport() else upViewport()
-  invisible(RVAL)
+  if(return_grob)
+      invisible(structure(RVAL, grob = grid.grab()))
+  else
+      invisible(RVAL)
 }
 
 Ord_estimate <- function(x, type = NULL, tol = 0.1)

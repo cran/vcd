@@ -8,7 +8,7 @@
 grid_barplot(height, width = 0.8, offset = 0,
   names = NULL, xlim = NULL, ylim = NULL, xlab = "", ylab = "", main = "",
   gp = gpar(fill = "lightgray"), name = "grid_barplot",
-  newpage = TRUE, pop = FALSE)
+  newpage = TRUE, pop = FALSE, return_grob = FALSE)
 
 }
 \arguments{
@@ -28,6 +28,7 @@ grid_barplot(height, width = 0.8, offset = 0,
   \item{newpage}{logical. Should \code{\link{grid.newpage}} be called 
     before plotting?}
   \item{pop}{logical. Should the viewport created be popped?}
+  \item{return_grob}{logical. Shall the plot be returned as a grob object?}
 }
 \details{
   \code{grid_barplot} mimics (some of) the features of \code{\link{barplot}},

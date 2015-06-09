@@ -59,7 +59,7 @@ pairs_sieve(\dots)
   Graphical methods for categorical data.
   \emph{SAS User Group International Conference Proceedings}, \bold{17},
   190--200.
-  \url{http://datavis.ca/sugi/sugi17.pdf}
+  \url{http://datavis.ca/papers/sugi/sugi17.pdf}
 }
 \author{
   David Meyer \email{David.Meyer@R-project.org}

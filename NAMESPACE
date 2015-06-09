@@ -1,7 +1,10 @@
 import(MASS)
+import(grid)
+import(stats)
 import(grDevices)
 import(colorspace)
 importFrom("utils","head","tail")
+importFrom("lmtest","coeftest","coeftest.default")
 
 export(
 ## generic functions
@@ -20,6 +23,7 @@ export(
        "spine",
        "tile",
        "structable",
+       "loddsratio",
 
 ## spacings
        "spacing_conditional",
@@ -50,6 +54,9 @@ export(
        "shading_hsv",
        "shading_max",
        "shading_Friendly",
+       "shading_Friendly2",
+       "shading_diagonal",
+       "shading_Marimekko",
        "shading_sieve",
        "hcl2hex",
 
@@ -70,6 +77,8 @@ export(
        "cotab_mosaic",
        "cotab_assoc",
        "cotab_sieve",
+       "cotab_loddsratio",
+       "cotab_agreementplot",
        "cotab_fourfold",
        "cotab_coindep",
 
@@ -88,7 +97,10 @@ export(
        "Ord_plot",
        "strucplot",
        "ternaryplot",
+       "binreg_plot",
+       "mplot",
        "grid_legend",
+       "grid_abline",
        "woolf_test")
 
 S3method("[", "structable")
@@ -155,21 +167,23 @@ S3method("pairs", "structable")
 S3method("fitted", "goodfit")
 S3method("fitted", "coindep_test")
 
+S3method("residuals", "goodfit")
+
 S3method("predict", "goodfit")
 
 S3method("confint", "Kappa")
-S3method("confint", "oddsratio")
+#S3method("confint", "oddsratio")
 
 S3method("plot", "goodfit")
-S3method("plot", "oddsratio")
+#S3method("plot", "oddsratio")
 S3method("plot", "loglm")
 S3method("plot", "structable")
 
 S3method("print", "Kappa")
 S3method("print", "summary.Kappa")
 S3method("print", "goodfit")
-S3method("print", "oddsratio")
-S3method("print", "summary.oddsratio")
+#S3method("print", "oddsratio")
+#S3method("print", "summary.oddsratio")
 S3method("print", "assocstats")
 S3method("print", "summary.assocstats")
 S3method("print", "table2d_summary")
@@ -178,4 +192,24 @@ S3method("print", "structable")
 S3method("summary", "Kappa")
 S3method("summary", "assocstats")
 S3method("summary", "goodfit")
-S3method("summary", "oddsratio")
+#S3method("summary", "oddsratio")
+
+# logoddsratio related methods
+S3method("loddsratio", "default")
+S3method("loddsratio", "formula")
+S3method("coef", "loddsratio")
+S3method("confint", "loddsratio")
+S3method("dim", "loddsratio")
+S3method("dimnames", "loddsratio")
+S3method("print", "loddsratio")
+S3method("plot", "loddsratio")
+S3method("summary", "loddsratio")
+S3method("vcov", "loddsratio")
+S3method("as.matrix", "loddsratio")
+S3method("as.array", "loddsratio")
+S3method("as.data.frame", "loddsratio")
+S3method("aperm", "loddsratio")
+S3method("t", "loddsratio")
+
+S3method("image", "loddsratio")
+S3method("tile", "loddsratio")

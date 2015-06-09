@@ -51,8 +51,7 @@ cotabplot.default <- function(x, cond = NULL,
   panel = cotab_mosaic, panel_args = list(),
   margins = rep(1, 4), layout = NULL,
   text_gp = gpar(fontsize = 12), rect_gp = gpar(fill = grey(0.9)),
-  pop = TRUE, newpage = TRUE,
-  ...)
+  pop = TRUE, newpage = TRUE, return_grob = FALSE, ...)
 {
   ## coerce to table
   x <- as.table(x)
@@ -156,14 +155,18 @@ cotabplot.default <- function(x, cond = NULL,
   if(pop) popViewport() else upViewport()
 }
 
-  invisible(x)
+  if (return_grob)
+      invisible(structure(x, grob = grid.grab()))
+  else
+      invisible(x)
+
 }
 
 cotab_mosaic <- function(x = NULL, condvars = NULL, ...) {
   function(x, condlevels) {
-    if(is.null(condlevels)) mosaic(x, newpage = FALSE, pop = FALSE, ...)
+    if(is.null(condlevels)) mosaic(x, newpage = FALSE, pop = FALSE, return_grob = FALSE, ...)
       else mosaic(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
-                  newpage = FALSE, pop = FALSE,
+                  newpage = FALSE, pop = FALSE, return_grob = FALSE,
                   prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
   }
 }
@@ -171,9 +174,9 @@ class(cotab_mosaic) <- "grapcon_generator"
 
 cotab_sieve <- function(x = NULL, condvars = NULL, ...) {
   function(x, condlevels) {
-    if(is.null(condlevels)) sieve(x, newpage = FALSE, pop = FALSE, ...)
+    if(is.null(condlevels)) sieve(x, newpage = FALSE, pop = FALSE, return_grob = FALSE, ...)
       else sieve(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
-                 newpage = FALSE, pop = FALSE,
+                 newpage = FALSE, pop = FALSE, return_grob = FALSE,
                  prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
   }
 }
@@ -186,9 +189,9 @@ cotab_assoc <- function(x = NULL, condvars = NULL, ylim = NULL, ...) {
   }
 
   function(x, condlevels) {
-    if(is.null(condlevels)) assoc(x, newpage = FALSE, pop = FALSE, ylim = ylim, ...)
+    if(is.null(condlevels)) assoc(x, newpage = FALSE, pop = FALSE, ylim = ylim, return_grob = FALSE, ...)
       else assoc(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
-                  newpage = FALSE, pop = FALSE, ylim = ylim,
+                  newpage = FALSE, pop = FALSE, return_grob = FALSE, ylim = ylim,
                  prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
   }
 }
@@ -197,13 +200,36 @@ class(cotab_assoc) <- "grapcon_generator"
 cotab_fourfold <- function (x = NULL, condvars = NULL, ...) {
   function(x, condlevels) {
     if (is.null(condlevels))
-      fourfold(x, newpage = FALSE, ...)
+      fourfold(x, newpage = FALSE, return_grob = FALSE, ...)
     else
       fourfold(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]],
-               newpage = FALSE, ...)
+               newpage = FALSE, return_grob = FALSE, ...)
   }
 }
 class(cotab_fourfold) <- "grapcon_generator"
+
+cotab_loddsratio <- function(x = NULL, condvars = NULL, ...) {
+    function(x, condlevels) {
+        if(is.null(condlevels)) {
+            plot(loddsratio(x, ...), newpage = FALSE, pop = FALSE, return_grob = FALSE, ...)
+        } else {
+            plot(loddsratio(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]], ...),
+                 newpage = FALSE, pop = FALSE, return_grob = FALSE,
+                 prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
+        }
+        upViewport(2)
+    }
+}
+class(cotab_loddsratio) <- "grapcon_generator"
+
+cotab_agreementplot <- function(x = NULL, condvars = NULL, ...) {
+  function(x, condlevels) {
+    if(is.null(condlevels)) agreementplot(x, newpage = FALSE, pop = FALSE, return_grob = FALSE, ...)
+      else agreementplot(co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]], newpage = FALSE, pop = FALSE, return_grob = FALSE,
+                         prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
+  }
+}
+class(cotab_agreementplot) <- "grapcon_generator"
 
 cotab_coindep <- function(x, condvars,
   test = c("doublemax", "maxchisq", "sumchisq"),
@@ -282,7 +308,7 @@ cotab_coindep <- function(x, condvars,
         tab <- co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]]
         gp <- if(is.list(gpfun)) gpfun[[paste(condlevels, collapse = ".")]] else gpfun
       }
-      mosaic(tab, newpage = FALSE, pop = FALSE, gp = gp, legend = legend,
+      mosaic(tab, newpage = FALSE, pop = FALSE, return_grob = FALSE, gp = gp, legend = legend,
              prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
     }
   } else {
@@ -296,7 +322,7 @@ cotab_coindep <- function(x, condvars,
         tab <- co_table(x, names(condlevels))[[paste(condlevels, collapse = ".")]]
         gp <- if(is.list(gpfun)) gpfun[[paste(condlevels, collapse = ".")]] else gpfun
       }
-      assoc(tab, newpage = FALSE, pop = FALSE, gp = gp, legend = legend, ylim = ylim,
+      assoc(tab, newpage = FALSE, pop = FALSE, return_grob = FALSE, gp = gp, legend = legend, ylim = ylim,
             prefix = paste("panel:", paste(names(condlevels), condlevels, sep = "=", collapse = ","), "|", sep = ""), ...)
     }
   }

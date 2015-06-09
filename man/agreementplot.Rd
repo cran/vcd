@@ -13,13 +13,15 @@
 \usage{
 \method{agreementplot}{default}(x, reverse_y = TRUE, main = NULL,
               weights = c(1, 1 - 1/(ncol(x) - 1)^2), margins = par("mar"),
-              newpage = TRUE, pop = TRUE, xlab = names(dimnames(x))[2],
+              newpage = TRUE, pop = TRUE, 
+              xlab = names(dimnames(x))[2],
               ylab = names(dimnames(x))[1],
               xlab_rot = 0, xlab_just = "center",
               ylab_rot = 90, ylab_just = "center",
               fill_col = function(j) gray((1 - (weights[j]) ^ 2) ^ 0.5),
               line_col = "red", xscale = TRUE, yscale = TRUE,
-               ...)
+              return_grob = FALSE,
+              prefix = "", \dots)
 \method{agreementplot}{formula}(formula, data = NULL, ..., subset)
 }
 \arguments{
@@ -33,6 +35,8 @@
   \item{margins}{vector of margins (see \code{\link[graphics]{par}}).}
   \item{newpage}{logical; if \code{TRUE}, the plot is drawn on a new page.}
   \item{pop}{logical; if \code{TRUE}, all newly generated viewports are popped after plotting.}
+  \item{return_grob}{logical. Should a snapshot of the display be
+    returned as a grid grob?}
   \item{xlab, ylab}{labels of x- and y-axis.}
   \item{xlab_rot, ylab_rot}{rotation angle for the category labels.}
   \item{xlab_just, ylab_just}{justification for the category labels.}
@@ -46,6 +50,7 @@
     the data frame to be used for plotting.}
   \item{xscale, yscale}{logicals indicating whether the marginals should
   be added on the x-axis/y-axis, respectively.}
+  \item{prefix}{character string used as prefix for the viewport name}
   \item{\dots}{further graphics parameters (see \code{\link{par}}).}
 }
 \details{
@@ -57,6 +62,8 @@
   A weight vector of
   length 1 means strict agreement only, each additional element
   increases the maximum number of disagreement steps.
+
+  \code{\link{cotabplot}} can be used for stratified analyses (see examples).
 }
 \value{
   Invisibly returned, a list with components
@@ -88,6 +95,7 @@ data("SexualFun")
 agreementplot(t(SexualFun))
 
 data("MSPatients")
+\dontrun{
 ## best visualized using a resized device, e.g. using:
 ## get(getOption("device"))(width = 12)
 pushViewport(viewport(layout = grid.layout(ncol = 2)))
@@ -100,6 +108,10 @@ agreementplot(t(MSPatients[,,2]), main = "New Orleans Patients",
               newpage = FALSE)
 popViewport(2)
 dev.off()
+}
+
+## alternatively, use cotabplot:
+cotabplot(MSPatients, panel = cotab_agreementplot)
 }
 \keyword{category}
 \keyword{hplot}
