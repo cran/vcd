@@ -3,7 +3,8 @@ import(grid)
 import(stats)
 import(grDevices)
 import(colorspace)
-importFrom("utils","head","tail")
+importFrom("graphics", "pairs", "par")
+importFrom("utils","head","str","tail")
 importFrom("lmtest","coeftest","coeftest.default")
 
 export(

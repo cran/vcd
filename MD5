@@ -1,5 +1,5 @@
-3e8f476265b20b35cbad7f3aabc04ea4 *DESCRIPTION
-1cff9659cde6a5a307f0c0ba65c0dd09 *NAMESPACE
+35194353881e299ca072c9fbb49b66b1 *DESCRIPTION
+e9292b3d66770219128224e4f4997821 *NAMESPACE
 3c097b80a9e49b4d417f0e5ea45427ce *R/Kappa.R
 059845124a77cda96758bfe96e8fbb76 *R/Ord_plot.R
 486d6e0bf1fe6bcfb760a3d3ba08cadb *R/agreementplot.R
@@ -25,7 +25,7 @@ e64948c0c3e16187701584d8ca54831d *R/oddsratioplot.R
 ef50116a771b80f031997e45d94bac3b *R/pairsplot.R
 f429718cc703e950773811364d9335ed *R/plot.loglm.R
 d0d1334f8b9a76cd4e16923d70a1a9d3 *R/rootogram.R
-a0e129a40f484c849523368e88544505 *R/shadings.R
+d15a403b0412ba22d07698e3861da6a5 *R/shadings.R
 5844e6cfd389dc23e364496f6d1059fe *R/sieve.R
 fd79ebf9c8a9b483b500bad1f0b228e9 *R/spacings.R
 8c1e69e46e0d3127ca572abc3b813924 *R/spine.R
@@ -81,11 +81,11 @@ a61a25a7b48e3d172cc6353b956c9392 *demo/mosaic.R
 7b08161f2cdc60d9e594f3aa76479272 *demo/strucplot.R
 baec36bb9bda9e52aa5467bd11c71f9d *demo/twoway.R
 1868ee22006e7378323f6581a91690eb *inst/CITATION
-ab8d39aba3c04d80817c9ca4ed878644 *inst/NEWS.Rd
+45e371ed8d1c5a63e6d4aba5150eefa7 *inst/NEWS.Rd
 1bd85dce9589862a54d02cf5687befcd *inst/doc/Z.cls
 6d2946ce9127e1b46b04b9b8cdcde98e *inst/doc/residual-shadings.R
 602c680f1ef5d2af17cc38d59a8426a9 *inst/doc/residual-shadings.Rnw
-28e96664bec0ac274456e4d39370b11f *inst/doc/residual-shadings.pdf
+5b2c823caa07a5f517ccde15161151e6 *inst/doc/residual-shadings.pdf
 0f08ab21c366ba4d4204fae211e89104 *inst/doc/struc.pdf
 fe22f0d95f4098096281d58c459928f9 *inst/doc/struc.sxi
 23a35b9e4ad98965a8b98c760e030f21 *inst/doc/strucplot.R
@@ -128,7 +128,7 @@ c4221305498c64d7cce56fd05d38c10b *man/UKSoccer.Rd
 ca83003c80bb9d41eeff4805c4f4df1c *man/WeldonDice.Rd
 72e0e324020dbb52d40709c115b30ee4 *man/WomenQueue.Rd
 b3aa4469900034f4f6ee66d476eb4051 *man/agreementplot.Rd
-38c2b48f456a2c8b982cefbb2a4cdaed *man/assoc.Rd
+5a289a29a60283572a6dc749b98c7c03 *man/assoc.Rd
 e245640865a0d036e5ed49dfc6b22af0 *man/assocstats.Rd
 71e4c5635afca020ba5db75d21f7f31d *man/binregplot.Rd
 78359b5cf62d25114f272820302e1db8 *man/cd_plot.Rd
@@ -146,7 +146,7 @@ f3084a15ca398a9835c9ba3eae26f773 *man/hls.Rd
 f9b406c3111ee9cacaa55124de6c9df8 *man/independence_table.Rd
 6ef4c333cbbb2490cee751eb360de9e3 *man/labeling_border.Rd
 926f10258bde9d18e8d5e9c869529958 *man/labeling_cells_list.Rd
-016540b59d7881d4bd1c752eeeebf646 *man/legends.Rd
+e2f34b28003d5375beeecd272f4f296e *man/legends.Rd
 7904c410ad3e24822f9f0d78dbcd628c *man/loddsratio.Rd
 6166d08f94e23cb571c4d655eeaa66cd *man/mar_table.Rd
 5bcd25dfac84b456b1c45b1f789d512d *man/mosaic.Rd

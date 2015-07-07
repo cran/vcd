@@ -182,10 +182,12 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
     }
     dim(col) <- dim(x)
 
-    lty <- ifelse(x > 0, lty[1], lty[2])
-    dim(lty) <- dim(x)
+    ltytmp <- ifelse(x > 0, lty[1], lty[2])
+    if(!is.null(eps))
+        ltytmp[abs(x) < abs(eps)] <- lty[1]
+    dim(ltytmp) <- dim(x)
 
-    return(structure(list(col = col, fill = fill, lty = lty), class = "gpar"))
+    return(structure(list(col = col, fill = fill, lty = ltytmp), class = "gpar"))
   }
   attr(rval, "legend") <- legend
   attr(rval, "p.value") <- p.value
