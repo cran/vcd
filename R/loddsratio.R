@@ -389,6 +389,7 @@ tile.loddsratio <-
              main = NULL,
              gp_main = gpar(fontsize = 12, fontface = "bold"),
              newpage = TRUE, pop = FALSE, return_grob = FALSE,
+             add = FALSE,
              prefix = "",
              ...)
 {
@@ -442,24 +443,26 @@ tile.loddsratio <-
 
     if (newpage) grid.newpage()
     if (transpose) {
-        ## set up plot region, similar to plot.xy()
-        pushViewport(plotViewport(xscale = ylimaxis, yscale = xlimaxis,
-                                  default.units = "native",
-                                  name = paste(prefix,"oddsratio_plot")))
-        grid.yaxis(name = "yaxis", seq_along(labs), labs,
-                   edits = gEdit("labels", rot = 90, hjust = .5, vjust = 0))
-        grid.xaxis()
-        grid.text(ylab, y = unit(-3.5, "lines"))
-        grid.text(xlab, x = unit(-3, "lines"), rot = 90)
-        grid.text(main, y = unit(1, "npc") + unit(1, "lines"), gp = gp_main)
-        pushViewport(viewport(xscale = ylimaxis, yscale = xlimaxis,
-                              default.units = "native", clip = "on"))
+        if (!add) {
+            ## set up plot region, similar to plot.xy()
+            pushViewport(plotViewport(xscale = ylimaxis, yscale = xlimaxis,
+                                      default.units = "native",
+                                      name = paste(prefix,"oddsratio_plot")))
+            grid.yaxis(name = "yaxis", seq_along(labs), labs,
+                       edits = gEdit("labels", rot = 90, hjust = .5, vjust = 0))
+            grid.xaxis()
+            grid.text(ylab, y = unit(-3.5, "lines"))
+            grid.text(xlab, x = unit(-3, "lines"), rot = 90)
+            grid.text(main, y = unit(1, "npc") + unit(1, "lines"), gp = gp_main)
+            pushViewport(viewport(xscale = ylimaxis, yscale = xlimaxis,
+                                  default.units = "native", clip = "on"))
 
-        ## baseline
-        if (baseline)
-            grid.lines(unit(c(1,1) - LOG, "native"),
-                       unit(c(0,1), "npc"),
-                       gp = gp_baseline)
+            ## baseline
+            if (baseline)
+                grid.lines(unit(c(1,1) - LOG, "native"),
+                           unit(c(0,1), "npc"),
+                           gp = gp_baseline)
+        }
 
         # workhorse for one stratum
         draw_one_stratum <- function(vals, pch = "o", col = "black", offset = 0,
@@ -510,23 +513,25 @@ tile.loddsratio <-
                 }
         }
     } else {
-        ## set up plot region
-        pushViewport(plotViewport(xscale = xlimaxis, yscale = ylimaxis,
-                                  default.units = "native",
-                                  name = "oddsratio_plot"))
-        grid.xaxis(seq_along(labs), labs)
-        grid.yaxis()
-        grid.text(xlab, y = unit(-3.5, "lines"))
-        grid.text(ylab, x = unit(-3, "lines"), rot = 90)
-        grid.text(main, y = unit(1, "npc") + unit(1, "lines"), gp = gp_main)
-        pushViewport(viewport(xscale = xlimaxis, yscale = ylimaxis,
-                              default.units = "native", clip = "on"))
+        if (!add) {
+            ## set up plot region
+            pushViewport(plotViewport(xscale = xlimaxis, yscale = ylimaxis,
+                                      default.units = "native",
+                                      name = "oddsratio_plot"))
+            grid.xaxis(seq_along(labs), labs)
+            grid.yaxis()
+            grid.text(xlab, y = unit(-3.5, "lines"))
+            grid.text(ylab, x = unit(-3, "lines"), rot = 90)
+            grid.text(main, y = unit(1, "npc") + unit(1, "lines"), gp = gp_main)
+            pushViewport(viewport(xscale = xlimaxis, yscale = ylimaxis,
+                                  default.units = "native", clip = "on"))
 
-        ## baseline
-        if (baseline)
-            grid.lines(unit(c(0,1), "npc"),
-                       unit(c(1,1) - LOG, "native"),
-                       gp = gp_baseline)
+            ## baseline
+            if (baseline)
+                grid.lines(unit(c(0,1), "npc"),
+                           unit(c(1,1) - LOG, "native"),
+                           gp = gp_baseline)
+        }
 
         ## workhorse for one stratum
         draw_one_stratum <- function(vals, pch = "o", col = "black", offset = 0,
@@ -607,10 +612,15 @@ tile.loddsratio <-
     }
 
     grid.rect(gp = gpar(fill = "transparent"))
-    if (pop) popViewport(2)
+    if (!add && pop) popViewport(2)
     if (return_grob)
         invisible(grid.grab())
     else
         invisible(NULL)
 }
 
+lines.loddsratio <-
+function(x, legend = FALSE, confidence = FALSE, cex = 0, ...)
+{
+    plot(x, add = TRUE, newpage = FALSE, legend = legend, confidence = confidence, cex = cex, ...)
+}

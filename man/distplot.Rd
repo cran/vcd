@@ -10,7 +10,8 @@ distplot(x, type = c("poisson", "binomial", "nbinomial"),
   size = NULL, lambda = NULL, legend = TRUE, xlim = NULL, ylim = NULL,
   conf_int = TRUE, conf_level = 0.95, main = NULL,
   xlab = "Number of occurrences", ylab = "Distribution metameter",
-  gp = gpar(cex = 0.8), lwd=2, name = "distplot", newpage = TRUE,
+  gp = gpar(cex = 0.8), lwd=2, gp_conf_int = gpar(lty = 2),
+  name = "distplot", newpage = TRUE,
   pop =TRUE, return_grob = FALSE, \dots)
 }
 \arguments{
@@ -37,6 +38,8 @@ distplot(x, type = c("poisson", "binomial", "nbinomial"),
   \item{ylab}{a label for the y axis.}
   \item{gp}{a \code{"gpar"} object controlling the grid graphical
     parameters of the points.}  
+  \item{gp_conf_int}{a \code{"gpar"} object controlling the grid graphical
+    parameters of the confidence intervals.}  
   \item{lwd}{line width for the fitted line}
   \item{name}{name of the plotting viewport.}
   \item{newpage}{logical. Should \code{\link{grid.newpage}} be called 

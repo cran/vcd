@@ -1,5 +1,6 @@
 \name{plot.loddsratio}
 \alias{plot.loddsratio}
+\alias{lines.loddsratio}
 \title{Plotting (Log) Odds Ratios}
 \description{
   Produces a (conditional) line plot of extended (log) odds ratios.
@@ -21,7 +22,9 @@
              
      xlab = NULL, ylab = NULL, xlim = NULL, ylim = NULL,
      main = NULL, gp_main = gpar(fontsize = 12, fontface = "bold"),
-     newpage = TRUE, pop = FALSE, return_grob = FALSE, prefix = "", \dots)
+     newpage = TRUE, pop = FALSE, return_grob = FALSE,
+     add = FALSE, prefix = "", \dots)
+\method{lines}{loddsratio}(x, legend = FALSE, confidence = FALSE, cex = 0, \dots)
 }
 \arguments{
   \item{x}{an object of class \code{loddsratio}.}
@@ -79,6 +82,8 @@
     popped after plotting.}
   \item{return_grob}{logical. Should a snapshot of the display be
     returned as a grid grob?}
+  \item{add}{logical; should the plot added to an existing log odds
+    ratio plot?}
   \item{prefix}{character string used as prefix for the viewport name.}
   \item{\dots}{other graphics parameters (see \code{\link{par}}).}
 }
@@ -88,7 +93,10 @@
 }
 \details{
   The function basically produces conditioned line plots of the (log)
-    odds ratios structure provided in \code{x}. 
+  odds ratios structure provided in \code{x}.
+
+  The \code{lines} method can be used to overlay different plots (for
+  example, observed and expected values).
 
   \code{\link{cotabplot}} can be used for stratified analyses (see examples).
 

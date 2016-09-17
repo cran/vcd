@@ -19,12 +19,14 @@ export(
        "goodfit",
        "mosaic",
        "oddsratio",
+       "odds",
        "rootogram",
        "sieve",
        "spine",
        "tile",
        "structable",
        "loddsratio",
+       "lodds",
 
 ## spacings
        "spacing_conditional",
@@ -195,7 +197,7 @@ S3method("summary", "assocstats")
 S3method("summary", "goodfit")
 #S3method("summary", "oddsratio")
 
-# logoddsratio related methods
+# loddsratio related methods
 S3method("loddsratio", "default")
 S3method("loddsratio", "formula")
 S3method("coef", "loddsratio")
@@ -204,6 +206,7 @@ S3method("dim", "loddsratio")
 S3method("dimnames", "loddsratio")
 S3method("print", "loddsratio")
 S3method("plot", "loddsratio")
+S3method("lines", "loddsratio")
 S3method("summary", "loddsratio")
 S3method("vcov", "loddsratio")
 S3method("as.matrix", "loddsratio")
@@ -211,6 +214,24 @@ S3method("as.array", "loddsratio")
 S3method("as.data.frame", "loddsratio")
 S3method("aperm", "loddsratio")
 S3method("t", "loddsratio")
-
 S3method("image", "loddsratio")
 S3method("tile", "loddsratio")
+
+# loddsratio related methods
+S3method("lodds", "default")
+S3method("lodds", "formula")
+S3method("coef", "lodds")
+S3method("confint", "lodds")
+S3method("dim", "lodds")
+S3method("dimnames", "lodds")
+S3method("print", "lodds")
+#S3method("plot", "lodds")
+#S3method("lines", "lodds")
+S3method("summary", "lodds")
+S3method("vcov", "lodds")
+S3method("as.matrix", "lodds")
+S3method("as.array", "lodds")
+S3method("as.data.frame", "lodds")
+S3method("aperm", "lodds")
+S3method("t", "lodds")
+

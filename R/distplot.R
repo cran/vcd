@@ -5,7 +5,8 @@ distplot <-
              size = NULL, lambda = NULL, legend = TRUE, xlim = NULL, ylim = NULL,
              conf_int = TRUE, conf_level = 0.95, main = NULL,
              xlab = "Number of occurrences", ylab = "Distribution metameter",
-             gp = gpar(cex = 0.8), lwd=2, name = "distplot", newpage = TRUE,
+             gp = gpar(cex = 0.8), lwd=2, gp_conf_int = gpar(lty = 2),
+             name = "distplot", newpage = TRUE,
              pop = TRUE, return_grob = FALSE, ...)
 {
     if(is.vector(x)) {
@@ -117,7 +118,7 @@ distplot <-
 
     if(conf_int) {
         grid.points(x = RVAL[,1], y = RVAL[,4], pch = 19, gp = gpar(cex = 0.5))
-        grid.segments(RVAL[,1], RVAL[,6], RVAL[,1], RVAL[,7], default.units = "native", gp = gpar(lty = 3))
+        grid.segments(RVAL[,1], RVAL[,6], RVAL[,1], RVAL[,7], default.units = "native", gp = gp_conf_int)
     }
 
     if(legend) {

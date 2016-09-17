@@ -1,6 +1,19 @@
 \name{NEWS}
 \title{News for Package \pkg{vcd}}
-\newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
+\section{Changes in version 1.4-3}{
+  \itemize{
+    \item Remove outdated inst/doc directory.
+  }
+}
+
+\section{Changes in version 1.4-2}{
+  \itemize{
+    \item add \code{lines()} method for \code{loddsratio} objects.
+    \item add \code{gpar()} argment to control confidence intervals in \code{distplot()}.
+  }
+}
 
 \section{Changes in version 1.4-1}{
   \itemize{
