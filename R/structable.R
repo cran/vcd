@@ -52,7 +52,7 @@ structable.formula <- function(formula, data = NULL, direction = NULL,
           if (is.matrix(edata))
             m$data <- as.data.frame(data)
           m$... <- m$split_vertical <- m$direction <- NULL
-          m[[1]] <- as.name("model.frame")
+          m[[1L]] <- quote(stats::model.frame)
           mf <- eval(m, parent.frame())
           return(structable(table(mf), split_vertical = split_vertical, ...))
         }

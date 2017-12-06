@@ -40,7 +40,7 @@ that resulted from the election.
 
 \source{
   Der Bundeswahlleiter, Statistisches Bundesamt.  
-  \url{http://www.bundeswahlleiter.de/de/bundestagswahlen/fruehere_bundestagswahlen/btw2005.html}
+  \url{https://www.bundeswahlleiter.de/bundestagswahlen/2005.html}
 }
 
 \examples{

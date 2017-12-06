@@ -8,11 +8,13 @@
 \usage{
 ternaryplot(x, scale = 1, dimnames = NULL,
   dimnames_position = c("corner","edge","none"),
-  dimnames_color = "black", id = NULL, id_color = "black",
+  dimnames_color = "black", dimnames_rot = c(-60, 60, 0),
+  id = NULL, id_color = "black",
   id_just = c("center", "center"),
   coordinates = FALSE, grid = TRUE, grid_color = "gray",
   labels = c("inside", "outside", "none"),
-  labels_color = "darkgray", border = "black", bg = "white",
+  labels_color = "darkgray", labels_rot = c(120, -120, 0),
+  border = "black", bg = "white",
   pch = 19, cex = 1, prop_size = FALSE, col = "red",
   main = "ternary plot", newpage = TRUE, pop = TRUE,
   return_grob = FALSE, \dots)
@@ -24,6 +26,8 @@ ternaryplot(x, scale = 1, dimnames = NULL,
     \code{x}).}
   \item{dimnames_position, dimnames_color}{position and color of
     dimension labels.}
+  \item{dimnames_rot}{Numeric vector of length 3, specifying the angle
+    of the dimension labels.}
   \item{id}{optional labels to be plotted below the plot
     symbols. \code{coordinates} and \code{id} are mutual exclusive.}
   \item{id_color}{color of these labels.}
@@ -36,6 +40,8 @@ ternaryplot(x, scale = 1, dimnames = NULL,
     be a string indicating the line type (default: \code{"dotted"}).}
   \item{grid_color}{grid color.}
   \item{labels, labels_color}{position and color of the grid labels.}
+  \item{labels_rot}{Numeric vector of length 3, specifying the angle
+    of the grid labels.}
   \item{border}{color of the triangle border.}
   \item{bg}{triangle background.}
   \item{pch}{plotting character. Defaults to filled dots.}

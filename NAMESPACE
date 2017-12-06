@@ -111,11 +111,11 @@ S3method("[[", "structable")
 S3method("[<-", "structable")
 S3method("[[<-", "structable")
 ## We cannot do the following:
-## S3method("rbind", "structable")
-## S3method("cbind", "structable")
+S3method("rbind", "structable")
+S3method("cbind", "structable")
 ## Instead, we currently have to use:
-export("rbind.structable")
-export("cbind.structable")
+##export("rbind.structable")
+##export("cbind.structable")
 
 S3method("str", "structable")
 S3method("is.na", "structable")
@@ -175,18 +175,14 @@ S3method("residuals", "goodfit")
 S3method("predict", "goodfit")
 
 S3method("confint", "Kappa")
-#S3method("confint", "oddsratio")
 
 S3method("plot", "goodfit")
-#S3method("plot", "oddsratio")
 S3method("plot", "loglm")
 S3method("plot", "structable")
 
 S3method("print", "Kappa")
 S3method("print", "summary.Kappa")
 S3method("print", "goodfit")
-#S3method("print", "oddsratio")
-#S3method("print", "summary.oddsratio")
 S3method("print", "assocstats")
 S3method("print", "summary.assocstats")
 S3method("print", "table2d_summary")
@@ -195,7 +191,6 @@ S3method("print", "structable")
 S3method("summary", "Kappa")
 S3method("summary", "assocstats")
 S3method("summary", "goodfit")
-#S3method("summary", "oddsratio")
 
 # loddsratio related methods
 S3method("loddsratio", "default")

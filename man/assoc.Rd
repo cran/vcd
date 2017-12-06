@@ -161,7 +161,7 @@
   extended association plots. \emph{Proceedings of the 3rd International
   Workshop on Distributed Statistical Computing}, K. Hornik, F. Leisch,
   A. Zeileis (eds.), ISSN 1609-395X.
-  \url{http://www.R-project.org/conferences/DSC-2003/Proceedings/}
+  \url{https://www.R-project.org/conferences/DSC-2003/Proceedings/}
 
   Meyer, D., Zeileis, A., and Hornik, K. (2006),
   The strucplot framework: Visualizing multi-way contingency tables with

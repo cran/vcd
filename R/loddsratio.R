@@ -91,7 +91,7 @@ loddsratio.default <- function(x, strata = NULL, log = TRUE,
     ## check dimensions
     L <- length(d <- dim(x))
     if(any(d < 2L)) stop("All table dimensions must be 2 or greater")
-    if(L > 2L & is.null(strata)) strata <- 3L:L
+    if(L > 2L && is.null(strata)) strata <- 3L:L
     if(is.character(strata)) strata <- which(names(dimnames(x)) == strata)
     if(L - length(strata) != 2L) stop("All but 2 dimensions must be specified as strata.")
 
@@ -137,9 +137,10 @@ loddsratio.default <- function(x, strata = NULL, log = TRUE,
         rix <- (j-1) * (R-1) + i
         cix <- rep(Rix[i,], 2L) + R * (rep(Cix[j,], each = 2L) - 1L)
         contr[rix, cix] <- c(1L, -1L, -1L, 1L)
-        rownames(contr)[rix] <- sprintf("%s/%s",
-                                        paste(rownames(X)[Rix[i,]], collapse = ":"),
-                                        paste(colnames(X)[Cix[j,]], collapse = ":"))
+        if (R > 2 || C > 2 || is.null(strata))
+            rownames(contr)[rix] <- sprintf("%s/%s",
+                                            paste(rownames(X)[Rix[i,]], collapse = ":"),
+                                            paste(colnames(X)[Cix[j,]], collapse = ":"))
     }
 
                                         # handle strata
@@ -150,8 +151,9 @@ loddsratio.default <- function(x, strata = NULL, log = TRUE,
         else {
             sn <- apply(expand.grid(dimnames(x)[strata]), 1, paste, collapse = ":")
         }
-        rn <- as.vector(outer( dimnames(contr)[[1]], sn, paste, sep='|'))
-        cn <- as.vector(outer( dimnames(contr)[[2]], sn, paste, sep='|'))
+        SEP <- if (R > 2 || C > 2 || is.null(strata)) "|" else ""
+        rn <- as.vector(outer( dimnames(contr)[[1]], sn, paste, sep=SEP))
+        cn <- as.vector(outer( dimnames(contr)[[2]], sn, paste, sep=SEP))
         contr <- kronecker(diag(prod(dim(x)[strata])), contr)
         rownames(contr) <- rn
         colnames(contr) <- cn

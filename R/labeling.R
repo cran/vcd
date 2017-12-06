@@ -32,7 +32,7 @@ labeling_list <- function(gp_text = gpar(),
                           cols = 2,
                           ...) {
   function(d, split_vertical, condvars, prefix = "") {
-    if (is.table(d))
+    if (is.table(d) || is.structable(d))
       d <- dimnames(d)
     ld <- length(d)
     labeling_border(labels = FALSE, varnames = varnames)(d, split_vertical, condvars, prefix)
@@ -57,7 +57,7 @@ class(labeling_list) <- "grapcon_generator"
 
 labeling_conditional <- function(...) {
   function (d, split_vertical, condvars, prefix = "") {
-    if (is.table(d))
+    if (is.table(d) || is.structable(d))
       d <- dimnames(d)
     v <- rep.int(TRUE, length(d))
     v[seq(condvars)] <- FALSE
@@ -74,7 +74,7 @@ labeling_cells <- function(labels = TRUE, varnames = TRUE,
                          margin = unit(0.5, "lines"), clip_cells = TRUE,
                          text = NULL, ...) {
   function(d, split_vertical, condvars, prefix = "") {
-    if (is.table(d))
+    if (is.table(d) || is.structable(d))
       d <- dimnames(d)
     dn <- names(d)
     ld <- length(d)
@@ -95,6 +95,9 @@ labeling_cells <- function(labels = TRUE, varnames = TRUE,
                             function(i) abbreviate(dn[i], abbreviate_varnames[i])),
                      dn)
     prvars <- ifelse(varnames, paste(prvars, lsep, sep = ""), "")
+
+    if (is.structable(text))
+        text <- as.table(text)
 
     ## draw labels
     split <- function(vind = 1, labs = c()) {
@@ -196,7 +199,7 @@ labeling_border <- function(labels = TRUE, varnames = labels,
                              c("left", "center", "right"))
 
   function(d, split_vertical, condvars, prefix = "") {
-    if (is.table(d))
+    if (is.table(d) || is.structable(d))
       d <- dimnames(d)
     dn <- names(d)
     ld <- length(d)
@@ -585,7 +588,7 @@ labeling_doubledecker <- function(lab_pos = c("bottom", "top"),
   gp_varnames <- pexpand(gp_varnames, 4, list(gpar(fontsize = 12, fontface = 2)), c("top", "right", "bottom", "left"))
 
   function(d, split_vertical, condvars, prefix = "") {
-    if (is.table(d))
+    if (is.table(d) || is.structable(d))
       d <- dimnames(d)
     ld <- length(d)
     dn <- names(d)

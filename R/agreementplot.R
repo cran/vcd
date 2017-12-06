@@ -24,7 +24,7 @@
 		if (is.matrix(edata))
 			m$data <- as.data.frame(data)
 		m$... <- NULL
-		m[[1]] <- as.name("model.frame")
+		m[[1L]] <- quote(stats::model.frame)
 		mf <- eval(m, parent.frame())
 		if (length(formula) == 2) {
 			by <- mf

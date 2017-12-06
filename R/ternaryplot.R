@@ -4,6 +4,7 @@ function (x,
           dimnames = NULL,
           dimnames_position = c("corner", "edge", "none"),
           dimnames_color = "black",
+          dimnames_rot = c(-60, 60, 0),
           id = NULL,
           id_color = "black",
           id_just = c("center", "center"),
@@ -12,6 +13,7 @@ function (x,
           grid_color = "gray",
           labels = c("inside", "outside", "none"),
           labels_color = "darkgray",
+          labels_rot = c(120, -120, 0),
           border = "black",
           bg = "white",
           pch = 19,
@@ -74,11 +76,11 @@ function (x,
   if (dimnames_position == "edge") {
     shift <- eps * if (labels == "outside") 8 else 0
     grid.text(x = 0.25 - 2 * eps - shift, y = 0.5 * top + shift,
-              label = dimnames[2], rot = 60, gp = gpar(col = dimnames_color))
+              label = dimnames[2], rot = dimnames_rot[2], gp = gpar(col = dimnames_color))
     grid.text(x = 0.75 + 3 * eps + shift, y = 0.5 * top + shift,
-              label = dimnames[1], rot = -60, gp = gpar(col = dimnames_color))
+              label = dimnames[1], rot = dimnames_rot[1], gp = gpar(col = dimnames_color))
     grid.text(x = 0.5, y = -0.02 - shift,
-              label = dimnames[3], gp = gpar(col = dimnames_color))
+              label = dimnames[3], rot = dimnames_rot[3], gp = gpar(col = dimnames_color))
   }
 
   ## grid
@@ -97,19 +99,19 @@ function (x,
       ## grid labels
       if (labels == "inside") {
         grid.text(x = (1 - i) * 3 / 4 - eps, y = (1 - i) / 2 * top, label = i * scale,
-              gp = gpar(col = labels_color), rot = 120)
+              gp = gpar(col = labels_color), rot = labels_rot[1])
         grid.text(x = 1 - i + i / 4 + eps, y = i / 2 * top - eps, label = (1 - i) * scale,
-              gp = gpar(col = labels_color), rot = -120)
+              gp = gpar(col = labels_color), rot = labels_rot[2])
         grid.text(x = 0.5, y = i * top + eps, label = i * scale,
-                  gp = gpar(col = labels_color))
+                  gp = gpar(col = labels_color), rot = labels_rot[3])
       }
       if (labels == "outside") {
         grid.text(x = (1 - i) / 2 - 6 * eps, y = (1 - i) * top,
-                  label = (1 - i) * scale, gp = gpar(col = labels_color))
+                  label = (1 - i) * scale, rot = labels_rot[3], gp = gpar(col = labels_color))
         grid.text(x = 1 - (1 - i) / 2 + 3 * eps, y = (1 - i) * top + 5 * eps,
-                  label = i * scale, rot = -120, gp = gpar(col = labels_color))
+                  label = i * scale, rot = labels_rot[2], gp = gpar(col = labels_color))
         grid.text(x = i + eps, y = -0.05, label = (1 - i) * scale, vjust = 1,
-                  rot = 120, gp = gpar(col = labels_color))
+                  rot = labels_rot[1], gp = gpar(col = labels_color))
       }
     }
 

@@ -72,7 +72,7 @@ legend_fixed(fontsize = 12, fontfamily = "", x = unit(1, "lines"), y = NULL,
   extended association plots. \emph{Proceedings of the 3rd International
   Workshop on Distributed Statistical Computing}, K. Hornik, F. Leisch,
   A. Zeileis (eds.), ISSN 1609-395X.
-  \url{http://www.R-project.org/conferences/DSC-2003/Proceedings/}
+  \url{https://www.R-project.org/conferences/DSC-2003/Proceedings/}
 }
 
 \author{
