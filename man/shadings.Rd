@@ -178,8 +178,8 @@ hcl2hex(h = 0, c = 35, l = 85, fixup = TRUE)
 
   Zeileis A., Hornik K. and Murrell P. (2008),
   Escaping RGBland: Selecting Colors for Statistical Graphics.
-  \emph{Computational Statistics & Data Analysis}, Forthcoming.
-  Preprint available from \url{http://statmath.wu-wien.ac.at/~zeileis/papers/Zeileis+Hornik+Murrell-2009.pdf}.
+  \emph{Computational Statistics & Data Analysis}, \bold{53}, 3259--3270.
+  Preprint available from \url{https://eeecon.uibk.ac.at/~zeileis/papers/Zeileis+Hornik+Murrell-2009.pdf}.
 }
 
 \value{A shading function which takes only a single argument, interpreted as a

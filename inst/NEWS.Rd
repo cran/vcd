@@ -2,6 +2,13 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.4-5}{
+  \itemize{
+      \item small internal change in tile() to account for new grid package.
+  }
+}
+
+
 \section{Changes in version 1.4-4}{
   \itemize{
     \item Bugfix: \code{labeling_cells()} could not handle structable objects 

@@ -75,7 +75,7 @@
 Bangdiwala, S. I. (1988). The Agreement Chart.  Department of Biostatistics,
 University of North Carolina at Chapel Hill,
 Institute of Statistics Mimeo Series No. 1859,
-\url{http://www.stat.ncsu.edu/information/library/mimeo.archive/ISMS_1988_1859.pdf}
+\url{https://repository.lib.ncsu.edu/bitstream/handle/1840.4/3827/ISMS_1988_1859.pdf}
 
 Bangdiwala, S. I.,  Ana S. Haedo, Marcela L. Natal, and Andres
 Villaveces. The agreement chart as an alternative to the

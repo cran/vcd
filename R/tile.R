@@ -107,7 +107,10 @@ function(x,
         spacing <- spacing(d)
         delta <- abs(dflat[1] - dflat[2])
         fac <- delta / max(dflat)
-        un <-  unit(fac, "npc") - unit(fac * 5 / spacing[[1]][[1]], "lines")
+        un <-  unit(fac, "npc") -
+               unit(fac * 5 / convertWidth(spacing[[1]], "lines",
+                                    valueOnly=TRUE),
+                    "lines")
         leg <- if (shade) {
             if (is.null(legend_width))
                 unit(5, "lines")
