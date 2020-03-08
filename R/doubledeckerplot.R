@@ -69,7 +69,22 @@ doubledecker.default <- function(x,
   if (is.character(depvar))
     depvar <- match(depvar, names(dimnames(x)))
   condvars <- (1:l)[-depvar]
+  ## order dependend var *last*
   x <- aperm(x, c(condvars, depvar))
+
+  ## recycle gpar elements along *last* dimension, if needed
+  size <- prod(d)
+  FUN <- function(par) {
+    if (is.structable(par))
+      par <- as.table(par)
+    if (length(par) < size || is.null(dim(par)))
+        aperm(array(par, dim = rev(d)))
+    else
+        par
+  }
+  gp <- structure(lapply(gp, FUN), class = "gpar")
+
+
   strucplot(x,
             core = struc_mosaic(zero_split = FALSE, zero_shade = FALSE),
             condvars = l - 1,

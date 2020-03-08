@@ -153,7 +153,7 @@ strucplot <- function(## main parameters
   ## choose gray when no shading is used
   if (is.null(gp)) gp <- gpar(fill = grey(0.8))
 
-  ## recycle gpar values in the last dimension
+  ## recycle gpar values in the *first* dimension
   size <- prod(d)
   FUN <- function(par) {
     if (is.structable(par))
