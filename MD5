@@ -1,4 +1,4 @@
-2e7fe455bc4c91aa97c0fb833fec31a3 *DESCRIPTION
+c32f5e913140a561694eb2262633fed9 *DESCRIPTION
 d9d1b59e8b88b4ad346afc404ea475cc *NAMESPACE
 3c097b80a9e49b4d417f0e5ea45427ce *R/Kappa.R
 059845124a77cda96758bfe96e8fbb76 *R/Ord_plot.R
@@ -20,7 +20,7 @@ cb59d1ec73b001757a20e006a2c2c9d2 *R/grid_legend.R
 59efe4302412387812f1d6122b51c5a0 *R/legends.R
 d73189e85cf671591cfffa975e807ebf *R/lodds.R
 273d8ce40a5ea5302ab2351467b146a1 *R/loddsratio.R
-75320b6d1294ffdb5a80f4262977ead8 *R/mosaic.R
+ee9268575c067494a320b412a7b94462 *R/mosaic.R
 e399eefbaf6b57cd9c0d63627e5e0960 *R/mplot.R
 e64948c0c3e16187701584d8ca54831d *R/oddsratioplot.R
 ef50116a771b80f031997e45d94bac3b *R/pairsplot.R
@@ -82,13 +82,13 @@ a61a25a7b48e3d172cc6353b956c9392 *demo/mosaic.R
 7b08161f2cdc60d9e594f3aa76479272 *demo/strucplot.R
 baec36bb9bda9e52aa5467bd11c71f9d *demo/twoway.R
 1868ee22006e7378323f6581a91690eb *inst/CITATION
-ba2eb6293a2e725693ab9e3c642c753a *inst/NEWS.Rd
+dffadd5a3581210a47a4c9e2171ef85b *inst/NEWS.Rd
 6d2946ce9127e1b46b04b9b8cdcde98e *inst/doc/residual-shadings.R
 8195fb8aa41852a97a5784f036a80938 *inst/doc/residual-shadings.Rnw
-64c8d08c40ce494bef144281933f14ab *inst/doc/residual-shadings.pdf
+35be565f38a64c84da764731b13ea110 *inst/doc/residual-shadings.pdf
 23a35b9e4ad98965a8b98c760e030f21 *inst/doc/strucplot.R
 36cac2b2d77375961d3c9b940d83730c *inst/doc/strucplot.Rnw
-20c323aff1ee1cd975238225752251be *inst/doc/strucplot.pdf
+4e143753c4f31ef401907900b838dcb6 *inst/doc/strucplot.pdf
 52757bd94ba340a720830f6075f8b0fb *man/Arthritis.Rd
 912a44043a40235b1800aae01d50042e *man/Baseball.Rd
 1059d318cb78e6586c3b772ad941cc36 *man/BrokenMarriage.Rd
@@ -147,7 +147,7 @@ f9b406c3111ee9cacaa55124de6c9df8 *man/independence_table.Rd
 38edfa781bdfeb423aa717b6a0582555 *man/lodds.Rd
 7904c410ad3e24822f9f0d78dbcd628c *man/loddsratio.Rd
 6166d08f94e23cb571c4d655eeaa66cd *man/mar_table.Rd
-5bcd25dfac84b456b1c45b1f789d512d *man/mosaic.Rd
+1187ff998f847a32645b44af062f1a39 *man/mosaic.Rd
 081e08e1bba6835aa647e699797f72bf *man/mplot.Rd
 5b30e9c4f588e42dae6a92ae1da78ab9 *man/pairs.table.Rd
 60daf357b1adead635db07cf96569ff6 *man/panel_pairs_diagonal.Rd

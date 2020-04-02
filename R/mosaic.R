@@ -72,7 +72,7 @@ mosaic.default <- function(x, condvars = NULL,
                            spacing = NULL, spacing_args = list(),
                            gp = NULL, expected = NULL, shade = NULL,
                            highlighting = NULL,
-                           highlighting_fill = grey.colors,
+                           highlighting_fill = rev(gray.colors(tail(dim(x), 1))),
                            highlighting_direction = NULL,
                            zero_size = 0.5,
                            zero_split = FALSE,
@@ -96,7 +96,8 @@ mosaic.default <- function(x, condvars = NULL,
     if (is.null(split_vertical))
         split_vertical <- FALSE
 
-    dl <- length(dim(x))
+    d <- dim(x)
+    dl <- length(d)
 
     ## splitting argument
     if (!is.null(direction))
@@ -118,13 +119,14 @@ mosaic.default <- function(x, condvars = NULL,
                  else
                      c(seq(dl)[-highlighting], highlighting)
             x <- aperm(x, perm)
+            d <- d[perm]
             split_vertical <- split_vertical[perm]
             if (is.null(spacing))
                 spacing <- spacing_highlighting
             if (is.function(highlighting_fill))
-                highlighting_fill <- rev(highlighting_fill(dim(x)[dl]))
+                highlighting_fill <- highlighting_fill(d[dl])
             if (is.null(gp))
-                gp <- gpar(fill = highlighting_fill)
+                gp <- gpar(fill = aperm(array(highlighting_fill, dim = rev(d))))
             if (!is.null(highlighting_direction)) {
                 split_vertical[dl] <- highlighting_direction %in% c("left", "right")
                 if (highlighting_direction %in% c("left", "top")) {
@@ -132,7 +134,8 @@ mosaic.default <- function(x, condvars = NULL,
                     tmp <- as.data.frame.table(x)
                     tmp[,dl] <- factor(tmp[,dl], rev(levels(tmp[,dl])))
                     x <- xtabs(Freq ~ ., data = tmp)
-                    gp <- gpar(fill = rev(highlighting_fill))
+                    gp <- gpar(fill = aperm(array(rev(highlighting_fill),
+                                                  dim = rev(d))))
                 }
             }
         }

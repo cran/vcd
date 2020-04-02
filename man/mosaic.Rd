@@ -10,7 +10,8 @@
 \method{mosaic}{default}(x, condvars = NULL,
   split_vertical = NULL, direction = NULL, spacing = NULL,
   spacing_args = list(), gp = NULL, expected = NULL, shade = NULL,
-  highlighting = NULL, highlighting_fill = grey.colors, highlighting_direction = NULL,
+  highlighting = NULL, highlighting_fill = rev(gray.colors(tail(dim(x), 1))),
+  highlighting_direction = NULL,
   zero_size = 0.5, zero_split = FALSE, zero_shade = NULL,
   zero_gp = gpar(col = 0), panel = NULL, main = NULL, sub = NULL, \dots)
 \method{mosaic}{formula}(formula, data, highlighting = NULL,

@@ -2,10 +2,18 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.4-7}{
+  \itemize{
+      \item bugfix: highlighting was wrong since 1.4-5. It
+  now correctly recycles the fill parameter along *last* dimension (i.e., the
+  dependent variable), in contrast to standard behavior of mosaic()
+  }
+}
+
 \section{Changes in version 1.4-6}{
   \itemize{
       \item bugfix: doubledecker plot had wrong shading since 1.4-5. It
-  now recycles graphical parameters along *last* dimension (i.e., the
+  now correctly recycles graphical parameters along *last* dimension (i.e., the
   dependent variable), in contrast to standard behavior of mosaic().
   }
 }
