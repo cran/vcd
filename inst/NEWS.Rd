@@ -2,18 +2,28 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.4-8}{
+  \itemize{
+      \item New argument \code{pdigits=} in \code{legend_resbased()} to
+  specify the number of digits of p-values.
+  }
+}
+
+
 \section{Changes in version 1.4-7}{
   \itemize{
       \item bugfix: highlighting was wrong since 1.4-5. It
-  now correctly recycles the fill parameter along *last* dimension (i.e., the
-  dependent variable), in contrast to standard behavior of mosaic()
+      now correctly recycles the fill parameter along \emph{last}
+      dimension (i.e., the
+  dependent variable), in contrast to standard behavior of \code{mosaic()}
   }
 }
 
 \section{Changes in version 1.4-6}{
   \itemize{
       \item bugfix: doubledecker plot had wrong shading since 1.4-5. It
-  now correctly recycles graphical parameters along *last* dimension (i.e., the
+      now correctly recycles graphical parameters along \emph{last}
+      dimension (i.e., the
   dependent variable), in contrast to standard behavior of mosaic().
   }
 }
@@ -21,9 +31,9 @@
 
 \section{Changes in version 1.4-5}{
   \itemize{
-      \item small internal change in tile() to account for new grid
+      \item small internal change in \code{tile()} to account for new grid
       package.
-      \item graphical parameters are now recycled along *first* dimension.
+      \item graphical parameters are now recycled along \emph{first} dimension.
   }
 }
 

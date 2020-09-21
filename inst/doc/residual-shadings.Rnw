@@ -34,7 +34,7 @@ E-mail: \email{Kurt.Hornik@R-project.org}\\
 \begin{document}
 
 %\VignetteIndexEntry{Residual-Based Shadings in vcd}
-%\VignetteDepends{vcd,colorspace,MASS,grid,HSAUR,grid}
+%\VignetteDepends{vcd,colorspace,MASS,grid,HSAUR3,grid}
 %\VignetteKeywords{association plots, conditional inference, contingency tables, HCL colors, HSV colors, mosaic plots}
 %\VignettePackage{vcd}
 
@@ -154,12 +154,12 @@ inference and then visualizes it based on HCL colors.
 
 Instead of bringing out the result of the maximum test in the shading, we could also use
 a sum-of-squares shading that visualizes the result of the sum-of-squares test. As an illustration,
-we use the \code{pistonrings} data from the \code{HSAUR} \citep{vcd:Everitt+Hothorn:2006}
+we use the \code{pistonrings} data from the \code{HSAUR3} \citep{vcd:Everitt+Hothorn:2006}
 package giving the number of piston ring failurs in different legs of different compressors
 at an industry plant:
 
 <<pistonrings-data>>=
-data("pistonrings", package = "HSAUR")
+data("pistonrings", package = "HSAUR3")
 pistonrings
 @
 

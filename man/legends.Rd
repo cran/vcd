@@ -11,7 +11,8 @@ legend_resbased(fontsize = 12, fontfamily = "",
   x = unit(1, "lines"), y = unit(0.1,"npc"),
   height = unit(0.8, "npc"),
   width = unit(0.7, "lines"),
-  digits = 2, check_overlap = TRUE, text = NULL,
+  digits = 2, pdigits = max(1, getOption("digits") - 2),
+  check_overlap = TRUE, text = NULL,
   steps = 200, ticks = 10, pvalue = TRUE,  range = NULL)
 legend_fixed(fontsize = 12, fontfamily = "", x = unit(1, "lines"), y = NULL,
   height = NULL, width = unit(1.5, "lines"), steps = 200,
@@ -27,6 +28,7 @@ legend_fixed(fontsize = 12, fontfamily = "", x = unit(1, "lines"), y = NULL,
     height/width of the legend. For \code{legend_fixed}, the default for
     \code{y} is computed as to align upper margins of legend and actual plot.} 
   \item{digits}{number of digits for the scale labels.}
+  \item{pdigits}{number of digits for the p-value.}
   \item{check_overlap}{logical indicating whether overlap of scale
     labels should be inhibited or not.}
   \item{space}{For \code{legend_fixed} only: proportion of space

@@ -63,7 +63,7 @@ coindep_test(art, n = 5000, indepfun = ss)
 ###################################################
 ### code chunk number 8: pistonrings-data
 ###################################################
-data("pistonrings", package = "HSAUR")
+data("pistonrings", package = "HSAUR3")
 pistonrings
 
 

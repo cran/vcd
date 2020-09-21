@@ -160,7 +160,7 @@
   The strucplot framework: Visualizing multi-way contingency tables with
   \pkg{vcd}.
   \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
-  URL \url{http://www.jstatsoft.org/v17/i03/} and available as 
+  URL \url{https://www.jstatsoft.org/v17/i03/} and available as 
   \code{vignette("strucplot", package = "vcd")}.
 
   The home page of Michael Friendly

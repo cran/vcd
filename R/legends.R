@@ -5,6 +5,7 @@ legend_resbased <- function(fontsize = 12,
                             height = unit(0.8, "npc"),
                             width = unit(0.7, "lines"),
 			    digits = 2,
+                            pdigits = max(1, getOption("digits") - 2),
 			    check_overlap = TRUE,
                             text = NULL,
                             steps = 200,
@@ -101,7 +102,8 @@ legend_resbased <- function(fontsize = 12,
               just = c("left", "bottom")
               )
     if(!is.null(p.value) && pvalue) {
-      grid.text(paste("p-value =\n", format.pval(p.value), sep = ""),
+        grid.text(paste("p-value =\n",
+                        format.pval(p.value, digits = pdigits), sep = ""),
                 x = x,
                 y = y - unit(1, "lines"),
                 gp = gpar(fontsize = fontsize, fontfamily = fontfamily,
