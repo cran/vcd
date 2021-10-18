@@ -170,7 +170,8 @@ hcl2hex(h = 0, c = 35, l = 85, fixup = TRUE)
   Meyer D., Zeileis A., and Hornik K. (2006),
   The Strucplot Framework: Visualizing Multi-Way Contingency Tables with \pkg{vcd}.
   \emph{Journal of Statistical Software}, \bold{17}(3), 1--48.
-  URL http://www.jstatsoft.org/v17/i03/. See also \code{vignette("strucplot", package = "vcd")}.
+  \doi{10.18637/jss.v017.i03}.
+  See also \code{vignette("strucplot", package = "vcd")}.
 
   Zeileis A., Meyer D., Hornik K. (2007), Residual-Based Shadings for Visualizing
   (Conditional) Independence. \emph{Journal of Computational and Graphical Statistics},
@@ -179,7 +180,7 @@ hcl2hex(h = 0, c = 35, l = 85, fixup = TRUE)
   Zeileis A., Hornik K. and Murrell P. (2008),
   Escaping RGBland: Selecting Colors for Statistical Graphics.
   \emph{Computational Statistics & Data Analysis}, \bold{53}, 3259--3270.
-  Preprint available from \url{https://eeecon.uibk.ac.at/~zeileis/papers/Zeileis+Hornik+Murrell-2009.pdf}.
+  Preprint available from \url{https://www.zeileis.org/papers/Zeileis+Hornik+Murrell-2009.pdf}.
 }
 
 \value{A shading function which takes only a single argument, interpreted as a

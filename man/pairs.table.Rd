@@ -126,8 +126,8 @@ Hence, the second approach is equivalent to the first if
   The strucplot framework: Visualizing multi-way contingency tables with
   \pkg{vcd}.
   \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
-  URL http://www.jstatsoft.org/v17/i03/ and available as 
-  \code{vignette("strucplot")}.
+  Available as \code{vignette("strucplot", package = "vcd")}.
+  \doi{10.18637/jss.v017.i03}.
   
 }
 \author{

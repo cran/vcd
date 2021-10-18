@@ -2,6 +2,14 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.4-9}{
+  \itemize{
+      \item add \code{gp_axis} argument to \code{pairs_barplot()}.
+      \item fix URLs in JSS references.
+  }
+}
+
+
 \section{Changes in version 1.4-8}{
   \itemize{
       \item New argument \code{pdigits=} in \code{legend_resbased()} to

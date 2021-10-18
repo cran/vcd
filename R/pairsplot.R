@@ -182,6 +182,7 @@ class(pairs_diagonal_text) <- "grapcon_generator"
 pairs_barplot <- function(gp_bars = NULL,
                           gp_vartext = gpar(fontsize = 17),
                           gp_leveltext = gpar(),
+                          gp_axis = gpar(),
                           just_leveltext = c("center", "bottom"),
                           just_vartext = c("center", "top"),
                           rot = 0, abbreviate = FALSE,
@@ -207,7 +208,7 @@ pairs_barplot <- function(gp_bars = NULL,
               gp = gp_bars, default.units = "native",
               name = paste("panel:diag=", dn[i], "|bars", sep = ""),
               ...)
-    grid.yaxis(at = pretty(c(0,max(x))))
+    grid.yaxis(at = pretty(c(0,max(x))), gp = gp_axis)
     txt <- names(x)
     if (abbreviate)
       txt <- abbreviate(txt, abbreviate)

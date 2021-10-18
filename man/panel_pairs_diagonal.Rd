@@ -11,6 +11,7 @@
 pairs_barplot(gp_bars = NULL,
   gp_vartext = gpar(fontsize = 17),
   gp_leveltext = gpar(),
+  gp_axis = gpar(),
   just_leveltext = c("center", "bottom"),
   just_vartext = c("center", "top"),
   rot = 0, abbreviate = FALSE, check_overlap = TRUE, fill = "grey",
@@ -36,6 +37,7 @@ pairs_diagonal_mosaic(split_vertical = TRUE, margins = unit(0, "lines"),
     names.}
   \item{gp_leveltext}{object of class \code{"gpar"} used for the factor
     levels.}
+    \item{gp_axis}{object of class \code{"gpar"} used for the y axis.}
   \item{gp_border}{object of class \code{"gpar"} used for the border
     (only used for \code{pairs_text}).}
   \item{gp}{object of class \code{"gpar"} used for the tiles (only used
