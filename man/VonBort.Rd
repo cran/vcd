@@ -3,7 +3,7 @@
 \docType{data}
 \title{Von Bortkiewicz Horse Kicks Data}
 \description{
-  Data from von Bortkiewicz (1898), given by Andrews \& Herzberg (1985),
+  Data from von Bortkiewicz (1898), given by Andrews & Herzberg (1985),
   on number of deaths by horse or mule kicks in 14 corps of the Prussian
   army.
 }
@@ -21,7 +21,7 @@ data("VonBort")
   }
 }
 \references{
-  D. F. Andrews \& A. M. Herzberg (1985),
+  D. F. Andrews & A. M. Herzberg (1985),
   \emph{Data: A Collection of Problems from Many Fields for the Student
     and Research Worker}.
   Springer-Verlag, New York, NY.

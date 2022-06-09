@@ -1,5 +1,5 @@
 Package: vcd
-Version: 1.4-9
+Version: 1.4-10
 Title: Visualizing Categorical Data
 Authors@R: c(person(given = "David", family = "Meyer", role = c("aut", "cre"), email = "David.Meyer@R-project.org"),
              person(given = "Achim", family = "Zeileis", role = "aut",
@@ -23,7 +23,7 @@ Suggests: KernSmooth, mvtnorm, kernlab, HSAUR3, coin
 Imports: stats, utils, MASS, grDevices, colorspace, lmtest
 License: GPL-2
 NeedsCompilation: no
-Packaged: 2021-10-18 15:46:50 UTC; meyer
+Packaged: 2022-06-09 05:12:58 UTC; meyer
 Author: David Meyer [aut, cre],
   Achim Zeileis [aut] (<https://orcid.org/0000-0003-0918-3766>),
   Kurt Hornik [aut],
@@ -31,4 +31,4 @@ Author: David Meyer [aut, cre],
   Michael Friendly [ctb]
 Maintainer: David Meyer <David.Meyer@R-project.org>
 Repository: CRAN
-Date/Publication: 2021-10-18 16:30:02 UTC
+Date/Publication: 2022-06-09 06:47:14 UTC

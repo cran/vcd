@@ -80,20 +80,20 @@
   matrix which can be different for upper matrix, lower matrix, and
   diagonal cells.  Correspondingly, for each panel parameter \var{foo}
   (= \samp{upper}, \samp{lower}, or \samp{diag}), \code{pairs.table} takes
-  two arguments: \var{foo\_panel} and \var{foo\_panel\_args}, which can
+  two arguments: \var{foo_panel} and \var{foo_panel_args}, which can
   be used to specify the parameters as follows:
 
   \enumerate{
-    \item Passing a suitable panel function to \var{foo\_panel} which
+    \item Passing a suitable panel function to \var{foo_panel} which
     subsequently is called for each cell with the corresponding
     coordinates.
     \item Passing a corresponding \emph{generating function} (of class
-    \code{"panel_generator"}) to \var{foo\_panel}, along with parameters passed to
-    \var{foo\_panel\_args}, that generates such a function. 
+    \code{"panel_generator"}) to \var{foo_panel}, along with parameters passed to
+    \var{foo_panel_args}, that generates such a function. 
   }
 Hence, the second approach is equivalent to the first if
-\var{foo\_panel(foo\_panel\_args)} is passed to
-\var{foo\_panel}.
+\var{foo_panel(foo_panel_args)} is passed to
+\var{foo_panel}.
 
   
 }
@@ -126,8 +126,8 @@ Hence, the second approach is equivalent to the first if
   The strucplot framework: Visualizing multi-way contingency tables with
   \pkg{vcd}.
   \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
-  Available as \code{vignette("strucplot", package = "vcd")}.
-  \doi{10.18637/jss.v017.i03}.
+  \doi{10.18637/jss.v017.i03} and available as 
+  \code{vignette("strucplot")}.
   
 }
 \author{

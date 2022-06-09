@@ -2,6 +2,10 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.4-10}{
+  \itemize{\item cosmetic changes.}
+}
+
 \section{Changes in version 1.4-9}{
   \itemize{
       \item add \code{gp_axis} argument to \code{pairs_barplot()}.

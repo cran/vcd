@@ -3,7 +3,7 @@
 \docType{data}
 \title{Pre-marital Sex and Divorce}
 \description{
-  Data from Thornes \& Collard (1979), reported in Gilbert (1981), on
+  Data from Thornes & Collard (1979), reported in Gilbert (1981), on
   pre- and extra-marital sex and divorce.
 }
 \usage{
@@ -29,9 +29,9 @@ data("PreSex")
     Social Researchers}.
   Allen and Unwin, London.
 
-  B. Thornes \& J. Collard (1979),
+  B. Thornes & J. Collard (1979),
   \emph{Who Divorces?}.
-  Routledge \& Kegan, London.
+  Routledge & Kegan, London.
 
   M. Friendly (2000),
   \emph{Visualizing Categorical Data}.

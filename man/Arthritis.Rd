@@ -3,7 +3,7 @@
 \docType{data}
 \title{Arthritis Treatment Data}
 \description{
-  Data from Koch \& Edwards (1988) from a double-blind clinical trial
+  Data from Koch & Edwards (1988) from a double-blind clinical trial
   investigating a new treatment for rheumatoid arthritis.
 }
 \usage{data("Arthritis")}
@@ -20,7 +20,7 @@
 }
 
 \references{
-  G. Koch \& S. Edwards (1988),
+  G. Koch & S. Edwards (1988),
   Clinical efficiency trials with categorical data.
   In K. E. Peace (ed.), \emph{Biopharmaceutical Statistics for Drug
     Development}, 403--451.

@@ -83,8 +83,8 @@ struc_assoc(compress = TRUE, xlim = NULL, ylim = NULL,
   The strucplot framework: Visualizing multi-way contingency tables with
   \pkg{vcd}.
   \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
-  Available as \code{vignette("strucplot", package = "vcd")}.
-  \doi{10.18637/jss.v017.i03}.
+  \doi{10.18637/jss.v017.i03} and available as 
+  \code{vignette("strucplot")}.
 }
 \examples{
 ## UCB Admissions

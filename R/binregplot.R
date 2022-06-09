@@ -47,7 +47,7 @@ function(model, main = NULL, xlab = NULL, ylab = NULL,
     ## filter observed data using model (to account for models fitted with subset=...)
     dat <- model$data[row.names(mod),]
     ## sort observations using order of numeric predictor
-    o <- order(dat[,pred_var])
+    o <- order(dat[,pred_var,drop=TRUE])
     mod <- mod[o,]
     dat <- dat[o,]
 
@@ -109,7 +109,7 @@ function(model, main = NULL, xlab = NULL, ylab = NULL,
             dat[,cross] <- factor(apply(dat[,group_vars], 1, paste, collapse = " : "))
             group_vars <- cross
         }
-        lev <- levels(dat[,group_vars])
+        lev <- levels(dat[,group_vars,drop=TRUE])
     }
 
     ## set x- and y-lab
@@ -160,7 +160,7 @@ function(model, main = NULL, xlab = NULL, ylab = NULL,
         } else
             jitter(ylim[1 + (mod[ind, resp] != base_level)], jitter_factor)
         if (cex > 0)
-            grid.points(unit(dat[ind, pred_var], "native"),
+            grid.points(unit(dat[ind, pred_var, drop = TRUE], "native"),
                         unit(ycoords, "native"),
                         pch = pch, size = unit(cex, "char"), gp = gpar(col = colline),
                         default.units = "native"
@@ -171,7 +171,7 @@ function(model, main = NULL, xlab = NULL, ylab = NULL,
         if (is.character(pred_range)) {
             if (pred_range == "data") {
                 D <- dat[ind,]
-                P <- D[,pred_var]
+                P <- D[,pred_var, drop = TRUE]
             } else {
                 P <- seq(from = xlim[1L], to = xlim[2L], length.out = 100L)
                 D <- dat[ind,][rep(1L, length(P)),]
@@ -251,7 +251,7 @@ function(model, main = NULL, xlab = NULL, ylab = NULL,
     } else {
         ## multiple curves
         for (i in seq_along(lev)) {
-            ind <- dat[,group_vars] == lev[i]
+            ind <- dat[,group_vars,drop=TRUE] == lev[i]
             draw(ind, col_bands[i], col_lines[i], pch[i], lev[i])
         }
 

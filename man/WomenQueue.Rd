@@ -3,7 +3,7 @@
 \docType{data}
 \title{Women in Queues}
 \description{
-  Data from Jinkinson \& Slater (1981) and Hoaglin \& Tukey (1985)
+  Data from Jinkinson & Slater (1981) and Hoaglin & Tukey (1985)
   reporting the frequency distribution of females in 100 queues of
   length 10 in a London Underground station.
 }
@@ -19,13 +19,13 @@ data("WomenQueue")
   }
 }
 \references{
-  D. C. Hoaglin \& J. W. Tukey (1985),
+  D. C. Hoaglin & J. W. Tukey (1985),
   Checking the shape of discrete distributions.
   In D. C. Hoaglin, F. Mosteller, J. W. Tukey (eds.),
   \emph{Exploring Data Tables, Trends and Shapes}, chapter 9.
-  John Wiley \& Sons, New York.
+  John Wiley & Sons, New York.
 
-  R. A. Jinkinson \& M. Slater (1981),
+  R. A. Jinkinson & M. Slater (1981),
   Critical discussion of a graphical method for identifying discrete
   distributions,
   \emph{The Statistician}, \bold{30}, 239--248.

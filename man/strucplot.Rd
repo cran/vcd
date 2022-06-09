@@ -152,7 +152,7 @@ strucplot(x, residuals = NULL, expected = NULL,
   functions and specified as parameters.  For
   each element \emph{foo} (= \code{spacing}, \code{labeling}, \code{core},
   or \code{legend}), \code{strucplot} takes two arguments:
-  \var{foo} and \var{foo\_args}, which can be used to specify the
+  \var{foo} and \var{foo_args}, which can be used to specify the
   parameters in the following alternative ways:
 
   \enumerate{
@@ -160,12 +160,12 @@ strucplot(x, residuals = NULL, expected = NULL,
     will be called from \code{strucplot} to compute shadings, labelings,
     etc.
     \item Passing a corresponding \emph{generating} function to \var{foo},
-    along with parameters passed to \var{foo\_args}, that generates such a
+    along with parameters passed to \var{foo_args}, that generates such a
     function. Generating functions must inherit from classes
     \code{"grapcon_generator"} and \code{"}\var{foo}\code{"}.
     
-    \item Except for the shading functions (\var{shading\_bar}),
-    passing \var{foo(foo\_args)} to the \var{foo} argument.
+    \item Except for the shading functions (\var{shading_bar}),
+    passing \var{foo(foo_args)} to the \var{foo} argument.
     \item For shadings and spacings, passing the final parameter object
     itself; see the corresponding help pages for more details on the
     data structures.
@@ -185,7 +185,7 @@ strucplot(x, residuals = NULL, expected = NULL,
 }
 \note{
   The created viewports, as well as the tiles and bullets, are named and
-  thus can conveniently modified after a plot has been drawn (and
+  thus can conveniently be modified after a plot has been drawn (and
   \code{pop = FALSE}).
 }
 
@@ -203,8 +203,8 @@ strucplot(x, residuals = NULL, expected = NULL,
   The strucplot framework: Visualizing multi-way contingency tables with
   \pkg{vcd}.
   \emph{Journal of Statistical Software}, \bold{17(3)}, 1-48.
-  Available as \code{vignette("strucplot", package = "vcd")}.
-  \doi{10.18637/jss.v017.i03}.
+  \doi{10.18637/jss.v017.i03} and available as 
+  \code{vignette("strucplot")}.
 }
 
 \seealso{

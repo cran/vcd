@@ -3,7 +3,7 @@
 \docType{data}
 \title{Death by Horse Kicks}
 \description{
-  Data from von Bortkiewicz (1898), given by Andrews \& Herzberg (1985),
+  Data from von Bortkiewicz (1898), given by Andrews & Herzberg (1985),
   on number of deaths by horse or mule kicks in 10 (of 14 reported)
   corps of the Prussian army.  4 corps were not considered by Fisher
   (1925) as they had a different organization. This data set is a
@@ -29,7 +29,7 @@ data("HorseKicks")
 
   R. A. Fisher (1925),
   \emph{Statistical Methods for Research Workers}.
-  Oliver \& Boyd, London.
+  Oliver & Boyd, London.
 
   L. von Bortkiewicz (1898),
   \emph{Das Gesetz der kleinen Zahlen}.

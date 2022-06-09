@@ -170,8 +170,7 @@ hcl2hex(h = 0, c = 35, l = 85, fixup = TRUE)
   Meyer D., Zeileis A., and Hornik K. (2006),
   The Strucplot Framework: Visualizing Multi-Way Contingency Tables with \pkg{vcd}.
   \emph{Journal of Statistical Software}, \bold{17}(3), 1--48.
-  \doi{10.18637/jss.v017.i03}.
-  See also \code{vignette("strucplot", package = "vcd")}.
+  \doi{10.18637/jss.v017.i03}. See also \code{vignette("strucplot", package = "vcd")}.
 
   Zeileis A., Meyer D., Hornik K. (2007), Residual-Based Shadings for Visualizing
   (Conditional) Independence. \emph{Journal of Computational and Graphical Statistics},
