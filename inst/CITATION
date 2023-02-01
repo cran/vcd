@@ -1,48 +1,41 @@
-citHeader("To cite package vcd in publications use:")
-
-## R >= 2.8.0 passes package metadata to citation().
-if(!exists("meta") || is.null(meta)) meta <- packageDescription("vcd")
-
-year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
-vers <- paste("R package version", meta$Version)
-
-bibentry("Manual",
-         title = "vcd: Visualizing Categorical Data",
-         author = personList(as.person("David Meyer"),
-			     as.person("Achim Zeileis"),
-	                     as.person("Kurt Hornik")),
-         year = year,
-         note = vers,
-
-         textVersion =
-         paste("David Meyer, Achim Zeileis, and Kurt Hornik (", year,
-               "). vcd: Visualizing Categorical Data. ",
-               vers, ".", sep=""))
+citation(auto = meta)
 
 bibentry("Article",
-	 header="To cite the strucplot framework (e.g., functions mosaic(), sieve(), assoc(), strucplot(), structable(), pairs.table(), cotabplot(), doubledecker()), additionally use:",
+	 header = "To cite the strucplot framework (e.g., functions mosaic(), sieve(), assoc(), strucplot(), structable(), pairs.table(), cotabplot(), doubledecker()), additionally use:",
          title = "The Strucplot Framework: Visualizing Multi-Way Contingency Tables with vcd",
-         author = personList(as.person("David Meyer"),
-			     as.person("Achim Zeileis"),
-	                     as.person("Kurt Hornik")),
+         author = c(person("David", "Meyer",
+                           email = "David.Meyer@R-project.org",
+                           comment = c(ORCID = "0000-0002-5196-3048")),
+                    person("Achim", "Zeileis",
+                           email = "Achim.Zeileis@R-project.org",
+                           comment = c(ORCID = "0000-0003-0918-3766")),
+                    person("Kurt", "Hornik",
+                           email = "Kurt.Hornik@R-project.org",
+                           comment = c(ORCID = "0000-0003-4198-9911"))),
          journal      = "Journal of Statistical Software",
          year         = "2006",
 	 volume       = "17",
 	 number       = "3",
 	 pages        = "1--48",
-   doi          = "10.18637/jss.v017.i03"
+         doi          = "10.18637/jss.v017.i03"
 )
 
 bibentry("Article",
-	 header="If you use the residual-based shadings (in mosaic() or assoc()), please cite:",
+	 header = "If you use the residual-based shadings (in mosaic() or assoc()), please cite:",
          title = "Residual-based Shadings for Visualizing (Conditional) Independence",
-         author = personList(as.person("Achim Zeileis"),
-	                     as.person("David Meyer"),
-			     as.person("Kurt Hornik")),
+         author = c(person("Achim", "Zeileis",
+                           email = "Achim.Zeileis@R-project.org",
+                           comment = c(ORCID = "0000-0003-0918-3766")),
+                    person("David", "Meyer",
+                           email = "David.Meyer@R-project.org",
+                           comment = c(ORCID = "0000-0002-5196-3048")),
+                    person("Kurt", "Hornik",
+                           email = "Kurt.Hornik@R-project.org",
+                           comment = c(ORCID = "0000-0003-4198-9911"))),
          journal      = "Journal of Computational and Graphical Statistics",
          year         = "2007",
 	 volume       = "16",
 	 number       = "3",
 	 pages        = "507--525",
-   doi          = "10.1198/106186007X237856"
+         doi          = "10.1198/106186007X237856"
 )

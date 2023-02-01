@@ -2,6 +2,10 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.4-11}{
+  \itemize{\item add ORCID IDs}
+}
+
 \section{Changes in version 1.4-10}{
   \itemize{\item cosmetic changes.}
 }
