@@ -53,10 +53,10 @@ ftable(tab, col.vars = "survival", row.vars = c("stage", "operation", "xray"))
 ##   the survival depends on stage, but not xray and operation.
 doubledecker(survival ~ stage + operation + xray, data = tab)
 mosaic(~ stage + operation + xray + survival,
-  split = c(FALSE, TRUE, TRUE, FALSE), data = tab, keep = FALSE,
+  split_vertical = c(FALSE, TRUE, TRUE, FALSE), data = tab, keep_aspect_ratio = FALSE,
   gp = gpar(fill = rev(grey.colors(2))))
 mosaic(~ stage + operation + xray + survival,
-  split = c(FALSE, TRUE, TRUE, FALSE), data = tab, keep = FALSE,
+  split_vertical = c(FALSE, TRUE, TRUE, FALSE), data = tab, keep_aspect_ratio = FALSE,
   expected = ~ xray * operation * stage + survival*stage)
 }
 

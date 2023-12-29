@@ -67,7 +67,7 @@ data("UCBAdmissions")
 fm <- loglm(~ Dept * (Gender + Admit), data = aperm(UCBAdmissions))
 
 ## use mosaic display
-plot(fm, labeling_args = list(abbreviate = c(Admit = 3)))
+plot(fm, labeling_args = list(abbreviate_labs = c(Admit = 3)))
 
 ## and association plot
 plot(fm, panel = assoc)

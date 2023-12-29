@@ -130,7 +130,7 @@ alz
 ### code chunk number 13: alzheimer-plot1
 ###################################################
 set.seed(rseed)
-cotabplot(~ smoking + disease | gender, data = alz, panel = cotab_coindep, n = 5000)
+cotabplot(~ smoking + disease | gender, data = alz, panel = cotab_coindep, panel_args = list(n = 5000))
 
 
 ###################################################
@@ -148,7 +148,7 @@ coindep_test(alz, 3, n = 5000, indepfun = ss, aggfun = sum)
 ### code chunk number 15: alzheimer-plot (eval = FALSE)
 ###################################################
 ## set.seed(rseed)
-## cotabplot(~ smoking + disease | gender, data = alz, panel = cotab_coindep, n = 5000)
+## cotabplot(~ smoking + disease | gender, data = alz, panel = cotab_coindep, panel_args = list(n = 5000))
 
 
 ###################################################

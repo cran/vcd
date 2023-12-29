@@ -42,8 +42,10 @@ pun <- xtabs(Freq ~ memory + attitude + age + education, data = Punishment)
 
 ## model: ~ (memory + attitude) * age * education
 ## use maximum sum-of-squares test/shading
-cotabplot(~ memory + attitude | age + education, data = pun, panel = cotab_coindep,
-  n = 5000, type = "assoc", test = "maxchisq", interpolate = 1:2)
+
+cotabplot(~ memory + attitude | age + education, data = pun,
+          panel = cotab_coindep, panel_args = list( 
+  n = 5000, type = "assoc", test = "maxchisq", interpolate = 1:2))
 }
 
 \keyword{datasets}

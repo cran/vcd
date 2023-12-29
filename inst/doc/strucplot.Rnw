@@ -1475,8 +1475,8 @@ in the original \proglang{SAS} implementation of the Friendly mosaic plots.)
 % {
 %   type <- match.arg(type)
 %   if(type == "HCL") {
-%     chroma = seq(0, 100, length = grid.n)
-%     luminance = seq(0, 100, length = grid.n)
+%     chroma = seq(0, 100, length.out = grid.n)
+%     luminance = seq(0, 100, length.out = grid.n)
 %     nc <- length(chroma)
 %     nl <- length(luminance)
 %     color.slice <- outer(chroma, luminance, function(y, x) hcl(hue, x, y, fixup = fixup))
@@ -1484,8 +1484,8 @@ in the original \proglang{SAS} implementation of the Friendly mosaic plots.)
 %     ylab <- "luminance"
 %     main <- paste("hue =", round(hue, digits = 0))
 %   } else {
-%     chroma = seq(0, 1, length = grid.n)
-%     luminance = seq(0, 1, length = grid.n)
+%     chroma = seq(0, 1, length.out = grid.n)
+%     luminance = seq(0, 1, length.out = grid.n)
 %     nc <- length(chroma)
 %     nl <- length(luminance)
 %     color.slice <- outer(chroma, luminance, function(y, x) hsv(hue, x, y))

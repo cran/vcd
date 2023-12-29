@@ -1,5 +1,5 @@
 Package: vcd
-Version: 1.4-11
+Version: 1.4-12
 Title: Visualizing Categorical Data
 Authors@R: c(person(given = "David", family = "Meyer", role = c("aut", "cre"),
                     email = "David.Meyer@R-project.org",
@@ -11,7 +11,9 @@ Authors@R: c(person(given = "David", family = "Meyer", role = c("aut", "cre"),
 	            email = "Kurt.Hornik@R-project.org",
                     comment = c(ORCID = "0000-0003-4198-9911")),
              person(given = "Florian", family = "Gerber", role = "ctb"),
-             person(given = "Michael", family = "Friendly", role = "ctb"))
+             person(given = "Michael", family = "Friendly", role = "aut",
+	            email = "friendly@yorku.ca",
+		    comment = c(ORCID = "0000-0002-3237-0941")))
 Description: Visualization techniques, data sets, summary and inference
         procedures aimed particularly at categorical data. Special
         emphasis is given to highly extensible grid graphics. The
@@ -22,17 +24,17 @@ Description: Visualization techniques, data sets, summary and inference
 	David Meyer (2015).
 LazyLoad: yes
 LazyData: yes
-Depends: R (>= 2.10), grid
+Depends: R (>= 2.4.0), grid
 Suggests: KernSmooth, mvtnorm, kernlab, HSAUR3, coin
 Imports: stats, utils, MASS, grDevices, colorspace, lmtest
 License: GPL-2
 NeedsCompilation: no
-Packaged: 2023-02-01 11:02:32 UTC; hornik
+Packaged: 2023-12-29 10:29:06 UTC; meyer
 Author: David Meyer [aut, cre] (<https://orcid.org/0000-0002-5196-3048>),
   Achim Zeileis [aut] (<https://orcid.org/0000-0003-0918-3766>),
   Kurt Hornik [aut] (<https://orcid.org/0000-0003-4198-9911>),
   Florian Gerber [ctb],
-  Michael Friendly [ctb]
+  Michael Friendly [aut] (<https://orcid.org/0000-0002-3237-0941>)
 Maintainer: David Meyer <David.Meyer@R-project.org>
 Repository: CRAN
-Date/Publication: 2023-02-01 13:22:08 UTC
+Date/Publication: 2023-12-29 16:49:54 UTC

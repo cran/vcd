@@ -50,7 +50,7 @@ legend_resbased <- function(fontsize = 12,
 
 
       if(is.null(legend$col.bins)) {
-        col.bins <- seq(range[1], range[2], length = steps)
+        col.bins <- seq(range[1], range[2], length.out = steps)
         at <- NULL
       } else {
         col.bins <- sort(unique(c(legend$col.bins, range)))
@@ -70,7 +70,7 @@ legend_resbased <- function(fontsize = 12,
 
       if(is.null(at))
             at <- seq(from = head(col.bins, 1), to = tail(col.bins, 1),
-                      length = ticks)
+                      length.out = ticks)
       lab <- format(round(at, digits = digits), nsmall = digits)
       tw <- lab[which.max(nchar(lab))]
 
@@ -156,7 +156,7 @@ legend_fixed <- function(fontsize = 12,
             range[2] <- max(res)
 
     if(is.null(legend$col.bins)) {
-      col.bins <- seq(range[1], range[2], length = steps)
+      col.bins <- seq(range[1], range[2], length.out = steps)
     } else {
       col.bins <- sort(unique(c(legend$col.bins, range)))
       col.bins <- col.bins[col.bins <= range[2] & col.bins >= range[1]]

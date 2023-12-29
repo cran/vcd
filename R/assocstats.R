@@ -34,9 +34,9 @@ print.assocstats <- function(x,
 {
   print(x$chisq_tests, digits = 5, ...)
   cat("\n")
-  cat("Phi-Coefficient   :", round(x$phi,    digits = digits), "\n")
-  cat("Contingency Coeff.:", round(x$cont,   digits = digits), "\n")
-  cat("Cramer's V        :", round(x$cramer, digits = digits), "\n")
+  cat("Phi-Coefficient   :", round(x$phi,         digits = digits), "\n")
+  cat("Contingency Coeff.:", round(x$contingency, digits = digits), "\n")
+  cat("Cramer's V        :", round(x$cramer,      digits = digits), "\n")
   invisible(x)
 }
 

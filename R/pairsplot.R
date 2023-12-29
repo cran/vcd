@@ -201,7 +201,7 @@ pairs_barplot <- function(gp_bars = NULL,
     pushViewport(viewport(x = 0.3, y = 0.1, width = 0.7, height = 0.7,
                           yscale = c(0,max(x)), just = c("left", "bottom"))
                  )
-    xpos <- seq(0, 1, length = length(x) + 1)[-1]
+    xpos <- seq(0, 1, length.out = length(x) + 1)[-1]
     halfstep <- (xpos[2] - xpos[1]) / 2
     grid.rect(xpos - halfstep, rep.int(0, length(x)), height = x,
               just = c("center", "bottom"), width = halfstep,

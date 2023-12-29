@@ -266,7 +266,7 @@ labeling_border <- function(labels = TRUE, varnames = labels,
                              s = col["s",i],
                              v = seq(from = col["v",i],
                                      to = 0.5 * col["v",i],
-                                     length = dnl[i])
+                                     length.out = dnl[i])
                              )
              )
     } else {

@@ -162,7 +162,7 @@ strucplot(x, residuals = NULL, expected = NULL,
     \item Passing a corresponding \emph{generating} function to \var{foo},
     along with parameters passed to \var{foo_args}, that generates such a
     function. Generating functions must inherit from classes
-    \code{"grapcon_generator"} and \code{"}\var{foo}\code{"}.
+    \code{"grapcon_generator"} and \code{"\var{foo}"}.
     
     \item Except for the shading functions (\var{shading_bar}),
     passing \var{foo(foo_args)} to the \var{foo} argument.

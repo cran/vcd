@@ -77,7 +77,7 @@ function(x,
     if(is.null(dnx))
         dnx <- vector("list", 3)
     for(i in which(sapply(dnx, is.null)))
-        dnx[[i]] <- LETTERS[seq(length = dim(x)[i])]
+        dnx[[i]] <- LETTERS[seq(length.out = dim(x)[i])]
     if(is.null(names(dnx)))
         i <- 1 : 3
     else
@@ -115,7 +115,7 @@ function(x,
     }
 
     drawPie <- function(r, from, to, n = 500, color = "transparent") {
-        p <- 2 * pi * seq(from, to, length = n) / 360
+        p <- 2 * pi * seq(from, to, length.out = n) / 360
         x <- c(cos(p), 0) * r
         y <- c(sin(p), 0) * r
         grid.polygon(x, y, gp = gpar(fill = color), default.units = "native")
@@ -302,10 +302,10 @@ function(x,
         else 0
 
         d <- odds(tab)$or
-        drawPie(sqrt(fit[1,1]),  90, 180, col = color[1 + (d > 1) + emphasize])
-        drawPie(sqrt(fit[2,1]), 180, 270, col = color[2 - (d > 1) + emphasize])
-        drawPie(sqrt(fit[1,2]),   0,  90, col = color[2 - (d > 1) + emphasize])
-        drawPie(sqrt(fit[2,2]), 270, 360, col = color[1 + (d > 1) + emphasize])
+        drawPie(sqrt(fit[1,1]),  90, 180, color = color[1 + (d > 1) + emphasize])
+        drawPie(sqrt(fit[2,1]), 180, 270, color = color[2 - (d > 1) + emphasize])
+        drawPie(sqrt(fit[1,2]),   0,  90, color = color[2 - (d > 1) + emphasize])
+        drawPie(sqrt(fit[2,2]), 270, 360, color = color[1 + (d > 1) + emphasize])
 
         u <- 1 - space / 2
         grid.text(as.character(c(tab))[1],

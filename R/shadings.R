@@ -48,7 +48,7 @@ shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   ## set up function for interpolation of saturation
   if(!is.function(interpolate)) {
     col.bins <- sort(interpolate)
-    interpolate <- stepfun(col.bins,  seq(my.s[2], my.s[1], length = length(col.bins) + 1))
+    interpolate <- stepfun(col.bins,  seq(my.s[2], my.s[1], length.out = length(col.bins) + 1))
     col.bins <- sort(unique(c(col.bins, 0, -col.bins)))
   } else {
     col.bins <- NULL
@@ -143,7 +143,7 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   ## set up function for interpolation of saturation
   if(!is.function(interpolate)) {
     col.bins <- sort(interpolate)
-    interpolate <- stepfun(col.bins,  seq(0, 1, length = length(col.bins) + 1))
+    interpolate <- stepfun(col.bins,  seq(0, 1, length.out = length(col.bins) + 1))
     col.bins <- sort(unique(c(col.bins, 0, -col.bins)))
   } else {
     col.bins <- NULL

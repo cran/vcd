@@ -198,7 +198,7 @@ assoc(aperm(HairEyeColor), expected = ~ (Hair + Eye) * Sex,
 )
 
 assoc(aperm(UCBAdmissions), expected = ~ (Admit + Gender) * Dept, compress = FALSE,
-      labeling_args = list(abbreviate = c(Gender = TRUE), rot_labels = 0)
+      labeling_args = list(abbreviate_labs = c(Gender = TRUE), rot_labels = 0)
 )
 }
 \keyword{hplot}

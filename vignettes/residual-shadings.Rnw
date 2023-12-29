@@ -251,7 +251,7 @@ alz
 \begin{center}
 <<alzheimer-plot1, fig=TRUE, echo=FALSE, height=5, width=9>>=
 set.seed(rseed)
-cotabplot(~ smoking + disease | gender, data = alz, panel = cotab_coindep, n = 5000)
+cotabplot(~ smoking + disease | gender, data = alz, panel = cotab_coindep, panel_args = list(n = 5000))
 @
 \caption{Conditional mosaic plot with double maximum shading for conditional
 independence of smoking and disease given gender.}

@@ -93,6 +93,6 @@ ucb <- aperm(UCBAdmissions)
 
 ## association plot for conditional independence
 strucplot(ucb, expected = ~ Dept * (Admit + Gender),
-  core = struc_assoc(ylim = c(-4, 4)), labeling_args = list(abbreviate = c(Admit = 3)))
+  core = struc_assoc(ylim = c(-4, 4)), labeling_args = list(abbreviate_labs = c(Admit = 3)))
 }
 \keyword{hplot}
