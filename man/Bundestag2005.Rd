@@ -39,8 +39,8 @@ that resulted from the election.
 }
 
 \source{
-  Der Bundeswahlleiter, Statistisches Bundesamt.  
-  \url{https://www.bundeswahlleiter.de/bundestagswahlen/2005.html}
+  Die Bundeswahlleiterin, Statistisches Bundesamt.  
+  \url{https://www.bundeswahlleiterin.de/bundestagswahlen/2005.html}
 }
 
 \examples{

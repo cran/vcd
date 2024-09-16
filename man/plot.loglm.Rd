@@ -13,7 +13,7 @@
   \dots)
 }
 \arguments{
-  \item{x}{a fitted \code{"loglm"} object, see \code{\link{loglm}}.}
+  \item{x}{a fitted \code{"loglm"} object, see \code{\link[MASS]{loglm}}.}
   \item{panel}{a panel function for visualizing the observed values,
     residuals and expected values. Currently, \code{\link{mosaic}} and
     \code{\link{assoc}} in \pkg{vcd}.}
@@ -45,7 +45,7 @@
   Achim Zeileis \email{Achim.Zeileis@R-project.org}
 }
 \seealso{
-  \code{\link{loglm}},
+  \code{\link[MASS]{loglm}},
   \code{\link{assoc}},
   \code{\link{mosaic}},
   \code{\link{strucplot}}
