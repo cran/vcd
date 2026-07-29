@@ -261,7 +261,7 @@ doubledecker(Survived ~ ., data = Titanic, labeling_args =
 This paper describes the strucplot framework provided by the \pkg{vcd}
 package for the \proglang{R} environment for statistical computing and
 graphics, available from the Comprehensive \proglang{R} Archive Network
-(\url{http://CRAN.R-project.org/}).  The framework integrates displays
+(\url{https://CRAN.R-project.org/}).  The framework integrates displays
 such as mosaic, association, and sieve plots by their unifying property
 of being flat representations of contingency tables.  These basic plots,
 as well as specialized displays for conditional independence, can be

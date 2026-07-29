@@ -885,5 +885,3 @@ mosaic(tab, expected = ~ (survival + operation * xray) * stage, split_vertical =
 ### code chunk number 108: ocmosaicstage
 ###################################################
 mosaic(tab, expected = ~ (survival + operation * xray) * stage, split_vertical = split)
-
-

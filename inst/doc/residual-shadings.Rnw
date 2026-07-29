@@ -43,10 +43,10 @@ E-mail: \email{Kurt.Hornik@R-project.org}\\
 \section{Introduction} \label{sec:intro}
 
 In this vignette, we show how all empirical examples from \cite{vcd:Zeileis+Meyer+Hornik:2007}
-can be reproduced in \proglang{R}\citep[\mbox{\url{http://www.R-project.org/}}]{vcd:R:2006},
+can be reproduced in \proglang{R}\citep[\mbox{\url{https://www.R-project.org/}}]{vcd:R:2006},
 in particular using the package \pkg{vcd} \citep{vcd:Meyer+Zeileis+Hornik:2006}. Additionally,
-the pakcages \pkg{MASS} \citep[see][]{vcd:Venables+Ripley:2002},
-\pkg{grid} \citep[see][]{vcd:Murrell:2002} and \pkg{colorspace} \citep{vcd:Ihaka:2004}
+the packages \pkg{MASS} \citep[see][]{vcd:Venables+Ripley:2002},
+\pkg{grid} \citep[see][]{vcd:Murrell:2002} and \pkg{colorspace} \citep{vcd:Ihaka:2006}
 are employed. All are automatically loaded together with \pkg{vcd}:
 
 <<preliminaries, results=hide>>=
@@ -56,7 +56,7 @@ rseed <- 1071
 @
 
 Furthermore, we define a \code{rseed} which will be used as the random seed for making
-the results of the permutation tests (conditional inference) below exactly reproducible.
+the results of the permutation tests (conditional inference) below exactly reproducible.	
 In the following, we focus on the \proglang{R} code and output---for background information
 on the methods and the data sets, please consult \cite{vcd:Zeileis+Meyer+Hornik:2007}.
 

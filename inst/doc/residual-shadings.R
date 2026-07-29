@@ -200,5 +200,3 @@ coindep_test(pun, 3:4, n = 5000, indepfun = ss, aggfun = sum)
 ## set.seed(rseed)
 ## cotabplot(~ memory + attitude | age + education, data = pun, panel = cotab_coindep,
 ##   n = 5000, type = "mosaic", test = "maxchisq", interpolate = 1:2)
-
-

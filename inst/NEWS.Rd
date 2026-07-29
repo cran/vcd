@@ -2,6 +2,17 @@
 \title{News for Package \pkg{vcd}}
 \newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 1.4-14}{
+  \itemize{
+    \item Minor bug fixes in docs and vignettes.
+    \item \code{struc_assoc()} now fixes dimname names in the table
+          of expected values if missing.
+    \item \code{coindep_test()} did wrongly try to apply
+          \code{aggfun()} to the residuals if this
+          was actually missing (instead of not applying it).
+  }
+}
+
 \section{Changes in version 1.4-13}{
   \itemize{\item Minor bug fix in docs.}
 }

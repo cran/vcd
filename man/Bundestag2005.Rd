@@ -48,7 +48,7 @@ library(colorspace)
 ## The outcome of the election in terms of seats in the
 ## parliament was:
 seats <- structure(c(226, 61, 54, 51, 222),
-  .Names = c("CDU/CSU", "FDP",  "Linke", "Gruene", "SPD"))
+  names = c("CDU/CSU", "FDP",  "Linke", "Gruene", "SPD"))
 
 ## Hues are chosen as metaphors for the political parties
 ## CDU/CSU: blue, FDP: yellow, Linke: purple, Gruene: green, SPD: red

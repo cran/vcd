@@ -190,6 +190,8 @@ struc_assoc <- function(compress = TRUE, xlim = NULL, ylim = NULL,
         dnn <- names(dn)
         dx <- dim(expected)
         dl <- length(dx)
+        if (is.null(dnn))
+            dnn <- names(dn) <- names(dimnames(expected)) <- LETTERS[1:dl]
 
         ## axis limits
         resid <- structable(residuals, split_vertical = split_vertical)

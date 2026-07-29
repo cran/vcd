@@ -13,7 +13,7 @@ coindep_test <- function(x, margin = NULL, n = 1000,
     Pearson <- function(x) (x - expctd)/sqrt(expctd)      
     resids <- Pearson(x)
     
-    ff <- if(is.null(aggfun)) {
+    ff <- if(!is.null(aggfun)) {
       if(pearson) function(x) aggfun(indepfun(Pearson(x)))
         else function(x) aggfun(indepfun(x))
     } else {

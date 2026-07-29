@@ -33,7 +33,7 @@ data("Bundesliga")
 }
 \source{
   Homepage of the Deutscher Fussball-Bund (DFB, German Football Association):
-  \url{https://www.dfb.de/index/}
+  \url{https://www.dfb.de/}
 }
 \references{
 Leonhard Knorr-Held (1999), Dynamic rating of sports teams.

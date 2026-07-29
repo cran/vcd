@@ -254,7 +254,7 @@ make_header <- function(x)
     vn <- names(dimnames(x))
     header <- c(if(x$log) "log" else "",
                 "odds ratios for", vn[1], "and", vn[2],
-                if (length(vn)>2) c("by", paste(vn[-(1:2)], collapse=', ')), "\n\n")
+                if (length(vn) > 2) c("by", paste(vn[-(1:2)], collapse=', ')), "\n\n")
     paste(header, sep = " ")
 }
 
@@ -271,12 +271,12 @@ summary.loddsratio <- function(object, ...)
 ## reshape coef() methods
 as.matrix.loddsratio <- function (x, log=x$log, ...) {
     Coef <- coef(x, log = log)
-    if (length(dim(x))==2) matrix(Coef, ncol = dim(x)[2], dimnames=dimnames(x))
+    if (length(dim(x)) == 2L) matrix(Coef, ncol = dim(x)[2], dimnames=dimnames(x))
     else {  # drop leading dimensions with length 1, then reshape
         ddim <- which(dim(x)[1:2]==1)
         dim(Coef) <- dim(x)[-ddim]
         dimnames(Coef) <- dimnames(x)[-ddim]
-        if (length(dim(Coef))==1) Coef
+        if (length(dim(Coef)) == 1L) Coef
         else
             matrix(Coef, ncol = prod(dim(Coef)[-1]),
                    dimnames=list(dimnames(Coef)[[1]], apply(expand.grid(dimnames(Coef)[[-1]]), 1, paste, collapse = ":")))
@@ -316,7 +316,7 @@ image.loddsratio <-
         names(dimnames(a)) <- names(dimnames(x))[1]
     }
     if (is.null(interpolate))
-        interpolate <- seq(0.1, max(abs(a), length.out = 4))
+        interpolate <- seq(0.1, max(abs(a), length.out = 4L))
     if (is.null(gp_args))
         gp_args <- list(interpolate = interpolate)
     tmp <- a
@@ -347,7 +347,7 @@ tile.loddsratio <-
     }
 
     if (is.null(interpolate))
-        interpolate <- seq(0.1, max(abs(a), length.out = 4))
+        interpolate <- seq(0.1, max(abs(a), length.out = 4L))
     if (is.null(gp_args))
         gp_args <- list(interpolate = interpolate)
 

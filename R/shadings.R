@@ -16,10 +16,10 @@ shading_hsv <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   p.value = NULL, level = 0.95, ...)
 {
   ## get h/s/v and lty
-  my.h <- rep(h, length.out = 2)  ## positive and negative hue
-  my.s <- rep(s, length.out = 2)  ## maximum and minimum saturation
-  my.v <- rep(v, length.out = 2)  ## significant and non-significant value
-  lty <- rep(lty, length.out = 2) ## positive and negative lty
+  my.h <- rep(h, length.out = 2L)  ## positive and negative hue
+  my.s <- rep(s, length.out = 2L)  ## maximum and minimum saturation
+  my.v <- rep(v, length.out = 2L)  ## significant and non-significant value
+  lty <- rep(lty, length.out = 2L) ## positive and negative lty
 
   ## model fitting (if necessary)
   if(is.null(expected) && !is.null(residuals)) stop("residuals without expected values specified")
@@ -111,10 +111,10 @@ shading_hcl <- function(observed, residuals = NULL, expected = NULL, df = NULL,
   if(is.null(l)) l <- c(90, 50)
 
   ## get h/c/l and lty
-  my.h <- rep(h, length.out = 2)  ## positive and negative hue
-  my.c <- rep(c, length.out = 2)  ## significant and non-significant maximum chroma
-  my.l <- rep(l, length.out = 2)  ## maximum and minimum luminance
-  lty <- rep(lty, length.out = 2) ## positive and negative lty
+  my.h <- rep(h, length.out = 2L)  ## positive and negative hue
+  my.c <- rep(c, length.out = 2L)  ## significant and non-significant maximum chroma
+  my.l <- rep(l, length.out = 2L)  ## maximum and minimum luminance
+  lty <- rep(lty, length.out = 2L) ## positive and negative lty
 
   ## model fitting (if necessary)
   if(is.null(expected) && !is.null(residuals)) stop("residuals without expected values specified")
@@ -227,7 +227,7 @@ class(shading_sieve) <- "grapcon_generator"
 shading_max <- function(observed = NULL, residuals = NULL, expected = NULL, df = NULL,
   h = NULL, c = NULL, l = NULL, lty = 1, eps = NULL, line_col = "black", level = c(0.9, 0.99), n = 1000, ...)
 {
-  stopifnot(length(dim(observed)) == 2)
+  stopifnot(length(dim(observed)) == 2L)
 
   ## set defaults
   if(is.null(h)) h <- c(260, 0)
@@ -271,7 +271,7 @@ function(x, fill = NULL, byrow = FALSE)
     if (is.null(fill)) fill <- colorspace::rainbow_hcl
     d <- dim(x)
     l1 <- if (length(d) > 1L) d[2] else d
-    l2 <- if (length(d) > 1L) d[1] else 1
+    l2 <- if (length(d) > 1L) d[1] else 1L
     if (is.function(fill)) fill <- fill(l1)
     fill <- if (byrow) rep(fill, l2) else rep(fill, each = l2)
     gpar(col = NA, lty = "solid",
